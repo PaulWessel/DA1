@@ -22,7 +22,7 @@ EOF
 
 #-------------------------------------------------
 # Post-processing
-
+rm -f cos.d
 if ($#argv == 1) then
 	gv $FIG.ps &
 endif

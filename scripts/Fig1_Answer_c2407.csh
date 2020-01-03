@@ -21,7 +21,7 @@ gmt psxy -R -J -O -K ../problems/c2407.txt -W0.25p >> $FIG.ps
 gmt convert t.txt fit.txt -A | gmt psxy -R -J -O -W2p -i0,4 >> $FIG.ps
 #-------------------------------------------------
 # Post-processing
-rm -f t.txt it.txt
+rm -f t.txt fit.txt
 if ($#argv == 1) then
 	gv $FIG.ps &
 endif

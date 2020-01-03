@@ -1,4 +1,3 @@
-#       $Id: GNUmakefile 682 2019-01-12 07:15:25Z pwessel $
 #
 #       Makefile for Data Analysis Text Book 1
 #
@@ -148,7 +147,7 @@ XTMP1= $(APP1:.sh=.tex)
 TAB1= $(addprefix CriticalTables/, $(XTMP1))
 
 DA1_Version.tex:  .FORCE
-	echo "\\def \DAversion {`svnversion -n`}" > DA1_Version.tex
+	echo "\\def \DAversion {1}" > DA1_Version.tex
 	echo "\\def \DAday {`date +%d`}" >> DA1_Version.tex
 	echo "\\def \DAmonth {`date +%B`}" >> DA1_Version.tex
 	echo "\\def \DAyear {`date +%Y`}" >> DA1_Version.tex
@@ -263,12 +262,12 @@ data:
 	scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
 
 clean_table:
-	rm -r CriticalTables/*.tex
+	rm -r CriticalTables/*.tex CriticalTables/gmt.history
 
 clean:
 	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex x*.png x*.svg
 
 spotless:	clean clean_table
 	rm -rf pdf svg
-	rm -f scripts/*.ps gmt.history
+	rm -f scripts/*.ps scripts/gmt/conf scripts/gmt.history gmt.history
 	rm -f DA?_book.xml DA?_book.xhtml DA?_book.epub LaTeXML.* ltx-book.css
