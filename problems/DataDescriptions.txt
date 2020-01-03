@@ -1,0 +1,55 @@
+Data sets used in the problems sets in the Data Analysis book at https://paul-wessel.selz.com/
+------------------------------------------------------------------------------------------------
+Billings.txt		Daily average temperatures (F) in Billings, Montana
+CO2.txt			Mauna Loa CO2 record since 1958
+COD.txt			Chemical Oxygen Demand in water water (mg/L).
+GK2007.txt		Gee and Kent (2007) geomagnetic time scale (Myr)
+Halemaumau.txt		UTM coordinates of Halemaumau crater
+HogNeck.txt		Current directions over two days at Hog Neck, MA
+PhD_deaths.txt		Correlated data of deaths and PhDs in social sciences.
+Tumblagooda.txt		Declination and inclination of magnetic remanence, W Australia
+aso.txt			Eruption years of the volcano Aso
+basingrav.txt		Gravity anomaly (mGal) across a sedimentary basin; distance in km
+bb_weights.txt		Brain weight vs body weights for a set of animals.
+blackbox.txt		Test data for crosscorrelation
+c2308_xover.txt		Internal gravity crossover errors (mGal) for cruise C2308
+c2407.txt		Distance (km), depth (m) and age (Myr) along ridge flank
+cavecreek.txt		Monthly discharge of the Cave Creek river
+columbia.txt		Daily discharge of the Columbia river (m^3/day) from 2001-08
+conspiracy.txt		Correlated data of oil import and railroad crossing accidents.
+depths.txt		Bathymetric depths (m)
+drops.txt		Time (s) and distance (m) of vertical rock drops.
+embedded.txt		Lithologic sequence for embedded Markov analysis
+faultstep.txt		Relief (m) across a fault; distances in meters. 
+glomar.txt		Declination and inclination of paleomagnetic field from ocean drilling
+hawaii.txt		Distance (km), age (Myr), and age error (Myr) along Hawaiian chain
+heatflow.txt		Head flow (mW/m^2) with distance from a mid-ocean ridge
+hi_ages.txt		Lon, lat, age, distance along the Hawaiian chain
+hilo.txt		Relative sealevel record for Hilo
+honmag_1998_09.txt	Magnetic field variations (nT) at Honolulu station, Sept. 1998
+honolulu.txt		Relative sealevel record for Honolulu
+hypso.txt		Hypsometric data for Earth for 250 m bins and frequency in %
+icecore.txt		Delta-18 Oxygen variations (ppt) in Greenland ice core over ~10,000 years.
+joints.txt		Orientations of joints
+limestone.txt		Thickness of successive limestone beds (feet)
+mississippi.txt		Daily discharge of the Mississippi river (m^3/s) from 1930-41
+morejoints.txt		More orientations of joints
+noisy.txt		Noisy oscillation for some frequency
+odessa_north.txt	Principal fracture directions at Odessa, TX, north
+odessa_northwest.txt	Principal fracture directions at Odessa, TX, northwest
+odessa_west.txt		Principal fracture directions at Odessa, TX, west
+pac_bathy.txt		Bathymetry values (m) for a 1-degree region in the Pacific
+porosity.txt		Sandstone porosity (%)
+quakedays.txt		Number of earthquakes per month in a year for an undisclosed location
+rho.txt			Sample of densities from a lithologic unit (g/cm^3)
+ripple_A.txt		Paleocurrent directions in sandstone ripples
+ripple_B.txt		Paleocurrent directions in sandstone ripples
+seismicity.txt		Hypocenters for the Tonga-Kermadec region (lon, lat, depth, magnitude)
+sherwood.txt		Petrophysical measurements of sandstone (permeability, porosity, conductivity, formation fact, induced polarization)
+sludge.txt		Annual average concentrations of total phosphorous in municipal sewage sludge (%)
+soilwater.txt		Water contents of two soils (%)
+sspots.txt		Sun-spot counts per month for 1749-2015
+sulfur.txt		SO2 emissions (tons/day) over an 80-day period
+trend.txt		Test data set of (x,y) pairs exhibition a trend.
+v3312.txt		Bathymetric distance (km) and depths (m) for cruise V3312 from Japan to Guam
+vostok.txt		Vostok ice fore: Depth (m), year, and relative temperature (C)

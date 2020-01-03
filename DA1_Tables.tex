@@ -1,0 +1,397 @@
+\chapter{STATISTICAL TABLES}
+\label{ch:tables}
+\epigraph{``The main purpose of a significance test is to inhibit the natural enthusiasm of the investigator.''}{\textit{Frederick Mosteller, Statistician}}
+\index{Critical values|(}
+This appendix contains a set of standard statistical tables of critical values
+for a variety of tests or distributions at selected levels of confidence.  When appropriate,
+both one-sided and two-sided critical values are provided.  A two-sided test is used when
+the null hypothesis is asserting an \emph{equality}, while a one-sided test is appropriate when the
+null hypothesis is stating an \emph{inequality}.  Reject the null hypothesis
+if the calculated statistic \emph{exceeds} the critical value (except for the $U$-test where rejection of $H_0$ should result when the calculated $U$ is \emph{less} than the critical value.)
+\vspace{0.25in}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\bf{Test or Distribution} &  \bf{Table} \\ \hline
+\rule{0pt}{2ex}Normal distribution &  \ref{tbl:Critical_z} \\[2pt] \hline
+\rule{0pt}{2ex}Student's $t$ &  \ref{tbl:Critical_t} \\[2pt] \hline
+\rule{0pt}{2ex}$\chi^2_{\alpha,\nu}$ &  \ref{tbl:Critical_chi2} \\[2pt] \hline
+\rule{0pt}{2ex}$F_{0.9,\nu_1,\nu_2}$ &  \ref{tbl:Critical_F90} \\[2pt] \hline
+\rule{0pt}{2ex}$F_{0.95,\nu_1,\nu_2}$ &  \ref{tbl:Critical_F95} \\[2pt] \hline
+\rule{0pt}{2ex}$F_{0.975,\nu_1,\nu_2}$ &  \ref{tbl:Critical_F975} \\[2pt] \hline
+\rule{0pt}{2ex}$F_{0.99,\nu_1,\nu_2}$ &  \ref{tbl:Critical_F99} \\[2pt] \hline
+\rule{0pt}{2ex}$U_{0.05,n_1,n_2}$ (one-sided) &  \ref{tbl:Critical_U1} \\[2pt] \hline
+\rule{0pt}{2ex}$U_{0.01,n_1,n_2}$ (one-sided) &  \ref{tbl:Critical_U2} \\[2pt] \hline
+\rule{0pt}{2ex}$U_{0.05,n_1,n_2}$ (two-sided) &  \ref{tbl:Critical_U3} \\[2pt] \hline
+\rule{0pt}{2ex}$U_{0.01,n_1,n_2}$ (two-sided) &  \ref{tbl:Critical_U4} \\[2pt] \hline
+\rule{0pt}{2ex}Kolmogorov-Smirnov (one sample, given $\mu, \sigma$) &  \ref{tbl:Critical_KS1} \\[2pt] \hline
+\rule{0pt}{2ex}Kolmogorov-Smirnov (one sample, estimate $\mu, \sigma$) &  \ref{tbl:Critical_KS2} \\
+(Normally called Lilliefors test for normality) &  \\[2pt] \hline
+\rule{0pt}{2ex}Kolmogorov-Smirnov (two sample) &  \ref{tbl:Critical_KS3} \\[2pt] \hline
+\rule{0pt}{2ex}Spearman's rank correlation &  \ref{tbl:Critical_Spearman} \\[2pt] \hline
+\rule{0pt}{2ex}Determine $\kappa$ from $\bar{R}$ (two-dimensional) &  \ref{tbl:Critical_kappa2} \\[2pt] \hline
+\rule{0pt}{2ex}Lord Rayleigh test for $\bar{R}$ (two-dimensional) &  \ref{tbl:Critical_R2} \\[2pt] \hline
+\rule{0pt}{2ex}Determine $\kappa$ from $\bar{R}$ (three-dimensional) &  \ref{tbl:Critical_kappa3} \\[2pt] \hline
+\rule{0pt}{2ex}Fisher test for $\bar{R}$ (three-dimensional) &  \ref{tbl:Critical_R3} \\[2pt] \hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\section{Cumulative Probabilities for the Normal Distribution}
+\index{Normal distribution}
+\PSfig[H]{Fig1_App_Normal}{Given a chosen $z_P$-value, the probability $P$ (gray area under the curve from $-\infty$ to $z_P$)
+can be read from this table. Here, $z_P$ is given in the format \emph{-a.bc}, where \emph{-a.b} and \emph{0.0c}
+correspond to a unique row and column combination.}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{|c|cccccccccc|} \hline
+$z_P$ & \bf{0.09} & \bf{0.08} & \bf{0.07} & \bf{0.06} & \bf{0.05} & \bf{0.04} & \bf{0.03} & \bf{0.02} & \bf{0.01}  & \bf{0.00} \\ \hline
+\input{CriticalTables/DA1_Table_Normal}
+\end{tabular}
+\normalsize
+\caption{Normal cumulative distribution function.  For $z > 0$ use $P(z) = 1 - P(-z)$.}
+\label{tbl:Critical_z}
+\end{table}
+For critical $z_\alpha$ or $z_{\alpha/2}$ values, see the last entry ($\nu = \infty$) in the table of critical values
+for the Student-$t$ (Table \ref{tbl:Critical_t}).
+\clearpage
+
+\section{Critical Values for the Student's $t$ Distribution}
+\index{Critical values!Student's $t$}
+\index{Critical values!Normal distribution}
+\PSfig[H]{Fig1_App_Student_t}{Given a chosen confidence level, $\alpha$ (area of the tail(s)), and sample size, $n$, then the degrees of
+freedom, $\nu$, is $n -1$. Find the corresponding row and column entries and read the critical $t_{\alpha,\nu}$ value (one-sided test, e.g., for $H_0: t < 0$)
+or $t_{\alpha/2,\nu}$ value (two-sided test for $H_0: t = 0$).  The sign of $t$ depends on which
+tail you are considering.}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|ccccc|} \hline
+\bf{One tail, } $\mathbf{\alpha}$:  &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01}  & \bf{0.005} \\ \hline
+\bf{Two tails, } $\mathbf{\alpha}$:  &  \bf{0.20}  & \bf{0.1} & \bf{0.05} & \bf{0.02}  & \bf{0.01} \\ \hline
+$\nu$ &    &  &  &   &  \\ \hline
+\input{CriticalTables/DA1_Table_Student_t}
+\end{tabular}
+\caption{Critical values for the Student's $t$ distribution.}
+\label{tbl:Critical_t}
+\end{table}
+
+\clearpage
+\section{Critical Values for the $\chi^2$ Distribution}
+\index{Critical values!$\chi^2$}
+\PSfig[H]{Fig1_App_Chisquare}{Given $\alpha$ and degrees of freedom, $\nu = n -1$, read critical $\chi^2_{1-\alpha,\nu}$ or $\chi^2_{\alpha,\nu}$ values.}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|ccccc||ccccc|} \hline
+\bf{Degrees of} &  \multicolumn{5}{|c||}{\bf{Left tail} ($1-\alpha$)}  & \multicolumn{5}{c|}{\bf{Right tail} ($\alpha$)} \\  \cline{2-11}
+\bf{freedom, }$\nu$ &  \bf{0.995}  & \bf{0.99} & \bf{0.975} & \bf{0.95}  & \bf{0.90} &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01}  & \bf{0.005} \\ \hline
+\input{CriticalTables/DA1_Table_Chisquare}
+\end{tabular}
+\caption{Critical values for the $\chi^2$ distribution.}
+\label{tbl:Critical_chi2}
+\end{table}
+
+\clearpage
+\section{Critical Values for the $F$ Distribution}
+\label{sec:Ftables}
+\index{Critical values!$F$|(}
+\PSfig[H]{Fig1_App_F}{Given chosen confidence level $\alpha$ (area of the tail) and the degrees of
+freedom ($\nu_1 = n_1 -1$, $\nu_2 = n_2 -1$), find the corresponding row and column entries and read the critical
+$F_{\alpha,\nu_1, \nu_2}$ value (two-sided test, e.g., $H_0: F = 1$).}
+
+\subsection{$F$ table for 90\% confidence level}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|cccccccccccccc|} \hline
+$\downarrow \nu_2 | \nu_1 \rightarrow$ & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} & \bf{8} & \bf{9} & \bf{10} & \bf{15} & \bf{20} & \bf{25} & \bf{50} \\ \hline
+\input{CriticalTables/DA1_Table_F_0.1}
+\end{tabular}
+\normalsize
+\caption{Critical values for the $F$ distribution, $\alpha = 0.1$.  Note: $\nu_1, \nu_2$ are the degrees of freedom for
+the numerator and denominator, respectively.}
+\label{tbl:Critical_F90}
+\end{table}
+
+\clearpage
+\subsection{$F$ table for 95\% confidence level}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|cccccccccccccc|} \hline
+$\downarrow \nu_2 | \nu_1 \rightarrow$ & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} & \bf{8} & \bf{9} & \bf{10} & \bf{15} & \bf{20} & \bf{25} & \bf{50} \\ \hline
+\input{CriticalTables/DA1_Table_F_0.05}
+\end{tabular}
+\normalsize
+\caption{Critical values for the $F$ distribution, $\alpha = 0.05$.  Note: $\nu_1, \nu_2$ are the degrees of freedom for
+the numerator and denominator, respectively.}
+\label{tbl:Critical_F95}
+\end{table}
+
+\clearpage
+\subsection{$F$ table for 97.5\% confidence level}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|cccccccccccccc|} \hline
+$\downarrow \nu_2 | \nu_1 \rightarrow$ & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} & \bf{8} & \bf{9} & \bf{10} & \bf{15} & \bf{20} & \bf{25} & \bf{50} \\ \hline
+\input{CriticalTables/DA1_Table_F_0.025}
+\end{tabular}
+\normalsize
+\caption{Critical values for the $F$ distribution, $\alpha = 0.025$.  Note: $\nu_1, \nu_2$ are the degrees of freedom for
+the numerator and denominator, respectively.}
+\label{tbl:Critical_F975}
+\end{table}
+
+\clearpage
+\subsection{$F$ table for 99\% confidence level}.
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|cccccccccccccc|} \hline
+$\downarrow \nu_2 | \nu_1 \rightarrow$ & \bf{1} & \bf{2} & \bf{3} & \bf{4} & \bf{5} & \bf{6} & \bf{7} & \bf{8} & \bf{9} & \bf{10} & \bf{15} & \bf{20} & \bf{25} & \bf{50} \\ \hline
+\input{CriticalTables/DA1_Table_F_0.01}
+\end{tabular}
+\normalsize
+\caption{Critical values for the $F$ distribution, $\alpha = 0.01$.  Note: $\nu_1, \nu_2$ are the degrees of freedom for
+the numerator and denominator, respectively.}
+\label{tbl:Critical_F99}
+\end{table}
+\index{Critical values!$F$|)}
+
+\clearpage
+\section{Critical Values for the Mann-Whitney ($U$-Test)}
+\index{Critical values!$U$|(}
+These critical values are used when comparing two samples based on their
+\emph{ranks} instead of their values.  These tables are symmetrical so it does not matter
+which sample you label ``1'' and which one is sample ``2'', i.e., $U_{\alpha,n_1,n_2} \equiv U_{\alpha,n_2,n_1}$.
+For sample sizes larger than 20 you may use the normal distribution approximation (\ref{eq:U_approx}).
+\subsection{One-sided tests}
+This section concerns itself with \emph{one-sided} comparisons,
+i.e., $H_0: \mu_1 > \mu_2$.  Depending on your level of confidence, use either
+Table~\ref{tbl:Critical_U1} (for $\alpha = 0.05$) or 
+Table~\ref{tbl:Critical_U2} (for $\alpha = 0.01$).
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|ccccccccccccccccccc|} \hline
+\input{CriticalTables/DA1_Table_U1}
+\end{tabular}
+\normalsize
+\caption{Critical values for the one-sided $U$-test for $\alpha = 0.05$.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_U1}
+\end{table}
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|ccccccccccccccccccc|} \hline
+\input{CriticalTables/DA1_Table_U2}
+\end{tabular}
+\normalsize
+\caption{Critical values for the one-sided $U$-test for $\alpha = 0.01$.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_U2}
+\end{table}
+
+\clearpage
+\subsection{Two-sided tests}
+This section concerns itself with \emph{two-sided} comparisons,
+i.e., $H_0: \mu_1 = \mu_2$.  Depending on your level of confidence, use either
+Table~\ref{tbl:Critical_U3} (for $\alpha = 0.05$) or 
+Table~\ref{tbl:Critical_U4} (for $\alpha = 0.01$).
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|ccccccccccccccccccc|} \hline
+\input{CriticalTables/DA1_Table_U3}
+\end{tabular}
+\normalsize
+\caption{Critical values for the two-sided $U$-test for $\alpha = 0.05$.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_U3}
+\end{table}
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|ccccccccccccccccccc|} \hline
+\input{CriticalTables/DA1_Table_U4}
+\end{tabular}
+\normalsize
+\caption{Critical values for the two-sided $U$-test for $\alpha = 0.01$.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_U4}
+\end{table}
+\index{Critical values!$U$|)}
+
+\clearpage
+\section{Critical Values for the Kolmogorov-Smirnov Distribution}
+\index{Critical values!Kolmogorov-Smirnov|(}
+
+\subsection{One-sample comparison with a known distribution}
+Use table \ref{tbl:Critical_KS1} when comparing a single sample's cumulative distribution to
+that of a \emph{known} distribution, i.e., its parameters ($\mu, \sigma$) are prescribed
+by the null hypothesis.
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|ccccc|} \hline
+\bf{One tail, } $\mathbf{\alpha}$:  &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01}  & \bf{0.005} \\ \hline
+\bf{Two tails, } $\mathbf{\alpha}$:  &  \bf{0.20}  & \bf{0.1} & \bf{0.05} & \bf{0.02}  & \bf{0.01} \\ \hline
+\input{CriticalTables/DA1_Table_KS1}
+$n > 40$	&	$\frac{1.07}{\sqrt{n}}$	&	$\frac{1.22}{\sqrt{n}}$	&	$\frac{1.36}{\sqrt{n}}$	&	$\frac{1.52}{\sqrt{n}}$	&	$\frac{1.63}{\sqrt{n}}$	\\[4pt] \hline
+\end{tabular}
+\normalsize
+\caption{Critical values for the one-sample Kolmogorov-Smirnov test.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_KS1}
+\end{table}
+
+\clearpage
+\subsection{One-sample comparison with an unknown distribution (Lilliefors)}
+Use table \ref{tbl:Critical_KS2} when comparing a single sample's cumulative distribution to
+that of an \emph{unknown} normal distribution. Equate the unknown distribution's
+parameters ($\mu, \sigma$) to those from the sample ($\bar{x}, s$) in order to compute its cumulative distribution.
+The parameter estimation reduces the degrees of freedom by two and the standard
+Kolmogorov-Smirnov critical values are not appropriate.  Lilliefors developed a numerical solution that
+gives the correct critical values. This is a two-sided test.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|cccc|} \hline
+$\alpha$: & \bf{0.10} & \bf{0.05} & \bf{0.01} & \bf{0.001} \\ \hline
+\input{CriticalTables/DA1_Table_KS2}
+$n > 100$	&	$\frac{0.816}{\sqrt{n}}$	&	$\frac{0.888}{\sqrt{n}}$	&	$\frac{1.038}{\sqrt{n}}$	&	$\frac{1.212}{\sqrt{n}}$	\\[4pt] \hline
+\end{tabular}
+\caption{Critical values for the Lilliefors test.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_KS2}
+\end{table}
+
+\clearpage
+\subsection{Two-sample comparison}
+Table \ref{tbl:Critical_KS3} gives critical $D$-values for $\alpha = 0.05$ (upper row) and $\alpha = 0.01$ (lower row) for various sample sizes, $n_1$ and $n_2$.
+The asterisk (*) means you cannot reject $H_0$ regardless of observed $D$.  For blank entries
+simply reverse $n_1$ and $n_2$.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|} \hline
+$n_2 | n_1$:  &  \bf{3}  & \bf{4} & \bf{5} & \bf{6}  & \bf{7} &  \bf{8}  & \bf{9} & \bf{10} & \bf{11}  & \bf{12} \\ \hline
+\input{CriticalTables/DA1_Table_KS3}
+\end{tabular}
+\caption{Critical values for the two-sample Kolmogorov-Smirnov test.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_KS3}
+\end{table}
+
+For larger sample sizes, the approximate critical value $D_\alpha$ is given by the equation
+\begin{equation}
+D_\alpha = c(\alpha) \sqrt{\frac{n_1 + n_2}{n_1\cdot n_2}},
+\end{equation}
+where the coefficient $c(\alpha)$ is given via the table below:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|c|} \hline
+$\alpha$	& \bf{0.10} & \bf{0.05} & \bf{0.025} & \bf{0.01} & \bf{0.005} & \bf{0.001} \\ \hline
+$c(\alpha)$	& 1.22 & 1.36 & 1.48  & 1.63 & 1.73  & 1.95 \\ \hline
+\end{tabular}
+\label{tbl:Critical_KS3b}
+\end{table}
+Examples:
+\begin{enumerate}
+	\item For $\alpha = 0.05$ and sample sizes 5 and 8, $D_\alpha = 30/40 = 0.75$.
+	\item For $\alpha = 0.01$ and sample sizes 15 and 28, $D_\alpha = 1.63 \sqrt{\frac{15+28}{15 \cdot 28}} = 0.522$.
+\end{enumerate}
+\index{Critical values!Kolmogorov-Smirnov|)}
+
+\clearpage
+\section{Critical Values for Spearman's Rank Correlation}
+\index{Critical values!Spearman's rank}
+This is either a one-sided (e.g., $H_0: \rho > 0$) or two-sided ($H_0: \rho = 0$) test
+for the nonparametric rank correlation.  Given the number of pairs, $n$, in the sample and
+the chosen confidence level, $\alpha$, Table~\ref{tbl:Critical_Spearman} shows the critical correlation that must be
+exceeded for $H_0$ to be rejected.  The asterisk identify situations when $H_0$ cannot be rejected. 
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{|c|cccccccc|} \hline
+\bf{One tail, } $\alpha$:  &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01}  & \bf{0.005}  & \bf{0.0025}  & \bf{0.001}  & \bf{0.0005} \\ \hline
+\bf{Two tails, } $\alpha$:  &  \bf{0.20}  & \bf{0.1} & \bf{0.05} & \bf{0.02}  & \bf{0.01}   & \bf{0.005}   & \bf{0.002}   & \bf{0.001} \\ \hline
+\input{CriticalTables/DA1_Table_Spearman}
+\end{tabular}
+\normalsize
+\caption{Critical values for Spearman's rank correlation.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_Spearman}
+\end{table}
+
+\clearpage
+\section{Relationship Between $\kappa$ and $\bar{R}$ for 2-D Directional Data}
+\index{Mean resultant!kappa (2-D)}
+Given a mean resultant ($\bar{R}$) we use Table~\ref{tbl:Critical_kappa2} to obtain the corresponding concentration parameter ($\kappa$)
+for directional data in the plane.
+Alternatively, one can solve the implicit equation for $\kappa$ given by
+\begin{equation}
+	\bar{R} = \frac{I_1(\kappa)}{I_0(\kappa)}.
+	\label{eq:kappa2d}
+\end{equation}
+\begin{table}[h]
+\centering
+\begin{tabular}{|cc|cc|cc|} \hline
+$\bar{R}$  &  $\kappa$  & $\bar{R}$  &  $\kappa$ & $\bar{R}$  &  $\kappa$ \\ \hline
+\input{CriticalTables/DA1_Table_kappa2}
+\end{tabular}
+\caption{Relationship between $\kappa$ and $\bar{R}$ in 2-D.}
+\label{tbl:Critical_kappa2}
+\end{table}
+\clearpage
+\section{Critical Values of $\bar{R}$ for 2-D Directional Data}
+\index{Critical values!$\bar{R}$ 2-D}
+Given the level of significance we determine the critical value for the mean resultant
+length under the null hypothesis of no preferred direction in the plane ($H_0: \bar{R} = 0$), with the alternative hypothesis
+being that the data can be described via the von Mises distribution (\ref{eg:von_Mises}) with a preferred trend ($H_1: \bar{R} \neq 0$).
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|cccc|} \hline
+$\alpha$:  &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01} \\ \hline
+\input{CriticalTables/DA1_Table_R2mean}
+\end{tabular}
+\caption{Critical values for $\bar{R}$ in the plane.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_R2}
+\end{table}
+
+\clearpage
+\section{Relationship Between $\kappa$ and $\bar{R}$ for 3-D Directional Data}
+\index{Mean resultant!kappa (3-D)}
+Given a mean resultant ($\bar{R}$) we use Table~\ref{tbl:Critical_kappa3} to obtain the corresponding concentration parameter ($\kappa$)
+for directional data in space.
+Alternatively, one can solve the implicit equation for $\kappa$ given by
+\begin{equation}
+	\coth{\kappa} - 1/\kappa = \bar{R}.
+	\label{eq:kappa3d}
+\end{equation}
+\begin{table}[h]
+\centering
+\begin{tabular}{|cc|cc|cc|} \hline
+$\bar{R}$  &  $\kappa$  & $\bar{R}$  &  $\kappa$ & $\bar{R}$  &  $\kappa$ \\ \hline
+\input{CriticalTables/DA1_Table_kappa3}
+\end{tabular}
+\caption{Relationship between $\kappa$ and $\bar{R}$ in 3-D.}
+\label{tbl:Critical_kappa3}
+\end{table}
+\clearpage
+\section{Critical Values of $\bar{R}$ for 3-D Directional Data}
+\index{Critical values!$\bar{R}$ 3-D}
+Given the level of significance we determine the critical value for the mean resultant
+length under the null hypothesis of no preferred direction in space ($H_0: \bar{R} = 0$), with the alternative hypothesis
+being that the data can be described via the Fisher distribution (\ref{eq:fisher}) with a preferred trend ($H_1: \bar{R} \neq 0$).
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|cccc|} \hline
+$\alpha$:  &  \bf{0.10}  & \bf{0.05} & \bf{0.025} & \bf{0.01} \\ \hline
+\input{CriticalTables/DA1_Table_R3mean}
+\end{tabular}
+\caption{Critical values for $\bar{R}$ in 3-D space.  Note the use of $n$ rather than $\nu$.}
+\label{tbl:Critical_R3}
+\end{table}
+
+\index{Critical values|)}
+	

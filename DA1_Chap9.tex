@@ -1,0 +1,695 @@
+%	$Id: DA1_Chap9.tex 670 2018-12-20 20:37:20Z pwessel $
+%
+\chapter{ANALYSIS OF DIRECTIONAL DATA}
+\epigraph{``Essentially, all models are wrong, but some are useful.''}{\textit{George E. P. Box, Statistician}}
+
+	Much environmental data contain information about orientations in the plane where the \emph{orientations} 
+and not the lengths of the features are the important attributes.  Examples of such data types abound: Strikes and dips 
+of bedding planes, fault surfaces, and joints are familiar from structural geology, augmented by glacial striations, sole marks, 
+lineaments in satellite images, directions of winds and currents, and much more.  First, we must distinguish between 
+\emph{directional} and \emph{oriented} data.  Directional data can take on unique values in the entire 0--360$^{\circ}$ 
+range, like drumlins and wind directions, while oriented data consist of ``two-headed'' vectors: there is a 180$^{\circ}$ 
+ ambiguity 
+inherent in the data.  Examples of oriented data include fault traces and other lineaments on maps.  
+Such data require special care in the analysis.
+	However, environmental data involve not only directions in the plane but spatial directions as well, which  
+introduces another degree of complexity.  Because 3-D vector data are very common, particularly in 
+the Earth and environmental sciences, we need to examine such data in more detail.  We find that much of the 
+measurements used in structural geology, such as strike and dip of fault planes, can be expressed
+as a normal vector to the fault plane.  Other examples include vector measurements of the 
+geomagnetic field, palaeomagnetic measurements, stress directions, wind and current directions, and determinations of 
+crystallographic axes for petrofabric studies.
+
+\index{Directional data}
+\index{Data!directional}
+\index{Oriented data}
+\index{Data!oriented}
+
+\section{Circular Data}
+\subsection{Displaying directional distributions}
+	Directional data can be displayed in circular diagrams.  One can either plot each direction as 
+a unit vector, or we may count the number of vectors within a given angular sector and draw a polar histogram of 
+the distribution (Figure~\ref{fig:Fig1_dir1}):
+\index{Polar histogram}
+\index{Histogram!polar}
+\PSfig[H]{Fig1_dir1}{Two types of graphical presentations of the same directional data set.  (a) Windrose diagram shows
+all individual directions, (b) Sector diagram shows distribution via a polar histogram (a so-called \emph{rose} diagram).}
+\noindent
+Unfortunately, the sector diagram as described here is biased in the way it presents the data. 
+Nevertheless, it is still the most commonly used type of display for directional data.  Where is this bias
+coming from? Consider the area of a sector of width $\Delta \alpha$, given by
+\begin{equation}
+A=\frac{\pi r^{2}\Delta\alpha}{360} \propto r^2.
+\end{equation}
+We see that the area of a sector is proportional to the radius squared, whereas for a conventional Cartesian histogram the 
+column area is proportional to height, not height squared.  Consequently, this leads to a visual distortion of
+sectors with high counts.  Therefore, we should let the sector 
+radius be proportional to the square root of the frequency (or count) to ensure that the final rose diagram 
+will have an area proportional to frequency.  If this is not done, the larger counts for some sectors will completely 
+swamp smaller sectors due to the $r^2$ effect.  Thus, small but significant trends may not be 
+detected or may simply be considered noise.
+
+	Before we can statistically analyze orientation data, the 180$^{\circ}$ ambiguity must be accounted 
+for.  The simplest way to do this is to double all angles and analyze these doubled angles instead.  For instance, if 
+two fault traces are reported as having strikes of 45$^{\circ}$ and 225$^{\circ}$ (which means the two strikes have the 
+same orientation), we double the angles and find $90^{\circ}$ and $450^{\circ} - 360^{\circ} = 90^{\circ}$.
+Statistics derived from doubled angles can then be divided by two to recover their original meanings.
+
+\index{Mean direction}	
+\index{Direction!mean}	
+\index{Resultant}	
+The dominant or \emph{mean direction} can be found by computing the \emph{vector resultant} 
+(i.e., the vector sum) of the unit vectors that represent the various directions in the data.  Since the 
+coordinates of these vectors are given by
+\begin{equation} 
+x_{i}=\cos \theta_{i},\quad y_{i}=\sin \theta_{i},
+\label{eq:xy_components}
+\end{equation}	 	
+we find the coordinates of the resultant $R$ to be
+\index{Vector!resultant}
+\index{Vector!resultant length}
+\begin{equation} 
+x_{r}=\displaystyle \sum^{n}_{i=1} \cos \theta_{i}, \quad y_{r}=\displaystyle \sum^{n}_{i=1} \sin \theta_{i}.
+\end{equation}	 	
+The mean direction $\bar{\theta}$ is then simply given by
+\begin{equation}
+	\index{Mean direction}
+	\index{Direction!mean}
+\bar{\theta}= \tan^{-1}(y_{r}/x_{r})=\tan^{-1} \left(\sum^{n}_{i=1} \sin \theta_{i}/\sum^{n}_{i=1}\cos \theta_{i} \right).
+\label{eq:meandir}
+\end{equation}
+Computer implementations of (\ref{eq:meandir}) should take care to use the \texttt{atan2} function rather than \texttt{atan}
+so that the mean direction is found in the correct quadrant.
+The magnitude of the resultant should be normalized by the number of vectors before it can be 
+used further.  This gives us the \emph{mean resultant length}
+\begin{equation}
+	\index{Mean resultant length}
+	\index{Vector!mean resultant length}
+\bar{R} = \frac{R}{n} = \frac{\sqrt{x^2_r + y^2_r}}{n},
+\end{equation}
+which ranges from 0 to 1 and is a measure of (normalized) dispersion analogous 
+to the variance.  Since it increases for focused distribution we often convert it to a
+\emph{circular variance} via
+\begin{equation}
+	\index{Variance!circular}
+s^{2}_{c}=1- \bar{R}= \left( n-R \right) / n.
+\end{equation}
+\PSfig[H]{Fig1_vonMises}{The circular von Mises distribution.  One population is centered on $\mu = 75$ (dashed line), with very low directionality
+($\kappa = 1$), and shows the effect of wrapping the wide distribution around the full circle.  The other, at $\mu = -75$, is much more directional ($\kappa = 10)$.)}
+To test various statistical hypotheses about circularly distributed data we need a 
+probability density function that can be used to obtain critical values.  A traditional distribution that has 
+been used extensively in studies of directional data is the \emph{von Mises} distribution, given by
+\begin{equation}
+	\index{Probability distribution!von Mises}
+	\index{von Mises distribution}
+p(\theta) = \frac{1}{2 \pi I_0 ( \kappa)} e^{\kappa \cos\left( \theta - \mu \right)},
+\label{eg:von_Mises}
+\end{equation}
+where $\kappa$ is a measure of the \emph{concentration} of the distribution about the mean direction $\mu$ and $I_0$ is 
+the modified Bessel function of the first kind and order zero (it normalizes the 
+cumulative distribution of $p(\theta)$ over $360^{\circ}$ to unity.)  A large $\kappa$ means we have a strongly preferred direction.
+The concentration parameter $\kappa$ is obviously related to
+$R$ (or $s_c^2$) and this relationship can be 
+derived if we assume that the data represent a random sample from a population having a von Mises 
+distribution.  Statistical tables (e.g., Table~\ref{tbl:Critical_kappa2}) report solutions to (\ref{eq:kappa2d}) that relate $\kappa$ and $\bar{R}$.
+
+\subsection{Test for a random direction}
+\index{Test!Rayleigh}
+\index{Test!random direction}
+
+	The simplest test for circular data is to determine whether the directional observations are 
+random or not, i.e., that there is no \emph{preferred direction}.  In that case we have a \emph{uniform} distribution.
+In terms of the von Mises distribution (\ref{eg:von_Mises}), a uniform distribution means that $ \kappa$ must be zero.
+Hence, the hypothesis test becomes
+\begin{equation}
+H_0: \kappa =0 \quad \mbox{versus} \quad H_1: \kappa>0.
+\end{equation}	 
+If the data came from a uniform distribution (i.e., $ \kappa$ = 0), we would expect a small but not necessarily zero value for $\bar{R}$.  Lord Rayleigh devised this
+test, which gives critical values for $\bar{R}$ depending on the  $\nu = n$ degrees of freedom and chosen level of significance, $\alpha$.
+For $\nu \geq 10$ we can approximate the critical mean resultant via
+\begin{equation}
+	\bar{R}_{\alpha,n} = \frac{1}{2n}\sqrt{1+4n(n+1)-\left (\log \alpha + 2n + 1 \right)^2},
+\end{equation}
+while for smaller samples we need to consult exact tables (e.g., Table~\ref{tbl:Critical_R2}).
+If $\bar{R}$ exceeds the critical $\bar{R}_{\nu, \alpha}$, then we must reject the null hypothesis.
+\begin{example}
+We have measured the strikes of fault planes in an area 
+of the sea floor (called Area 1) imaged by a side-scan sonar device and found the following orientations:
+$$
+ \theta_i : 110^{\circ}, 300^{\circ}, 310^{\circ}, 135^{\circ}, 138^{\circ}, 320^{\circ}, 141^{\circ}, 145^{\circ}, 330^{\circ}, 335^{\circ}, 280^{\circ}, 160^{\circ}, 170^{\circ} \quad n=13.
+$$
+Since these are oriented features, we double the angles to remove any ambiguity in the orientations:
+$$
+ 2\theta_i : 220^{\circ}, 240^{\circ}, 260^{\circ}, 270^{\circ}, 276^{\circ}, 280^{\circ}, 282^{\circ}, 290^{\circ}, 300^{\circ}, 310^{\circ}, 200^{\circ}, 320^{\circ}, 340^{\circ}.
+$$
+Summing up the sines and cosines via (\ref{eq:xy_components}), we find
+\begin{equation}
+x_r = 1.2972, \quad y_r = -10.349,		 
+\end{equation}
+which gives us
+\begin{equation}
+2\bar{\theta}_1 = 277^{\circ}, \quad \bar{R}_1 = 0.802.
+\end{equation}  
+We convert back to original angles by dividing by 2 and find the mean orientation to be
+\begin{equation}
+\bar{\theta}_1 = 138.5^{\circ}.
+\end{equation}	 
+The null hypothesis is not affected by doubling the angles since we are simply testing if $\kappa = 0$.
+At the $\alpha = 0.05$ level of significance we use Table~\ref{tbl:Critical_R2} to find critical $\bar{R}_{13,0.05} = 0.475$.  Clearly, this value is greatly
+exceeded by the observed $\bar{R} = 0.802$ and we must conclude that the fault strikes are not randomly oriented.
+\end{example}
+
+\subsection{Test for a specific direction}
+\index{Test!specific direction}
+
+	There are instances when we would like to test whether an observed trend equals a 
+specified trend.  The determination of critical values for such a scenario is more difficult and involves 
+using complex equations or charts.  As an alternative approach we find the \emph{confidence angle} $\Delta \theta$ around
+the mean direction of the sample and investigate whether this angular interval is large enough to accommodate the specified trend
+we want to test against.  The approximate standard error in $\bar{\theta}$ is given (in radians) by
+\index{Confidence interval!mean direction}
+\begin{equation}
+s_e \approx 1/\sqrt{n \bar{R}k} = 1/\sqrt{Rk},
+\end{equation}
+where $k$ is our sample estimate of $\kappa$, the population parameter.  If we assume that the estimation errors are normally distributed
+then we may use critical $z$-values for a given confidence level to construct the angular interval as
+\begin{equation}
+\bar{\theta} \pm \left | z_{\frac{\alpha}{2}} \right | s_e,
+\end{equation}	 
+which will contain the true mean (double angle) orientation, $2\mu, 100\cdot\alpha$ \% of the time.
+\begin{example}
+In our fault strike data case above,
+it is believed that the faults arose as tensional features in response to tectonic forces operating in the N$30^{\circ}$E
+direction.  Under such a stress regime we would theoretically expect the faults to trend at 90$^{\circ}$ to the direction of these tensile
+stresses, i.e., in the N120$^{\circ}$E direction.  From Table~\ref{tbl:Critical_kappa2} we find $\kappa =2.897$, which yields
+\begin{equation}
+s_{e_2} = \frac{1}{ \sqrt{13 \cdot 0.802 \cdot  2.897}} = 0.1820 = 10.4^{\circ}.
+\end{equation}
+Note that this is the standard deviation about the \emph{doubled} mean angle orientation of $277^{\circ}$.  We divide this deviation by
+2 to find the standard deviation associated with the original orientations, $s_{e_1} = 5.2^{\circ}$.  The 
+$95 \%$ confidence interval corresponds to $z_{0.95} = 1.96$, so the confidence interval around $\bar{\theta}_1$ becomes	 
+\begin{equation}
+\bar{\theta}_1 = 138.5^{\circ} \pm 10.2^{\circ}.
+\end{equation}
+Since the predicted direction of $120^{\circ}$ is outside this interval we conclude that the observed
+mean direction deviates from that predicted based on the orientation of current tectonic forces.  It is possible that the
+orientation of stresses may have changed since the formation of the faults.
+\end{example}
+
+\subsection{Test for equality of two mean directions}
+\index{Test!equality of two mean directions}
+\label{sec:twoDdir}
+	Another common situation where we may want to apply a statistical test is to determine if two 
+sample mean directions are equal at some prescribed level of confidence.  This situation, of course, is
+reminiscent of the two-sample mean test for scalars that we described in Section~\ref{sec:twomeans}. For example, we may 
+have obtained new side-scan sonar data for an area farther away and would like to test whether the 
+mean direction of fault strikes at the second location is similar to what was found at the first location.
+We can carry out this 
+test by comparing the vector resultants of the two groups to that produced by pooling the
+two data sets and recalculate a single grand resultant.  The key principle here
+is that if the mean directions are different, then the pooled resultant should be \emph{shorter} than
+the sum of the two individual resultants.  This expectation can be examined using an \emph{F}-test by
+comparing observed $F$ to critical $F_{1,n-2,\alpha}$.  Unfortunately,
+due to approximations needed to relate Cartesian and circular critical values, the procedure to evaluate
+the $F$-statistic changes with the dispersion parameter, $\kappa$, represented by our sample-based value, $k$.
+For large $k > 10$, we may compute
+\index{\emph{F}-test}
+\index{Test!\emph{F}}
+\begin{equation}
+F = \frac{(n-2)(R_1 + R_2 - R_p)}{n - R_1 -R_2},
+\end{equation}
+with $n$ being the combined number of observations, $R_1$ and $R_2$ are the resultants (not \emph{mean} resultants)
+for each data set, and
+$R_p$ is the resultant from the combined data. Here, $k$ is estimated from $\bar{R}_p$, the mean resultant.
+However, if $2 < k < 10$ then a more accurate $F$-statistic is obtained via the adjustment
+\begin{equation}
+F^{\ast} = \left(1 + \frac{3}{8k} \right) F,
+\label{eq:betterFk}
+\end{equation}
+while for even smaller values of $k$ special tables must be used.
+\begin{example}
+We will use the equality test to determine whether the mean
+strike of the faults in our second area (Area 2) is the same as what was found for the first area
+($\bar{\theta}_1 = 138.5^{\circ}$, double angle = $277^{\circ}$).  The new data are: 
+$$
+\theta_i = 91^{\circ}, 280^{\circ}, 111^{\circ}, 115^{\circ}, 118^{\circ}, 300^{\circ}, 122^{\circ}, 126^{\circ}, 130^{\circ}, 80^{\circ}, 320^{\circ}, 149^{\circ} \quad (n = 12),
+$$
+which we double to get
+$$
+2\theta_i = 182^{\circ}, 200^{\circ}, 222^{\circ}, 230^{\circ}, 236^{\circ}, 240^{\circ}, 240^{\circ}, 244^{\circ}, 252^{\circ}, 260^{\circ}, 160^{\circ}, 280^{\circ}, 298^{\circ}.
+$$
+Carrying out a similar analysis on our new data
+we now find $2\bar{\theta}_2$ = 234.5$^{\circ}$ and $\bar{R}_2$ = 0.805. The hypothesis becomes 
+$H_0:\bar{\theta}_1 = \bar{\theta}_2$ versus $H_1:\bar{\theta}_1 \neq \bar{\theta}_2$, at 
+$\alpha = 0.05$.  For the combined data set (with $n = 25$), we obtain
+\begin{equation}
+2\bar{\theta}_p =256.7^{\circ}, \quad \bar{R}_p =0.749.
+\end{equation}
+\index{\emph{F}-test}
+\index{Test!\emph{F}}
+We find observed $k$ from Table~\ref{tbl:Critical_kappa2} to be 2.36.  Hence, we use (\ref{eq:betterFk}) to obtain
+\begin{equation}
+F = \left(1 + \frac{3}{8 \cdot 2.36} \right) \frac{23 \left(13\cdot0.802 + 12\cdot0.805 - 25\cdot0.749 \right)}{ 25-13\cdot0.802-12\cdot0.805}=7.42.
+\end{equation}	 
+Table~\ref{tbl:Critical_F95} gives the critical $F_{1,n-2,\alpha}$ value for 1 and 23
+degrees of freedom as 4.28.  Therefore, we must 
+reject the null hypothesis and conclude that the fracture directions in the two areas appear to have
+different orientations at the $95 \%$ confidence level.
+\end{example}
+
+\subsection{Robust directions}
+\index{Robust!directions}
+\index{Direction!robust}
+
+	The concept of robustness is also applicable to directional data since such data may also contain outliers.
+However, directional outliers cause less harm than their Cartesian counterparts discussed earlier since directional data are forced
+to be periodic.  It is clear from Figure~\ref{fig:Fig1_dir2} that an outlier causes most damage when it is oriented
+90$^{\circ}$ away from the trend of the bulk of the data.
+We may find the circular analog of the median by finding the direction $\tilde{\theta}$ that minimizes the sum
+\begin{equation}
+\mbox{minimize} \  \sum^n_{i=1} d \left( \theta_i, \tilde{ \theta} \right),
+\end{equation}
+where $d\left( \theta_i, \tilde{\theta}\right)$ is the arc distance between $\theta_i$ and 
+$ \tilde{ \theta} $ measured along the perimeter of the unit circle.  Since this distance is proportional
+to $\mid \theta_i - \tilde{ \theta} \mid$   it is the equivalent of minimizing the sum
+\begin{equation}
+\mbox{minimize}  \ \sum^n_{i=1} \mid \theta_i - \tilde{ \theta} \mid,
+\end{equation}
+which we know gives the median of the $ \theta_i$ data set.  Similarly, a LMS mode estimate can be found by
+determining the midpoint of the shortest arc containing $n/2+1$ points.  Again, this would involve sorting
+the directions first, possibly after doubling orientations.
+\PSfig[h]{Fig1_dir2}{The effect of outliers on the mean direction is most severe when the outlier is orthogonal to the bulk of the data directions.
+Headed vectors represent the mean resultants.}
+\begin{example}
+Consider the wind directions
+$$
+\theta_i: 75^{\circ}, 85^{\circ}, 90^{\circ}, 98^{\circ}, 170^{\circ} \quad 
+\bar{ \theta}=100.7^{\circ}.
+$$	 
+The shortest arc over $5/2+1=3$ points is located between 85$^{\circ}$ and 98$^{\circ}$, giving the mode
+estimate $\hat{\theta} = 91.5^{\circ}$. This estimate suggests that 170$^{\circ}$ is an outlier
+with respect to the rest of the atmospheric data.
+\end{example}
+
+\subsection{Data with length and direction}
+\index{Digitizing}
+\index{Uncertainty!digitizing}
+
+	In the analysis so far we have only considered the direction (or orientation) of a feature and not its length.
+However in many cases, such as fracture data or fault traces, the features will have very different lengths.  
+The analysis described above, when applied to such data, would give both a one km long and a 100 km long fault
+the same weight, which may not be appropriate.  We 
+can account for this bias by weighing the directions by the respective \emph{lengths} of the features.  By keeping 
+track of the length of the faults (and not their numbers) per sector we can obtain a rose diagram that 
+reflects the proportions of the various fracture directions.  The rationale employed here is that large and/or 
+long faults may be more representative of the tectonic stresses than a few short fractures.  The 
+rose diagram may then be normalized by the total length of the fractures to give overall proportions in 
+percent.
+
+	Staying with fault strike data, it is clear that in many regions the faults are not entirely straight 
+lines but may actually curve or bend.  From a directional analysis point of view, such fractures must first be approximated by shorter 
+straight line segments.  It then becomes obvious that we must weigh the pieces by their lengths, 
+otherwise the directional frequencies would depend on the number of pieces used.  Fault traces 
+must therefore be digitized prior to analysis on a computer.  A typical fault trace is 
+displayed in Figure~\ref{fig:Fig1_dir3}.
+\PSfig[h]{Fig1_dir3}{A digitized fault trace.  Open circles indicate the digitized points.  Digitizing too finely may lead to short-wavelength
+noise in the representation of the fault.  Points within the dashed box are examined in Figure~\ref{fig:Fig1_dir4}.}
+\noindent
+Depending on the angular width of the polar histogram, the digitized fault may end up in two 
+bins corresponding to the orientations $\alpha_1$ and $\alpha_2$.  We must also be aware of the fact that the digitizing process will introduce uncertainties in the 
+digitized points.  To see how this may affect the analysis, consider the line segment in Figure~\ref{fig:Fig1_dir4}.
+\PSfig[h]{Fig1_dir4}{The uncertainty $r_s$ in the locations of two digitized points (A and B) from Figure~\ref{fig:Fig1_dir3} introduce uncertainties
+$\Delta d$ and $\Delta \alpha$ in the length ($d_0$) and orientation ($\alpha_0$) of a line segment, respectively.}
+\noindent
+We may assume that the exact position of each point is uncertain, here represented by the one-sigma uncertainty estimate $s_r$ in radial position
+(gray circles) for each point.  There are two points of interest here:  First, the length of the segment, $d$,
+will have an uncertainty since it reflects a difference between two uncertain values.  In Chapter~\ref{ch:error}, we found this to be
+\begin{equation}
+\Delta d = \sqrt{2 s_r}, \quad d= d_0 \pm \Delta d,
+\label{eq:dig_error}
+\end{equation}
+assuming the uncertainties are \emph{independent}.
+Second, we see that the direction (or orientation) $\alpha$ may be in error by $ \pm \Delta \alpha$, given by
+\begin{equation}
+\Delta \alpha = \tan^{-1} \left( 2 s_r/d \right), \quad \alpha = \alpha_0 \pm \Delta \alpha.
+\end{equation}
+Consequently, one should not digitize lines so frequently that $ \Delta \alpha$ exceeds the desired polar histogram interval.
+For instance, if this interval is 10$^{\circ}$ then you are best served by making the average digitizing interval 
+$d > 10 s_r$.  Alternatively, one can \emph{filter} the digitized track so that short-wavelength noise is smoothed out before binning the segments.  
+
+	The length of all segments that have a direction within the width of a single bin is simply computed by adding
+up all the individual lengths.  Note that since internal nodes are shared by adjacent line segments the uncertainty
+in the total length is independent of the number of line segments (e.g., Figure~\ref{fig:Fig1_digline}) and only depends on (\ref{eq:dig_error}).  However,
+the \emph{sum} of the lengths of the individual segments will have an uncertainty that is cumulative since the segments are no longer connected.
+This method will provide a frequency distribution with error bars in which directions with many small segments will have higher 
+uncertainty than directions with fewer and longer faults.
+
+\section{Spherical Data Distributions}
+\index{Spherical data distributions|(}
+\index{Data!spherical|(}
+
+The analysis of 3-D directions and orientations is an extension of the methods used for circular data.
+It is common to require that these 3-D vectors have unit lengths so that their endpoints all lie
+on the surface of a sphere with unit radius --- hence the name spherical distributions.
+Similar to the 2-D case for circular data, there will be spherical data that only reflect orientations (i.e., \emph{axes}) rather than directions.	 
+\PSfig[h]{Fig1_3D}{The relation between the Cartesian ($x, y, z$) and spherical ($\phi, \theta, r$) coordinate systems.}
+\noindent
+We need to use a 3-D Cartesian coordinate system to describe the unit vectors (Figure~\ref{fig:Fig1_3D}).  Thus, any 
+vector $\mathbf{v}$ is uniquely determined by the triplet ($x,y,z$).  We could also use spherical angles
+$\theta$ (colatitude) \index{Colatitude} and $\phi$ (longitude) to specify the vector direction, assuming the length $r=1$.
+We relate the Cartesian coordinates and the spherical angles as follows:
+\begin{equation}\begin{array}{rll}
+x & = & \sin \theta \cos \phi,\\
+y & = & \sin \theta \sin \phi,\\
+z & = & \cos \theta.\\
+\end{array}
+\end{equation}	 	
+However, geological measurements like \emph{strike}\index{Strike} and \emph{dip}\index{Dip} are more commonly used than Cartesian 
+coordinates and spherical angles and these follow their own convention.  We define a new local 
+coordinate system in which $x$ points toward north, $y$ points east, and $z$ points vertically down 
+(i.e., in order to maintain a right-handed coordinate system).  In such a system, fault plane dips are 
+expressed as positive angles.  For the fault plane in Figure~\ref{fig:Fig1_AD} we find that the angle $A$ is the 
+azimuth of the strike of the plane and $D$ is the dip, measured positive down.  The slip-vector
+\emph{OP} is then given by its components
+\begin{equation} \begin{array}{lll}
+x = - \sin A  \cos D,\\
+y = \cos A \cos D,\\
+z = \sin D.\\
+\end{array}
+\end{equation}
+\PSfig[h]{Fig1_AD}{Local, right-handed coordinate system shows the convention used in structural geology.
+Here, $A$ is the strike (measured from north over east) of the dipping plane (light green) and $D$ is its dip, measured as the angle between
+the dip vector \emph{OP} and its projection \emph{ON} onto the horizontal $x-y$ plane.  The red plane containing
+the dip vector is orthogonal to the light green plane.}
+
+Once we have converted our ($A, D$) data to ($x,y,z$) we can compute such quantities as mean 
+direction and spherical variance, which are simple extensions of the 2-D or directional analogs.  
+The length of the resultant vector is simply
+\begin{equation}
+	\index{Vector!mean resultant}
+	\index{Mean resultant vector}
+R = \sqrt{\left( \displaystyle \sum x_i \right)^2 + \left( \displaystyle \sum y_i \right)^2 + 
+\left( \sum z_i \right)^2},
+\label{eq:Rlength}
+\end{equation}
+with the sum taken over all the $n$ points. The resultant vector
+is usually normalized to give $\bar{R} = R / n$.  The coordinates $\bar{x}, \bar{y}$ and $\bar{z}$
+of the mean vector $\mathbf{m}$ are then obtained via
+\begin{equation}
+\bar{x} = \displaystyle \sum x_i/n,\quad
+\bar{y} = \displaystyle \sum y_i/n,\quad
+\bar{z} = \displaystyle \sum z_i/n,
+\end{equation}
+so that the mean slip-vector is given by its two components
+\begin{equation} \begin{array}{ccc}
+\bar{D} = \sin^{-1} \bar{z},\\
+\bar{A} = \tan^{-1} (- \bar{x}/ \bar{y}).
+\end{array}
+\end{equation}
+If all the vectors are closely clustered then the resultant $R$ will approach $n$, but if the vectors
+are more randomly distributed then $R$ will approach zero.  As in 2-D, we can use $R$ (or $\bar{R}$) as the basis
+for the \emph{spherical variance}, $s^2_s$, give by
+\begin{equation}
+s^2_s = (n-R) / n = 1 - \bar{R}.
+\end{equation}
+\subsection{Test for a random direction}
+\index{Test!Rayleigh}
+\index{Test!random direction}
+\PSfig[h]{Fig1_Fisher}{Well-focused Fisher distribution on a sphere, centered on a point in northern India, with $\kappa = 40$.}
+
+We can perform simple hypothesis tests in a manner analogous to those we carried out for 2-D directional 
+data.  Unlike the case for 2-D we now require a \emph{spherical} probability density function from which we can derive critical values for
+comparison with our observed statistics.  In response to the need for 3-D statistical analysis, in particular
+for palaeomagnetic studies that started to explore ``continental drift'' in the 1950s, the famous British
+statistician Ronald Fisher\index{Fisher, R. A.} developed a suitable theoretical distribution
+for spherical data.  His probability density function has since been called the \emph{Fisher} distribution on a sphere and is
+given by
+\index{Continental drift}
+\index{Palaeomagnetism}
+\begin{equation}
+	\index{Probability distribution!Fisher}
+	\index{Fisher distribution}
+P(\mathbf{x}) = \frac{ \kappa}{ 4 \pi \sinh \kappa} e^{\kappa \left(\mathbf{x} \cdot \boldsymbol{\mu} \right)},
+\label{eq:fisher}
+\end{equation}	 	
+where the dot product between the mean direction $\boldsymbol{\mu}$ and
+any other direction $\mathbf{x}$ equals the cosine of the angle $\psi$ between them, $\kappa$ is the precision parameter similar to the one we encountered
+for the von Mises distribution on the circle, and $\sinh$ is the \emph{hyperbolic sine} function (which is needed to ensure the cumulative distribution
+of $P(\mathbf{x})$ over the unit sphere equals one).
+
+Fisher\index{Fisher, R. A.} showed one can estimate $\kappa$ from the sample, provided $n > 7$ and $\kappa > 3$.
+The estimate is then given by
+\begin{equation}
+k \approx \kappa = \frac{n-1}{n-R},
+\end{equation}
+but more accurate tables also exist (e.g., Table~\ref{tbl:Critical_kappa3}) which solve (\ref{eq:kappa3d}).
+
+Testing a spherical distribution for randomness follows the same approach used for directional data:  
+We must first evaluate $\bar{R}$, the mean resultant.  Then, we state the null hypothesis to be
+\begin{equation}
+H_0:\kappa = 0 \quad H_1:\kappa >0.
+\end{equation}	 
+As before, this test is executed by establishing critical values of $\bar{R}$ given the prescribed level of 
+confidence, $\alpha$.  Table~\ref{tbl:Critical_R3} shows such critical $\bar{R}$ values for selected values of $\alpha$ and $n$.
+\begin{example}
+Let us examine a set of palaeomagnetic measurements.  We 
+have been given six measurements of \emph{declination} and \emph{inclination}, reported as
+\index{Declination}
+\index{Inclination}
+$$
+\begin{array}{|l||r|r|r|r|r|r|}
+\hline
+\mbox{Dec} & 105^{\circ} & 130^{\circ} & 115^{\circ}
+& 120^{\circ} & 118^{\circ} & 145^{\circ} \\ \hline
+\mbox{Inc} & 40^{\circ} & 49^{\circ} & 57^{\circ} & 32^{\circ} & 55^{\circ} & 45^{\circ}\\ \hline
+\end{array}
+$$
+First, we note that a dip-vector specified by strike $A$ and dip $D$ is not using the same geometry as
+a magnetic field vector given by its magnetic declination $D$ and inclination $I$.
+Because the projection of the dip-vector onto the horizontal plane is 90\DS\ away from the strike,
+we must use a slightly modified conversion suitable for magnetic vectors to obtain the Cartesian coordinates:
+\begin{equation} \begin{array}{lll}
+x = \cos D \cos I,\\
+y = \sin D \cos I,\\
+z = \sin I.\\
+\end{array}
+\end{equation}
+We convert the $n = 6$ observed declinations and inclinations to $x,y,z$ and find
+$$
+\begin{array}{|l||r|r|r|r|r|r||l|r|}
+\hline
+x & -0.20 & -0.42 & -0.23 & -0.42 & -0.27 & -0.58 & \bar{x} & -0.354 \\ \hline
+y &  0.74 &  0.50 &  0.49 &  0.73 &  0.51 &  0.41 & \bar{y} &  0.564 \\ \hline
+z &  0.64 &  0.75 &  0.84 &  0.53 &  0.82 &  0.71 & \bar{z} &  0.715 \\ \hline
+\end{array}
+$$
+Computing the mean direction and resultant gives
+\begin{equation}
+\bar{I}_1 = \sin ^{-1} \bar{z} = 45.7^{\circ},
+\end{equation}
+\begin{equation}
+\bar{D}_1 = \tan^{-1} \bar{y} / \bar{x} = 122.1^{\circ},
+\end{equation}
+\begin{equation}
+\bar{R}_1 = \frac{1}{6} \cdot 5.86 = 0.977,
+\end{equation}
+\begin{equation}
+k_1 = \frac{6-1}{6-5.86} = 35.7.
+\end{equation}	 
+It is evident that our distribution has a clear preferred direction since $k_1$ is so large (the critical
+$\bar{R}$ for $\alpha = 0.05$ is only 0.642).
+\end{example}
+
+\subsection{Test for a specific direction}
+\index{Test!specific direction}
+
+Often, we will be interested in testing whether the observed mean direction equals a 
+prescribed direction, given the uncertainties due to random errors.  As for circular data, such tests
+are best performed by constructing the $\alpha$ confidence region around the mean direction.  This
+statistic is based on the Fisher\index{Fisher, R. A.} distribution and gives a spherical cap radius for a \emph{cone of confidence}
+around the mean direction.  As usual, this radius, $\delta$, is a function of both the confidence level $\alpha$ and $R$.  
+We find
+\index{Cone of confidence}
+\begin{equation}
+\delta_{1- \alpha} = \cos^{-1} \left \{1- \frac{n-R}{R} \left[ \left (\frac{1}{ \alpha}\right )^{ \frac{1}{n-1}}-1 \right] \right \}.
+\label{eq:exactconer}
+\end{equation}
+This fairly complicated expression simplifies considerably if we assume (or actually know) that $k > 7$ and
+standardize our tests for $\alpha = 0.05$.  Then, 
+\begin{equation}
+\delta_{95\%} \approx 140^\circ /\sqrt{kn}
+\label{eq:cone95}
+\end{equation}
+given in spherical degrees.  We may now say that there is a 95\% probability that the true mean direction lies within the cone of 
+confidence specified by the angular radius $\delta_{95\%}$.
+
+The application of the cone of confidence is more involved than
+for circular data since we cannot directly compare the two angular measures defining the mean direction (e.g., strike, dip) to the
+comparable quantities of a specific direction direction to be tested, here called $\mathbf{\hat{v}}$.
+Instead, we need to utilize their Cartesian vector representations.  The procedure is still relatively straightforward:
+\begin{enumerate}
+	\item State the null hypothesis that the unit vectors are the same, i.e., $H_0: \mathbf{\hat{m}} = \mathbf{\hat{v}}$.
+	\item Take the dot-product of the mean unit vector with the test unit vector, i.e, $c = \mathbf{\hat{m}} \cdot \mathbf{\hat{v}}$.
+	\item Since a dot product gives the cosine of the spherical angle between two vectors we find this distance
+	to be given by $\psi = \cos^{-1} c$.
+	\item If $\psi$ exceeds $\delta_{95\%}$ then $\mathbf{\hat{v}}$ is outside the cone of confidence and we can reject
+	the null hypothesis; otherwise we must reserve judgment.
+\end{enumerate}
+For other levels of confidence we would substitute the general radius specified in (\ref{eq:exactconer}).
+\begin{example}
+Given the data we just analyzed we want to test if the mean vector we found is compatible with an hypothesis
+that says the inclination should be 45\DS and the declination should be 120\DS.  First, we find the
+unit vector pointing in the same direction as the mean resultant, $\mathbf{m}$.  This vector is
+\begin{equation}
+	\mathbf{\hat{m}} = \frac{\mathbf{m}}{|\mathbf{m}|} = \frac{(-0.354, 0.564, 0.715)}{\sqrt{0.354^2 + 0.564^2 + 0.715}} = (-0.3621, 0.5770, 0.7321).
+\end{equation}
+We evaluate the test vector to be
+\begin{equation}
+	\mathbf{\hat{v}} = (\cos 120^{\circ} \cdot \cos 45^{\circ}, \sin 120^{\circ} \cdot \cos 45^{\circ}, \sin 45^{\circ}) = (-0.3536, 0.6124, 0.7071).
+\end{equation}
+Hence, the angle between the mean and the test vector is given by their dot product:
+\begin{equation}
+	\psi = \cos^{-1} \left (0.3621 \cdot 0.3536 + 0.5770 \cdot 0.6124 + 0.7321 \cdot 0.7071 \right ) = \cos^{-1} (0.9990) = 2.53^{\circ}.
+\end{equation}
+To determine the  radius of the 95\% confidence cone we use (\ref{eq:cone95}) and find
+\begin{equation}
+\delta_{95\%} \approx 140^{\circ} / \sqrt{ 35.7 \cdot 6 } = 9.6^{\circ}.
+\end{equation}	 
+This means that the true population mean direction probably (i.e., with 95\% level confidence) lies within a spherical cone of 
+radius $9.6^{\circ}$ centered on the observed mean direction.  Clearly, our test vector $\mathbf{v}$ also lies inside this cone.
+Therefore, we cannot reject the null hypothesis that they point in the same direction.
+\end{example}
+
+\subsection{Test for equality of two mean directions}
+\index{Test!equality of two mean directions}
+This test is equivalent to the one administered for circular data, relying on the same $F$-statistics and
+equations; see Section~\ref{sec:twoDdir} for details.
+\begin{example}
+We also obtained palaeomagnetic measurements from a nearby second site:
+$$
+\begin{array}{|l||r|r|r|r|r|r|} \hline
+\mbox{Dec} & 65^{\circ} & 72^{\circ} & 51^{\circ} & 75^{\circ} & 50^{\circ} & 45^{\circ} \\ \hline
+\mbox{Inc} & 25^{\circ} & 20^{\circ} & 30^{\circ} & 23^{\circ} & 18^{\circ} & 33^{\circ} \\ \hline
+\end{array}
+$$
+We perform the conversion to Cartesian components and find
+$$
+\begin{array}{|l||r|r|r|r|r|r||l|r|}
+\hline
+x & 0.38 & 0.29 & 0.55 & 0.24 & 0.61 & 0.59 & \bar{x} & 0.443 \\ \hline
+y & 0.82 & 0.89 & 0.67 & 0.89 & 0.73 & 0.59 & \bar{y} & 0.766 \\ \hline
+z & 0.42 & 0.34 & 0.50 & 0.39 & 0.31 & 0.54 & \bar{z} & 0.418 \\ \hline
+\end{array}
+$$
+which gives a resultant $R = 5.88$ and the mean resultant (and mean declination, inclination) as
+\begin{equation}
+\bar{R}_2 = 0.979, \quad \bar{I}_2 = 24.7^{\circ},  \quad \bar{D}_2 = 59.9^{\circ},  \quad n = 6.
+\end{equation}
+We would like to compare these two mean directions to determine if they are statistically equivalent at the 95\% 
+confidence level, i.e.,
+\begin{equation}
+H_0: \bar{I}_1 = \bar{I}_2, \quad \bar{D}_1 = \bar{D}_2.
+\end{equation}
+The hypothesis test for this equality is exactly the same test we used for 2-D directional data.  Again, we use 
+an \emph{F}-test to determine if the resultant from the pooled data is significantly different from the linear 
+sum of the two individual resultants, i.e.,
+\index{\emph{F}-test}
+\index{Test!\emph{F}}
+\begin{equation}
+F= \frac{(n - 2) (R_1 + R_2 - R_p)}{n - R_1 - R_2},
+\end{equation}
+where again $n = n_1 + n_2$.  We need to find the resultant for the combined data set of 12 points.  It is found via (\ref{eq:Rlength}) and
+gives $R_p = 10.50$.
+We may then normalize by $n$ to find $\bar{R}_p = 0.875$.  Our observed \emph{F}-statistic thus becomes
+\begin{equation}
+F = \frac{10(5.86 + 5.88 - 10.50)}{12 - 5.86 - 5.88} = 47.4.
+\end{equation}	 
+The observed \emph{F} value by far exceeds the critical $F_{0.05,1,10} = 4.96$ (i.e., Table~\ref{tbl:Critical_F95})
+and we must reject the null hypothesis that the two directions are the same.
+\end{example}
+\index{Spherical data distributions|)}
+\index{Data!spherical|)}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+
+\begin{problem}
+	Analyze the current directions in surface waters off Hog Neck, MA for a two-day period, as listed in \emph{HogNeck.txt}.
+	How do the current directions vary during a 24-hour period?  Do the current speeds show a similar trend?
+\end{problem}
+	
+\begin{problem}
+	Paleocurrent measurements from ripples in sandstones contain information on past current directions.
+	\begin{enumerate}[label=\alph*)]
+	\item Use the data in \emph{ripple\_A.txt} from sandstone formation A to test if there is a preferred direction in the data.  A
+	local sedimentologist bravely suggests that the ripples were formed by long-shore currents along a paleo-coastline
+	trending 200\DS.  Do the data support this hypothesis?
+	\item A second sandstone formation (B) was also examined for paleocurrents (\emph{ripple\_B.txt}).
+	Do these data suggest there was any change in current direction between the formations
+	of these two layers?
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+A geologist surveys a large section of an exposed batholith and measures the strike 
+direction of numerous vertical joints.  The file \emph{joints.txt} contains the azimuths (measured from north toward east) 
+of these orientations.
+
+\begin{enumerate}[label=\alph*)]
+\item At the 95\% level of confidence, is there a preferred orientation in the data?  If so, what is the 
+preferred orientation?
+
+\item Regional tectonic considerations seem to favor a general extensional stress regime in the west-northwest
+-- east-southeast orientation.  Is this explanation for the joints consistent with the data 
+at the 95\% level of confidence?
+
+\item 50 km further north another exposure of the batholith reveals additional joints (\emph{morejoints.txt}).  Are 
+they randomly oriented?
+
+\item Do these new joints deviate significantly from the preferred orientation you determined for the first 
+site?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+A structural geologist has measured the strikes and dips of faults in a Jurassic sedimentary 
+section.  The observations (in degrees from north toward east) are recorded below.
+Find the mean direction and the mean resultant length.
+Is this direction significant at the 95\% level of confidence?
+
+$$
+\begin{array}{|c||c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+\mbox{\bf{Strike}} & 142^{\circ} & 157^{\circ} & 145^{\circ} & 150^{\circ} & 149^{\circ} & 156^{\circ} & -13^{\circ} & 139^{\circ} & 155^{\circ} & -9^{\circ} & 148^{\circ} & 142^{\circ} \\ \hline
+\mbox{\bf{Dip}} & 45^{\circ} & 50^{\circ} & 52^{\circ} & 38^{\circ} & 56^{\circ} & 44^{\circ} & 8^{\circ} & 49^{\circ} & 46^{\circ} & 11^{\circ} & 59^{\circ} & 43^{\circ} \\ \hline
+\end{array}
+$$
+
+\end{problem}
+
+\begin{problem}
+Principal fracturing directions for three oil fields near Odessa, TX are given in \emph{odessa\_north.txt},
+\emph{odessa\_northwest.txt} and \emph{odessa\_west.txt}.  Compare the mean directions of fractures from
+the three fields.  Are they significantly different at the 95\% level of confidence?
+\end{problem}
+
+\begin{problem}
+	Measurements of magnetic remanence (given as declination and inclination) from a sandstone in Western
+	Australia are listed in \emph{Tumblagooda.txt}.
+	\begin{enumerate}[label=\alph*)]
+	\item Compute the mean direction and the mean resultant length.
+	\item Estimate the angular radius of the 95\% confidence cone.
+	\item Is this direction significant at the 95\% level of confidence?
+	\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Scientific drilling in the Caribbean Sea on-board the \emph{Glomar Challenger} resulted in a set of paleomagnetic data (reproduced in \emph{glomar.txt}).
+\begin{enumerate}[label=\alph*)]
+\item Determine if these data (declination clockwise from north, inclination downward from horizontal) have a
+preferred direction at the 95\% level of confidence.
+\item Compare this mean paleomagnetic vector to the present field
+at this site (declination = 354.3\DS and inclination = 46.4\DS).
+Do these two directions differ significantly at the 95\% level of confidence?
+What does your analysis suggest for the plate tectonic motions for this region?
+\end{enumerate}
+\end{problem}

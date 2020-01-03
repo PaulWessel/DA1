@@ -1,0 +1,170 @@
+%------------------------------------------
+%	$Id: HW.tex 662 2018-11-30 00:44:43Z pwessel $
+%
+%	Geological Data Analysis - Part I
+%	Copyright 1992-2015.
+%	Paul Wessel
+%------------------------------------------
+%
+% This almost empty document includes all the actual
+% files with material.  It is the master
+% file that sets up the general layout of the book
+
+\ifdefined\mypdfbook
+   \documentclass[10pt,letter]{report}
+   \usepackage[margin=1in]{geometry}
+\else
+   \documentclass[10pt,oneside,openany,letter]{book}
+   \usepackage[margin=0.25in]{geometry}
+   %\usepackage[utf8x]{inputenc}
+\fi
+
+\usepackage{ifpdf}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{makeidx}
+\usepackage{float}
+\usepackage{times}
+\usepackage{mathptm}
+\usepackage{afterpage}
+\usepackage{xcolor}
+%\usepackage{newtxmath}
+\usepackage{enumitem}
+\usepackage{epigraph}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage[labelfont=bf]{caption}
+% Special commands & environments for this book
+%
+%	PSfig will insert an eps file, add a label, and set a caption
+%
+\ifpdf
+   % Here for creating PDF output with pdfLaTeX
+   \usepackage{hyperref}
+   \DeclareGraphicsExtensions{.pdf}
+   \newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=pdf/#2} \caption{#3} \label{fig:#2} \end{figure}}
+   \newcommand{\PSfigplace}[1]{\epsfig{figure=pdf/#1.pdf}}
+   \newcommand{\PSfignarrow}[3]{\begin{wrapfigure}{#1}{0.5\textwidth} \setlength\intextsep{0pt} \centering \epsfig{figure=pdf/#2} \caption{#3} \label{fig:#2} \vspace{-12pt} \end{wrapfigure}}
+   \pdfcompresslevel=9
+   \hypersetup{%
+      pdfauthor={Paul Wessel},
+      pdftitle={INTRODUCTION TO STATISTICS \& DATA ANALYSIS},
+      pdfsubject={Introduction to Statistics \& Data Analysis},
+      pdfkeywords={DATA ANALYSIS, statistics, hypothesis testing, modeling},
+      pdfcreator={pdfLaTeX},
+      bookmarksopen=true,
+      bookmarksnumbered=true,
+      hypertexnames=true,
+      breaklinks=true,
+      %pdfstartview={FitH},
+      %linkbordercolor={1 1 0},
+      %urlbordercolor={1 0 0},
+   }%
+\else
+   % Here for creating PS or HTML output with LaTeX
+   \usepackage[margin=0.5in]{geometry}
+   \DeclareGraphicsExtensions{.svg}
+   \newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=svg/#2.svg} \caption{#3} \label{fig:#2} \end{figure}}
+   \newcommand{\PSfigplace}[1]{\epsfig{figure=svg/#1.svg}}
+   %\DeclareGraphicsExtensions{.png}
+   %\newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=png/#2.png} \caption{#3} \label{fig:#2} \end{figure}}
+   %\newcommand{\PSfigplace}[1]{\epsfig{figure=png/#1.png}}
+\fi
+
+%%------------ THESE COMMANDS TO BE USED FOR POSTSCRIPT --------
+\newcommand{\DS}{$^{\circ}$}
+\newcommand{\DSm}{^{\circ}}
+\newcounter{example}[chapter]
+\newcounter{problem}[chapter]
+\renewcommand{\bf}{\textbf}
+%\newcommand{\important}[1]{\emph{#1}\index{#1}}
+
+\newenvironment{example}{\stepcounter{example}\\\noindent\rule{\textwidth}{.01in}\\\textbf{Example~\thechapter--\theexample}.}{\\\noindent\rule{\textwidth}{.01in}\linebreak}
+\newenvironment{example2}{\stepcounter{example}\noindent\rule{\textwidth}{.01in}\\\textbf{Example~\thechapter--\theexample}.}{\\\noindent\rule{\textwidth}{.01in}\linebreak}
+
+\newenvironment{problem}{\stepcounter{problem}\noindent\\\textbf{Problem~\thechapter.\theproblem}.}{}
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator\sinc{sinc}
+
+%%------------ THESE COMMANDS TOBE USED FOR HTML ---------
+%\newcommand{\DS}{$^{o}$}%HTMLGMT
+
+%--------------------------------------------------------------------------
+
+
+\begin{document}
+	\begin{center} \bf{HW 13} \end{center}
+		
+	\bf{Problem 9.3)} \\
+
+	A geologist surveys a large section of an exposed batholith and measures the strike 
+	direction of numerous vertical joints.  The file \emph{joints.txt} contains the azimuths (measured from north toward east) 
+	of these orientations.
+
+	\begin{enumerate}[label=\alph*)]
+	\item At the 95\% level of confidence, is there a preferred orientation in the data?  If so, what is the 
+	preferred orientation?
+
+	\item Regional tectonic considerations seem to favor a general extensional stress regime in the west-northwest
+	-- east-southeast orientation.  Is this explanation for the joints consistent with the data 
+	at the 95\% level of confidence?
+
+	\item 50 km further north another exposure of the batholith reveals additional joints (\emph{morejoints.txt}).  Are 
+	they randomly oriented?
+
+	\item Do these new joints deviate significantly from the preferred orientation you determined for the first site?
+	\end{enumerate}
+
+	\noindent
+	\bf{Answer)}
+	\begin{enumerate}[label=\alph*)]
+	\item  The mean direction of the data is $112.0\DSm$,
+	with a mean resultant length $R = 0.9486$.  Given $n = 19$ and $\alpha = 0.05$ we use Table~A.17
+	to find $R_{\alpha,n} = 0.394$.  Thus,
+	this direction is significant at the 95\% level of confidence.
+
+	\item The $R$ value corresponds to $\kappa = 10.031$ (via Table~A.16 by linear interpolation),
+	which yields a standard error $s_e = 4.26\DSm$
+	that we must divide by 2 to get the single-angle error.  For
+	$\alpha = 0.05$ we find the confidence interval is $112.0\DSm\pm4.2\DSm$. The WNW-ESE direction of $112.5\DSm$
+	means we would expect extensional failures to form at $90\DSm$ to that trend, i.e., $22.5\DSm$, which is outside
+	the confidence interval on the mean direction of the joints.  Thus, we reject WNW-ESE
+	extension as a possible origin for our joints.
+
+	\item The similar analysis of this data set ($n = 18$) reveals a mean direction of $126.8\DSm$ with a mean resultant
+	length $R = 0.9453$; again this is highly significant at the 95\% confidence level ($R_{\alpha,n} = 0.405$ per Table~A.17).
+
+	\item The pooled estimate yields $R_p = 0.9154$ and $\kappa = 6.23$ (via Table~A.16 by linear interpolation);
+	applying the $F$-test
+	indicates that the observed $F = 22.1$ which exceeds critical $F_{1,35,0.05} = 4.1$ (Table~A.5) and
+	we must reject the hypothesis that the two directions are the same.
+
+	\end{enumerate}
+
+	\bf{Problem 9.7)} \\
+
+	Scientific drilling in the Caribbean Sea on-board the \emph{Glomar Challenger} resulted in a set of paleomagnetic data (reproduced in \emph{glomar.txt}).
+	\begin{enumerate}[label=\alph*)]
+	\item Determine if these data (declination clockwise from north, inclination downward from horizontal) have a
+	preferred direction at the 95\% level of confidence.
+	\item Compare this mean paleomagnetic vector to the present field
+	at this site (declination = 354.3\DS and inclination = 46.4\DS).
+	Do these two directions differ significantly at the 95\% level of confidence?
+	What does your analysis suggest for the plate tectonic motions for this region?
+	\end{enumerate}
+
+	\bf{Answer)} \\
+	\begin{enumerate}[label=\alph*)]
+	\item We use the data to find the mean paleomagnetic vector
+	$\mathbf{m} = (-0.2092, 0.1029, 0.6400)$, corresponding to a mean declination and inclination of $153.8^{\circ}$ and $39.8^{\circ}$,
+	respectively.  We find the mean resultant length $\bar{R} = 0.681$.  Given $n = 12$ we find (via Table~A.19) that
+	the critical value $R_{0.05,12} = 0.46$, hence there appears to be a significant direction in this data set.
+
+	\item Based on $n$ and $\kappa \sim 3.09$ (from Table~A.18) we obtain $\delta_{95\%} \sim 23^{\circ}$.
+	Converting the present magnetic vector to Cartesian coordinates gives $\mathbf{v} = (0.6862, -0.0685, 0.7242)$, whose
+	angle with $\mathbf{m}$ is $62.6^{\circ}$. Since this greatly exceeds $\delta_{95\%}$ we conclude these directions are indeed
+	different and suggest the seafloor was formed at a different location in the past.
+	\end{enumerate}
+
+\end{document}

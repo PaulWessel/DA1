@@ -1,0 +1,2055 @@
+\chapter{SOLUTION SET}
+\label{ch:solutions}
+
+\section{Exploring Data}
+
+There are no specific answers here -- most plots will be accepted.
+
+\section{Review of Error Analysis}
+
+\noindent
+\bf{Problem 2.1.} \\
+
+Trigonometry shows the building height is given by $h = d \tan \alpha$, where $\alpha$ is the
+measured angle and $d$ is the distance.  We find $h = 60.09$ m.  Since the errors are independent, we compute
+the uncertainty in $h$ via
+$$
+\delta h = \sqrt{\left( \frac{\partial h}{\partial d} \delta d \right)^2 + \left(\frac{\partial h}{\partial \alpha }\delta \alpha \right)^2}.
+$$
+With $\delta \alpha = \frac{1}{60}\cdot\frac{\pi}{180} = 2.9089\cdot 10^{-4}$ radians, we obtain
+$$
+\delta h = \sqrt{\left( \tan \alpha \delta d \right)^2 + \left(d \sec^2 \alpha \delta \alpha \right)^2} = 0.95.
+$$
+The final answer, therefore, is $h = 60.09 \pm 0.95$ m.
+\\
+
+\noindent
+\bf{Problem 2.2.} \\
+
+The area is clearly $A = WL$, and since the uncertainties are \emph{dependent} the fractional uncertainty in the area linearly
+sum to 2\%.  With this out of the way we find $A = (235.5\cdot115.6) \pm 2$\% = $27,224 \pm 545$ m$^2$.
+\\
+
+\noindent
+\bf{Problem 2.3.} \\
+
+The speed is given by $v = d/t = 18.20 /0.82 \approx 22.2$  m/s.
+To assess the uncertainties in this ratio we must compute the fractional uncertainty.  We note that
+the distance and its uncertainty were obtained by measuring tape at an earlier time than the
+clocking of the elapsed time. Consequently, their uncertainties are completely unrelated and we use the equation for
+independent errors to find
+$$
+\frac{\delta v}{v} = \sqrt{\left (\frac{\delta d}{d}\right )^2 + \left (\frac{\delta t}{t}\right )^2} = \sqrt{\left (\frac{0.05}{18.2}\right )^2 + \left (\frac{0.1}{0.82}\right )^2} \approx 0.122.
+$$
+The threatening letter should cite the speed as $v = 22.2 \pm 2.7$ m/s, which is almost 80 km/h or 50 mph.  Irresponsible driving, young man!
+\\
+
+\noindent
+\bf{Problem 2.4.} \\
+
+
+The duration of volcanism is simply $\Delta t = 29.66 - 25.53 = 4.13$ Myr.  We add the two uncertainties in quadrature
+and find $\Delta t = 4.13 \pm 0.22$ Myr.
+\\
+
+\noindent
+\bf{Problem 2.5.} \\
+
+The contrast is simply $\Delta \rho = 3150 - 2670 = 480$ kg m$^{-3}$.
+Because the measurement errors were stated to be \emph{independent} we estimate the uncertainty of the
+density contrast to be $\delta \rho = \sqrt{50^2 + 50^2} \approx 70$ kg m$^{-3}$.  Hence, the
+final answer is  $\Delta \rho = 480 \pm 70$ kg m$^{-3}$.
+\\
+
+\noindent
+\bf{Problem 2.6.} \\
+
+The area is given by $A = \pi r^2$ and we measured the circumference $c = n\cdot0.25 = 2\pi r$ m, where
+$n$ is the clicks.  Thus, per (\ref{eq:poweruncertainty}) the uncertainty will double to yield a 2\% uncertainty
+in area.  For the first area we obtain
+$$
+A_1 = \pi \left(\frac{c}{2\pi}\right)^2 = \frac{c^2}{4\pi} = \frac{(12,311\cdot0.25)^2}{4\pi} = 753,801,
+$$
+and with an uncertainty of 2\% we find $A_1 = 753,801 \pm 15,076$ m$^2$.  For the second area we obtain
+$$
+A_2 = \frac{(9,045\cdot0.25)^2}{4\pi} = 406,900,
+$$
+and with an uncertainty of 2\% we have $A_2 = 406,900 \pm 8,138$ m$^2$.
+\\
+
+\noindent
+\bf{Problem 2.7.} \\
+\begin{enumerate}[label=\alph*)]
+\item We can equate the fractional uncertainty in the Bouguer anomaly with the given requirement and find
+$$
+\left (\frac{\delta g}{g}\right)^2 = \left (\frac{\delta \rho}{\rho}\right)^2 + \left (\frac{\delta \gamma}{\gamma}\right)^2 + \left (\frac{\delta h}{h}\right)^2 = 0.01^2.
+$$
+Solving this expression for the density uncertainty means we find
+$$
+\left (\frac{\delta \rho}{\rho}\right)^2 = 0.01^2 - \left (1.2\cdot10^{-4}\right)^2 - \left (\frac{1}{230}\right)^2.
+$$
+This yields a fractional uncertainty of $\sim 9\cdot 10^{-3}$ and a corresponding limit on the density of $\sim 26$ kg m$^{-3}$.
+
+\item Given the 1\% precision in the Bouguer anomaly we find $g = 27.5 \pm 0.4$ mGal.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 2.8.} \\
+
+We have an expression with sums, differences, products, and ratios.  We first
+will consider $z = z_r + z_c$ and work on the uncertainty of $z_c$ first.  Everything
+in $z_c$ are products or ratios except the density contrast.  Thus, we first use the lesson
+of the previous exercise to replace $\rho_m - \rho_w$ by $\rho_c = 3.30 - 1.00$ g cm$^{-3} = 2.3$
+g cm$^{-3}$.  The uncertainty in $ \rho_c$ is
+$\delta \rho_c = \sqrt{0.001^2 + 0.01^2}$ g cm$^{-3} \approx 0.01$ g cm$^{-3}$.  We can now estimate the
+fractional uncertainty of all terms:
+\[
+\frac{\delta \rho_m}{\rho_m} = \frac{0.01}{3.30} = 0.00303, \quad \frac{\delta \alpha_v}{\alpha_v} = \frac{0.02}{3.00} = 0.00667,
+\]
+\[
+\frac{\delta T_m}{T_m} = \frac{25}{1300} = 0.01923, \quad \frac{\delta \kappa}{\kappa} = \frac{0.04}{1.00} = 0.04,
+\]
+\[
+\frac{\delta t}{t} = \frac{0.5}{29.7} = 0.01684, \quad \frac{\delta \rho_c}{\rho_c} = \frac{10}{2300} = 0.00435.
+\]
+Now, using the expression for independent errors (\ref{eq:uncert_prod}), we find
+\[
+\frac{\delta z_c}{z_c} = \sqrt{\left(\frac{\delta \rho_m}{\rho_m}\right)^2 + \left(\frac{\delta \alpha_v}{\alpha_v}\right)^2 +
+\left(\frac{\delta T_m}{T_m}\right)^2 + \left(\frac{1}{2} \frac{\delta \kappa}{\kappa}\right)^2 + \left(\frac{1}{2} \frac{\delta t}{t}\right)^2
++ \left(\frac{\delta \rho_c}{\rho_c}\right)^2}
+\]
+Using the above fractional uncertainties, we obtain
+\[
+\frac{\delta z_c}{z_c} = \sqrt{\left(0.00303\right)^2 + \left(0.00667\right)^2 +
+\left(0.01923\right)^2 + \left(\frac{1}{2} 0.04\right)^2 + \left(\frac{1}{2} 0.01684\right)^2
++ \left(0.00435\right)^2} = 0.03022.
+\]
+To evaluate $z_c$, we must first avoid the common mistake of not converting all terms to the same (SI) units.
+In SI, time is measured in seconds, length in m, and weight in kg.  We first find
+\[
+\rho_m = 3300 \pm 10 \mbox{ kg m}^{-3}, \quad \rho_w = 1000 \pm 1 \mbox{ kg m}^{-3}, \quad \rho_c = 2300 \pm 10 \mbox{ kg m}^{-3},
+\]
+\[
+\kappa = 1 \pm 0.04 \cdot 10^{-6} \mbox{ m}^2\mbox{s}^{-1}, \quad t = (29.7\cdot10^6)\cdot(60\cdot60\cdot24\cdot365.25) = 9.373\cdot10^{14}\mbox{ s}.
+\]
+We can now evaluate $z_c$ to be
+\[
+z_c = \frac{2 \rho_m \alpha_v T_m}{\rho_c} \sqrt{\frac{\kappa t}{\pi}} =
+\frac{2 \cdot 3300 \cdot 3.0\cdot 10^{-5} \cdot 1300 \sqrt{10^{-6} \cdot 9.373\cdot10^{14}}}{2300 \sqrt{3.1415926}} \approx 1956.
+\]
+Thus, the uncertainty $\delta z_c = 1956 \cdot 0.03022 \approx 59$ m.  Since the uncertainty in $z_r + z_c$
+is $\sqrt{200^2 + 59^2} \approx 209$ m and clearly dominated by the ridge depth uncertainty,
+our final answer (reported to the nearest 10 m) is
+\[
+z = 2500 + 1933 \approx 4460 \pm 210 \mbox{ m}.
+\]
+
+\bf{Problem 2.9.}\\
+
+We will solve this problem two different ways: First, we use the rule for uncertainty in products and ratios
+and second, we use the rule for uncertainty in a function; we expect to get the same answers.  However, first we need to set up the solution.
+We are given various theoretical relations between physical parameters and observations, most with stated
+uncertainties.  Some quantities are given zero uncertainty, meaning their uncertainties are so small we can
+treat them as constants.  Thus, it turns out there are only four quantities with stated uncertainties:
+$x_b \pm \delta x_b$, $\rho_m \pm \delta \rho_m$, $\nu \pm \delta \nu$, and $E \pm \delta E$.  Our
+first step is to manipulate the given relationships to obtain $h$ as a function of all the other terms.
+Inserting $D$ into the equation for $\alpha$, substituting $x_b/\pi$ for $\alpha$ and
+rearranging yields
+$$
+h = \left [ \frac{3 x_b^4 (\rho_m - \rho_w)g(1 - \nu^2)}{\pi^4 E} \right ]^\frac{1}{3}.
+$$
+We start by evaluating $h$ given the observations.  We find $h = 33,285$ m,
+which is only a partial answer since we also need to provide the formal uncertainty
+obtained by propagating the errors.
+
+The first method goes like this:
+\begin{equation}
+\frac{\delta h}{h} = \left [ \left(\frac{4 \delta x_b}{3 x_b}\right)^2 + \left(\frac{1 \delta \rho_m}{3 (\rho_m - \rho_w)}\right)^2 \
+	+ \left(\frac{2 \nu \delta \nu}{3 (1-\nu^2)}\right)^2 + \left(\frac{1 \delta E}{3 E}\right)^2 \right ]^\frac{1}{2}.
+\label{eq:Ans29}
+\end{equation}
+Note that the uncertainty in $\rho_m - \rho_w$ is $\delta \rho_m$ since the water density is a constant.
+The uncertainty in $(1-\nu^2)$ is a bit more complicated and is solved via (\ref{eq:funcdir}) to yield
+$2\nu \delta \nu$ (since 1 is a constant).  Plugging in values we find
+$$
+\frac{\delta h}{h} = \left [ \left(\frac{4\cdot10}{3\cdot252}\right)^2 + \left(\frac{50}{3 (3300 - 1027)}\right)^2 \
+	+ \left(\frac{2\cdot0.25\cdot0.01}{3 (1-0.25^2)}\right)^2 + \left(\frac{7}{3\cdot70}\right)^2 \right ]^\frac{1}{2} = 0.0630...
+$$
+This lets us state our final answer:
+$$
+h = 33.3 \pm 2.1\mbox{ km}.
+$$
+For our second method we approach this problem by considering the function $E(x_b, \rho_m, E, \nu)$.  We know this means taking
+partial derivatives of $E$ with respect to each of the four parameters, one at the time.  Let us start with $x_b$.
+We get a group of constants multiplied by the derivative of $x_b^{4/3}$:
+$$
+\frac{\partial h}{\partial x_b} = \left [ \frac{3 (\rho_m - \rho_w)g(1 - \nu^2)}{\pi^4 E} \right ]^\frac{1}{3} \frac{4}{3} x_b^\frac{1}{3} = \
+\left [ \frac{3 x_b^4 (\rho_m - \rho_w)g(1 - \nu^2)}{\pi^4 E} \right ]^\frac{1}{3} \frac{4}{3} \frac{1}{x_b} = \frac{4}{3}\frac{h}{x_b}.
+$$
+What about the partial derivative with respect to density? We find
+$$
+\frac{\partial h}{\partial \rho_m} = \left [ \frac{3  x_b^4g(1 - \nu^2)}{\pi^4 E} \right ]^\frac{1}{3} \frac{1}{3} (\rho_m - \rho_w)^{-\frac{2}{3}} = \
+\left [ \frac{3 x_b^4 (\rho_m - \rho_w)g(1 - \nu^2)}{\pi^4 E} \right ]^\frac{1}{3} \frac{1}{3(\rho_m - \rho_w)} = \frac{h}{3(\rho_m - \rho_w)}.
+$$
+Likewise, we find
+$$
+\frac{\partial h}{\partial E}  = \frac{h}{3E}, \quad \frac{\partial h}{\partial \nu}  = \frac{2h\nu}{3(1-\nu^2)}.
+$$
+We can now multiply each partial derivative by the corresponding uncertainty and add all terms in quadrature:
+$$
+\delta h = \left [ \left (\frac{4}{3}\frac{h}{x_b}\delta x_b\right)^2 +  \left (\frac{h}{3(\rho_m - \rho_w)}\delta \rho_m\right)^2 +  \
+\left (\frac{h}{3E}\delta E\right)^2 + \left (\frac{2h\nu}{3(1-\nu^2)}\delta \nu\right)^2 \right ]^\frac{1}{2}.
+$$
+We note $h$ appears in every term so we take it outside the sum and move it to the denominator on the left hand side of the equation:
+$$
+\frac{\delta h}{h} = \left [ \left(\frac{4 \delta x_b}{3 x_b}\right)^2 + \left(\frac{1 \delta \rho_m}{3 (\rho_m - \rho_w)}\right)^2 \
+	+ \left(\frac{2 \nu \delta \nu}{3 (1-\nu^2)}\right)^2 + \left(\frac{1 \delta E}{3 E}\right)^2 \right ]^\frac{1}{2}.
+$$
+We note through clenched teeth that this is the same expression we obtained in (\ref{eq:Ans29}). QED.
+\\
+
+\noindent
+\bf{Problem 2.10.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  We consider $E(v,\alpha)$ to be a function of two variables as the uncertainty in the third variable (latitude)
+is negligible.  Since we are at the Equator, $\cos \theta = 1$ and can be excluded.  Consequently, we need to determine
+$$
+\delta E = \sqrt{\left(\frac{\partial E}{\partial v}\delta v\right )^2 + \left(\frac{\partial E}{\partial \alpha}\delta \alpha\right )^2},
+$$
+which evaluates to
+$$
+\delta E = \sqrt{\left(\left [14.585 \sin \alpha + 0.03138v \right ]\delta v\right )^2 + \left(14.585 v \cos \alpha \delta \alpha\right )^2}.
+$$
+Given 1 knot = 1 nautical mile per hour = 1852 meters per hour = 0.5144 m/s, the speed in SI units is $v = 5.144 \pm 0.2572$.  We insert the values and find
+$$
+\delta E = \sqrt{\left(\left [14.585 \sin 35 + 0.03138\cdot5.144 \right ]\cdot 0.2572 \right )^2 + \left(14.585\cdot5.144 \cos 35\cdot 2\pi/180 \right )^2},
+$$
+which evaluates to $\approx 3.1$.
+Plugging in values for $E$ we obtain the final answer as $E = 43.4\pm 3.1 $ mGal.
+\item The uncertainty in $E$ due to a speed change $\Delta v$ (at constant heading $\alpha$) will be
+$$
+	\Delta E = \frac{\partial E}{\partial v} \Delta v,
+$$
+so we wish to determine in which direction this change is the smallest. Taking the derivative and setting it to zero
+yields
+$$
+	\frac{\partial E}{\partial v} = 14.585 \cos \theta \sin \alpha + 0.03138 v = 0,
+$$
+\noindent
+with solution for the optimal heading given by
+$$
+	\alpha = \sin^{-1} \left (-\frac{0.03138 v}{14.585\cos \theta}\right ).
+$$
+\noindent
+Plugging in values, we find
+$$
+	\alpha = \sin^{-1} \left (-\frac{0.03138 \cdot 200 \cdot 0.5144}{14.585 \cdot 0.707107}\right ) = -18.3,
+$$
+\noindent
+as well as 161.7.
+	
+\end{enumerate}
+
+\section{Basic Statistical Concepts}
+\noindent
+\bf{Problem 3.1.} \\
+
+We must evaluate $p = s/n$, where $s$ is the number of ways to pick five easy questions from six such questions
+(as well as one of the other four questions) and $n$ is the total number of ways to pick 5 from 10.  We start with $n$ and get
+$$
+n = \binom{10}{5} = \frac{10!}{5!(10-5)!} = \frac{6\cdot 7\cdot 8\cdot 9\cdot 10}{2\cdot 3\cdot 4\cdot 5} = 7\cdot 2\cdot 9\cdot 2 = 252.
+$$
+We now work on $s$:
+$$
+s = \binom{6}{5}\cdot\binom{4}{0} = \frac{6!}{5!(6-5)!}\cdot \frac{4!}{0!4!} = 6.
+$$
+Thus, we find the likelihood of the student solving all 5 problems is $p = \frac{1}{42} = 0.023$ or $\approx$ 2\%.
+\\
+
+\noindent
+\bf{Problem 3.2.} \\
+
+\begin{enumerate}[label=\alph*)]
+	\item Total disaster means that 7 of the 8 samples broken are the vital ones, plus another one from the 15 remaining samples.  We find
+	that the probability fortunately is almost nil:
+	$$
+	p = s/n = \frac{\binom{7}{7}\cdot\binom{15}{1}}{\binom{22}{8}} = \frac{15}{319,770} = 5\cdot10^{-5}.
+	$$
+	\item Avoiding disaster completely means that none of the 8 samples are from the vital ones, which is about 2 \%:
+	$$
+	p = s/n = \frac{\binom{15}{8}}{\binom{22}{8}} = \frac{6435}{319,770} = 0.0201.
+	$$
+	\item  Here we need the probability of picking 2--4 specimens from the virgin area and picking 2--3 specimens from the basaltic outcrop, with
+	the balance from the remaining samples.   Since there are three ways to pick two or more samples from the new area (2, 3, or 4) and only two ways to pick two or more from the
+	basalts (2 or 3), the total ways of accomplishing at least two from each category is six.  We thus need to add up these six possibilities:
+	$$
+	p = \frac{q(2,2) + q(2,3) + q(3,2) + q(3,3) + q(4,2) + q(4,3)}{319,770},
+	$$
+	where the number of ways to pick specimens from the three groups are given by the multiplicity of choices rule, i.e.,
+	$$
+	q(v,b) = \binom{4}{v}\binom{3}{b}\binom{15}{8-b-v},
+	$$
+	where $v$ is the number of specimens from the new samples and $b$ the number of basalt samples.
+	We find this works out to be about 10\%:
+	$$
+	p = \frac{\binom{4}{2}\binom{3}{2}\binom{15}{4} + \binom{4}{2}\binom{3}{3}\binom{15}{3} + \binom{4}{3}\binom{3}{2}\binom{15}{3} \
+	+ \binom{4}{3}\binom{3}{3}\binom{15}{2} + \binom{4}{4}\binom{3}{2}\binom{15}{2} + \binom{4}{4}\binom{3}{3}\binom{15}{1}}{319,770} = \frac{33,510}{319,770} \sim 0.10.
+	$$
+\end{enumerate}
+	
+\noindent
+\bf{Problem 3.3.} \\
+\begin{enumerate}[label=\alph*)]
+\item If we pick one poisonous spider then we know we have picked one from the four poisonous
+and three from the harmless 24.  Hence
+\[
+p = \frac{s}{n} = \frac{\binom{4}{1} \cdot \binom{24}{3}}{\binom{28}{4}} = 0.395.
+\]
+
+\item If we pick none of the four poisonous spiders we have selected all four nonpoisonous spiders from
+the harmless 24.  Thus
+\[
+p = \frac{s}{n} = \frac{\binom{24}{4}}{\binom{28}{4}} = 0.519.
+\]
+\end{enumerate}
+
+\noindent
+\bf{Problem 3.4.} \\
+
+We have $B$ bad tires, and there is a probability $P(B)$ that the
+4 chosen tires are OK (and hence a probability of $1-P(B)$ that the entire batch is rejected).
+The number of ways to pick 4 from 100 is $n = \binom{100}{4}$.  The number of
+successes is picking 4 from the good $100-B$ tires, which is $s = \binom{100 - B}{4}$.
+It follows that the final probability is given by
+\[
+P(B) = \frac{s}{n} = \frac{\binom{100 - B}{4}}{\binom{100}{4}}.
+\]
+After removing common factors we are left with
+\[
+P(B) = \frac{(97-B)(98-B)(99-B)(100-B)}{97\cdot98\cdot99\cdot100}.
+\]
+
+We plot this function for all values of $B$, i.e, 0 through 100, and determine
+the largest value of $B$ that gives $P \ge 0.5$; here we find the answer to be $B = 15$.
+
+\PSfig[H]{Fig1_Answer_tires}{We determine graphically the number of bad tires one batch can
+have and still have a 50/50 chance of passing the ``inspection''.}
+
+\noindent
+\bf{Problem 3.5.} \\
+
+Let $A$ denote the event that a compass is defective, and $B_1$, $B_2$, and $B_3$ denote
+the events that a compass comes from plant A, B, or C.  We can translate the given percentages into
+probabilities and write $P(B_1) = 0.55$, $P(B_2) = 0.3$, $P(B_3) = 0.15$, $P(A|B_1) = 0.004$,
+$P(A|B_2) = 0.006$, and $P(A|B_3) = 0.012$.  Using Bayes General Theorem we find
+
+\[
+P(B_1|A) = \frac{P(B_1)\cdot P(A|B_1)}{P(B_1)\cdot P(A|B_1) + P(B_2)\cdot P(A|B_2) + P(B_3)\cdot P(A|B_3)} \approx 0.38.
+\]
+
+\noindent
+\bf{Problem 3.6.} \\
+
+Let $B_1$ denote the event that a well is polluted and $B_2$ the event that a well is clean.  We then have
+$P(B_1) = 0.25$ and $P(B_2) = 0.75$.  Furthermore, let $A$ be the event that a well fails the test,
+which means we can write $P(A|B_1) = 0.99$ and $P(A|B_2) = 0.17$.  We can now invoke Bayes' Theorem,
+$$
+P(B_1|A) = \frac{P(B_1)\cdot P(A|B_1)}{P(A)},
+$$
+where $P(A)$ is the probability that a well fails the test.  We note there are two mutually exclusive ways
+for a well to fail the test: For polluted wells (i.e., $B_1$), 99\% of them will fail the test, so part of
+the probability will be given by $P(B_1)\cdot P(A|B_1) = 0.25\cdot 0.99 = 0.2475$.  On the other hand, some
+clean wells also fail the test and that probability is given by $P(B_2)\cdot P(A|B_2) = 0.75\cdot 0.17 = 0.1275$.
+This must mean $P(A)$ is the sum of these exclusive probabilities, i.e., $P(A) = 0.375$.  In other words,
+$$
+P(B_1|A) = \frac{P(B_1)\cdot P(A|B_1)}{P(B_1)\cdot P(A|B_1) + P(B_2)\cdot P(A|B_2)} = \frac{0.25\cdot 0.99}{0.25\cdot 0.99 + 0.75\cdot 0.17} = 0.66,
+$$
+which states the probability of a well that fails the test actually is polluted.
+\\
+
+\noindent
+\bf{Problem 3.7.} \\
+
+Since the sample size $n > 30$ we can use normal distribution statistics.  The two-sided confidence
+interval will depend on $\pm z_{0.005} = \pm 2.5758$ (i.e., Table~\ref{tbl:Critical_t}).  With the standard deviation in the sample mean given
+by $s_{\bar{x}} = \frac{4.5}{\sqrt{64}} = 0.5625$ mm the confidence interval becomes $51.35 < \mu < 54.25$ mm.
+\\
+
+\noindent
+\bf{Problem 3.8.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item $\bar{q} = 50.41$ mW/m$^2$, $s_q = 9.24$ mW/m$^2$, $\tilde{q} = 48.80$ mW/m$^2$,
+and $MAD_q = 6.37$ mW/m$^2$.
+\item Converting to robust scores, we obtain
+
+\[
+z = \frac{q - \tilde{q}}{MAD_q} = \{-0.56, -0.22, 0.99, -1.51, 0.38, -0.39, 0.17, -0.93, 4.16, 0.67, 0.0, 1.57, -1.04\}
+\]
+
+from which we conclude that the value $q_9 = 75.3$ ($z_9 = 4.16$) is an outlier.  With it
+removed, the statistics become $\bar{q} = 48.34$ mW/m$^2$, $s_q = 5.68$ mW/m$^2$, $\tilde{q} = 48.10$ mW/m$^2$,
+and $MAD_q = 6.00$ mW/m$^2$.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 3.9.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item Analyzing Walter's data we find the following four statistics: $\bar{x} = -45.25$, $s = 9.50$, $\tilde{x} = -47.59$,
+and MAD = $6.60$.
+\item Computing robust $z$ scores using the median and MAD and looking for values exceeding $\pm2.5$ we identify two
+data points ($-24.23, -27.41$) as statistical outliers.  Perhaps Walter's fever was particularly high on those days and
+affected his abilities; alternatively, perhaps it was just a couple of slightly less frigid days.  At any rate, removing these
+two outliers makes the data more normal.  We update our four statistics and find
+$\bar{x} = -48.49$, $s = 5.11$, $\tilde{x} = -48.71$, and MAD = $5.40$.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 3.10.} \\
+
+We analyze the data given and obtain the following responses:
+\begin{enumerate}[label=\alph*)]
+	\item We compute $\bar{x} = -4393.7$ m and $s = 909.5$ m.  Given we have $n = 261$ data points
+	we compute the 95\% symmetric confidence interval as
+	$$
+	\Delta x = \pm z_{\alpha/2} \cdot \frac{s}{\sqrt{n}} = \pm 1.96 \cdot \frac{909.5}{\sqrt{261}} \mbox{ m} = \pm 110.3 \mbox{ m}
+	$$
+	\item We convert the depth $x = -4000$ m to normal score $z = \frac{-4000 - 4393.7 }{909.5} = 0.4329$ and from
+	the cumulative distribution function for $z = 0.4329$ we obtain $p = 0.667$ (or via Table~\ref{tbl:Critical_z}).  That means there is a $1-p$ or $\sim 33$\%
+	probability that a depth measurement will be shallower than $-4000$ m.
+	\item We find $\tilde{x} = -4686$ m and MAD = $652.9$ m.
+	\item Converting the robust limits $\pm 2.5$ to depth values we identify $n = 15$ depth measurements as ``outliers''.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 3.11.} \\
+
+For this problem we may use Table~\ref{tbl:Critical_z} of the cdf of the normal distribution.
+\begin{enumerate}[label=\alph*)]
+\item We need the area under the normal curve from $z = -\infty$ to $z = \frac{4 - 10}{5} = -1.2$.
+We find $P = \frac{1}{2} [1 + \mbox{erf} (-1.2/\sqrt{2})] = 11.5$\%.
+\item Here, the normal scores for the
+two boundaries are $z_l = \frac{8 - 10}{5} = -0.4$ and $z_r = \frac{16 - 10}{5} = 1.2$.  Thus, the
+probability $p = \frac{1}{2} [\mbox{erf} (1.2/\sqrt{2}) - \mbox{erf}(-0.4/\sqrt{2})] = 54.0$\%.
+\end{enumerate}
+\PSfig[H]{Fig1_Answer_tapwater}{The shaded areas represent the probabilities associated with the answers in (a) and (b).}
+
+\noindent
+\bf{Problem 3.12.} \\
+
+Here, $p = 0.1$, so $q = 1 - p = 0.9$.
+\begin{enumerate}[label=\alph*)]
+\item Clearly, $P(1) = p = 0.1$.  $P(2)$ means we first have
+a failure followed by a success, so $P(2) = q \cdot p = 0.09$.  Similarly, $P(3)$ is two failures then success, so
+$P(3) = q \cdot q \cdot p = 0.081$.
+\item It follows that $P(n) = q^{n-1}\cdot p$.  Thus, we expect $P(n)$ to start off at 0.1 and then drop by 90\% for
+each try.  It drops off because we ask for a \emph{specific} sequence (lots of failures followed by a single success.
+\item We graph the probabilities below:
+\PSfig[H]{Fig1_Answer_holes}{Probabilities $P(n)$ and $P_c(n)$ shown as open and solid circles, respectively.}
+\item To find $P_c(n)$ we may add up all the $P(i)$ from $i = 1$ up to the final value of $i = n$, hence
+$P_c(n) = \sum_{i=1}^{n} P(i) = p\sum_{i=1}^{n} q^{i - 1}$.  Alternatively, note that the probability of the
+complimentary situation (complete failure at all $n$) is $q^n$ so $P_c(n) = 1 - q^n$, a much simpler expression.
+\item From the graph we see we should expect to drill 22 holes to be 90\% sure of finding oil.
+\end{enumerate}
+
+\section{Testing of Hypotheses}
+
+\noindent
+\bf{Problem 4.1.} \\
+
+Here, we have a single set of \emph{paired} values of repeated measurements, thus
+the relevant data set is simply $\Delta$, the differences within each pair of weights, and \emph{not} the two
+weights themselves (which would not necessarily be normally distributed). The null hypothesis
+is therefore $H_0: \mu = 0$.  We first compute the differences and obtain
+\[
+\Delta = \{0.04, 0.05, 0.02, 0.02, -0.01, 0.02, 0.05, -0.01, 0.05, -0.03\}.
+\]
+Their mean is $\bar{\Delta} = 0.020$, with standard deviation $s = 0.0287$.  We have a small sample with $n = 10$
+and given the level of significance we find (Table~\ref{tbl:Critical_t}) the critical value $t_{0.005,9} = \pm 3.25$.
+Our Student $t$-statistics evaluates to $t = \frac{0.020 - 0}{0.0287/\sqrt{10}} = 2.2037$.  This is clearly less
+than the critical limit and thus we cannot reject the null hypothesis.
+\\
+
+\noindent
+\bf{Problem 4.2.} \\
+
+We first state the hypothesis to test: H$_0$: $\bar{\mbox{Ni}}_1 = \bar{\mbox{Ni}}_2$,
+with H$_1$: $\bar{\mbox{Ni}}_1 \neq \bar{\mbox{Ni}}_2$.  Thus, this is a two-sided $t$-test.
+We estimate the mean and standard deviation for each sample and find
+\[ \begin{array}{cccc}
+\bar{x}_1 = 139.25 & s_1 = 15.56 & n_1 = 8 & \nu_1 = 7 \\
+\bar{x}_2 = 151.11 & s_2 = 13.58 & n_2 = 9 & \nu_2 = 8
+\end{array}
+\]
+Before using the two-sample $t$-test we must first check that the standard deviations are
+comparable.  Forming the null hypothesis $H_0: \sigma_1 = \sigma_2$, with the alternative
+hypothesis $H_1: \sigma_1 \neq \sigma_1$, we find the observed $F$-value to be
+\[ F = \frac{s_1^2}{s_2^2} = \frac{15.56^2}{13.58^2} = 1.314. \]
+The 95\% critical value for a two-sided $F$-test is found in Table~\ref{tbl:Critical_F975} to be
+$F_{\alpha/2,\nu_1,\nu_2} = F_{0.025,7,8} = 4.53$.
+Since we do not exceed critical $F$ we cannot reject the null hypothesis, and may thus move on to test
+the difference in means. The observed $t$-statistic becomes
+\[ t = \frac{\bar{x}_1 - \bar{x}_2}{s_e} =
+\frac{139.25 - 151.11}{\sqrt{\frac{7\cdot15.56^2 + 8\cdot13.58^2}{8 + 9 - 2} \left( \frac{1}{8} + \frac{1}{9} \right)}} = \frac{-11.86}{7.06} = -1.68.
+\]
+From Table~\ref{tbl:Critical_t} we find $t_{\alpha,\nu} = t_{0.025,15} = 2.13$, and hence we cannot
+reject the null hypothesis: The higher mean Nickel contamination at location 2 is not statistically significant.
+\\
+
+\noindent
+\bf{Problem 4.3.} \\
+
+We again state the hypothesis to test, with $C$ representing the mean heat-producing capacity: H$_0$: $\bar{\mbox{C}}_1 = \bar{\mbox{C}}_2$,
+with H$_1$: $\bar{\mbox{C}}_1 \neq {\mbox{C}}_2$.  Thus, this is again a two-sided $t$-test.  We estimate the mean and
+standard deviation for each sample and find
+\[ \begin{array}{cccc}
+\bar{x}_1 = 8160 & s_1 = 251.9 & n_1 = 5 & \nu_1 = 4 \\
+\bar{x}_2 = 7730 & s_2 = 206.5 & n_2 = 5 & \nu_2 = 4
+\end{array}
+\]
+Before using the two-sample $t$-test we must check that the standard deviations are
+comparable.  Forming the null hypothesis $H_0: \sigma_1 = \sigma_2$, with the alternative
+hypothesis $H_1: \sigma_1 \neq \sigma_1$, we find the observed $F$-value to be
+\[ F = \frac{s_1^2}{s_2^2} = \frac{251.9^2}{206.5^2} = 1.49. \]
+The 95\% critical value for a two-sided $F$-test is found in Table~\ref{tbl:Critical_F975} to be
+$F_{\alpha/2,\nu_1,\nu_2} = F_{0.025,4,4} = 9.6$.
+Since we do not exceed critical $F$ we cannot reject the null hypothesis, and may thus move on to test
+the difference in means. The observed $t$-statistic becomes
+\[ t = \frac{\bar{x}_1 - \bar{x}_2}{s_e} =
+\frac{8160 - 7730}{\sqrt{\frac{4\cdot251.9^2 + 4\cdot206.5^2}{5 + 5 - 2} \left( \frac{1}{5} + \frac{1}{5} \right)}} = 2.95.
+\]
+From Table~\ref{tbl:Critical_t} we find $t_{\alpha,\nu} = t_{0.025,8} = 2.3$, and hence we must
+reject the null hypothesis: The mean heat-producing capacity of coal from the two mines are
+statistically different at the 95\% level of confidence.
+\\
+
+\noindent
+\bf{Problem 4.4.} \\
+
+\PSfig[H]{Fig1_Answer_seismic}{The required probability is the area under the pdf between the stated limits.}
+Given the mean and standard deviation we convert the specified limits to normal scores, finding the $z$-range $(0.241,0.586)$.
+Calculating the area under the normal pdf curve yields the probability, $p = 0.126$.
+\\
+
+\noindent
+\bf{Problem 4.5.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item We first state the hypothesis to test: H$_0$: $\bar{\mbox{Hg}}_B \leq \bar{\mbox{Hg}}_A$,
+with H$_1$: $\bar{\mbox{Hg}}_B > \bar{\mbox{Hg}}_A$.  Thus, this is a one-sided $t$-test.  We estimate the mean and
+standard deviation for each sample and find
+\[ \begin{array}{cccc}
+\bar{x}_A = 11.029 & s_A = 1.187 & n_A = 9 & \nu_A = 8 \\
+\bar{x}_B = 12.168 & s_B = 1.058 & n_B = 10 & \nu_B = 9
+\end{array}
+\]
+Before using the two-sample $t$-test we must first check that the standard deviations are
+comparable.  Forming the null hypothesis $H_0: \sigma_A = \sigma_B$, with the alternative
+hypothesis $H_0: \sigma_A \neq \sigma_B$, we find the observed $F$-value to be
+\[ F = \frac{s_A^2}{s_B^2} = \frac{1.187^2}{1.058^2} = 1.26. \]
+The critical value for a two-sided $F$-test is found in Table~\ref{tbl:Critical_F975} to be
+$F_{\alpha/2,\nu_1,\nu_2} = F_{0.025,8,9} = 4.10$.
+Since we do not exceed critical $F$ we cannot reject the null hypothesis, and may thus move on to test
+the difference in means. The observed $t$-statistic becomes
+\[ t = \frac{\bar{x}_A - \bar{x}_B}{s_e} =
+\frac{12.168 - 11.029}{\sqrt{\frac{8\cdot1.187^2 + 9\cdot1.058^2}{9 + 10 - 2} \left( \frac{1}{9} + \frac{1}{10} \right)}} = 2.21.
+\]
+From Table~\ref{tbl:Critical_t} we find $t_{\alpha,\nu} = t_{0.05,17} = 1.741$, and hence we
+reject the null hypothesis: The higher mean mercury contamination of river B is statistically significant.
+\item We graph the situation below.
+\PSfig[H]{Fig1_Answer_twosamples}{The data distributions (heavy lines) and the theoretical distributions of the sample means
+(thin lines).  Note how much the data overlap, yet the sample means are fairly well separated, enough to
+tell them apart at the 95\% level of confidence.}
+\end{enumerate}
+
+\noindent
+\bf{Problem 4.6.} \\
+
+We again state the hypothesis to test, with $W$ representing the mean water content: H$_0$: $\bar{\mbox{W}}_A = \bar{\mbox{W}}_B$,
+with H$_1$: $\bar{\mbox{W}}_A \neq \bar{\mbox{W}}_B$.  Thus, this is again a two-sided $t$-test.  We estimate the mean and
+standard deviation for each sample and find
+\[ \begin{array}{cccc}
+\bar{x}_1 = 11.42 & s_1 = 2.08 & n_1 = 72 \\
+\bar{x}_2 = 10.65 & s_2 = 3.03 & n_2 = 80
+\end{array}
+\]
+Before using the two-sample $t$-test we must check that the standard deviations are
+comparable.  Forming the null hypothesis $H_0: \sigma_1 = \sigma_2$, with the alternative
+hypothesis $H_1: \sigma_1 \neq \sigma_1$, we find the observed $F$-value to be
+\[ F = \frac{s_2^2}{s_1^2} = \frac{3.03^2}{2.08^2} = 2.12. \]
+The 95\% critical value for a two-sided $F$-test is found in Table~\ref{tbl:Critical_F975} to be
+$F_{\alpha/2,\nu_1,\nu_2} = F_{0.025,79,71} = 1.58$.
+Since we exceed the critical $F$ we reject the null hypothesis that the two standard
+deviations are equal and we refuse to go any further with regards to comparing the means.
+If pressed, we need to look into Welch's $t$-test for unequal variances.
+\\
+
+
+\noindent
+\bf{Problem 4.7.} \\
+Here, we have a single set of \emph{paired} values of repeated measurements, thus
+the relevant data set is simply $\Delta$, the differences within each pair and \emph{not} the two rounds
+of measurements themselves (which would not necessarily be normally distributed).
+We find
+\[
+\Delta = \{13, 7, -1, 5, 4, 2, -1, -1, 6, 1, 4, 4, 2, 5, 5, 4\}.
+\]
+Hence, the null hypothesis is $H_0: \bar{\Delta} = 0$, with alternative $H_1: \bar{\Delta} \neq 0$, clearly
+a two-sided test.  Forming the differences, we find that their mean $\bar{\Delta} = 3.69$ and their sample
+standard deviation $s_{\Delta} = 3.53$.  From these parameters we estimate the statistic
+$t = \frac{3.69 - 0}{3.53/\sqrt{16}} = 4.17$.  Given the critical $t_{\alpha/2,\nu} = t_{0.005,15} = 2.947$
+for our two-sided test (Table~\ref{tbl:Critical_t}), we must reject the null hypothesis and re-calibrate the
+instrument: the observed bias is statistically significant.
+\\
+
+\noindent
+\bf{Problem 4.8.} \\
+
+This is a one-sided $\chi^2$-test.  Here, $H_0: \sigma \leq 10$ ppm, with $H_1: \sigma > 10$ ppm.
+Our observed statistic is $\chi^2 = \frac{(n - 1)s^2}{\sigma^2} = \frac{14\cdot11.3^2}{10^2} = 17.9$.
+Critical value for this case is the one corresponding to the right tail, hence $\chi^2_{\alpha,\nu} = \chi^2_{0.05,14} = 23.68$,
+per Table~\ref{tbl:Critical_chi2}.
+We find we cannot reject the null hypothesis: there is no statistical evidence that would suggest the
+standard deviation of the pollutants exceeds 10 ppm.
+\\
+
+\noindent
+\bf{Problem 4.9.} \\
+
+This is also a one-sided $\chi^2$-test.  Here, $H_0: \sigma \leq 0.010$ s, with $H_1: \sigma > 0.010$ s.
+Our observed statistic is $\chi^2 = \frac{(n - 1)s^2}{\sigma^2} = \frac{15\cdot0.012^2}{0.010^2} = 21.6$.
+Critical value for this case is the one corresponding to the right tail (Table~\ref{tbl:Critical_chi2}), hence
+$\chi^2_{\alpha,\nu} = \chi^2_{0.05,15} = 25$.
+We conclude that we cannot reject the null hypothesis: there is no statistical evidence that would suggest the
+standard deviation of the instrument's response time exceeds 10 ms.
+\\
+
+\noindent
+\bf{Problem 4.10.} \\
+
+The null hypothesis states that there is no difference between the universities; hence we have a two-sided test.
+We sort and rank the scores $S$ and find the ranking in Table~\ref{tbl:Unitest}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c||c|c|c|} \hline
+\bf{Rank} & $S$ & \bf{Source} & \bf{Rank} & $S$ & \bf{Source} \\ \hline \hline
+ 1    &  34  &   B    &    21    &  76  &   A \\ \hline
+ 2    &  37  &   B    &    22    &  77  &   A \\ \hline
+ 3    &  45  &   B    &    23.5  &  78  &   A \\ \hline
+ 4    &  56  &   B    &    23.5  &  78  &   B \\ \hline
+ 5    &  58  &   A    &    25    &  80  &   A \\ \hline
+ 6.5  &  62  &   A    &    26    &  84  &   A \\ \hline
+ 6.5  &  62  &   B    &    27    &  87  &   A \\ \hline
+ 8.5  &  63  &   B    &    29    &  88  &   B \\ \hline
+ 8.5  &  63  &   B    &    29    &  88  &   B \\ \hline
+10    &  66  &   B    &    29    &  88  &   B \\ \hline
+11    &  68  &   B    &    31    &  89  &   B \\ \hline
+12    &  69  &   A    &    32.5  &  90  &   A \\ \hline
+13    &  70  &   A    &    32.5  &  90  &   A \\ \hline
+14    &  71  &   B    &    34    &  91  &   A \\ \hline
+15    &  72  &   A    &    35    &  92  &   A \\ \hline
+16    &  73  &   A    &    36    &  93  &   A \\ \hline
+17.5  &  74  &   B    &    37    &  94  &   B \\ \hline
+17.5  &  74  &   B    &    38    &  96  &   A \\ \hline
+19.5  &  75  &   B    &    39    &  97  &   A \\ \hline
+19.5  &  75  &   B    &    40    &  98  &   A \\ \hline
+\end{tabular}
+\caption{Tabulation of sorted university test scores for combined data set.}
+\label{tbl:Unitest}
+\end{table}
+We calculate the rank sums to be $W_1 = 499$ and $W_2 = 321$, and per (\ref{eq:U1}) we find
+\[
+U_1 = 499 - \frac{20(20 + 1)}{2} = 289 \quad
+U_2 = 321 - \frac{20(20 + 1)}{2} = 111,
+\]
+with critical value $U_{0.05,20,20} = 127$ from Table~\ref{tbl:Critical_U3}.  Because $U = 111$ is
+\emph{smaller} than the critical value, we must reject the null hypothesis; there is a significant
+difference in the performance of the geology students at the two universities at the chosen level of confidence.
+\\
+
+\noindent
+\bf{Problem 4.11.} \\
+
+For $n = 10$ we have $\nu = 8$, and for a 99\% confidence level we obtain via Table~\ref{tbl:Critical_t} a critical $t_{0.005,8} = 3.36$.
+Our observed statistic is $t = \frac{-0.85\sqrt{8}}{\sqrt{1-0.85^2}} = -4.56$.  So yes, this correlation
+appears significant and we must reject the null hypothesis $H_0: \rho = 0$.
+\\
+
+\noindent
+\bf{Problem 4.12.} \\
+
+For $n = 3$ we have $\nu = 1$, and for a 99\% confidence level we obtain a critical $t_{0.005,1} = 63.66$ (Table~\ref{tbl:Critical_t}).
+For an observed correlation to be significant we must equate
+$$
+t_{0.005,1} = 63.66 = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} = \frac{r}{\sqrt{1-r^2}}.
+$$
+We solve this equation for $r$ and obtain
+$$
+r = \pm \frac{63.66}{\sqrt{1+63.66^2}}=0.9999,
+$$
+i.e., we almost demand perfect correlation.
+\\
+
+\noindent
+\bf{Problem 4.13.} \\
+
+Looking at the events per month we find:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|c|c|c|} \hline
+\bf{Month:} & \bf{Jan} & \bf{Feb} & \bf{Mar} & \bf{Apr} & \bf{May} & \bf{Jun} & \bf{Jul} & \bf{Aug} & \bf{Sep} & \bf{Oct} & \bf{Nov} & \bf{Dec} \\ \hline
+\bf{Days:} & 31 & 28 & 31 & 30 & 31 & 30 & 31 & 31 & 30 & 31 & 30 & 31 \\ \hline
+\bf{Events:} & 38 & 31 & 43 & 45 & 28 & 31 & 26 & 30 & 32 & 35 & 27 & 35 \\ \hline
+\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+	\item $H_0$: The annual number of earthquakes, are evenly distributed over
+	the year, with $H_1:$ some months have more than their share of events.
+	\item With the total
+	number of events being $n = 401$, we expect Jan, Mar, May, Jul, Aug, Oct, Dec (all with 31 days)
+	to have $401\cdot 31 / 365 = 34.06$ events, while Apr, Jun, Sep, Nov (all with 30 days) to
+	have $401\cdot 30 / 365 = 32.96$ events, leaving Feb with $401 \cdot 28 / 365 = 30.76$ events.
+	\item We use the equation for $\chi^2$ given in the notes, realizing that our data are already
+	binned into 12 groups without resorting to statistics, hence $\nu = n - 1 = 11$ ($\nu$ depends
+	on how we get $O_j$, not $E_j$).
+	The critical value from Table~\ref{tbl:Critical_chi2} is $\chi^2_{0.05,11} = 19.675$.
+	With $O_j$ listed in the table above and $E_j$ estimated in (b), we find
+	\[
+	        \chi^2=\sum^n_{j=1}\frac{(O_j-E_j)^2}{E_j} \approx 12.6.
+	\]
+	Hence, we cannot reject the null hypothesis.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 4.14.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item Given the imposed binning scheme we find we find:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|} \hline
+\bf{Bin:} & \bf{0--10} & \bf{10--15} & \bf{15--20} & \bf{20--25} & $\mathbf{> 25}$ \\ \hline
+\bf{Count:} & 6 & 15 & 24 & 24 & 11 \\ \hline
+\end{tabular}
+\end{table}
+and we plot the histogram below.
+\PSfig[H]{Fig1_Answer_sulfur}{Histogram count given the uneven bin widths chosen.}
+\item The data analysis yields $\bar{x} = 18.83$ and $s = 5.72$.
+\item We must convert the bin boundaries $b_i = -\infty,10,15,20,25,\infty$ to $z$-values given
+the distribution parameters.  Using $z = \frac{b_i - \bar{x}}{s}$, we find
+$z_i = -\infty,  -1.543, -0.669, 0.205,  1.079, \infty$.  Computing the probabilities for each
+bin then yields $p_j = 0.06, 0.19, 0.33, 0.28, 0.14$, which sum to 1.  Given we have $n = 80$ samples
+the expected values are $E_j = 4.9, 15.2, 26.4, 22.3, 11.2$.
+\item With 5 bins, $\nu = 5 - 1 -2 = 2$, since bins must sum to 80 and we lose two additional degrees of
+freedom by computing $\bar{x}$ and $s$. The critical value (Table~\ref{tbl:Critical_chi2}) is thus $\chi^2_{0.05,2} = 5.99$.
+With $O_j$ listed in the table above and $E_j$ estimated in (c), we find
+\[
+	\chi^2=\sum^5_{j=1}\frac{(O_j-E_j)^2}{E_j} = 0.60.
+\]
+Clearly, we cannot reject the null hypothesis.
+\end{enumerate}
+
+\noindent
+\bf{Problem 4.15.} \\
+
+We take the equation for observed $t$ for the correlation coefficient and equate it
+with critical $t_{\alpha, \nu}$.  This yields an implicit equation for $n$ given by
+\[
+	\frac{r \sqrt{n-2}}{\sqrt{1-r^2}} = t_{\alpha, n-2}.
+\]
+We cannot solve it directly since the right-hand side depends on $n$ in a complicated way, but we note that both sides
+of the equation are functions of $n$.  Thus, we evaluate the two sides separately
+and plot them on the same graph as functions of $n$.  We note that the smallest value of $n$ for which
+the observed $t$-value (solid line) exceeds the critical $t$-value (dashed line) is $n = 38$.  Hence, we need at least
+38 specimens in our sample to conclude that a correlation of $r = 0.32$ is significant for $\alpha = 0.05$.  Note:
+since the test is two-sided we use $\alpha = 0.025$ for the critical value.
+\PSfig[H]{Fig1_Answer_tcorr}{Graphical solution for the sample size $n = 38$.}
+
+
+\noindent
+\bf{Problem 4.16.} \\
+
+The plot of the two time-series in Figure~\ref{fig:Fig1_Answer_conspiracy} below.  We determine a correlation
+of $r = 0.953$, which evaluates to an observed $t$ value of  
+$$
+t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} = \frac{0.953\cdot 3}{\sqrt{1-0.953^2}} = 9.4.
+$$
+With $n = 11$ we determine the critical value for a 0.05 significance level to be 2.26. Clearly,
+the data strongly support the suspicions of the senator
+who consequently pushes a bill for an immediate attack in the Senate, logic be damned.
+\PSfig[H]{Fig1_Answer_conspiracy}{Data for 1999--2010 showing oil import (in million barrels) from
+Norway (solid line) and railroad crossing fatalities (dashed line), adjusted to fit on the same graph.}
+
+\noindent
+\bf{Problem 4.17.} \\
+
+See the plot of the two time-series in Figure~\ref{fig:Fig1_Answer_NSF} below.  We determine a correlation
+of $r = 0.811$, which evaluates to an observed $t$ value of  
+$$
+t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} = \frac{0.811\cdot 3}{\sqrt{1-0.811^2}} = 4.15.
+$$
+With $n = 11$ we determine the critical value for a 0.01 significance level to be 3.25.  As the congressman's
+intern and expert in statistics, you write in the report that the data strongly support the congressman's
+suspicion. Your boss immediately starts House hearings on potential budget cuts for NSF.
+\PSfig[H]{Fig1_Answer_NSF}{Data for 1999--2010 showing number of Ph.D.s awarded in the social sciences
+(solid line) and anticoagulant fatalities (dashed line), adjusted to fit on the same graph.}
+
+\noindent
+\bf{Problem 4.18.} \\
+
+Using the equations in the ANOVA section in the notes, we construct the following ANOVA table:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|r|r|r|} \hline
+\bf{Source} & $\nu$ & \bf{Sum of Squares} & \bf{ Mean Sum of Squares} & $F$ \\ \hline
+\bf{Treatments} & 3 & 6659 & 2220 &  10.68 \\ \hline
+\bf{Error} & 20 & 4158 & 208 &  \\ \hline
+\bf{Total} & 23 & 10817 &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+With $F_{0.05,3,20} = 3.10$ from Table~\ref{tbl:Critical_F95}, we must reject $H_0$.
+The differences in sample means chromium content are statistically significant.
+\\
+
+\noindent
+\bf{Problem 4.19.} \\
+
+Given the table of data we construct the following ANOVA table:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|r|r|r|} \hline
+\bf{Source} & $\nu$ & \bf{Sum of Squares} & \bf{Mean Sum of Squares} & $F$ \\ \hline
+\bf{Treatments} & 3 & 32.35 & 10.78 &  10.77 \\ \hline
+\bf{Error} & 20 & 20.02 & 1 &  \\ \hline
+\bf{Total} & 23 & 52.37 &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+Again with $F_{0.05,3,20} = 3.10$, we must reject $H_0$.  The differences in sample temperature means are
+statistically significant.
+\\
+
+\noindent
+\bf{Problem 4.20.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item Given the table of data we construct the following ANOVA table:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|r|r|r|} \hline
+\bf{Source} & $\nu$ & \bf{Sum of Squares} & \bf{Mean Sum of Squares} & $F$ \\ \hline
+\bf{Treatments} & 3 & 7.8361 & 2.6120 &  63.65 \\ \hline
+\bf{Error} & 15 & 0.6155 & 0.0410 &  \\ \hline
+\bf{Total} & 18 & 8.4516 &  &  \\ \hline
+\end{tabular}
+\end{table}
+We find $F_{0.05,3,15} = 3.29$, we must reject $H_0$.  The differences in mean dissolved oxygen are
+clearly statistically significant.
+
+\item Comparing data location 2 and 3 reduces the problem to one of a two-sample $t$-test.  We
+first determine that the variances are equal.  We obtain $F = 7.46$ which does no exceed critical
+$F_{0.95,4,4} = 9.6$, so we may proceed to computing $t = 11.19$.  As our observed $t$ exceeds
+the critical $t_{0.025,8} = 2.3$ we must reject the hypothesis that the mean dissolved oxygen at
+these to locations are the same.
+\end{enumerate}
+
+\noindent
+\bf{Problem 4.21.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item Using the equations in the ANOVA section in the notes, we construct the following two-way ANOVA table:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|r|r|r|} \hline
+\bf{Source} & $\nu$ & \bf{Sum of Squares} & \bf{Mean Sum of Squares} & $F$ \\ \hline
+\bf{Treatments (instruments)} & 3 & 3.69 & 1.23 &  0.58 \\ \hline
+\bf{Blocks (samples)} & 4 & 70.17 & 17.54 &  8.32 \\ \hline
+\bf{Error} & 12 & 25.31 & 2.11 &  \\ \hline
+\bf{Total} & 19 & 99.18 &  &  \\ \hline
+\end{tabular}
+\end{table}
+Given critical $F_{0.1,4,12} = 2.48$ from Table~\ref{tbl:Critical_F90} and calculated $F = 8.32$,
+we clearly must reject the null hypothesis that the mean
+sample strengths are the same. 
+\item  Given $F_{0.1,3,12} = 2.61$ and $F = 0.58$, we
+cannot reject the null hypothesis that the instruments are unbiased.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 4.22.} \\
+\begin{enumerate}[label=\alph*)]
+\item Using the equations in the ANOVA section in the notes, we construct the following two-way ANOVA table:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|r|r|r|} \hline
+\bf{Source} & $\nu$ & \bf{Sum of Squares} & \bf{Mean Sum of Squares} & $F$ \\ \hline
+\bf{Treatments (cars)} & 3 & 2.52 & 0.84 &  3.75 \\ \hline
+\bf{Blocks (gas)} & 2 & 2.90 & 1.45 &  6.46 \\ \hline
+\bf{Error} & 6 & 1.35 & 0.224 &  \\ \hline
+\bf{Total} & 11 & 6.76 &  &  \\ \hline
+\end{tabular}
+\end{table}
+Given $F_{0.1,3,6} = 9.78$ and $F = 3.75$, we cannot reject the null hypothesis that
+the mean mileage/gallon for the three gasoline brands are the same. 
+\item  Given critical $F_{0.1,2,6} = 10.9$ from Table~\ref{tbl:Critical_F90} and calculated $F = 6.468$, we also
+cannot reject the null hypothesis that the mean mileage differs for the four cars.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 4.23.} \\
+
+We consider how many observations exceed the stated $\tilde{\rho} \leq 2.42$ criteria (hence we
+have a one-sided test) and
+find $x = 25$ and that 4 equals the criteria, resulting in a final $n = 40 - 4 = 36$.  Since this is
+a large sample we calculate an approximation to the binomial distribution using parameters
+$\bar{x} = np = 36\cdot0.5 = 18$ and $s = \sqrt{npq} = \sqrt{36\cdot0.5\cdot0.5} = 3$.  With those
+parameter we calculate the observed $z$ value to be $z = \frac{x - \bar{x}}{s} = \frac{25 - 18}{3} = 2.3333$.
+The normal distribution yields a critical value $z_{0.99} = 2.3263$ (Table~\ref{tbl:Critical_t}); hence
+we must (barely) reject the null hypothesis.  Note: If you carry out the more elaborate and exact cumulative
+binomial distribution you will find we (barely) fail to reject the null hypothesis.  This case is clearly a
+borderline decision.
+\\
+
+\noindent
+\bf{Problem 4.24.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item The null hypothesis state that there is no difference; hence we have a two-sided test.
+We sort and rank the data and find the rankings shown in Table~\ref{tbl:heatrank}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c||c|c|c|} \hline
+$q$ & \bf{Rank} & \bf{Source} & $q$ & \bf{Rank} & \bf{Source} \\ \hline
+50.52 & 1 & II & 62.09 & 9  & I \\ \hline
+53.62 & 2 & II & 63.00 & 10 & I \\ \hline
+56.34 & 3 & II & 65.37 & 11 & II \\ \hline
+56.82 & 4 & II & 65.54 & 12 & I \\ \hline
+57.15 & 5 & I  & 65.93 & 13 & II \\ \hline
+58.88 & 6 & II & 67.64 & 14 & I \\ \hline
+59.92 & 7 & II & 67.95 & 15 & I \\ \hline
+61.88 & 8 & I  & 73.84 & 16 & I \\ \hline
+\end{tabular}
+\caption{Tabulation of sorted heat flow measurements for combined data set.}
+\label{tbl:heatrank}
+\end{table}
+We calculate
+\[
+W_1 = 89, \quad U_1 = W_1 - \frac{n_1(n_1 + 1)}{2} = 53, \quad
+W_2 = 47, \quad U_2 = W_2 - \frac{n_2(n_2 + 1)}{2} = 11,
+\]
+with critical value $U_{\alpha,n_1,n_2} = U_{0.05,8,8} = 13$ (Table~\ref{tbl:Critical_U3}).
+Because $U = 11$ is smaller than the critical value, we must reject
+the null hypothesis; there is a significant difference in the heat flux at the two sites.
+\item The new measurement will have rank of 17 and we now obtain
+\[
+W_1 = 106, \quad U_1 = W_1 - \frac{n_1(n_1 + 1)}{2} = 61, \quad
+W_2 = 47,  \quad U_2 = W_2 - \frac{n_2(n_2 + 1)}{2} = 11,
+\]
+with critical value $U_{\alpha,n_1,n_2} = U_{0.05,9,8} = 15$.  Now, because $U$ is unchanged
+at $U = 11 < U_{\alpha,n_1,n_2}$ we again must reject the null hypothesis.
+\end{enumerate}
+
+\noindent
+\bf{Problem 4.25.} \\
+
+We form the following hypothesis: $H_0:$ The difference in temperature between the two
+measuring techniques is zero. $H_1:$ There is a bias one way of the other.  We form the
+differences shown in Table~\ref{tbl:tmpdiffs}.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|} \hline
+\bf{Location} & \bf{Ground} & \bf{Remote} & \bf{Difference} \\ \hline
+\bf{1} & 36.9 & 37.3 & 0.4 \\ \hline
+\bf{2} & 35.4 & 38.1 & 2.7 \\ \hline
+\bf{3} & 26.3 & 27.9 & 1.6 \\ \hline
+\bf{4} & 21.0 & 22.7 & 1.7 \\ \hline
+\bf{5} & 14.7 & 16.2 & 1.5 \\ \hline
+\end{tabular}
+\caption{Tabulation of temperature data and their differences.}
+\label{tbl:tmpdiffs}
+\end{table}
+We obtain (with critical value from Table~\ref{tbl:Critical_t}):
+$$\bar{x} = 1.58, \quad s = 0.817, \quad t = \frac{\bar{x} - \mu}{s/\sqrt{n}} = \frac{1.58\sqrt{5}}{0.817} = 4.33, \quad t_{0.025,4} = 2.776.
+$$
+We therefore reject the null hypothesis: the differences are significant, in fact the remote measurements
+are consistently (and significantly) higher than the ground-truth data.
+\\
+
+\noindent
+\bf{Problem 4.26.} \\
+
+We estimate the differences in rank and obtain
+\[
+d = \{7, -1, -1, -4, 0, 3, 5, -4, -4, -2, -3, 4\}
+\]
+from which we calculate
+\[
+r_s = 1 - \frac{6\sum_{i=1}^{12} d_i}{12(12^2-1)} = 1 - \frac{6\cdot162}{1716} = 0.434.
+\]
+Given the critical value $r_{0.025,12} = 0.587$ (Table~\ref{tbl:Critical_Spearman}) we cannot reject the null hypothesis: there is
+no significant evidence of a correlation in this data set.
+\\
+
+\noindent
+\bf{Problem 4.27.} \\
+
+Calling the salinity $x$, our hypothesis are: $H_0: \bar{x}_H \leq \bar{x}_O$, with $H_1: \bar{x}_H > \bar{x}_O$,
+with $O$ and $H$ representing Office and Home values, respectively.
+This is clearly a one-sided test.  We first mix and rank the two data set and find the results shown in Table~\ref{tbl:salts}.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c||c|c|c|} \hline
+$x$ & \bf{Rank} & \bf{Source} & $x$ & \bf{Rank} & \bf{Source} \\ \hline
+67.36 & 1 & O & 84.00 & 9  & H \\ \hline
+75.12 & 2 & O & 87.16 & 10 & O \\ \hline
+75.76 & 3 & O & 87.38 & 11 & H \\ \hline
+76.19 & 4 & H & 87.91 & 12 & O \\ \hline
+78.51 & 5 & O & 90.19 & 13 & O \\ \hline
+79.89 & 6 & H & 90.60 & 14 & H \\ \hline
+82.50 & 7 & H & 98.45 & 15 & H \\ \hline
+82.78 & 8 & H &       &    &   \\ \hline
+\end{tabular}
+\caption{Tabulation of sorted salinity data.}
+\label{tbl:salts}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item We compute (and obtain critical value from Table~\ref{tbl:Critical_U2})
+$$
+W_1 = 74, \quad U_1 = n_1n_2 + \frac{n_1(n_1+1)}{2} -W_1 = 18, \quad U_{\alpha,n_1,n_2} = U_{0.01,8,7} = 7.
+$$
+Because $U_1$ is not smaller than the critical value we cannot reject the null hypothesis.  In other words,
+there is no significant evidence that salinity at home is higher than at the office.
+\item Adding a new measurements makes it the rank of 2 and all higher ranks are increased by one.  We now find
+$$
+W_1 = 82, \quad U_1 = n_1n_2 + \frac{n_1(n_1+1)}{2} -W_1 = 18, \quad U_{\alpha,n_1,n_2} = 9.
+$$
+Thus we still cannot reject the null hypothesis.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 4.28.} \\
+
+Using the MATLAB routine we find $D = 0.25$.  Given the critical value $D_{0.05} = 0.70$ from Table~\ref{tbl:Critical_KS3} for
+a two-sample test with small samples,
+we cannot reject the null hypothesis: the permeabilities \emph{do not} seem to have originated from significantly
+different populations.
+\PSfig[H]{Fig1_Answer_permKS}{Cumulative distributions for the two permeability samples and the Kolmogorov-Smirnov statistic, $D$.}
+
+\noindent
+\bf{Problem 4.29.} \\
+
+Using the MATLAB routine we find $D = 0.5$.  Given the critical value $D_{0.05} = 0.70$ from Table~\ref{tbl:Critical_KS3} for
+a two-sample test with small samples,
+we cannot reject the null hypothesis: the magnetization \emph{do not} seem to have originated from significantly
+different populations.
+\PSfig[H]{Fig1_Answer_magKS}{Cumulative distributions for the two magnetization samples and the Kolmogorov-Smirnov statistic, $D$.}
+
+\noindent
+\bf{Problem 4.30.} \\
+
+\PSfig[h]{Fig1_Answer_GK2007KS}{Cumulative distributions for normal (heavy line) and reverse (thin line) magnetic chron intervals.}
+Given there are 144 intervals and the two curves track each other very closely, we will go out on a limb and say there
+is nothing significantly different between the two cumulative distributions.  The most distinguishing feature is that the
+normal chrons contains the Cretaceous Normal Superchron (37.6 Myr) while the longest reverse chron interval is only $\sim4$ Myr.
+\\
+
+\noindent
+\bf{Problem 4.31.} \\
+
+\PSfig[h]{Fig1_Answer_quakeKS}{Cumulative distributions for observed earthquakes (heavy line) and the steady-state prediction (thin line).}
+Given there are 401 quakes we simply created a curve that steps up 1/401 every new day.  The maximum difference of 0.065 is less than
+the critical value provided by Table~\ref{tbl:Critical_KS1} ($D_{0.01,401} = 1.63/\sqrt{401} = 0.081$), hence we cannot reject $H_0$.
+\\
+
+\noindent
+\bf{Problem 4.32.} \\
+\begin{enumerate}[label=\alph*)]
+\item $H_0: \rho = 0.$  From the definition of the correlation coefficient and Table~\ref{tbl:Critical_t} we find
+$$
+r = -0.93, \quad t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} = 6.59, \quad \nu = n - 2 = 7, \quad t_{\alpha/2,\nu} = 3.499.
+$$
+We must therefore reject the null hypothesis as the correlation is significantly different from 0.
+\item Ranking the data gives the result shown in Table~\ref{tbl:components}.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|} \hline
+\bf{Cr (ppm)}	&	\bf{Cr (Rank)}	& \bf{Ni (ppm)} &	\bf{Ni (Rank)} & $|d|$ \\ \hline
+122	&	2	& 604 &	9	& 7\\ \hline
+340	&	6	& 311 &	3	& 3\\ \hline
+522	&	9	& 173 &	1	& 8\\ \hline
+61	&	1	& 503 &	8	& 7\\ \hline
+133	&	3	& 495 &	7	& 4\\ \hline
+235	&	4	& 444 &	6	& 2\\ \hline
+498	&	8	& 272 &	2	& 6\\ \hline
+371	&	7	& 362 &	4	& 3\\ \hline
+239	&	5	& 384 &	5	& 0\\ \hline
+\end{tabular}
+\caption{Tabulation of composition data and their individual ranks.}
+\label{tbl:components}
+\end{table}
+We obtain (with critical value from Table~\ref{tbl:Critical_Spearman})
+$$
+r_s = 1 - \frac{6\sum_{i=1}^n d_i^2}{n(n^2 - 1)} = -0.97, \quad r_{\alpha,\nu} = -0.833.
+$$
+Again we must reject the null hypothesis: the correlation seems significantly different from zero.
+\item Adding the extra point gives
+$$
+r = -0.332, \quad t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} = 0.995, \quad \nu = n - 2 = 8, \quad t_{\alpha/2,\nu} = 3.355,
+$$
+which leads us to conclude that we cannot reject $H_0$: Now there appears to be no significant correlation. Likewise,
+the updated rank table are shown in Table~\ref{tbl:components2}.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|} \hline
+\bf{Cr (ppm)}	&	\bf{Cr (Rank)}	& \bf{Ni (ppm)} &	\bf{Ni (Rank)} & $|d|$ \\ \hline
+122	&	2	& 604 &	10	& 8\\ \hline
+340	&	6	& 311 &	3	& 3\\ \hline
+522	&	9	& 173 &	1	& 8\\ \hline
+61	&	1	& 503 &	8	& 7\\ \hline
+133	&	3	& 495 &	7	& 4\\ \hline
+235	&	4	& 444 &	6	& 2\\ \hline
+498	&	8	& 272 &	2	& 6\\ \hline
+371	&	7	& 362 &	4	& 3\\ \hline
+239	&	5	& 384 &	5	& 0\\ \hline
+698	&	10	& 597 &	9	& 1\\ \hline
+\end{tabular}
+\caption{Tabulation of composition data and their individual ranks after adding one new value.}
+\label{tbl:components2}
+\end{table}
+We now obtain
+$$
+r_s = 1 - \frac{6\sum_{i=1}^n d_i^2}{n(n^2 - 1)} = -0.53, \quad \quad r_{\alpha,\nu} = -0.794,
+$$
+with critical value from Table~\ref{tbl:Critical_t}. The values lead us to conclude that we cannot reject $H_0$.
+\item Converting the last point to robust normal scores based on the median and MAD of the prior nine data values
+shows that while the Cr value is an outlier the Ni value is not.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 4.33.} \\
+
+We compute the six pairwise correlations between the four abundances and find
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|} \hline
+   	& \bf{Al} & \bf{Fe} & \bf{Mg} \\ \hline
+\bf{Si}	&   -0.3145	& -0.6098	& -0.2042 \\ \hline
+\bf{Al}	&    	& -0.2320	& 0.1675 \\ \hline
+\bf{Fe}	&    	&  	& -0.1625 \\ \hline
+\end{tabular}
+\end{table}
+Given we had $n=7$ we obtain from Table~\ref{tbl:Critical_t} critical $t_{0.025,6} = 2.447$.
+We compute the $t$-values for each correlation and obtain
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|} \hline
+   	& \bf{Al} & \bf{Fe} & \bf{Mg} \\ \hline
+\bf{Si}	&   -0.7408	& -1.7205	& -0.4663 \\ \hline
+\bf{Al}	&   	& -0.5333	& 0.3798 \\ \hline
+\bf{Fe}	&   	&  	& -0.3682 \\ \hline
+\end{tabular}
+\end{table}
+Clearly, as none of the observed $t$-values exceed critical we must say the correlations
+are all insignificant.
+
+\section{Linear (Matrix) Algebra}
+
+\noindent
+\bf{Problem 5.1.} \\
+
+The diagonal elements in $\mathbf{A}^T\mathbf{A}$ are dot-products of each column vector
+with itself, yielding the squared length of that vector.  For all such sums to equal zero
+means that every single element $a_{ij} = 0$.
+\\
+
+\noindent
+\bf{Problem 5.2.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item For the model $y = a_1 + a_2t$, i.e., with $t_0 = 0$ we find for the slope
+\[
+a_2 = \frac{n \cdot S_{xy} - S_y \cdot S_x}{n \cdot S_{xx} - S_x^2} = \frac{5 \cdot 11.5518 - 2.6 \cdot 6.34}{5 \cdot 18.6992 - 6.34^2} = 0.7744
+\]
+and for the intercept we obtain
+\[
+a_1 = \frac{1}{n}S_y - \frac{a_2}{n}S_x = \frac{1}{5}[2.6 - 0.7744 \cdot 6.34] = -0.4619.
+\]
+\item The data and model are shown in Figure~\ref{fig:Fig1_Answer_linefit}.
+\PSfig[H]{Fig1_Answer_linefit}{Least-squares fit of a straight line to the five data points.}
+
+\item The matrix equation becomes
+\[
+\left [ \begin{array}{rr}
+1 & -0.82 \\
+1 & 0.23 \\
+1 & 1.35 \\
+1 & 2.25 \\
+1 & 3.33
+\end{array} \right ] \cdot 
+\left [ \begin{array}{r}
+a_1 \\ a_2 \end{array} \right ] =
+\left [ \begin{array}{r}
+-0.86 \\ -0.58 \\ 0.54 \\ 1.30 \\ 2.20 \end{array} \right ],
+\]
+where $\mathbf{A \cdot x}$ represents the model predictions at the given output locations, given the chosen coefficients.
+\item Using MATLAB, we find that \texttt{x = A $\backslash$ b} yields the same answer as in (a).
+\item $E = \mathbf{e}^T\cdot\mathbf{e} = 0.1531$, with $\mathbf{e} = \mathbf{b} - \mathbf{A \cdot x}$.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 5.3.} \\
+\begin{enumerate}[label=\alph*)]
+\item The least squares solution $\mathbf{q = [A}^T\mathbf{A]}^{-1}\mathbf{A}^T\mathbf{b}$ yields
+$\mathbf{q}^T = [ 44.124 \quad -0.0404 \quad 1686.8 ]$.
+\item The model and data are shown in Figure~\ref{fig:Fig1_Answer_heatflow}.
+\PSfig[H]{Fig1_Answer_heatflow}{Least-squares fit to the heatflow data using the proposed model.}
+
+\item The r.m.s. misfit is approximately 2.5 mW/m$^2$.
+\item Given what we learned in the Error Analysis section about the uncertainty of an analytic function, we find
+\[
+\delta q = \pm \left | \frac{dq}{dx} \right |_{x=25} \cdot \delta x = \pm \left | q_1 - \frac{q_2}{x^2} \right |_{x=25} \cdot \delta x = \pm 2.7 \mbox{mW/m}^2,
+\]
+hence the estimated heat flow value at $x = 25 \pm 1$ km is $q = 110.6 \pm 2.7 \mbox{mW/m}^2$.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 5.4.} \\
+\begin{enumerate}[label=\alph*)]
+
+\item Our model for the fault scarp will be
+$$
+y(x) = a_0 + a_1 x + a_2 H(x-x_0)
+$$
+\item Applying the model to each data point yield the matrix setup (for some chosen value of $x_0$):
+$$
+\left [ \begin{array}{ccc}
+1 & x_1 & H(x_1 - x_0) \\
+1 & x_2 & H(x_2 - x_0) \\
+\vdots & \vdots & \vdots \\
+1 & x_n & H(x_n - x_0)
+\end{array} \right ] \cdot \left [
+\begin{array}{c}
+a_0 \\
+a_1 \\
+a_2
+\end{array} \right ] = \left [
+\begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \right ]
+$$
+The solution when $x_0 = 145$ yields an r.m.s. value of 0.9 m; the parameters are
+$$
+\mathbf{a} =  \left [
+\begin{array}{c}
+a_0 \\
+a_1 \\
+a_2
+\end{array} \right ]
+=  \left [
+\begin{array}{r}
+-162.55 \\
+ -0.0180 \\
+ -5.997
+\end{array} \right ]
+$$
+Thus the fault step appears to be about 6 meters.
+\item From the plot it is clear that $x_0$ must be bracketed by $135 < x_0 < 150$.  We solve the
+linear system for many values of $x_0$ (MATLAB: \texttt{x0 = 135 : 0.1 : 150;}) and plot
+$E(x_0)$ from which we find that the optimal location of the fault
+is at $x_0 = 141.0$ m.  The final solution when $x_0 = 141$ yields an r.m.s. value of 0.48 m;
+the model parameters are
+$$
+\mathbf{a} =  \left [
+\begin{array}{c}
+a_0 \\
+a_1 \\
+a_2
+\end{array} \right ]
+=  \left [
+\begin{array}{r}
+-162.728 \\
+ -0.0134 \\
+ -6.73
+\end{array} \right ]
+$$
+Thus, the fault offset is on the order of 6.7 meters.
+\PSfig[H]{Fig1_Answer_beststeploc}{Examination of the misfit $E$ as a function of the location, $x_0$, of the fault scarp.}
+\end{enumerate}
+
+\noindent
+\bf{Problem 5.5.} \\
+\begin{enumerate}[label=\alph*)]
+\PSfig[H]{Fig1_Answer_Athy1}{Taking the logarithm of the porosity yields a linear Athy's law which we solve with a weighted regression.}
+\item Athy's law is linear in the reference porosity ($\theta_0$) but is nonlinear in the decay constant ($\alpha$).
+Linearization is simply achieved by taking the natural logarithm:
+$$
+\log \theta = \log \theta_0 - \alpha z
+$$
+We note that the uncertainty estimates need to be converted as well.  In general, the errors will now be asymmetrical but we cheat and assign
+the average error $\Delta \log \theta_i = \frac{1}{2}[\log(\theta_i+\Delta \theta_i) - \log(\theta_i-\Delta \theta_i)]$.  We can then use these
+as our ``one-sigma'' error in the observed values.
+With this transformation we can plot our data, which now appear to reflect a linear relationship between $\log \theta$ and $\alpha$ (Figure~\ref{fig:Fig1_Answer_Athy1}).
+We formulate the least square fitting of this equation using matrices.  Our $\mathbf{A\cdot x} = \mathbf{b}$ system becomes
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepe0t
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaWaamWaaeaafaWabeGbcaaaaeaacaaIXa
+% aabaGaaGOnaiaaiwdacaaIWaaabaGaaGymaaqaaiaaigdacaaIWaGa
+% aGimaiaaicdaaeaacaaIXaaabaGaaGOmaiaaicdacaaI1aGaaGimaa
+% qaaiaaigdaaeaacaaIYaGaaGyoaiaaiwdacaaIWaaabaGaaGymaaqa
+% aiaaisdacaaIWaGaaG4naiaaiwdaaeaacaaIXaaabaGaaGynaiaaic
+% dacaaIZaGaaGimaaaaaiaawUfacaGLDbaacqGHflY1daWadaqaauaa
+% deqaceaaaeaaciGGSbGaai4BaiaacEgacqaH4oqCdaWgaaWcbaGaaG
+% imaaqabaaakeaacqaHXoqyaaaacaGLBbGaayzxaaGaeyypa0JaciiB
+% aiaac+gacaGGNbWaamWaaeaafaWabeGbbaaaaeaacaaIZaGaaGioaa
+% qaaiaaiodacaaI1aaabaGaaGOmaiaaisdaaeaacaaIXaGaaGioaaqa
+% aiaaigdacaaI0aaabaGaaGyoaiaac6cacaaI4aaaaaGaay5waiaaw2
+% faaiabg2da9maadmaabaqbamqabyqaaaaabaGaaG4maiaac6cacaaI
+% 2aGaaG4maiaaiEdacaaI2aaabaGaaG4maiaac6cacaaI1aGaaGynai
+% aaiwdacaaIZaaabaGaaG4maiaac6cacaaIXaGaaG4naiaaiIdacaaI
+% XaaabaGaaGOmaiaac6cacaaI4aGaaGyoaiaaicdacaaI0aaabaGaaG
+% Omaiaac6cacaaI2aGaaG4maiaaiMdacaaIXaaabaGaaGOmaiaac6ca
+% caaIYaGaaGioaiaaikdacaaI0aaaaaGaay5waiaaw2faaiaacYcaaa
+% a!7E7E!
+\[\left[ {\begin{array}{*{20}{c}}
+1&{650}\\
+1&{1000}\\
+1&{2050}\\
+1&{2950}\\
+1&{4075}\\
+1&{5030}
+\end{array}} \right] \cdot \left[ {\begin{array}{*{20}{c}}
+{\log {\theta _0}}\\
+\alpha 
+\end{array}} \right] = \log \left[ {\begin{array}{*{20}{c}}
+{38}\\
+{35}\\
+{24}\\
+{18}\\
+{14}\\
+{9.8}
+\end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
+{3.6376}\\
+{3.5553}\\
+{3.1781}\\
+{2.8904}\\
+{2.6391}\\
+{2.2824}
+\end{array}} \right],\]
+which we solve by introducing the diagonal weights (i.e., the inverse of the squared ``one-sigma'' values computed above)
+$$
+\mathbf{W} = \left [ 57.09 \quad 75.89 \quad 91.49 \quad 80.33 \quad 86.44 \quad 95.37 \right ].
+$$
+The weighted solution (i.e., \ref{eq:weightedLSgeneral}), becomes
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepe0t
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaWaamWaaeaafaWabeGabaaabaGaciiBai
+% aac+gacaGGNbGaeqiUde3aaSbaaSqaaiaaicdaaeqaaaGcbaGaeqyS
+% degaaaGaay5waiaaw2faaiabg2da9maadmaabaqbamqabiqaaaqaai
+% aaiodacaGGUaGaaGioaiaaiodacaaI1aGaaG4naaqaaiaaiodacaGG
+% UaGaaGimaiaaiAdacaaIWaGaaGOnaiabgwSixlaaigdacaaIWaWaaW
+% baaSqabeaacqGHsislcaaI0aaaaaaaaOGaay5waiaaw2faaiaac6ca
+% aaa!4944!
+\[\left[ {\begin{array}{*{20}{c}}
+{\log {\theta _0}}\\
+\alpha 
+\end{array}} \right] = \left[ {\begin{array}{*{20}{c}}
+{3.832}\\
+{3.0556 \cdot {{10}^{ - 4}}}
+\end{array}} \right].\]
+Converted back to its original form we find our estimate of Athy's law to be
+$$
+\theta(z) = 46.15 \cdot e^{-0.00030556 \cdot z},
+$$
+illustrated in Figure~\ref{fig:Fig1_Answer_Athy2}.
+\PSfig[H]{Fig1_Answer_Athy2}{The same data and model in the original coordinate system.}
+\item At $z = 6$ km we find the predicted porosity to be $\theta(z=6000) = 7.38$\%.
+To estimate the uncertainty we need to consider the error propagation via a function
+and need
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepe0t
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaGaeuiLdqKaeqiUdeNaaiikaiaadQhaca
+% GGPaGaeyypa0ZaaqWaaeaadaWcaaqaaiabgkGi2kabeI7aXjaacIca
+% caWG6bGaaiykaaqaaiabgkGi2kaadQhaaaaacaGLhWUaayjcSdGaeq
+% iTdqMaamOEaiabg2da9iaaisdacaaI2aGaaiOlaiaaiodacaaIYaGa
+% eyyXICTaaGimaiaac6cacaaIWaGaaGimaiaaicdacaaIZaGaaGimai
+% aaiAdacaaIWaGaaGOnaiabgwSixlaaikdacaaIWaGaaGimaiaadwga
+% daahaaWcbeqaaiabgkHiTiaaicdacaGGUaGaaGimaiaaicdacaaIWa
+% GaaG4maiaaicdacaaI2aGaaGimaiaaiAdacqGHflY1caaI2aGaaGim
+% aiaaicdacaaIWaaaaOGaeyypa0JaaGimaiaac6cacaaI0aGaaGynai
+% aacwcaaaa!6813!
+\[\Delta \theta (z) = \left| {\frac{{\partial \theta (z)}}{{\partial z}}} \right|\delta z = \left| -46.15 \cdot 0.00030556 \cdot{e^{ - 0.00030556 \cdot 6000}}\right| \cdot 200 = 0.45\%. \]\end{enumerate}
+\noindent
+\bf{Problem 5.6.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item This is actually a nonlinear problem so we will do an approximation.
+Since we are basically fitting a circle, we measure the misfit in the radial direction, i.e.,
+$$
+E = \sum_{i=1}^n \left (x_i - x_0\right)^2 +  \left (y_i - y_0\right)^2 - r^2,
+$$
+where $(x_0, y_0)$ is the center of the circle and $r$ is its radius.
+\item  We take the partial derivatives of E with respect to its three parameters and obtain
+$$
+\frac{\partial E}{\partial x_0} = 0 \quad \sum_{i=1}^n x_i = n x_0, \quad x_0 = \bar{x},
+$$
+$$
+\frac{\partial E}{\partial y_0} = 0 \quad \sum_{i=1}^n y_i = n y_0, \quad y_0 = \bar{x},
+$$
+$$
+\frac{\partial E}{\partial r} = 0 \quad r = 0.
+$$
+So, while we can solve for the origin this way we need another scheme to find $r$.  
+We note that once the origin is fixed then all the data points are a distance $r_i$ from the
+origin and we instead simply minimize
+$$
+E_r = \sum_{i=1}^n \left (r_i - r\right )^2, \quad \frac{\partial E_r}{\partial r} = 0 \quad r = \bar{r}.
+$$
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 5.7.} \\
+\begin{enumerate}[label=\alph*)]
+\PSfig[H]{Fig1_Answer_noisy_a}{The noisy data, the approximate period, $T \sim 1000$ and the best-fitting initial model.}
+\item The most suitable model would be
+$$
+y(t) = m_1 + m_2 bt + A\cos (\omega t - \phi) = m_1 + m_2 bt + m_3 \cos (\omega t)  + m_4\sin (\omega t).
+$$
+\item Plotting the data (Figure~\ref{fig:Fig1_Answer_noisy_a}) shows an approximate period $T = 1000$ (frequency of $\omega = 2 \pi/T = 6.28\cdot10^{-3}$).
+We solve for the parameters by applying the model to each data point, yielding the matrix setup:
+$$
+\left [ \begin{array}{cccc}
+1 & t_1 & \cos(\omega t_1) & \sin(\omega t_1) \\
+1 & t_2 & \cos(\omega t_2) & \sin(\omega t_2) \\
+\vdots & \vdots & \vdots & \vdots \\
+1 & t_n & \cos(\omega t_n) & \sin(\omega t_n) \\
+\end{array} \right ] \cdot \left [
+\begin{array}{c}
+m_1 \\
+m_2 \\
+m_3 \\
+m_4
+\end{array} \right ] = \left [
+\begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \right ]
+$$
+The parameters are found to be
+$$
+\left [
+\begin{array}{c}
+	m_1 \\
+	m_2 \\
+	m_3 \\
+	m_4
+\end{array} \right ]
+=  \left [
+\begin{array}{r}
+-20.7428 \\
+ 0.0121 \\
+ 1.3896 \\
+12.7393
+\end{array} \right ]
+$$
+with $E \sim 6911$.
+\item We next try a range of periods (900--1200) spanning our initial value 
+and evaluate the solution and misfit
+for each corresponding frequency.  The optimum frequency is found to be $\omega_0 = 2 \pi / 1082$ (Figure~\ref{fig:Fig1_Answer_noisy_b}). 
+\PSfig[h]{Fig1_Answer_noisy_b}{The optimum frequency (here, period) is the one that minimizes the misfit, $E$. The best period
+and misfit are represented by the solid circle, with open circle representing initial guess.}
+The best-fitting model using the optimum frequency is shown in Figure~\ref{fig:Fig1_Answer_noisy_c}.
+\PSfig[h]{Fig1_Answer_noisy_c}{The noisy data and the best-fitting model for the optimum frequency.}
+
+\end{enumerate}
+
+\bf{Problem 5.8.} \\
+\begin{enumerate}[label=\alph*)]
+\item Because of the unknown bias $h_0$, a suitable linear model would be
+$$
+h(t) = h_0 + \frac{1}{2}g_p t^2.
+$$
+\item
+Using this model, the least squares solution and the given data, we find $h_0 = 6.25$m and $g_p = 16$ m s$^{-2}$.
+\PSfig[h]{Fig1_Answer_drops}{The good news is that the drop heights nicely follow the prediction except for the small bias $h_0$.
+The bad news is that $g_p > 15$, meaning you do not have enough fuel to take off. Got potatoes?}
+\end{enumerate}
+
+\bf{Problem 5.9.} \\
+
+\PSfig[H]{Fig1_Answer_gbasin_a}{Observed free-air anomalies and best-fitting predicted model.}
+\begin{enumerate}[label=\alph*)]
+\item 	Given the linear regional model, and using $g(x,d)$ to represent the equation for the gravity
+        over a 20 km basin with a depth $d$ and unit density, a suitable linear model for the predicted free-air anomaly would be
+	$$
+	f(x) = a + bx + \Delta \rho g(x,d),
+	$$
+	which is nonlinear in $d$ but linear in the other parameters.  We linearize the problem
+	by assuming $d = 4$ km.  We don't really care about the trend but want
+	to find the optimal density contrast for a given basin depth.  Computing $f(x)$ for a range
+	of depths and keeping track of the misfit we determine the best solution for the density contrast
+	to be $-595$, yielding a sediment density of $2075$ kg/m$^3$.
+\item   With the 4 km depth no longer being viable after the seismic survey we rerun the fitting for a
+	range of depths and discover an optimal fit for a basin depth of 4.9 km and a lower density
+	contrast of $-506$ kg/m$^3$.
+\end{enumerate}
+Figure~\ref{fig:Fig1_Answer_gbasin_a} shows the best-fitting predicted gravity profile, while
+Figure~\ref{fig:Fig1_Answer_gbasin_b} presents the misfit as a function of basin depth, and
+Figure~\ref{fig:Fig1_Answer_gbasin_c} gives the trade-off between basin depth and density.
+\PSfig[h]{Fig1_Answer_gbasin_b}{Minimizing the misfit for a range of basin depths.} 
+\PSfig[h]{Fig1_Answer_gbasin_c}{As we selected deeper basin depths the optimal density contrast must decrease.} 
+
+\section{Regression}
+
+\bf{Problem 6.1.} \\
+\begin{enumerate}[label=\alph*)]
+\item See Figure~\ref{fig:Fig1_Answer_HawaiiAge} for data and both model predictions.
+\PSfig[H]{Fig1_Answer_HawaiiAge}{Ages of basalt samples with reported errors.  Dashed line is regular
+least-square regression while the solid line uses the inverse uncertainties as weights.}
+\item Using the model
+$$
+t(d) = t_0 + s \cdot d = t_0 + d/v
+$$
+we find for unweighted data that $t_0 = -1.1241$ My, $s = 0.0114 \mbox{ My}\cdot \mbox{km}^{-1}$, and
+$v = 8.78 \mbox{ cm} \cdot \mbox{yr}^{-1}$.
+
+\item Using the weights $w_i = 1/\sigma_i$ we obtain $t_0 = -0.804$ My,
+$s = 0.0103 \mbox{ My}\cdot \mbox{km}^{-1}$, and $v = 9.72 \mbox{ cm} \cdot \mbox{yr}^{-1}$.
+\item  The intercept represents the age of the
+volcanism at the hotspot.  It is not zero because the ages sampled along the chain are taken from
+the uppermost (i.e., youngest) parts of each volcano.  Since volcanoes may take several Myr to form
+we anticipate a negative intercept.  The slope is the inverse of the velocity of the Pacific plate
+over the Hawaiian hotspot.  There is some suggestions that this velocity has increased over the last
+few My.  The values are in general agreement with plate tectonic theory.
+\end{enumerate}
+
+\noindent
+\bf{Problem 6.2.} \\
+
+We use the equations presented in the notes to make a plot (Figure~\ref{fig:Fig1_Answer_COD})
+of the requested regression lines.  We find that both orthogonal regression lines are well
+inside the one-sigma interval given by the standard least-squares regression.
+\PSfig[H]{Fig1_Answer_COD}{The deviations of the \emph{COD.txt} data and regression lines (heavy line
+is LS, dashed is MA, and dotted is RMA; they all plot on top of each other for this case).
+The faint lines indicate the one-sigma bounds.}
+
+\noindent
+\bf{Problem 6.3.} \\
+
+\begin{enumerate}[label=\alph*)]
+	\item Taking the square-root of the ages we obtain the least-square solution to be
+	$d_r = -1311.34$m and $c = -426.97$.
+	\item The data and the model is evaluated in Figure~\ref{fig:Fig1_Answer_c2407}.
+\PSfig[H]{Fig1_Answer_c2407}{Observed seafloor depths from \emph{c2407.txt}, with regression model (heavy line)
+evaluated at $t(d)$, where $d$ is distance from the ridge.}
+\end{enumerate}
+
+\noindent
+\bf{Problem 6.4.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  The slopes represent the rate of relative sea level change at the two sites and reflect the combined
+effect of actual (eustatic) sea level rise and (local) tectonic subsidence (or uplift).  At Hilo we find a
+rate of 3.86 mm/yr and at Honolulu it is 1.58 mm/yr.
+\PSfig[h]{Fig1_Answer_subsidence_a}{Observed tide gauge readings from Honolulu (gray) and Hilo (black).
+The regression lines and best slopes (proxies for subsidence rates) are indicated as well.}
+
+\item Because the eustatic component is the same in both places, we subtract the Honolulu rate from
+the Hilo rate and find a subsidence rate at Hilo of 2.28 mm/yr.
+
+\item Since the oceanographic effects may show similar variations at the two stations, their
+differences should better reflect the tectonic component at Hilo.  Thus, we subtract the Honolulu observations
+from the Hilo observations for each time step; this should roughly eliminate the eustatic effect as well
+as shorter period sea level fluctuations.  Doing so we find the rate to be 2.23 mm/yr, pretty close to our answer above.
+\PSfig[H]{Fig1_Answer_subsidence_c}{Difference in tide gauge readings (Hilo - Honolulu), reflecting tectonic subsidence only.}
+\end{enumerate}
+
+\noindent
+\bf{Problem 6.5.} \\
+
+\noindent
+We perform the RLS regression as shown in the notes and identify five outliers with respect to the
+robust line.  These are the three dinosaurs, which all have a brain size much smaller than the
+prediction and the two primates which have a larger than predicted brain size.
+\PSfig[H]{Fig1_Answer_brains}{Reweighted least squares of brain size versus body weight.}
+
+
+\noindent
+\bf{Problem 6.6.} \\
+
+{\it new problem}\\
+
+
+\section{Sequences and Series Analysis}
+
+\noindent
+\bf{Problem 7.1.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  Counting up the transitions we find $n = 99$ transitions, with a transition frequency matrix
+$$
+\mathbf{A} = \left [ \begin{array}{cccc}
+2   &    13   &   9   &    0 \\
+1   &    3   &    14   &   4 \\
+0   &    4   &    2   &    20 \\
+20  &    2   &    2   &    3
+\end{array} \right ].
+$$
+\item From this we calculate row sums (\verb!S = sum(A')!) which gives $[ 24 \ 22 \ 26 \ 27 ]^T$ and then
+divide by the total $n$ to get
+$$
+\mathbf{f} = \left [ \begin{array}{cccc}
+0.2424 & 0.2222 & 0.2626 & 0.2727
+\end{array} \right ],
+$$
+i.e., \verb!f = S/sum(S)!.
+
+\item Normalization of $\mathbf{A}$ yields
+$$
+\mathbf{P} = \left [ \begin{array}{cccc}
+0.0833  &    0.5417   &   0.3750    &       0 \\
+0.0455   &   0.1364    &  0.6364   &   0.1818 \\
+0   &   0.1538   &   0.0769   &   0.7692 \\
+0.7407   &   0.0741   &   0.0741   &   0.1111 \\
+\end{array} \right ].
+$$
+In MATLAB, this is done in one line: \verb!P = diag(1./S)*A!.
+
+\item The expected number of transitions is given by scaling $\mathbf{f}$ by each row sum:
+$$
+\mathbf{E} = \left [ \begin{array}{cccc}
+    5.8182  &  5.3333  &  6.3030  &  6.5455 \\
+    5.3333  &  4.8889  &  5.7778  &  6.0000 \\
+    6.3030  &  5.7778 &   6.8283  &  7.0909 \\
+    6.5455  &  6.0000 &   7.0909  &  7.3636
+\end{array} \right ].
+$$
+This can be done in MATLAB as \verb!E = S'*f!.
+Since all but one of the expected transitions are 5 or higher, we pick those only (\verb!k = find (E > 5)!) and
+use the $\chi^2$ sum for these transitions and find $\chi^2 = 107.4$ (\verb!chi2 = sum((A(k)-E(k)).^2./E(k))!.
+For $\nu = (4-1)^2 = 9$ the critical value (e.g., Table~\ref{tbl:Critical_chi2}) is $\chi^2_{0.05,9} = 16.9$.  Therefore, we reject
+the null hypothesis of no pattern: there is a strong tendency for certain states to follow each other.
+\item The 2nd order Markov transition probabilities are derived by squaring the results under (c):
+$$
+\mathbf{Q = P \cdot P} = \left [ \begin{array}{cccc}
+    0.0316 &  0.1767  & 0.4048  &  0.3869 \\
+    0.1447 &  0.1546  & 0.1662  &  0.5345 \\
+    0.5768 &  0.0898  & 0.1608  &  0.1726 \\
+    0.1474 &  0.4310 & 0.3388  &  0.0828
+\end{array} \right ].
+$$
+A good approximation of the observed 2-step transitions is given by scaling $\mathbf{Q}$ with the row totals, i.e.,
+\verb!O = diag(S)*Q! (alternatively, you could also count them up as under (a)).  Hence,
+$$
+\mathbf{O} \approx \left [ \begin{array}{cccc}
+    0.7576  &  4.2407  &  9.7150  &  9.2867 \\
+    3.1827  &  3.4009  &  3.6573  & 11.7591 \\
+   14.9966  &  2.3346  & 4.1808   & 4.4880 \\
+    3.9798  & 11.6360  & 9.1488   & 2.2354
+\end{array} \right ].
+$$
+The expected transitions remain unchanged, so we use the same bins; we find $\chi^2 = 41.3$. (Thus, in MATLAB we still do \verb!chi2 = sum((O(k)-E(k)).^2./E(k))!
+The critical value also remains the same, and we conclude that there are significant 2nd order Markovian
+properties present in the section.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 7.2.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  Counting up the transitions we find $n = 59$ transitions, with a transition frequency matrix
+$$
+\mathbf{A} = \left [ \begin{array}{ccc}
+0   &    3   &   2  \\
+2   &    3   &  18  \\
+1   &    17  &  14
+\end{array} \right ].
+$$
+\item From this we calculate row sums to be $[ 4 \ 23 \ 32 ]^T$ and then
+divide by the total $n$ to get
+$$
+\mathbf{f} = \left [ \begin{array}{cccc}
+0.0678 & 0.3898 & 0.5242
+\end{array} \right ].
+$$
+
+\item Normalization of $\mathbf{A}$ yields
+$$
+\mathbf{P} = \left [ \begin{array}{ccc}
+0.0000  &  0.7500  &  0.2500    \\
+0.0870  &  0.1304  &  0.7826   \\
+0.0312  &  0.5312  &  0.4375 
+\end{array} \right ].
+$$
+
+\item The expected number of transitions is given by scaling $\mathbf{f}$ by each row sum, i.e.,
+$$
+\mathbf{E} = \left [ \begin{array}{ccc}
+    0.2712  &  1.5593  &  2.1695 \\
+    1.5593  &  8.9661  &  12.4746 \\
+    2.1695  &  12.4746 &  17.3559
+\end{array} \right ].
+$$
+Only four of the expected transitions are 5 or higher so we combine the remaining five into a single
+bin.  We compute $\chi^2 = 8.78$.
+For $\nu = (3-1)^2 = 4$ the critical value (e.g., Table~\ref{tbl:Critical_chi2}) is $\chi^2_{0.05,4} = 9.49$.
+Therefore, we cannot reject the null hypothesis stating there is no significant cyclic pattern.
+\end{enumerate}
+
+\noindent
+\bf{Problem 7.3.} \\
+
+By tabulating the transitions we obtain the embedded transition matrix
+$$
+\mathbf{A} = \left [ \begin{array}{cccc}
+    0  & 15  &  2 &  1 \\
+    1  &  0  & 14 &  1 \\
+    2  &  1  &  0 & 15 \\
+    14 &  0  &  3 &  0
+\end{array} \right ].
+$$
+Then, by applying the recipe discussed in Section~\ref{sec:embmarkov} we obtain the marginal probability vector
+$$
+\mathbf{f} = \left [ 0.2660 \quad 0.2234 \quad 0.2660 \quad 0.2447 \right ].
+$$
+We use this to predict the expected frequencies and strip off the diagonal, yielding
+$$
+\mathbf{E} = \left [ \begin{array}{cccc}
+    0     & 5.59  & 6.65 & 6.12 \\
+    5.59  & 0     & 5.59 & 5.14 \\
+    6.65  & 5.59  & 0    & 6.12 \\
+    6.12  & 5.14  & 6.12 & 0
+\end{array} \right ].
+$$
+We can now compute the observed $\chi^2 = 74.8$ with $\nu = 9$ degrees of freedom.  With the critical
+value for 95\% confidence being 16.92 we must reject the null hypothesis of no cyclicity present.
+
+\noindent
+\bf{Problem 7.4.} \\
+
+We state $H_0$: Aso erupts at a uniform rate. Given there are $n = 95$ data points, we simply make a cumulative function $y_j = j / 95$, where
+$j$ is the point id.  Plotting that function versus the years we can overlay a straight line that goes from 0
+to 1 over the same range and determine $D$ as the maximum difference between the two cumulative curves.  In MATLAB,
+we use kolsmir with the 2nd data set \verb!y = linspace(min(aso),max(aso),length(aso))!.  We find
+$D = 0.168$.  From our two-sided, one-sample K-S Table~\ref{tbl:Critical_KS1} we find $D_{0.05,95} = 0.1395$, hence we must reject $H_0$.
+\PSfig[H]{Fig1_Answer_Aso}{Comparison of the cumulative eruption sequence of the volcano Aso in Japan (heavy line)
+compared to a uniform eruption model (dashed line).  The vertical line indicate the maximum departure of the two curves.}
+
+\noindent
+\bf{Problem 7.5.} \\
+
+We convert the durations of each chron to a list of chron boundary times; this is our data set $t_i, i = 1,288$.  Following the
+procedures in Section~\ref{sec:seriestest} we find $S = 60.43$, $T = 155.73$ and $T_{1/2} = 34.80$ (all in Ma).
+Calculation of the $z$ statistics yields $z = 9.68$ which is clearly far outside the boundary corresponding to
+the 95\% level of confidence. \\
+
+
+\noindent
+\bf{Problem 7.6.} \\
+
+{\it new problem}\\
+
+\noindent
+\bf{Problem 7.7.}
+\\
+
+\noindent
+We have a time-series of temperature deviations that we wish to subject to autocorrelation analysis.
+\begin{enumerate}[label=\alph*)]
+\item Since the data are equidistant in depth we first detrend the data as a function of depth and analyze the
+residual temperatures using autocorrelation, with lags equal to depth (here, 1 lag equals 1 meter; see Figure~\ref{fig:Fig1_Answer_vostok_a}).
+\PSfig[H]{Fig1_Answer_vostok_a}{(a) The detrended data set \texttt{vostok.txt} as a function of the equidistant depth, $z$.
+(b) The autocorrelation of these temperature deviations has a peak at $z=1617$ m which corresponds to a period of $t = 116,296$ years.}
+\item Because of compaction the equidistant spacing does not correspond to an equidistant time, and this leads to blurring of the
+repeating signal in the autocorrelation. To study the periodicity in the
+data we need to resample the record onto an equidistant time frame.  We use a cubic spline to do so,  detrend the data (now as a function of time), and reanalyze the
+residual temperatures using autocorrelation, with lags now equal to time (here, 1 lag equals 25 years; see Figure~\ref{fig:Fig1_Answer_vostok_b}).
+\PSfig[h]{Fig1_Answer_vostok_b}{(a) The detrended data set \texttt{vostok.txt} as a function of the equidistant time ($\Delta t - 25$ years).
+(b) The autocorrelation of these temperature deviations now reveals much clearer periodicities, corresponding approximately to a
+repeat time of $\sim 100,000$ years.  This is the ``ice age'' periodicity related to the Milankovic cycles.}
+\end{enumerate}
+
+\noindent
+\bf{Problem 7.8.} \\
+
+{\it new problem}\\
+
+\noindent
+\bf{Problem 7.9.} \\
+
+{\it new problem}\\
+
+\noindent
+\bf{Problem 7.10.} \\
+
+Sliding the two sections past each other and calculating the proportion of matches, we find that
+this measure of cross-association peaks at $r = 10/13 = 0.769$ for a relative lag $\tau = 13$.
+The figure shows the correlation as a function of the lag.
+
+%\clearpage
+\section{Spectral Analysis}
+
+\noindent
+\bf{Problem 8.1.} \\
+
+\PSfig[H]{Fig1_Answer_cavecreek}{(a) Monthly flow of water in Cave Creek, Kentucky. (b) Variance spectrum
+versus harmonic number.}
+Since these are monthly data ($\Delta t = 1$ month) then the Nyquist frequency $f_N = 1/2\Delta t$ equals
+6 cycles per year.  We find the dominant peak for harmonic number 18 (Figure~\ref{fig:Fig1_Answer_cavecreek}).
+Since the fundamental period here
+is the length of the data (18 years) then the dominant period $P_0 = 18/18$ year = 1 year. Using Fisher's
+test for significance (\ref{eq:computed_g}, \ref{eq:critical_g}) we find that this peak
+is extremely significant ($g = 0.3967$ vs $g(0.05,108) = 0.0692$). \\
+
+
+\noindent
+\bf{Problem 8.2.} \\
+
+\PSfig[h]{Fig1_Answer_Billings}{(a) Daily temperature fluctuations in Billings, Montana. (b) Variance spectrum
+versus harmonic number.}
+Since these are daily data ($\Delta t = 1$ day) then the Nyquist frequency $f_N = 1/2\Delta t$ equals
+$\sim 182.5$ cycles per year.  We find the dominant peak for harmonic number 15 (Figure~\ref{fig:Fig1_Answer_Billings}).
+Since the fundamental period here
+is the length of the data (15 years) then the dominant period $P_0 = 15/15$ year = 1 year. Using Fisher's
+test for significance we find that this peak is hugely significant ($g = 0.6933$ vs $g(0.05,2752) = 0.004$). \\
+
+
+\noindent
+\bf{Problem 8.3.} \\
+
+\PSfig[H]{Fig1_Answer_sspots}{(a) Number of observed sun spots (b) Variance spectrum
+versus harmonic number.}
+Since these are monthly data ($\Delta t = 1$ month) then the Nyquist frequency $f_N = 1/2\Delta t$ equals
+6 cycles per year.  We find the dominant peak for harmonic number 24 (Figure~\ref{fig:Fig1_Answer_sspots}).  Since the fundamental period here
+is the length of the data (266.238 years) then the dominant period $P_0 = 266.2380/24$ year = 11.1 year. Using Fisher's
+test for significance we find that this peak is significant ($g \sim 0.2$ vs $g(0.05,1598) = 0.0065$). \\
+
+
+\noindent
+\bf{Problem 8.4.} \\
+
+\PSfig[h]{Fig1_Answer_columbia}{(a) Daily discharge of the Columbia River (in m$^3$). (b) Variance spectrum
+versus harmonic number.}
+Since these are daily data ($\Delta t = 1$ day) then the Nyquist frequency $f_N = 1/2\Delta t$ equals
+$\sim 182.5$ cycles per year.  We find the dominant peak for harmonic number 7 (Figure~\ref{fig:Fig1_Answer_columbia}).
+Since the fundamental period here
+is the length of the data (7.25 years) then the dominant period $P_0 = 7.25/7$ year $\sim 1$ year. Using Fisher's
+test for significance we find that this peak is extremely significant ($g = 0.3364$ vs $g(0.05,1324) = 0.0077$). \\
+
+
+\noindent
+\bf{Problem 8.5.} \\
+
+The Nyquist period $P_N$ is related to the sampling interval $\Delta t$, which here is 1 month or 1/12 year.
+We find the Nyquist frequency and period to be
+$$
+f_N = \frac{1}{2 \Delta t} = \frac{1}{2 \cdot \frac{1}{12}} = 6 \mbox{ cycles/year}
+\quad P_N = \frac{1}{f_N} = 2\Delta t = 2 \mbox{ months.}
+$$
+
+From the raw periodograms (Figure~\ref{fig:Fig1_Answer_HonHil}) we see the dominant period in both spectra occurs for the period $P = 12$ months,
+i.e., the annual variation due to seasons.  There is also a clear local maxima at $P = 6$ months.  Longer periods
+do not appear to be significantly well represented.
+\PSfig[H]{Fig1_Answer_HonHil}{Variance spectrum of detrended Honolulu and Hilo tide gauge records versus Fourier periods.}
+
+
+\noindent
+\bf{Problem 8.6.} \\
+\begin{enumerate}[label=\alph*)]
+\item  The data and the best quadratic trend is shown in Figure~\ref{fig:Fig1_Answer_CO2_a}.
+Our model for the the quadratic trend will be
+$$
+y(x) = a_0 + a_1 (t-t_0) + a_2 (t-t_0)^2
+$$
+Applying the model to each data point yield the matrix setup (for some chosen value of $t_0$):
+$$
+\left [ \begin{array}{ccc}
+1 & t_1-t_0 & (t_1-t_0)^2 \\
+1 & t_2-t_0 & (t_2-t_0)^2 \\
+\vdots & \vdots & \vdots \\
+1 & t_n-t_0 & (t_n-t_0)^2
+\end{array} \right ] \cdot \left [
+\begin{array}{c}
+a_0 \\
+a_1 \\
+a_2
+\end{array} \right ] = \left [
+\begin{array}{c}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{array} \right ]
+$$
+The solution when $t_0 = 1986.7$ (mid-point of our series) yields the parameters
+$$
+\mathbf{a} =  \left [
+\begin{array}{c}
+a_0 \\
+a_1 \\
+a_2
+\end{array} \right ]
+=  \left [
+\begin{array}{r}
+347.1556 \\
+ 1.4996 \\
+ 0.0122
+\end{array} \right ].
+$$
+We use this model to obtain the residuals needed for the spectral analysis.
+\PSfig[H]{Fig1_Answer_CO2_a}{CO$_2$ variations observed on top of Mauna Loa, and the best quadratic trend.}
+
+\item Performing spectral analysis on the residuals we find three peaks that appear significant
+(Figure~\ref{fig:Fig1_Answer_CO2_b}).  The one at
+the very longest period is likely to be a long-period signal not captured by our simple trend.  We focus on the two
+other peaks, at harmonic numbers 57 and 114.  Given that the fundamental period $T = 57.0833$ we find these
+two periods correspond to $P_0 = 57.0833/57$ year $\sim 1$ year and $P_1 = 57.0833/114$ year $\sim 6$ months.
+Hence, the annual cycle dominates the spectrum, with a much smaller 6-month cycle that is related to hemispheric
+differences in the photosynthetic activity by plants.
+\PSfig[H]{Fig1_Answer_CO2_b}{CO$_2$ spectrum has three discernible peaks.}
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 8.7.} \\
+
+\PSfig[H]{Fig1_Answer_noisy_dy}{The detrended data set \texttt{noisy.txt}.  The enforcement of a
+periodic signal will likely lead to some leakage in the spectrum.}
+We again explore \texttt{noisy.txt}, remove the least-squares linear regression trend and obtain the residuals shown in Figure~\ref{fig:Fig1_Answer_noisy_dy}.
+Using these residuals we take the Discrete Fourier transform and obtain the raw periodogram (Figure~\ref{fig:Fig1_Answer_noisy_dft}). We see the dominant period occurs for harmonic number 2.  Given that
+the fundamental period $T = n\Delta t = 441 \cdot 5 = 2205$ we find the dominant
+periods equals $P_0 = 2205/2 = 1102.5$.  Our earlier analysis in the problem set of Chapter~\ref{ch:matrix}
+determined an optimum period of 1082, but in the
+present analysis we are restricted to using Fourier harmonics only.  The harmonic closest to the optimum frequency
+has a period of 1102.5, hence there is some spectral leakage into the nearby harmonic numbers.
+\PSfig[H]{Fig1_Answer_noisy_dft}{Variance spectrum of the detrended data set plotted against harmonic number.}
+
+\noindent
+\bf{Problem 8.8.} \\
+
+\PSfig[H]{Fig1_Answer_vostok_c}{The periodogram of detrended and time-equidistant data set \texttt{vostok.txt}.  The large
+peak in the periodogram is approximately 100,000 years and reflects the periodicity of the ice ages.}
+We use the ice core temperature data after they were resampled onto an equidistant time lattice ($\Delta t = 25$ years)
+and detrended.  The Nyquist frequency is simply 0.02 year$^{-1}$. Applying the discrete Fourier transform
+to the detrended time-series and plotting the variance spectrum versus period reveals a
+large peak at approximately 100k yr.  It is deemed significant via (\ref{eq:critical_g}) at the 99\% level of confidence.
+
+%\clearpage
+\section{Analysis of Directional Data}
+
+\noindent
+\bf{Problem 9.1.} \\
+
+\PSfig[H]{Fig1_Answer_HogNeck}{The current directions (solid line) and speeds (dashed lines) for the surface waters
+off Hog Neck, MA (i.e., \texttt{HogNeck.txt}).}
+During the two days recorded, the current directions flip back and forth between N40E and N220E, i.e.,
+exactly opposite by 180 degrees.  They undergo complete reversal every 6 hours while the current speeds undergo
+a rapid increase over 3 hours followed by a rapid decline over the next 3 hours.  Hence, both components have the
+same 12 hour cycle. \\
+
+\noindent
+\bf{Problem 9.2.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  The mean direction of the ripple data from formation A is $323.2\DSm$,
+with a mean resultant length $R_a = 0.789$.  Given $n = 41$ and $\alpha = 0.05$ we use Table~\ref{tbl:Critical_R2}
+to find $R_{\alpha,n} = 0.273$.  Thus, this direction is significant at the 95\% level of confidence.
+The 95\% confidence bound on the mean direction is $11.8\DSm$ so we must reject the hypothesis that the current was
+trending $200\DSm$ at that time.
+\item The data from formation B gives a mean resultant of 0.314, and with a combined resultant of 0.5505 we find
+an observed $F$-value of 36.4.  This greatly exceeds the $F_{1,81,0.05} = 3.96$ (Table~\ref{tbl:Critical_F95}) and
+we must reject the hypothesis that the two directions are the same and consider that there indeed seems likely that there
+was a change in current direction between the formation of the two layers.
+\end{enumerate}
+
+
+\noindent
+\bf{Problem 9.3.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item  The mean direction of the data is $112.0\DSm$,
+with a mean resultant length $R = 0.9486$.  Given $n = 19$ and $\alpha = 0.05$ we use Table~\ref{tbl:Critical_R2}
+to find $R_{\alpha,n} = 0.394$.  Thus,
+this direction is significant at the 95\% level of confidence.
+
+\item The $R$ value corresponds to $\kappa = 10.031$ (via Table~\ref{tbl:Critical_kappa2} by linear interpolation),
+which yields a standard error $s_e = 4.26\DSm$
+that we must divide by 2 to get the single-angle error.  For
+$\alpha = 0.05$ we find the confidence interval is $112.0\DSm\pm4.2\DSm$. The WNW-ESE direction of $112.5\DSm$
+means we would expect extensional failures to form at $90\DSm$ to that trend, i.e., $22.5\DSm$, which is outside
+the confidence interval on the mean direction of the joints.  Thus, we reject WNW-ESE
+extension as a possible origin for our joints.
+
+\item The similar analysis of this data set ($n = 18$) reveals a mean direction of $126.8\DSm$ with a mean resultant
+length $R = 0.9453$; again this is highly significant at the 95\% confidence level ($R_{\alpha,n} = 0.405$ per Table~\ref{tbl:Critical_R2}).
+
+\item The pooled estimate yields $R_p = 0.9154$ and $\kappa = 6.23$ (via Table~\ref{tbl:Critical_kappa2} by linear interpolation);
+applying the $F$-test
+indicates that the observed $F = 22.1$ which exceeds critical $F_{1,35,0.05} = 4.1$ (Table~\ref{tbl:Critical_F95}) and
+we must reject the hypothesis that the two directions are the same.
+
+\end{enumerate}
+
+\noindent
+\bf{Problem 9.4.} \\
+
+The mean strike is $140\DSm$ and the mean dip is $58\DSm$; with $R = 0.7592$ exceeding the
+critical value from Table~\ref{tbl:Critical_R3} that shows $R_{12,0.05} = 0.46$.
+Clearly, this direction is significant.
+\\
+
+\noindent
+\bf{Problem 9.5.} \\
+
+{\it new problem}\\
+
+\noindent
+\bf{Problem 9.6.} \\
+
+{\it new problem}\\
+
+\noindent
+\bf{Problem 9.7.} \\
+
+\begin{enumerate}[label=\alph*)]
+\item We use the data to find the mean paleomagnetic vector
+$\mathbf{m} = (-0.2092, 0.1029, 0.6400)$, corresponding to a mean declination and inclination of $153.8^{\circ}$ and $39.8^{\circ}$,
+respectively.  We find the mean resultant length $\bar{R} = 0.681$.  Given $n = 12$ we find (via Table~\ref{tbl:Critical_R3}) that
+the critical value $R_{0.05,12} = 0.46$, hence there appears to be a significant direction in this data set.
+
+\item Based on $n$ and $\kappa \sim 3.09$ (from Table~\ref{tbl:Critical_kappa3}) we obtain $\delta_{95\%} \sim 23^{\circ}$.
+Converting the present magnetic vector to Cartesian coordinates gives $\mathbf{v} = (0.6862, -0.0685, 0.7242)$, whose
+angle with $\mathbf{m}$ is $62.6^{\circ}$. Since this greatly exceeds $\delta_{95\%}$ we conclude these directions are indeed
+different and suggest the seafloor was formed at a different location in the past.
+\end{enumerate}

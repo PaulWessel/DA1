@@ -1,0 +1,499 @@
+% $Id: DA1_Chap2.tex 685 2019-01-12 07:54:38Z pwessel $
+%
+\chapter{REVIEW OF ERROR ANALYSIS}
+\label{ch:error}
+\epigraph{``An error does not become truth by reason of multiplied propagation, nor does the truth become error because nobody will see it.''}{\textit{Mahatma Gandhi, India Independence Leader}}
+
+\index{Error analysis|(}
+	Error analysis is the study and evaluation of uncertainty in measurements of continuous data 
+(discrete data may have no errors).  We know that no measurement, however carefully made, 
+can be completely free of uncertainties.  Since science depends on measurements, it is 
+crucially important to be able to evaluate these uncertainties and to keep them to a minimum.  
+Thus errors are not mistakes and you cannot avoid them by being very careful, but you should strive to make them 
+as small as possible.  Understanding uncertainties is critical for determining the significance of models
+that you may construct to explain your data.  In this chapter we will review the basic rules that govern
+the reporting of measurements with uncertainties and how these uncertainties propagate when used to
+obtain derived quantities (such as sums and products) as well as how they affect the uncertainties in
+more complicated situations (such as being arguments to nonlinear functions).
+
+\section{Reporting Uncertainties}
+\index{Reporting uncertainties}
+\index{Uncertainty!reporting}
+\index{Data!uncertainties}
+
+	When reporting the value of a measurement, care should be taken to give the best possible 
+estimate of the uncertainty or error in the measurement.  Values read off scales or measured with 
+mechanical instruments can usually be bracketed between lower and upper limits.  E.g., we may know
+that a temperature measurement $T$ is not less  than 23\DS\ and not larger than 24\DS.  Hence, we
+shall report the value of $T$ as
+\begin{equation}
+T = 23.5 \pm 0.5^{\circ},
+\end{equation}
+or, in general, $x \pm \delta x$.  For many types of measurements we can state with absolute certainty that 
+$x$ must be within these bounds.  Unfortunately, very often we cannot make such a categorical 
+statement.  To do so, we would have to specify unreasonably large values for $\delta x$ to be absolutely confident that 
+the actual quantity lies within the stated interval.  In most cases, we will lower our confidence to, 
+say, 90\% and use a smaller $\delta x$.  We need more detailed knowledge of the statistical laws that 
+govern the process of measurement for finding a suitable $\delta x$, so we will return to this issue later in this book.
+
+\subsection{Significant figures}
+\index{Significant figures}
+\index{Data!significant figures}
+
+In general, the last significant figure of any stated answer should be of the same 
+order of magnitude (i.e., same decimal position) as the uncertainty.
+For intermediate calculations you should use one extra decimal (if calculating by 
+hand) or all available decimals (if using calculators or computers).
+\begin{example}
+If a measured distance $d$ is 6051.78 m with an uncertainty of $\pm 30$ m, you should report the 
+distance as $d = 6050 \pm 30$ m.  Similarly, if a time $t$ is measured to be 3 seconds and the
+uncertainty is given as 1 part in 100, you should report the time as $t = 3.00 \pm 0.03$ s.
+\end{example}
+\section{Fractional Uncertainty}
+\index{Uncertainty!fractional}
+\index{Fractional uncertainty}
+\index{Precision}
+\index{Data!precision}
+
+While the statement $x = x_0 \pm \delta x$ indicates the \emph{precision} of the measurement, it is clear that 
+such a statement will have different meanings depending on the value of $x_0$ relative to $\delta x$.  
+Clearly, with $\delta x = 1$ m, we imply a different precision for $x_0 = 3$ m than for $x_0 = 1000$ km.  Thus, we 
+should consider the \emph{fractional uncertainty}, written as
+\begin{equation}
+\displaystyle \frac{ \delta x}{\left| x_0\right |}.
+\end{equation}
+Note that the fractional uncertainty is a \emph{nondimensional} quantity.
+\begin{example}
+We wish to report the uncertainty in the length of a 3m crocodile, which (due to a shortage of available arms)
+we only were able to measure with a precision of 6 cm.  Using fractional uncertainty,
+we report the uncertainty $\delta l = \pm 100 \frac{0.06}{3}$\% = $\pm2$\%.
+\end{example}
+
+\section{Uncertainty in Derived Quantities}
+\index{Uncertainty!derived quantities}
+It is common to obtain measurements (and estimate their uncertainties) and then use these values in expressions
+that lead to derived quantities.  In such situations we must be careful to \emph{propagate} the uncertainties
+of the initial measurements so that the derived quantities can be reported with their combined uncertainties.
+The answers will differ depending on whether or not the individual measurements are
+\emph{independent} or \emph{dependent} on each other.
+
+\subsection{Uncertainty in sums and differences}
+
+Consider the two values $x \pm \delta x$ and $y \pm \delta y$.  We would like to determine the correct
+expressions for the uncertainties in the four derived quantities
+\begin{equation}
+	s = x + y,
+\end{equation}
+\begin{equation}
+d = x - y,
+\end{equation}
+\begin{equation}
+p = x  \cdot y,
+\end{equation}
+\begin{equation}
+q = x / y.
+\end{equation}
+For the sum, common sense would suggest that the maximum value of $s$ must be $s = x + y + \delta x + \delta y$, while the minimum value is 
+$s = x + y - \delta x- \delta y$.  Thus
+\begin{equation}
+\index{Uncertainty!sums}
+s \approx (x + y) \pm (\delta x + \delta y ) = s_0 \pm \delta s
+\end{equation}
+and similarly for differences we reason that
+\begin{equation}
+\index{Uncertainty!differences}
+d \approx (x - y) \pm (\delta x + \delta y) = d_0 \pm \delta d.
+\end{equation}
+Here, the subscript $0$ indicates the nominal or ``best'' value of the results.
+We use the approximate sign $\approx$ since we anticipate that the stated uncertainties $\delta s$ and $\delta d$ 
+probably overestimate the true uncertainties in the sum and difference, respectively.
+Note that the uncertainties in both the sum and the difference of $x$ and $y$ are identical.
+\subsection{Uncertainty in products and quotients}
+For the product, we first use fractional uncertainties and rewrite $x$ and $y$ as
+\begin{eqnarray*}
+x & = & x_0 \left ( 1 \pm \frac{\delta x} {\left | x_0\right |} \right ),\\[10pt]
+y & = & y_0 \left ( 1 \pm \frac{\delta y} {\left | y_0\right |} \right ).
+\end{eqnarray*}
+Then, the maximum value of $p$ is
+\begin{equation}
+\index{Uncertainty!products}
+p_{high} = x_0 \left( 1 + \frac{\delta x} {\left | x_0 \right |} \right)
+\cdot y_0  \left( 1 + \frac{\delta y} {\left | y_0\right |} \right),
+\end{equation}
+which becomes
+\begin{equation}
+\index{Uncertainty!products}
+p_{high} = p_0  \left( 1 + \frac{\delta x} {\left | x_0\right |} +
+\frac{\delta y} {\left | y_0\right |} + \ldots \right),
+\end{equation}
+where the higher order term proportional to $\delta x \cdot \delta y$ has been ignored.  We note that the best value is
+\begin{equation}
+p_0 = x_0 \cdot y_0.
+\end{equation}
+The minimum value is found by reversing the signs of $\delta x$ and $\delta y$.  Both expressions yield the uncertainty in 
+$p$ as
+\begin{equation}
+\frac{\delta p} {\left | p_0\right |} \approx \frac{\delta x} {\left | x_0\right |} +
+\frac{\delta y} {\left | y_0 \right |}.
+\end{equation}	 
+ For quotients, the maximum value will be
+\begin{equation}
+q_{high} = \frac{   x_0 \left ( 1 + \frac{\delta x} {\left | x_0\right |}\right) }
+ { y_0 \left( 1 -  \frac{\delta y} {\left | y_0 \right |} \right)} =
+q_0 \frac{1 + a}{1 -b}. 
+\end{equation}
+Using the binomial theorem, we expand $(1-b)^{-1}$ as 
+$1+b+b^2+b^3\ldots$, hence
+\begin{equation}
+\frac{1+a}{1-b} \approx (1+a) (1+b)= 1+a + b + ab \approx 1 + a + b,
+\end{equation}	 
+where we again ignore higher-order terms in $b$ by assuming that $(\delta x/|x_0|) \ll 1$ and $(\delta y/|y_0|) \ll 1$.
+Similarly, for the minimum value, find
+\begin{equation}
+\frac{1 - a}{1+b} \approx (1- a) (1- b)= 1 - a - b + ab \approx 1 - ( a + b).
+\end{equation}	 
+It therefore follows that
+\begin{equation}
+	\index{Uncertainty!quotients}
+	q = q_0 \left[ 1 \pm \left( \frac{\delta x} {\left | x_0 \right |} +
+	\frac{\delta y }{\left | y_0 \right |} \right) \right] =
+	q_0 \left[ 1 \pm \frac{\delta q}{q_0} \right]
+\end{equation}
+and that the fractional uncertainty for both products and quotients are the same.
+
+\subsection{Uncertainty for general expressions}
+The stated uncertainties are the maximum values possible, but we suspect these are likely to be exaggerated.
+Later, we will show that if we assume our errors to be \emph{normally} distributed (i.e., we have 
+``Gaussian'' errors) and our measurements are \emph{independent}, then a better estimate of the uncertainty in 
+sums and differences is 
+\begin{equation}
+\delta s = \delta d = \sqrt{ (\delta x)^2 + (\delta y) ^2},
+\end{equation}
+	and for products and quotients it becomes
+\begin{equation}
+\frac{\delta p }{p_0} = \frac{\delta q}{q_0} = 
+\sqrt{ \left (  \frac{\delta x}{x_0} \right)^2 + \left( \frac{\delta y}{y_0}  \right)^2 }.
+\end{equation}	 
+Note that in the case $s = nx$, where $n$ is a constant, we must use $\delta s = n\delta x$ since all the $x$ are the 
+same and obviously \emph{not independent} of each other.  Similarly, the product $p = x^n$ will have the 
+fractional uncertainty
+\begin{equation}
+\frac{\delta p }{p_0} = n \frac{\delta x}{x_0},
+\label{eq:poweruncertainty}
+\end{equation}
+since the (repeated) measurements are \emph{dependent}.  In conclusion, if $s = x + y + nz - u - v - mw$, then
+\begin{equation}
+\delta s = \sqrt{ (\delta x)^2 + (\delta y)^2 + (n \delta z)^2 +(\delta u)^2 + (\delta v)^2
++ (m \delta w)^2    }.
+\end{equation}
+Even if our assumption of independent measurements is incorrect, $\delta s$ cannot exceed 
+the ordinary sum
+\begin{equation}
+\delta s = \delta x + \delta y + n \delta z + \delta u + \delta v + m \delta  w.
+\label{eq:uncert_sum}
+\end{equation}
+Similarly, if
+\begin{equation}
+q = \frac{x \cdot y \cdot z^n}{u \cdot v \cdot w ^m},
+\end{equation}
+then we find the fractional uncertainty to be
+\begin{equation}
+\frac{\delta q }{q_0} = \sqrt{ \left ( \frac{\delta x}{x_0}   \right )^2 +
+\left ( \frac{\delta y}{y_0}   \right )^2 + 
+\left ( n \frac{\delta z}{z_0}   \right )^2 + \left ( \frac{\delta u}{u_0}   \right )^2  + \left ( \frac{\delta v}{v_0}   \right ) ^2 + 
+\left ( m \frac{\delta w}{w_0}   \right )^2         }.
+\label{eq:uncert_prod}
+\end{equation}
+While this is the likely error for independent data, we can confidently say that the fractional 
+uncertainty will be less than the linear sum
+\begin{equation}
+\frac{\delta q}{q_0} = \frac{\delta x}{x_0} + \frac{\delta y }{y_0} +
+n  \frac{\delta z}{z_0} +  \frac{\delta u}{u_0} +  \frac{\delta v}{v_0} +
+m  \frac{\delta w}{w_0}.
+\end{equation}
+\begin{example}
+As most students who have taken an introductory physics lab in mechanics will know, measuring
+the period $T$ of a pendulum of length $\ell$ lets one estimate the 
+acceleration of gravity as 
+\begin{equation}
+g = \frac{4\pi^2 \ell}{T^2}.
+\end{equation}	 
+We wish to determine the uncertainty in this estimate given measurements of $\ell$ and $T$
+and their uncertainties.  Being independent measurements we use (\ref{eq:uncert_prod}) and find
+\begin{equation}
+\frac{\delta g}{\left| g_0    \right |} = 
+\sqrt{ \left( \frac{\delta \ell}{\ell}   \right)^2 + \left( 2 \frac{\delta T}{T}   \right)^2      },
+\end{equation}	 
+since the constants $4$ and $\pi $ have no uncertainty.  Given the measurements
+$\ell  = 92.95 \pm 0.10$ cm and $T = 1.936 \pm 0.004$ s, we obtain
+\begin{equation}
+g_0 = \frac{4 \pi^2 0.9295\mbox{ m}}{1.936^2\mbox{ s}^2} = 9.79035 \mbox{ m s}^{-2}.
+\end{equation}	 
+We can now evaluate the fractional uncertainty as     
+\begin{equation}
+\frac{\delta g}{\left| g_0    \right |} = 
+\sqrt{ \left( \frac{0.1}{92.95}   \right)^2 + \left( 2 \frac{0.004}{1.936}   \right)^2 } \approx 0.4\%.
+\end{equation}	 
+The answer, therefore, is
+\begin{equation}
+g = 9.79 \pm 0.04 \mbox{ m s}^{-2},
+\end{equation}
+where we have only used two significant decimals.
+\end{example}
+
+\PSfig[h]{Fig1_Kelvin}{Lord Kelvin's model for the vertical temperature profile of the Earth
+(the \emph{geotherm}\index{Geotherm}) at a time
+$t_0$ since its initial formation at a constant temperature $T_0$ (dashed vertical geotherm).  The
+tangent to the curve at the surface represents the vertical temperature gradient ($G$), which could
+be estimated from temperature measurements in mines.}
+
+Another case study revisits the debate that raged in the 19th century regarding the age of the Earth.
+Observing the slow process of erosion, Charles Darwin\index{Darwin, C.} had implied that perhaps the Earth might be
+as old as 300 million years.  Lord Kelvin, the preeminent physicist of his times, strongly objected
+and set out to calculate the age using the conductive cooling of the Earth (this and many other fascinating
+stories from the development of the geological sciences are portrayed in the classic book, \emph{Great Geological Controversies} by
+A. Hallam [Oxford University Press]).
+\index{Great geological controversies}
+\begin{example}
+\index{Lord Kelvin}
+Lord Kelvin assumed the whole Earth
+was once at a uniform temperature $T_{0}$ and had since cooled at the surface to $\sim 0^{\circ}$C (as indicated in Figure~\ref{fig:Fig1_Kelvin}).
+Then, the physics of heat conduction in solids dictates that
+\begin{equation}
+	t_{0} = \frac{T_{0}^{2}}{\pi \kappa G^{2}},
+\end{equation}
+with initial temperature $T_{0}  \approx 2000 \pm 200\mbox{ }^{\circ}\mbox{K}$, thermal diffusivity
+$\kappa = 1 \pm 0.25$ mm$^{2}$s$^{-1}$, and observed near-surface temperature gradient
+$G = 25 \pm 5\mbox{ }^{\circ}\mbox{K}$ km$^{-1}$.  Given the procedures established earlier, we first determine
+\begin{equation}
+	\frac{\Delta t_{0}}{t_{0}} = \left[ \left(2\frac{\Delta T_{0}}{T_{0}}\right)^{2} + \left(\frac{\Delta \kappa}{\kappa}\right)^{2} + \left(2\frac{\Delta G}{G}\right)^{2} \right]^{\frac{1}{2}}.
+\end{equation}
+Inserting the estimated parameters, we find
+
+\begin{equation}
+	\frac{\Delta t_{0}}{t_{0}} = \left[ \left(2\frac{200}{2000}\right)^{2} + \left(\frac{0.25}{1}\right)^{2} + \left(2\frac{5}{25}\right)^{2} \right]^{\frac{1}{2}} \approx 51\%.
+\end{equation}
+We evaluate Kelvin's estimate of the age of the Earth to be
+\begin{equation}
+	t_{0} = \frac{(2000\mbox{ }^{\circ}\mbox{K})^{2}}{\pi \cdot 10^{-6} \mbox{m}^{2} \mbox{s}^{-1} (25\mbox{ }^{\circ}\mbox{K} \cdot 10^{-3} \mbox{m}^{-1})^{2}} \approx 2 \cdot 10^{15} \ \mbox{s} \ = 65 \ \mbox{Myr}.
+\end{equation}
+Given the fractional uncertainty, we obtain $t_{0} = 65 \pm 33$ Myr.  As the debate raged on,
+positions hardened and Lord Kelvin continued to revise his
+estimates downwards, finally settling on 25 Myr.  Modern science estimates that the Earth is closer to
+4.6 \emph{billion} years old.  Where did Kelvin go wrong?
+\end{example}
+
+\PSfig[h]{Fig1_digline}{Example of a coastline segment whose length we attempt to estimate using both
+a compass and via digitizing.}
+
+	As a final case, let us imagine we are measuring the length of the coastline segment 
+in Figure~\ref{fig:Fig1_digline} using two 
+different methods: (1) Set a compass to a fixed aperture $\Delta x = 1 \pm 0.025$ cm and march along the 
+line counting the steps, and (2) use a digitizing tablet and sample the line approximately every $\Delta x = 1 \pm 0.1$ cm.  
+Let us assume that it took $N = 50$ clicks or steps so the measured line length in both cases is 50 cm.  What is the 
+uncertainty in the length for the two methods?  First, let us state that there will be an uncertainty 
+for both methods that has to do with the undersampling of short-wavelength coastline ``wiggles'' (in the continuation
+of this volume we will learn about the \emph{fractal} nature of coastlines and that perhaps our simple approach
+here is a bit naive).  That 
+aside, we can see that the errors accumulate very differently.  For the compass length-sum the 
+errors are all dependent (since the aperture is fixed) and we must use the summation rule to find the uncertainty $\delta l = 
+N\cdot 0.025$ cm $= 1.25$ cm.  For the digitizing operations all the uncertainties associated with points 2 
+through 49 largely cancel and we are left with the uncertainty of the endpoints.  Those are clearly
+independent and hence the uncertainty is $\delta l = (0.1^2 + 0.1^2)^{1/2}$ cm $= 0.14$ cm.  The systematic errors 
+using the compass accumulate while the errors in digitizing only affect the end-points.  This 
+discussion of digitizing errors is a bit oversimplified, but it does illustrate the difference between 
+the two types of errors and how they accumulate.
+
+\subsection{Uncertainty in a function}
+\index{Uncertainty!function}
+
+\PSfig[h]{Fig1_func_uncertainty}{As $\delta x$ becomes very small, the derivative of any well-behaved function can be approximated by a
+\emph{tangent} at the point $(x_0, y_0 = y(x_0))$; this is the second term in Taylor's expansion.}
+
+Many solutions to scientific or engineering problems require the evaluation of functions
+with our uncertain measurements as arguments.
+If $x$ is measured with uncertainty $\delta x$ and is used to evaluate the function $y = f(x)$, then the 
+uncertainty $\delta y$ is related to the \emph{derivative} of the function at $x$, i.e.,
+\begin{equation}
+\delta y = \left | \frac{df}{dx}  \right |_{x_0} \cdot \delta x,
+\label{eq:funcdir}
+\end{equation}
+where the derivative is evaluated at $x_0$ (e.g., Figure~\ref{fig:Fig1_func_uncertainty}).
+\begin{example}
+Let  $y(x) = \cos x$ and $x = 20 \pm 3^{\circ}$.  Following (\ref{eq:funcdir}),
+\begin{equation}
+\delta y = \left| \frac{d\cos (x)}{dx} \right |_{x=20^{\circ}} \left( \frac{\pi}{180^{\circ}}\right) 3^{\circ} = \left|-\sin 20^{\circ} \right| 
+\frac{3\pi}{180} = 0.342 \cdot 0.0524 \approx 0.02,
+\end{equation}	 
+where we have converted the angle from degrees to radians (why?).  The final answer then becomes
+\begin{equation}
+y = \cos(x) = 0.94 \pm 0.02.
+\end{equation}
+\end{example}
+Finally, for a function of multiple variables, $f(x,...,z)$, we extend our analysis to find
+\begin{equation}
+\delta f = \sqrt{ \left ( \frac{\partial f }{\partial x} \delta x \right) ^2 + \cdots +
+\left( \frac{\partial f }{\partial z} \delta z  \right)^2 }
+\label{eq:uncert_func}
+\end{equation}
+when $x,..., z$ are all random and independent.  As before, $\delta f$ cannot exceed the ordinary sum
+\begin{equation}
+\delta f \leq \left | \frac{\partial f}{\partial x} \right | \delta x + \cdots + 
+\left | \frac{\partial f}{\partial z}\right | \delta z,
+\end{equation}
+which is suitable for dependent measurements.
+\begin{example}
+Consider the spherical function
+\begin{equation}
+f (r,\theta, \phi ) = \frac{1}{2} r^2 \cos^2 \theta \sin \phi.	 \label{eq:spherical}	\end{equation}
+We measured the parameters and found $r = 10 \pm 0.1, \theta = 60 \pm 1^{\circ}$, and 
+$\phi = 10 \pm 1^{\circ}$.  Using (\ref{eq:uncert_func}), the 
+uncertainty in the evaluated expression in (\ref{eq:spherical}) is found as
+\begin{equation}
+\delta f = \sqrt{ (r \cos ^2 \theta \sin \phi \delta r )^2 + 
+(-r^2 \cos \theta \sin \theta\sin \phi \delta \theta )^2 + 
+\left( \frac{1}{2} r^2 \cos^2 \theta \cos \phi \delta \phi\right )^2},
+\end{equation}
+which means our final estimate of $f(r, \theta, \phi)$ evaluates to
+\begin{equation}
+f(r, \theta, \phi) = 2.17 \pm 0.26.
+\end{equation}
+\end{example}
+While the simple expressions for uncertainty in a derived quantity (\ref{eq:uncert_sum} or \ref{eq:uncert_prod}) generally apply, one must
+be careful with expressions where one or more of the measurements appear in different \emph{subgroups} within the
+expression.  In such cases one must treat the entire expression as a function of several variables and apply the
+general expression given in (\ref{eq:uncert_func}), as our next example illustrates.
+\begin{example}
+Given the multivariate function
+\begin{equation}
+	f(a,b) = 2ab^2 + \pi b + 1,
+\end{equation}
+we wish to find its value and uncertainty for $a = 0.3 \pm 0.02$ and $b = 1 \pm 0.01$.
+Because we have more than one term that depends on $b$ we cannot easily employ the rules
+in (\ref{eq:uncert_sum}) and (\ref{eq:uncert_prod}) but must use (\ref{eq:uncert_func}) instead.
+We first evaluate $f(0.3,1)$ to be 5.7416... and
+next evaluate the uncertainty using (\ref{eq:uncert_func}):
+\begin{equation}
+	\delta f = \sqrt{\left (2b^2 \delta a \right)^2 + \left [ (4ab + \pi)\delta b \right ]^2} = 0.05903....
+\end{equation}
+Consequently, this yields a final estimate of
+\begin{equation}
+	f = 5.74 \pm 0.06,
+\end{equation}
+where we have rounded the answer to two decimals only.
+\end{example}
+\index{Error analysis|)}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+%See course website for any data sets.
+
+\begin{problem}
+	The distance to a building is estimated from a map to be $2550\pm25$ m.  With a theodolite,
+a student determines the angle between the horizontal plane and the building roof to be 1\DS 21' $\pm 1$'.
+What is the height of the building and the uncertainty in this estimate?
+\end{problem}
+
+\begin{problem}
+	The area of a cornfield is being estimated from aerial photographs.  Because of an unknown stretching factor
+	the uncertainty in linear distances has been set to 1\% and hence uncertainties are \emph{dependent}.  What is the
+	area and uncertainty of a field with measured dimensions 235.5 m by 115.6 m?
+\end{problem}
+
+\begin{problem}
+Some neighborhood kid is driving his scooter way too fast while passing your house. Annoyed, you set out to apply
+basic high-school physics in order to compute his speed: You measure a fixed length section
+in front of your house and, while hiding in the bushes, use a stop-watch to time how long he takes to cover that distance.
+Your old measuring tape reports $18.20 \pm 0.05$ m and you clock him covering that distance in
+$0.82 \pm 0.10$ s.  In your passive-aggressive letter to the kid's parents, what is the speed and uncertainty
+that you report?
+\end{problem}
+
+\begin{problem}
+From compositional data you infer that two volcanic rock samples represent the initial and final
+pulse of activity, respectively.  Your two samples have been radiometrically dated at
+$25.53 \pm 0.1$ Ma and $29.66 \pm 0.2$ Ma, respectively.
+What is the likely duration of volcanic activity (including the error)?
+\end{problem}
+
+\begin{problem}
+You have carefully measured the densities of an exposed ore body and the surrounding bed rock and determined
+$\rho_o = 3.15 \pm 0.05$ g cm$^{-3}$ and $\rho_r = 2.67 \pm 0.05$ g cm$^{-3}$, respectively.  A gravimetric survey over the region
+will be sensitive to variations in lateral density only, in other words the density contrast between the
+ore and the host rock.  Assuming your samples are independent, what is the density contrast and its uncertainty?
+\end{problem}
+
+\begin{problem}
+Assigned to a crummy summer internship on Mars, you are tasked with the low-tech job of measuring the perimeters
+of circular craters using a \$69.99 measuring wheel from Home Depot.  You obtain the circumferences of two craters
+before you realize you are in fact the subject of a psychological experiment.  Although upset, you nevertheless decide
+to complete the estimates for the two craters.  The measuring wheel reports 12,311 and 9,045
+clicks, respectively, and the manufacturer says each click represents a distance increment of 25 cm (i.e., the circumference of the
+measuring wheel).  Previous studies suggest that this method is accurate to 1\% of the circumference.
+What is the area (and its uncertainty) of each crater in m$^2$?
+\end{problem}
+
+\begin{problem}
+The Bouguer\index{Bouguer, P.} equation for gravity due to a constant thickness slab is given by $g = 2 \pi \rho \gamma h$, where
+$\gamma = 6.6738\cdot10^{-11}$ m$^3$ kg$^{-1}$ s$^{-2}$ is the universal gravitational constant with fractional uncertainty
+$1.2\cdot10^{-4}$, $\rho = 2850$ g cm$^{-3}$ is the slab density, and $h = 230\pm1$ m is the thickness of the slab.  
+\begin{enumerate}[label=\alph*)]
+	\item To achieve a precision of 1\% in the Bouguer calculation, how well do you need to know the density
+	value (i.e., what is the maximum uncertainty you can tolerate)?
+	\item Report the Bouguer value for the slab, including its uncertainty, in mGal ($= 10^{-5} \mbox{m s}^{-2}$).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The subsidence of young ($< 80$ Myr) oceanic crust due to lithospheric cooling has been
+shown to follow approximately a linear $\sqrt {\mbox{age}}$ relationship, given by
+$$
+z = z_r + \frac{2 \rho_m \alpha_v T_m}{(\rho_m - \rho_w)} \sqrt{\frac{\kappa t}{\pi}}.
+$$
+Given estimates of thermal diffusivity $\kappa = 1.00 \pm 0.04 \mbox{ mm}^2s^{-1}$, water density
+$\rho_w = 1.027 \pm 0.001$ g cm$^{-3}$, mantle density $\rho_m = 3.30 \pm 0.01$ g cm$^{-3}$,
+volumetric thermal expansion coefficient $\alpha_v = (3.00 \pm 0.02) \cdot 10^{-5}$ $^{\circ}\mbox{K}^{-1}$,
+average ridge depth $z_r = 2500 \pm 200$ m, and mantle temperature $T_m = 1300 \pm 25$ $^{\circ}$K,
+determine the predicted depth and its uncertainty for a location where rocks of age
+$t = 29.7 \pm 0.5$ Myr were recovered.  Which term dominates the final uncertainty?
+\end{problem}
+
+\begin{problem}
+\index{Elastic plate thickness}
+\index{Young's modulus}
+\index{Poisson's ratio}
+The flexural parameter $\alpha$ encountered in studies of elastic plate flexure is given by
+$$
+\alpha = \left [ \frac{4D}{(\rho_m - \rho_w)g} \right ]^\frac{1}{4},
+$$
+where $D$ is the flexural rigidity and is related to the \emph{elastic plate thickness}, $h$, via
+$$
+D = \frac{E h^3}{12 (1 - \nu^2)},
+$$
+where $E$ and $\nu$ are Young's modulus and Poisson's ratio, respectively.
+It can be shown that the distance from a 2-D line load (approximating an island chain, perhaps) to
+the maximum peripheral uplift (the ``bulge'') is given by $x_b = \pi \alpha$.  Given the measurements
+$\rho_m = 3300 \pm 50$ kg m$^{-3}$, $E = 70 \pm 7$ GPa, $\nu = 0.25 \pm 0.01$, assuming no
+uncertainty in $g = 9.81$ m s$^{-2}$ and $\rho_w = 1027$ kg m$^{-3}$, and observing $x_b = 252 \pm 10$ km,
+what is the corresponding elastic plate thickness (and its uncertainty)?
+\end{problem}
+
+\begin{problem}
+When collecting gravity measurements on-board a moving platform, such as a ship or aircraft, one must account
+for the \emph{E{\"o}tv{\"o}s effect}, which will reduce or increase the apparent gravity depending on the moving platform's
+heading ($\alpha$), latitude ($\theta$) and speed ($v$).  This effect (in mGal) is
+$$
+E = 14.585 v \cos \theta \sin \alpha + 0.015696 v^2,
+$$
+where speed $v$ is given in m/s.
+\begin{enumerate}[label=\alph*)]
+\item If the ship is at the equator and moving at $10.0 \pm 0.5$ knots with heading $\alpha = 35 \pm 2$\DS,
+what is the E{\"o}tv{\"o}s effect and its uncertainty ? (You can assume $\alpha$ and $v$ have independent errors and
+that the uncertainty in latitude is negligible).  Hint: Consider $E$ to be the function $E(v, \alpha)$ and use the
+rule for uncertainty in a function (i.e., \ref{eq:uncert_func}).
+\item Consider an aero-gravity survey using a plane capable of flying at 200 knots.  We wish to run
+parallel lines in a certain direction $\alpha$ such that the \emph{changes} in $E$ with small changes in
+$v$ are minimized.  Find the optimal survey line orientation.  You may again assume that the uncertainty
+in latitude is negligible and that we are flying at a latitude of 45 degrees north.
+\end{enumerate}
+\end{problem}

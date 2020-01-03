@@ -1,0 +1,559 @@
+% $Id: DA1_Chap1.tex 630 2018-07-28 20:59:29Z pwessel $
+%
+\chapter{EXPLORING DATA}
+\label{ch:EDA}
+\epigraph{``I never guess. It is a capital mistake to theorize before one has data. Insensibly one begins to twist facts to suit theories, instead of theories to suit facts.''}{\textit{Sherlock Holmes, Consulting Detective}}
+Data come in all types and amounts, from a handful of hard-earned analytical quantities obtained after days of meticulous
+work in a laboratory to terabytes of remotely sensed data simply gushing in from satellites and remotely operated vehicles.
+Having a common language to describe data and to make initial explorations of trends are thus desirable.
+
+\section{Classification of Data}
+\index{Data!classification}
+All observational sciences require data that may be analyzed and explored, which give rise to new ideas for
+how the natural world works.  Such ideas may be developed into simple hypotheses that can ultimately be tested
+against new data and either be rejected or live to fight another day.  New data crush hypotheses every day,
+hence we have to be careful with and respectful of our data to a much greater extent than our hypotheses and models.
+We start our exploration of data by considering the various ways we can categorize data,
+discussing a few basic data properties, and introducing typical steps taken in exploratory data analysis.
+
+\subsection{Data types}
+\PSfig[H]{Fig1_dataclasses}{Classification of data types.  All data we end up analyzing in a computer program
+are necessarily digitized and hence discrete, but they may represent a \emph{phenomenon} that produced \emph{continuous} output.}
+
+Data represent measurements of either discrete or continuous quantities, often called \emph{variables}.  
+\emph{Discrete} variables are those having discontinuous or individually distinct possible values (Figure~\ref{fig:Fig1_dataclasses}).  
+Examples of such data include:
+\index{Data!discrete}
+\begin{itemize}
+\item 	\emph{Counts}: The flipping of a coin or rolling of dice, or the enumeration of individual items or groups of items.
+	Such data can always be manipulated numerically.
+\item	\emph{Ordinal} data: These data can be ranked, but the intervals between consecutive items are not constant.
+  For instance, consider Moh's hardness scale for minerals (Table~\ref{tbl:Moh}): While \emph{topaz}
+(hardness 8) is harder than \emph{fluorite} (hardness 4), the values do not imply a doubling in hardness.
+\index{Ordinal data}
+\index{Data!ordinal}
+\item	\emph{Nominal} data: These data cannot even be ranked.  Examples of nominal data include categorizations or classifications,
+e.g., color of items (red \emph{vs} blue marbles), lithology of rocks (sandstone, limestone, granite, etc.), and similar categorical data.
+\index{Nominal data}
+\index{Data!nominal}
+\end{itemize}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|} \hline
+\bf{Hardness} & \bf{Mineral} &  \bf{Chemical Formula} \\ \hline
+ 1 &  Talc      &    Mg$_3$Si$_4$O$_{10}$(OH)$_2$     \\
+ 2 &  Gypsum    &    CaSO$_4\cdot$2H$_2$O      \\
+ 3 &  Calcite   &    CaCO$_3$     \\
+ 4 &  Fluorite  &    CaF$_2$     \\
+ 5 &  Apatite   &    Ca$_5$(PO$_4$)$_3$(OH$^-$,Cl$^-$,F$^-$)      \\
+ 6 &  Feldspar  &    KAlSi$_3$O$_8$     \\
+ 7 &  Quartz    &    SiO$_2$       \\
+ 8 &  Topaz     &    Al$_2$SiO$_4$(OH$^-$,F$^-$)$_2$     \\
+ 9 &  Corundum  &    Al$_2$O$_3$      \\
+ 10 &  Diamond  &        C       \\ \hline
+\end{tabular}
+\caption{Traditional Moh's hardness scale.}
+\label{tbl:Moh}
+\end{table}
+We will see in the following chapters that discrete data will often require specialized handling and testing.
+
+	\emph{Continuous} variables are those that have an uninterrupted range of possible values (i.e., with 
+no breaks).
+\index{Data!continuous}
+Consequently, they have an infinite number of possible values over a given range.  Our instruments, however,
+necessarily have finite precision and thus yield a finite number of recorded values.  Examples 
+of continuous data include:
+
+\begin{itemize}
+\item	Seafloor depths, wingspans of birds, weights of specimens, and thickness of sedimentary layers.
+\item	Fault strikes, directions of wind and ocean currents.
+\item	The Earth's geopotential fields, temperature anomalies, and dimensions of objects.
+\item 	Percentages of components (such data, which are closed and forced to a constant sum, sometimes 
+require special care and attention).
+\end{itemize}
+
+	In addition, much data of interest to scientists and engineers vary as a function of \emph{time} and/or \emph{space} 
+(the independent variables).  Since time and space vary continuously themselves, our discrete or 
+continuous variables will most often vary continuously as a function of one or more of these independent 
+variables.  Such data represent continuous \emph{time series} data.  They may also be referred to as 
+\emph{signals}, \emph{traces}, \emph{records}, and other names.  We may further subdivide continuous data into sub-categories:
+\begin{itemize}
+\item	Ratio scale are data that have a fixed zero point (e.g., weights, temperatures in degrees Kelvin).
+\item	Interval scale are data that have an arbitrary zero point (e.g., temperatures in degrees Celsius or
+Fahrenheit).
+\item	Closed data are forced to attain a constant sum (e.g., percentages).
+\item 	Directional data have components (e.g., vectors or orientations in two or higher dimensions).
+\end{itemize}
+
+	Data can also be classified according to how they are recorded for use:  
+Analog signals are those signals which have been recorded continuously (even though one might 
+argue that this is impossible due to instrument limitations).  Discrete data are those which have been
+recorded at discrete intervals of the independent variable.
+In either case, data must be discretized before they can be analyzed by a computer.  Consequently, all
+data which are represented in computers are necessarily discrete.
+
+\subsection{Data limits}
+\index{Data!limits}
+For a variety of reasons, such as lack of time or funds, our data tend to be limited in one or more ways.
+In particular, limits typically will apply to three important aspects of any data set:
+\begin{description}
+\item	[Domain]: No phenomena can be observed over all time or over all space, hence data have 
+a limited \emph{domain}.  The domain may be one-dimensional for scalar quantities and $N$-dimensional for
+data in $N$ dimensions (e.g., a spatial vector data set such as the Earth's magnetic field is three-dimensional).
+\index{Data!domain}
+\item	[Range]: It is equally true that no measuring technique can record (or transmit) values 
+that are arbitrarily large or small.  The lower limit on very small quantities is often set by 
+the noise level of the measuring instrument (because matter is quantized, all instruments 
+will have internal noise).  The \emph{Dynamic Range} $(DR)$ is the range over which the data can be 
+measured (or exists).  This range is usually given on a logarithmic scale measured in \emph{decibels} (dB), i.e.,
+\index{Data!range}
+\index{Decibels}
+\begin{equation}
+		DR = 10 \log _{10} \left (\frac{\mbox{maximum power}}{\mbox{minimum power}} \right ) \mbox{ dB}.
+\label{eq:DBpow}
+\end{equation}
+
+	One can see that every time $DR$ increases by 10, the ratio of the maximum to minimum 
+values has increased by an order of magnitude.  Strictly speaking, (\ref{eq:DBpow}) is to be applied to data 
+represented as a \emph{power} measurement (a squared quantity, such as variance or square of the 
+signal amplitude).  If the data instead represent \emph{amplitudes}, then the formula should be
+\begin{equation}
+DR = 20 \log _{10} \left (\frac{\mbox{maximum amplitude}}{\mbox{minimum amplitude}} \right ) \mbox{ dB}.
+\end{equation}
+	For example, if the ratio between highest and lowest voltage (or current) is 10, then 
+$DR = 20 \log_{10}(10) = 20$ dB.  If these same data were represented in watts (power), and since 
+power is proportional to the voltage squared, the ratio would be 100, and $DR = 
+10 \log_{10} (100) = 20$ dB.  Thus, regardless of the manner in which we express our data we 
+get the same result (provided we are careful).  In most cases though (except for electrical data) the first formula given 
+is the one to be used (so the data extrema should be expressed as powers). Few instruments have a dynamic range greater than 100 dB.  In any case, because of the 
+limited range and domain of data, any data set, say $f(t)$, can be enclosed as
+\begin{equation}
+	t_0 < t < t_1 \mbox{ and } |f(t)| < M,
+\end{equation}
+for some constant $M$. Such functions are always integrable and manageable and can be subjected to further analysis
+without any special treatment.
+
+\item [Frequency]: Finally, most measuring devices cannot respond instantly to 
+sudden change.  The resulting data are thus said to be \emph{band limited}.  This means the data will not 
+contain frequency information higher (or lower) than the signal representing the fastest (or slowest) response of the 
+recording device.
+\index{Data!frequency}
+\index{Data!band-limited}
+\index{Band-limited}
+\end{description}
+
+\subsection{Noise}
+\index{Data!noise}
+\index{Noise}
+	In almost all cases, real data contain information 
+other than what is strictly desired (``desired'' is a key word here since we all know the saying that 
+``one scientist's signal is another scientist's noise'').  We say such data consist of \emph{samples} of
+\emph{random variables}.  This statement does not mean that the data are totally random, but instead imply that the value of any 
+future observation can only be predicted in a \emph{probabilistic} sense --- it cannot be exactly predicted 
+as is the case for a \emph{deterministic} variable, which is completely predictable by a known law.  In 
+other words, because of inherent variability in natural systems and the imprecision of experiments or 
+measuring devices, if we were to give an instrument the same input at two different times we 
+would likely get two different outputs due to the difference in \emph{noise} at the two different times.  In analyzing data, one must 
+never overlook or ignore the role of noise, as understanding the noise level provides the key to how subtle signals we
+can reliably resolve in our data.
+\index{Data!deterministic}
+\index{Data!probabilistic}
+	One of the main goals in data analysis is to detect the signal in the presence of noise or to reduce 
+the degree of noise contamination.  We therefore try to enhance the \emph{signal-to-noise ratio} (S/N), 
+defined (in decibels) as
+\begin{equation}
+	\mbox{S/N} = 10 \log _{10} \left (\frac{\mbox{power of signal}}{\mbox{power of noise}}\right ) \mbox{ dB}.
+\end{equation}
+Minimizing the influence of noise during data acquisition and stacking co-registered data are some of the
+approaches used to enhance the S/N ratio.
+\index{Data!signal to noise}
+\subsection{Accuracy versus precision}
+\index{Data!accuracy}
+\index{Accuracy}
+\index{Data!precision}
+\index{Data!bias}
+\index{Precision}
+	An \emph{accurate} measurement is one that is very close to the true value of the phenomenon we 
+are observing.  A \emph{precise} measurement is one that has very little scatter: Repeat measurements 
+will give more or less the same values (Figure~\ref{fig:Fig1_acc_prec}).  If the measured data have high precision but poor accuracy, 
+one may suspect that a systematic \emph{bias} has been introduced, e.g., we are using an instrument 
+whose zero position has not been calibrated properly.  If we do not know the expected value of a 
+phenomenon but are trying to determine just that, it is obviously better to have accurate 
+observations with poor precision than very precise, but inaccurate values, since the former will 
+give a correct, but imprecise estimate while the latter will give a wrong, but very precise result!
+Fortunately, we will often have a good idea of what a result should be and can use that prior knowledge to
+detect any bias in the measurements.
+\PSfig[h]{Fig1_acc_prec}{Precision is a measure of repeatability, while accuracy refers to how close
+the average observed value is to the ``true'' value.}
+
+\subsection{Randomness}
+\index{Data!randomness}
+\index{Data!deterministic}
+\index{Deterministic}
+\index{Data!stochastic}
+\index{Stochastic}
+\index{Data!probabilistic}
+\index{Probabilistic}
+
+Phenomena, and hence the data that represent them, may range from those that are completely determined
+by a natural law (\emph{deterministic} data) to those that seem to have no inherent structure or patterns (\emph{chaotic} or \emph{random}).
+Most phenomena, and hence the data we collect, lie in-between these two extremes.  Here, there is a more-or-less
+clear pattern or structure
+to the data, but each individual measurement also exhibits a random component that makes it impossible to
+predict the outcome of a future observation with 100\% certainty.  Such data are called \emph{probabilistic} or
+\emph{stochastic}.  We will often fit simple, deterministic models to such data and hope that the residuals
+reflect insignificant, uncorrelated noise.  We will also want to know if that hope is warranted
+using specific statistical tests.
+
+\subsection{Analysis}
+\index{Analysis}
+
+	Analysis means to separate something into its principal components in order to identify, interpret and/or study the 
+underlying structure.  In order to do this properly we should have some idea of what the 
+components are likely to be.  Therefore, we should have some concept of a model of the data in mind 
+(whether this is a conceptual, physical, intuitive, or some other type of model is not important).  We 
+essentially need guidelines to aid our analysis.  For example, it is not a good idea to take 
+a data set and simply compute its Fourier series because you happen to know something about Fourier analysis.  One 
+needs to have an idea as to what to look for in the data.  Often, this knowledge will grow with 
+a set of well planned ongoing analyses, whose techniques and uses are the essence of this book.
+
+The following steps are parts of most data analysis schemes:
+\begin{enumerate}
+	\item \emph{Collect} or obtain the data.
+	\item Perform \emph{exploratory data analysis}.
+	\item \emph{Reduce} the data to a few quantities (\emph{statistics}) that \emph{summarize} their bulk properties.
+	\item Compare data to various \emph{hypotheses} using statistical \emph{tests}.
+\end{enumerate}
+We will briefly discuss step (1) while reviewing error analysis, which is the study and evaluation of 
+uncertainty in measurements and how these propagate into our final statistical estimates.  The main point of
+step (2) is to familiarize ourselves with the data set and its major structure.  
+This acquaintance is almost always best done by graphing the data.  Only an inexperienced analyst will use a 
+sophisticated ``black-box'' technique to compile statistics from data and accept the validity of these statistics 
+without actually looking at the data.  Step (3) will usually include a model (simple or 
+complicated) where the purpose is to extract a few representative parameters out of possibly 
+millions of data points.  These statistics can then be used in various tests (4) to help us decide 
+which hypothesis the data favor, or rather \emph{not} favor.  That is the curse of statistics: You can never 
+prove anything, just disprove!  By disproving all possible hypotheses other than your pet theory, 
+other scientists will eventually either grudgingly accept your views or they die of old age and 
+then your theory will be accepted!  Hence, persistence and longevity are important characteristics of a successful researcher.
+Joking aside, it is important to listen to your data as it is disturbingly easy to be convinced that your pet model
+or theory is right, data be damned.  This phenomenon is called \emph{conviction bias}\index{Conviction bias}.
+
+\section{Exploratory Data Analysis}
+\index{Exploratory data analysis|(}
+\index{Data!analysis}
+\index{Analysis}
+
+	As mentioned, the main objective of exploratory data analysis (EDA) is to familiarize yourself with 
+your observations and determine their main structure.  Since simply staring at a table or computer printout of numbers will 
+eventually lead to premature blindness or debilitating insanity, there are several standard techniques that we will 
+classify under the broad EDA heading:
+
+\begin{enumerate}
+\item	Scatter plots --- show it all.
+\item	Schematic plots --- simplify the sample.
+\item	Histograms --- explore the distribution.
+\item	``Smoothing'' of data --- reduce the noise.
+\item	Residual plots --- determine the trends.
+\end{enumerate}
+
+We will briefly discuss each of these five categories of exploratory techniques.  For a complete 
+treatment on EDA, see John Tukey's classic \emph{Exploratory Data Analysis} book; the reference is listed in the Preface.
+
+\subsection{Scatter plots}
+\index{Scatter plots}
+\index{Plot!scatter}
+
+\PSfig[h]{Fig1_scatter}{Scatter plots showing all individual data points --- the ``raw'' data --- 
+are invaluable in identifying outlying data points and other potential problems.}
+
+	If practical, consider plotting every individual data value on a single graph.  Such ``scatter'' plots show 
+graphically the correlation between points, the orientation of the data, bad outliers, and the spread of
+clusters (e.q., Figure~\ref{fig:Fig1_scatter}).  
+We will later (in Chapter~\ref{ch:basics}) provide a more rigorous definition for what correlation is; at this stage it is just 
+a visual appearance of a trend.  Scatter plots are particularly useful in two dimensions, but even three-dimensional
+data are fairly easy to visualize.  For higher dimensions we may choose to view \emph{projections} of the data
+onto lower-dimensional spaces and thus examine only 2--3 components at the time.
+
+\subsection{Schematic plots}
+\index{Schematic plots}
+\index{Plot!schematic}
+\index{Plot!box-and-whisker}
+\PSfig[H]{Fig1_boxwhisker}{An example of a ``box-and-whisker'' diagram.  The five quartiles give a visual
+representation of how one-dimensional data (or a single component of higher-dimensional data) are distributed.}
+
+	The main objective here is to summarize a one-dimensional data distribution using a simple graph.  One very 
+common method is the \emph{box-and-whisker} diagram, which graphically presents five informative 
+measures of the sample.  These five quantities are the \emph{range} of the data (represented by the minimum and maximum 
+values), the \emph{median} (a line at the half-way point), and the \emph{concentration} (represented by the 25\% and 75\% \emph{quartiles}) of a data 
+distribution.  Schematically, these statistics can be conveniently illustrated as shown in Figure~\ref{fig:Fig1_boxwhisker}.
+
+	As an example of the successful use of box-and-whisker diagrams, we shall return to the winter of 
+1893--94 when Lord Rayleigh was investigating the density of nitrogen from various sources.
+Some of his previous experiments had indicated that there seemed to be a discrepancy between 
+the densities of nitrogen produced by removing the oxygen from a sample of air and the nitrogen produced by 
+decomposition of different chemical compounds.  The 1893--94 results clearly established this difference 
+and prompted further investigations into the composition of air, which eventually led him to the 
+discovery of the inert gas \emph{argon}\index{Argon}.  Part of his success in convincing his peers has been attributed 
+to his use of box-and-whisker diagrams to emphasize the difference between the two data sets he 
+was investigating.  We will use Lord Rayleigh's data (reproduced in Table~\ref{tbl:nitrogen}) to make a scatter 
+plot and two schematic plots:  The already mentioned box-and-whisker diagram and the \emph{bar} graph.
+\index{Lord Rayleigh}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|r|c|c|c|} \hline
+\bf{Date} & \bf{Origin} &  \bf{Purifying Agent} & \bf{Weight} \\ \hline
+29 Nov. 1893 &       NO     &    Hot iron     & 2.30143 \\
+ 5 Dec. 1893 &       "      &        "        & 2.29816 \\
+ 6 Dec. 1893 &       "      &        "        & 2.30182 \\
+ 8 Dec. 1893 &       "      &        "        & 2.29890 \\
+12 Dec. 1893 &      Air     &        "        & 2.31017 \\
+14 Dec. 1893 &       "      &        "        & 2.30986 \\
+19 Dec. 1893 &       "      &        "        & 2.31010 \\
+22 Dec. 1893 &       "      &        "        & 2.31001 \\
+26 Dec. 1893 &    N$_2$O    &        "        & 2.29889 \\
+28 Dec. 1893 &       "      &        "        & 2.29940 \\
+ 9 Jan. 1894 & NH$_4$NO$_2$ &        "        & 2.29849 \\
+13 Jan. 1894 &       "      &        "        & 2.29889 \\
+27 Jan. 1894 &      Air     & Ferrous hydrate & 2.31024 \\
+30 Jan. 1894 &       "      &        "        & 2.31030 \\
+ 1 Feb. 1894 &       "      &        "        & 2.31028 \\ \hline
+\end{tabular}
+\caption{Lord Rayleigh's density measurements of nitrogen (Lord Rayleigh,
+On an anomaly encountered in determinations of the density of nitrogen gas, \emph{Proc. Roy. Soc. Lond., 55}, 
+340--344, 1894).}
+\label{tbl:nitrogen}
+\end{table}
+
+\PSfig[h]{Fig1_Rayleigh_scatter}{Scatter plot of Lord Rayleigh's data on nitrogen.  The plot reveals distinct groups.}
+
+We will first look at all the data using a scatter plot.  It may look something like 
+Figure~\ref{fig:Fig1_Rayleigh_scatter}.
+It is immediately clear that we probably have two different data groupings here.  Note that this is only apparent if you 
+plot the ``raw'' data points.  Plotting all the values as one data set using the box-and-whisker 
+approach would result in a confusing graph (Figure~\ref{fig:Fig1_Rayleigh_one_BW}), which tells us very little that is meaningful.  
+Even the median, traditionally a stable indicator of ``average'' value, is questionable since it lies 
+between the two data clusters.  Clearly, it is important to find out if our data consist of a single 
+population or if it contains a mix of two (or even more) data components.
+ 
+\PSfig[h]{Fig1_Rayleigh_one_BW}{Schematic box-and-whisker plot of Lord Rayleigh's nitrogen data.  While representing the
+entire sample the graph obscures the pattern so clearly revealed by the scatter plot.}
+
+Fortunately, in this example we know how to separate the two data sets based on their origins.  
+It appears that we are better off plotting the data sets separately instead of treating them as a single population.  
+However, the choice of diagram is also important.  Consider a simple bar graph (here indicating 
+the average value) summarizing the data given in Table~\ref{tbl:nitrogen}.  It would simply look as 
+shown in Figure~\ref{fig:Fig1_Rayleigh_bars}.
+\PSfig[h]{Fig1_Rayleigh_bars}{Bar graph of the average values from Lord Rayleigh's nitrogen data.  Because the
+average values are very similar the two bars look very similar and do not tell us much.}
+	In this presentation, it is just barely visible that the weight of ``nitrogen'' extracted from the air 
+is slightly heavier than nitrogen extracted from the chemical compounds.  Given the way they are shown, the 
+data present no clear indication that the two data sets are \emph{significantly} different.  Part of the 
+problem here is the fact that we are drawing the bars from an origin at zero, whereas all the 
+variation actually takes place in the 2.29--2.32 interval (again evident from the scatter plot in Figure~\ref{fig:Fig1_Rayleigh_scatter}).
+By expanding the scale and choosing
+a box-and-whisker plot we concentrate on the differences and produce an illustration as the one 
+shown in Figure~\ref{fig:Fig1_Rayleigh_two_BW}.
+ 
+\PSfig[H]{Fig1_Rayleigh_two_BW}{Separate box-and-whisker diagrams of nitrogen weight given in Table~\ref{tbl:nitrogen}
+based on origin.  Their separation and extent clearly convey the finding of two separate sources.}
+
+It is obvious that the second box-and-whisker diagram allows a clearer interpretation than the bar graph. The 
+diagram also benefits from the stretched scale, which highlights the different ranges of the data 
+groupings.  In Lord Rayleigh's situation the convincing diagram was accepted as strong evidence for the 
+existence of a new element (later determined to be \emph{argon}), and a Nobel prize in physics followed in 1904.
+
+\subsection{Histograms}
+\index{Histogram}
+\index{Plot!histogram}
+\PSfig[h]{Fig1_make_histogram}{A data set, here a function of distance, can be converted to a histogram by counting the frequency of 
+occurrence within each sub-range.  The histogram only uses the $y$-values of the $(x,y)$ points shown in the left 
+diagram.}
+
+	Histograms convey an accurate impression of the data \emph{distribution} even if it is multimodal.  
+One simply breaks the data range into equidistant sub-ranges and plots the frequency or occurrences for each range (e.g., Figure ~\ref{fig:Fig1_make_histogram}).  
+Obviously, the width of the sub-range determines the level of detail you will see in the final 
+histogram.  Because of this, it is usually a good idea to plot the discrete values as individual 
+points since the ``binning'' throws away some information about the distribution.  If the amount 
+of data is moderate, then one can plot the individual values inside the histogram bars.  Furthermore,
+you should explore how the \emph{shape} of the distribution changes as you vary the \emph{bin width}.
+Clearly, as the histogram bin width approaches zero you will end up with one point (or none) per bin, while at the
+other extreme (a very wide bin width) you will simply have a single bin with all your data.
+Try to select a width that yields a representative distribution, but at the same time try to understand
+what is going on when your widths give different shapes.
+
+\subsection{Smoothing}
+\index{Smoothing}
+\index{Data!smoothing}
+\PSfig[h]{Fig1_smoothing}{Smoothing of data is usually done by filtering. The left panel shows a noisy
+data set and a smooth Gaussian filtered curve (red), while the right panel shows the same data with a
+glitch between $x = 5$ and $x = 6$.  For such data the Gaussian filter is unduly influenced by the outlying
+data whereas a median filter (blue) is much more tolerant.}
+
+\index{Data!median filter}
+\index{Data!Hanning filter}
+\index{Filtering!median}
+\index{Median filter}
+\index{Hanning filter}
+\index{Filtering!Hanning}
+	The purpose of \emph{smoothing} is to highlight the general trend of the data and suppress
+high-frequency oscillations.  We will briefly look at two types of smoothing: The \emph{median} filter and the \emph{Hanning} 
+filter. A detailed introduction to filtering will be presented in the second volume of this series.
+The median filter is typically a three-point filter and simply replaces a point 
+with the median value of the point and its two immediate neighbors.  The filter then shifts one step 
+further to the right and the process repeats.  This technique is very efficient at removing isolated 
+spikes or \emph{outliers} in the data since the bad points will be completely ignored as they will never 
+occupy the median position, unless they appear in groups of two or more (in that case a wider 
+median filter, say 5-point, would be required).  In contrast, the Hanning filter is simply a moving average of 
+three points where the center point is given twice the weight of the neighbor points, i.e.,
+\begin{equation}	 
+y'_i = \frac{y_{i-1} + 2y_i + y_{i + 1}}{4}.
+\end{equation}
+Note that while such a filter works well for data that have random high-frequency noise, it gives 
+disastrous results for spiky data since the outliers are averaged into the filtered value and never 
+simply ignored.  For noisy data with occasional outliers one might consider running the data first 
+through a median filter, followed by a treatment of the Hanning filter.  In building automated data
+procedures one should always have the worst-case scenario in mind and seek to protect the analysis by
+preprocessing with a median filter.  Figure ~\ref{fig:Fig1_smoothing} illustrates the use
+of simple smoothing with Gaussian filters, with or without protection from outliers by a median filter.
+
+\subsection{Residual plots}
+\index{Residual plots}
+\index{Plot!residual}
+	We can always make the assumption that our data can be decomposed into two parts: A 
+smooth trend plus noisier residuals.  This separation forms the basis for \emph{regional-residual} analysis.
+The simplest trend (or regional) is just a straight line.  One can easily define such 
+a line by picking two representative points $(x_1,y_1)$ and $(x_2,y_2)$ and then compute the trend as
+\begin{equation}
+T(x) = y_1 + \left ( \frac{y_2 - y_1}{x_2 - x_1}\right ) (x - x_1).
+\end{equation}
+We then can form residuals $r_i = y_i - T(x_i)$ (in Chapter~\ref{ch:regression} we will learn more rigorous ways to find 
+linear trends in $x-y$ data).  If a significant trend still exists, one can try several standard 
+transformations to determine the nature of the ``smooth'' trend, such as the family of trends represented by
+\begin{equation}
+y^n,..., y^1, y^{1/2}, \log(y), y^{-1/2}, y^{-1},..., y^{-n}.
+\end{equation}
+The residual plot procedure we will follow is:
+\begin{enumerate}
+	\item Take $\log (y)$ of the data and plot the values.
+	\item If the line is concave then choose a transformation closer to $y^{-n}$.
+	\item If the data is convex then choose a  transformation closer to $y^n$.
+\end{enumerate}
+While approximate, this method gives you a feel for how the data 
+vary.  Note that if your $y$-values contain or straddle zero then you cannot explore a logarithmic relationship for that axis.
+
+	We will conclude this section with a quote from J. Tukey's book ``Exploratory Data Analysis'',
+which is worth contemplating: 
+
+\begin{quote}
+\emph{``Many people would think that plotting y against x for simple data is something 
+requiring little thought.  If one wishes to learn but little, it is true that a very little 
+thought is enough, but if we want to learn more, we must think more.''}
+\end{quote}
+
+The moral of it all is:  \emph{Always} plot your data.  \emph{Always}! \emph{Never} trust output from software performing statistical 
+analyses without comparing the results to your data.  Very often, such software implements statistical
+methods that are based on certain
+assumptions about the data distribution, which may or may not be appropriate in your case.  Plotting your
+data may be the easiest thing to do (for dimensionality less than or equal to three) or it may be quite
+challenging.  Exploring sub-spaces of just a few dimensions is a simple starting point, while more
+sophisticated methods will examine the dimensionality of the data to see if some dimensions simply
+provide redundant information; we will explore such methods in the second volume of this book series.
+\index{Exploratory data analysis|)}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+%See course website for any data sets.
+Note: Problems that ask you to comment on what you observe in the data do not require any special knowledge
+about geology, seismology, or any other discipline.
+
+\begin{problem}
+Perform exploratory data analysis on the data set \emph{sludge.txt}, which contains annual average concentrations
+of total phosphorous in municipal sewage sludge from an unnamed city, given in percent of dry weight solids.
+Make a few EDA plots to determine any trends or patterns captured by the data.
+\end{problem}
+
+\begin{problem}
+Perform exploratory data analysis on the data set \emph{hypso.txt}, which contains topography bins in km and frequency in percent,
+in other words the \emph{hypsometric} curve for the Earth.  Your EDA should include a few graphs such as a scatter plot, a box-and-whisker,
+and a histogram).  Based on the graphical results, make some
+preliminary conclusions about the data set (e.g., are there outliers? Are the distributions unimodal? Asymmetrical?).
+\end{problem}
+
+\begin{problem}
+Perform exploratory data analysis on the data set \emph{porosity.txt} (porosity in percent for a few
+sandstone samples).  Again, generate several typical EDA plots and reach some
+preliminary conclusions about the data (e.g., any outliers? Unimodal vs. multimodal? Asymmetrical vs. symmetrical?).
+\end{problem}
+
+\begin{problem}
+Scientists obtained free-air gravity anomalies along the track of the \emph{R/V Conrad} cruise 2308, which surveyed an area
+around Oahu in the Hawaiian Islands.  Ideally, when the ship reoccupies the same location the free-air anomaly should be
+the same, but instrument drift, inadequate correction for ship motion and erroneous navigation data all lead to discrepancies
+called \emph{cross-over errors} (COE); here \emph{c2308\_xover.txt} contains these data.
+This mismatch in values at the intersections of the track gives information on the uncertainty in the measurements.
+Examine the CEOs using both histograms and box-and-whisker techniques.
+\end{problem}
+
+\begin{problem}
+Make both a box-and-whisker diagram and a histogram of the bathymetry depths in \emph{pac\_bathy.txt}
+(depths in m for a 1\DS\ radius region in the Western Pacific).  Try different binning intervals and discuss
+the important aspects of the distribution.
+\end{problem}
+
+\begin{problem}
+Examine the variations in the magnetic field (in nT) at the Honolulu station for September, 1998 reproduced in \emph{honmag\_1998\_09.txt}.
+Show a scatter plot and a box-and-whisker diagram of the total field (HONF).
+\end{problem}
+
+\begin{problem}
+\newcounter{EDA}
+\setcounter{EDA}{\theproblem}
+Perform EDA on the data given in \emph{seismicity.txt}, which
+contains records with longitude, latitude, depth (in km), and magnitude for significant
+earthquake hypocenters from the Tonga-Kermadec region.  Try various presentations and
+decide on two plots that best highlight the features of the data
+set.  Provide commentary on what you see as significant for each plot and especially
+note any outliers or peculiarities about the data set (even if they do not make it onto the two
+plots you select).
+\end{problem}
+
+\begin{problem}
+Repeat the exercise in Problem~\thechapter.\theEDA\ on the data set \emph{hi\_ages.txt}, which contains a
+list of longitude, latitude, radiometric age (in Myr), and distance from Kilauea (in km) along the Hawaiian
+seamount chain.
+\end{problem}
+
+\begin{problem}
+Repeat the exercise in Problem~\thechapter.\theEDA\ on the data set \emph{v3312.txt}, which documents the distance
+(in km) and depth (in m) along the track of \emph{R/V Vema} cruise 3312 from Japan to Guam.
+\end{problem}
+
+\begin{problem}
+Explore the record of Mississippi river daily discharge (m$^3$/s) from 1930--1941 listed in \emph{mississippi.txt}.
+Select two graphs that tell the most complete story about this data set.
+\end{problem}
+
+\begin{problem}
+The GISP-2 ice core $\delta^{18}$O variations in parts per thousand (ppt) from the last $\sim$10,000 years can be found in
+the file \emph{icecore.txt}.  Select two graphs that reveal the most about this data set.
+Note the times are relative to an origin at 1950.
+\end{problem}
+
+\begin{problem}
+The data set \emph{trend.txt} contains ($x,y$) pairs exhibiting a trend.  Use the residual plot technique
+to determine the likely trend exhibited by the majority of the data.  Are there any outliers?
+\end{problem}
+
+\begin{problem}
+The Earth's magnetic field is known to have reversed direction over geologic time.  The file \emph{GK2007.txt} contains data from the
+Gee and Kent (2007) magnetic time scale. It lists all normal and reversely magnetized chrons and gives the duration
+of each interval (in Myr). Note: Examine the last letter in the chron: ``n'' means normalized and ``r'' stands for reversed polarity.
+\begin{enumerate}[label=\alph*)]
+	\item Make box-and-whisker plots for the entire data set as well as for normal and reverse polarities separately.
+	\item Make a histogram of all intervals using a bin width of 0.1 Myr.
+	\item The distribution seems to have a long tail.  Convert your data to logarithmic data (log$_{10}$) and
+	make another histogram with a log-increment of 0.1.  Does the transformation reduce the tail of the data?
+\end{enumerate}
+\end{problem}

@@ -1,0 +1,1620 @@
+%  $Id: DA1_Chap4.tex 670 2018-12-20 20:37:20Z pwessel $
+%
+\chapter{TESTING OF HYPOTHESES}
+\label{ch:testing}
+\epigraph{``The great tragedy of science -- the slaying of a beautiful hypothesis by an ugly fact.''}{\textit{Thomas Huxley, Biologist}}
+
+Much of statistics is concerned with testing hypotheses for certain properties of entire populations
+based on sample data taken from these populations.  There are numerous standard 
+techniques used to perform these tests, and we will broadly group them into two sets:
+\begin{enumerate}
+	\item Parametric tests
+	\item Nonparametric tests
+\end{enumerate}
+This chapter will discuss the assumptions behind both kinds of tests and how they are performed.
+
+\section{The Null Hypothesis}
+\index{Null hypothesis}
+
+	At the core of all tests lies the concept of the ``null hypothesis'' (also
+known informally as the ``boring hypothesis'').  The null hypothesis,
+denoted $H_0$, is stated and we will use our tests to see if we can reject it.  For instance, if 
+we want to test whether two rock types (i.e., two separate populations) have different densities, we 
+obtain samples from each population and form the null hypothesis 
+that they have equal densities (a boring result); we then test if we can reject $H_0$.
+We will illustrate this approach with an 
+example:
+\begin{example}
+	It is claimed that the density of a particular sandstone unit is 
+2.35 g cm$^{-3}$.  We are handed a sample 
+of 50 specimens from an outcrop in the same area and decide to set the criteria that the sample 
+comes from another lithological unit if the sample mean is less than 2.25 or larger than 2.45.  In other
+words, our null hypothesis $H_0$ is $2.25 < \mu < 2.35$.  This statement is 
+a clear-cut criterion for accepting or rejecting the claim that the sample originates from the same unit, 
+but it is not infallible.  Since our decision will be based on a sample, there is the possibility that 
+the sample mean $\bar{x}$ may indeed satisfy $\bar{x} < 2.25$ or $\bar{x} > 2.45$ \emph{even though} the
+population mean $\mu$ \emph{is} 2.35.  We will 
+therefore want to know what the chances are that we could make a wrong decision and reject $H_0$.
+Clearly, we must investigate what is the probability that $\bar{x} < 2.25$ or $\bar{x} > 2.45$ when $\mu$ in fact is $2.35$.  
+Here, $s = \sigma = 0.42$.  This probability is given by the area under the two tails in 
+Figure~\ref{fig:Fig1_type1_error}.
+
+\PSfig[h]{Fig1_type1_error}{Type I error: We reject the null hypothesis when the computed statistic falls in the tails
+and defer judgment if it falls in the central area.}
+
+Since $n = 50 \gg 30$, we will treat our sample as of infinite size.  We find the uncertainty in the sample mean to be
+\begin{equation}
+s_{\bar{x}} = \frac{s}{\sqrt{n}} = \frac{0.42}{\sqrt{50}} = 0.06.	 
+\end{equation}
+We can now evaluate the normal scores of the two limits as
+\begin{equation}
+z_0 = \frac{2.25 - 2.35}{0.06} = -1.67,
+\end{equation}
+\begin{equation}
+z_1 = \frac{2.45 - 2.35}{0.06} = + 1.67.
+\end{equation}
+We find the area under each tail to be $\frac{\alpha}{2} = \frac{1}{2} \left[ 1 + \ \erf \left ( -1.67 / \sqrt{2}\right) \right] = 0.0475$.
+Consequently, the probability of getting a sample 
+mean that falls in the distal tails of the distribution is
+\index{Test!one sample mean}
+\begin{equation}
+\alpha = 2 \cdot 0.0475 = 0.095 \mbox{ or } 9.5\%.
+\end{equation}	 
+This result means there is a 9.5\% chance we will erroneously reject the hypothesis that $\mu = 2.35$ 
+when it is in fact \emph{true}.  In statistics, we say we have committed a
+\emph{type I error}\footnote{Its name suggests there are more ways to make mistakes...}.
+\index{Type I error}
+\end{example}
+
+\PSfig[h]{Fig1_type2_error}{Type II error: Possibility of erroneously accepting an incorrect hypothesis.}
+
+	Let us look at another possibility, where our test will fail to detect that $\mu$ is \emph{not} equal to 2.35.
+\begin{example}
+Suppose, for the sake of argument, that the true mean $\mu = 2.53$.  Then, the probability of getting a 
+sample mean in the range $2.25 - 2.45$, and hence erroneously accept the claim that $\mu = 2.35$, is 
+now given by the tail area in Figure~\ref{fig:Fig1_type2_error}.
+ As before, $s_{\bar{x}} = 0.06$ so the normal scores become
+\begin{equation}
+z_0 = \frac{2.25 - 2.53}{0.06} = -4.67, \quad \quad z_1 = \frac{2.45-2.53}{0.06} = -1.333.
+\end{equation}	           
+It follows that the probability is $\beta = \frac{1}{2} \left[ \erf\left( -1.333 / \sqrt{2} \right)- \ \erf \left( -4.67/ \sqrt{2} \right) \right ]   = 0.092$ or $9.2\%$.
+This is the risk we run of accepting the incorrect hypothesis $H_0$.  We call this committing a \emph{type II error}.
+\index{Type II error}
+\end{example}
+
+Therefore, we recognize that there are several possible outcomes when testing a null hypothesis, as
+shown in Table~\ref{tbl:typerror}.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|} \hline
+&  \bf{Accept} $H_0$  & \bf{Reject} H$_{0}$ \\ \hline
+$H_0$ is TRUE & Correct Decision & Type I Error \\ \hline
+$H_0$ is FALSE & Type II Error & Correct Decision \\ \hline
+\end{tabular}
+\caption{The four possible decision scenarios when testing an hypothesis.  Of these, we always
+seek to avoid making a Type II error.}
+\label{tbl:typerror}
+\end{table}
+If the hypothesis is true, but is rejected, we have committed a Type I error, and the probability of 
+doing so is designated $\alpha$.  In our example, $\alpha$ was 0.095.  If our hypothesis is incorrect, but we 
+still accept it, then we have committed a Type II error, and the probability of doing so is 
+designated $\beta$.  In our case, with $\mu = 2.53, \beta$  was 0.092.
+
+	We saw in our example that the type II error probability \emph{depended on the value of} $\mu$.  Since $\mu$ 
+is typically not known, it is common to simply either reject $H_0$ or reserve judgment (i.e., never 
+accept $H_0$).  This way we avoid committing a type II error altogether, at the expense of never 
+accepting $H_0$.  We call this a \emph{significance test} and say that the results are \emph{statistically significant} 
+if we can reject $H_0$.  If not, the results are \emph{not} statistically significant, and we attempt no further 
+decisions.  Of course, we may be wrong in rejecting $H_0$ but we can always state the likelihood of being wrong as $\alpha$.
+Hence, in statistics we can only disprove hypotheses, but never prove them.
+\index{Statistically significant}
+
+\section{Parametric Tests}
+\index{Parametric tests|(}
+
+Parametric tests are used to make decisions based on parameters derived by assuming the data are
+approximately described by a probability distribution.  The parameters typically used
+are properties of the distribution, such as the mean and standard deviations.  Note that while we obtain our statistical parameters
+from the \emph{sample}, our hypothesis testing applies to the \emph{parent} population.
+
+\subsection{What are the degrees of freedom?}
+\label{sec:freedom}
+\index{Degrees of freedom|(}
+When dealing with statistical tests we encounter the concept of ``degrees of freedom'' (usually
+given by the variable $\nu$) and it is
+often confusing to know what it is for various cases.  We need to understand what $\nu$ is in
+order to perform the tests.  Typically, we will compute a \emph{statistic} from our sample data.
+It may represent our best estimate of one \emph{parameter} of the theoretical population distribution we are
+investigating via our limited sample.  For instance, we may wish to compute a statistical quantity that requires
+us to use the mean of our data set of $n$ points.  While we will initially use $\nu = n$ in evaluating the mean
+(since all the points are independent), once we use
+the mean in \emph{subsequent} calculations we must reduce $\nu$ by one, since any individual data point can
+now be obtained from that mean and any $n-1$ data points.  In general, we say we lose one degree of
+freedom for each parameter we have estimated from the data.  We will also see that certain transformations
+of the data, say, grouping the data into a set of $k$ bins, will also affect $\nu$.  While you may have had
+$n$ data points to start with, after binning you now only have $k$ items (the bin counts), so any testing involving these bins
+will have to consider a $\nu$ that may only be $k-1$ (you still lose one since the bin counts must sum to $n$).  However,
+the degrees of freedom may be even less than $k-1$ if any other parameters had to be estimated in order to
+facilitate the binning in the first place.  In this Chapter, we will illuminate these situations using relevant examples.
+\index{Degrees of freedom|)}
+
+\subsection{Differences between sample means (equal variance)}
+\index{Sample!mean!differences}
+\index{Differences between sample means}
+\index{Test!two sample means}
+\label{sec:twomeans}
+	We will often want to know if an observed difference between two sample means can be attributed to 
+chance.  We will again rely on the Student's $t$ distribution.  It is assumed that the two populations
+have the \emph{same variance} but possibly \emph{different means}.  
+
+	We are interested in the distribution of $\bar{x}_1 - \bar{x}_2$, the difference in sample means.
+Of course, we only have one such estimate, but if the two
+samples are independent and random then the hypothetical difference distribution will be approximately normal,
+with mean  $\mu_1 - \mu_2$  and standard deviation
+\begin{equation}
+\sigma_e = \sigma_p \sqrt{ (1/n_1 + 1/n_2)}.
+\end{equation}
+Here, $\sigma_p$ is the \emph{pooled} standard deviation,
+\begin{equation}
+	\index{Pooled standard deviation}
+	\index{Standard deviation!pooled}
+\sigma_p = \sqrt{ \frac{(n_1 - 1 ) \sigma^2_1 + (n_2 - 1) \sigma^2_2}{n_1 + n_2 - 2}     }.	 
+\end{equation}
+We find the $t$-statistic by evaluating
+\begin{equation}
+t = \frac {\bar{x}_1 - \bar{x}_2} { \sqrt{ \frac{ (n_1 - 1) s^2_1 + (n_2 - 1) s^2_2 }
+{n_1 + n_2 -2} \left( \frac{1}{n_1} + \frac{1}{n_2} \right)  }  } = \frac{\bar{x}_1 - \bar{x}_2}{s_e}
+\label{eq:t_two_means}
+\end{equation}
+and test the hypothesis $H_0$: $\mu_1 = \mu_2$  based on the $t$-distribution for  $\nu = n_1 + n_2 - 2$ degrees of 
+freedom.  Here, we have lost one degree of freedom for each sample mean we computed.
+For large $n_1, n_2$, the $t$-distribution becomes very close to a normal distribution and we 
+may instead use $z$-statistics based on
+\begin{equation}
+z = \frac{\bar{x}_1 - \bar{x}_2} { \sqrt{ \frac{s^2_1} {n_1} + \frac{s^2_2}{n_2} }}.
+\label{eq:twosamplez}
+\end{equation}
+We will illustrate the two-sample $t$-test with an example.
+\begin{example}
+We have obtained random samples of 
+magnetite-bearing rocks from two separate basalt outcrops.  The measured magnetizations (in Am$^2$kg$^{-1}$) are
+\begin{quote}
+	Outcrop 1: \{87.4, 93.4, 96.8, 86.1, 96.4\}   $n_1 = 5$
+
+	Outcrop 2: \{106.2, 102.2, 105.7, 93.4, 95.0, 97.0\}   $n_2 = 6$
+\end{quote}
+We state our null hypothesis $H_0$: $\mu_1 = \mu_2$; the alternative hypothesis is of course H$_1:\mu_1 \neq \mu_2$.  
+We decide to use a 95\% confidence level, so the level of significance $\alpha = 0.05$.
+In this case, $\nu = 5 + 6 - 2 = 9$, and Table~\ref{tbl:Critical_t}
+shows that the critical $t$ value is 2.262.  We will reject $H_0$ if our calculated
+$t$ exceeds this critical value.  Using the data, we find
+\begin{equation}
+\bar{x}_1 = 92.0 \mbox{ with } s_1 = 5.0,
+\end{equation}
+\begin{equation}
+\bar{x}_2 = 99.9 \mbox{ with } s_2 = 5.5.
+\end{equation}
+Using (\ref{eq:t_two_means}) we obtain
+\begin{equation}
+t = \frac{99.9 - 92.0}{\sqrt{  \frac{4\cdot 5^2 + 5\cdot5.5^2}{9}  \left(  \frac{1}{5} + \frac{1}{6}   \right) }} = 2.5.
+\end{equation}
+Since $t > 2.262$ we must reject $H_0$. We conclude that the magnetizations at the two outcrops are 
+not the same.
+\end{example}
+
+\subsection{Differences between sample means (unequal variance)}
+\index{Sample!mean!differences}
+\index{Differences between sample means}
+\index{Test!two sample means}
+\index{Test!Welch's $t$}
+\index{Welch's $t$-test}
+\label{sec:twomeansw}
+
+In situations where the two populations \emph{do not} have equal variance (which we will test for in Section~\ref{sec:twostd}) one
+can use \emph{Welch's} $t$-test instead.  It is similar to the regular two-sample $t$-test but now the observed
+$t$ value is obtained directly from (\ref{eq:twosamplez}).  However, the estimation of the
+degrees of freedom differs and is given by
+\begin{equation}
+	\displaystyle
+	\nu \approx \frac{\left( \frac{s^2_1} {n_1} + \frac{s^2_2}{n_2} \right)^2}{\frac{s^4_1} {n^2_1 \nu_1} + \frac{s^4_2}{n^2_2 \nu_2}}.
+\label{eq:Welch2nu}
+\end{equation}
+Rounding $\nu$ to the nearest integer allows you to look up critical $t$ from Table~\ref{tbl:Critical_t}.
+
+So far, we have put confidence limits on sample means and compared sample means 
+to investigate whether two populations have different means.  We will now turn our attention to 
+inferences about the standard deviation.
+
+\subsection{Inferences about the standard deviation}
+
+\PSfig[h]{Fig1_chi2_dist}{A typical chi-square probability density function, with mean value $\nu$ and mode at $\nu-2$.}
+
+The most popular way of estimating $\sigma$ is to compute the sample standard deviation.  When 
+investigating properties of $\sigma$ via $s$ we will be using the ``chi-square'' statistic, given by
+\begin{equation}
+	\index{$\chi^2$ statistic (``chi-squared'')}
+	\index{Chi-squared statistic ($\chi^2$)}
+	\index{Probability distribution!Chi-squared}
+	\index{Probability distribution!$\chi^2$}
+\chi^2=\frac{(n-1)s^2}{\sigma^2}.
+\label{eq:chi2_stat}	 	
+\end{equation}
+The $\chi^2$ distribution depends on the degrees of freedom, $\nu = n - 1$, and it is restricted to positive 
+values because of the squared terms.  It portrays how the sample variances would be 
+distributed if we selected random samples of $n$ items from a normal distribution with a standard deviation of $\sigma$.
+Figure~\ref{fig:Fig1_chi2_dist} shows a typical $\chi^2$ distribution.
+In the same way we used $z_\alpha$ and $t_\alpha$, we now use $\chi^2_\alpha$ as the value for which the area to the right 
+of $\chi^2_\alpha$ equals $\alpha$.  Because the distribution is not symmetrical, we must evaluate the
+critical values for $\alpha/2$ and $1 - \alpha/2$ separately.
+Furthermore, in the same way we placed confidence intervals on $\mu$, we now 
+use (\ref{eq:chi2_stat}) to place confidence intervals on the variance, i.e.,
+
+\begin{equation}
+\chi^2_{1-\frac{\alpha}{2}}<\frac{(n-1)s^2}{\sigma^2}<\chi^2_\frac{\alpha}{2}
+\end{equation}	 
+or
+\index{Confidence interval!sample standard deviation}
+\index{Sample!standard deviation!confidence interval}
+\begin{equation}	 
+\frac{(n-1)s^2}{\chi^2_\frac{\alpha}{2}}<\sigma^2<\frac{(n-1)s^2}{\chi^2_{1-\frac{\alpha}{2}}},
+\end{equation}
+which gives the $\alpha$ confidence interval on the variance.  For large samples $(n > 30)$ this can be 
+simplified to 
+\begin{equation}
+\frac{s}{1+{z_\frac{\alpha}{2}/\sqrt{2n}}}<\sigma<\frac{s}{1-{z_\frac{\alpha}{2}/\sqrt{2n}}}.
+\end{equation}
+Note that the confidence interval is not symmetrical about the sample standard deviation.
+
+\subsection{Testing a sample standard deviation}
+\index{Sample!standard deviation!test}
+\index{Test!standard deviation (one sample)}
+
+	We might want to test whether our sample standard deviation $s$ is equal to or different from a 
+given population standard deviation $\sigma$.  In such a case the null hypothesis becomes H$_0: s = \sigma$, with the alternative 
+hypothesis H$_1: s \neq \sigma$.  As usual, we select our level of significance to be $\alpha$ = 0.05.
+\begin{example}
+	We have 15 estimates of temperatures with $s = 1.3^\circ$ C and we want to know if $s$ is 
+significantly different from $\sigma = 1.5^\circ$ C based on past experience.  From $\alpha$ = 0.05 and $\nu$ = 14 (since we
+lose one degree of freedom by first computing $\bar{x}$ to obtain $s$), we find the 
+critical $\chi^2$ values from Table~\ref{tbl:Critical_chi2} to be $\chi^2_{0.025} = 26.119$ and $\chi^2_{0.975} = 5.63$. Based on our sample 
+statistic, we compute
+\begin{equation}
+\chi^2=\frac{14\cdot1.3^2}{1.5^2}=10.5.
+\end{equation}
+We see that we cannot reject $H_0$ at the 0.05 significance level, so we simply
+reserve judgment.  This was a two-sided test since we had to check that $\chi^2$  did not land in 
+either of the two tails.
+\end{example}
+
+	For large samples ($n \geq 30$), the $\chi^2$ critical values do not vary much with $\nu$ and we may use the simpler statistic
+\begin{equation}
+z=\frac{s-\sigma}{\sigma/\sqrt{2n}}
+\end{equation}
+and use the standard $z$-statistics, i.e., the $n = \infty$ entry in Table~\ref{tbl:Critical_t}.
+
+\subsection{Comparing standard deviations from two samples}
+\index{Test!standard deviation (two samples)}
+\index{Sample!standard deviation!test}
+\label{sec:twostd}
+\PSfig[h]{Fig1_F_dist}{A typical $F$ probability density function, for $\alpha = 0.10$, $\nu_1 = 20$ and $\nu_2 = 12$.}
+
+	In the $t$-test for differences between two means (Section~\ref{sec:twomeans})
+we assumed that the standard deviations of the two samples were the same.
+Often this is not the case  and one should first test whether this 
+assumption is valid.  We want to know whether the two variances are different or not.  The 
+statistic that is most appropriate for such tests is called the $F$-statistic, defined as the ratio
+\index{Probability distribution!$F$}
+\begin{equation}
+F=\left \{ \begin{array}{cc}{s_1}^2/{s_2}^2 & ,s_1>s_2\\
+{s_2}^2/{s_1}^2 & ,s_2>s_1
+\end{array}\right.,
+\label{eq:F}
+\end{equation}
+which typically is distributed as shown in Figure~\ref{fig:Fig1_F_dist}.
+For normal distributions, this variance ratio is a continuous distribution called the $F$-distribution.  
+It depends on the two degrees of freedom, $\nu_1 = n_1 - 1$ and $\nu_2 = n_2 - 1$.  As before, we will reject 
+the null hypothesis H$_0:\sigma_1 = \sigma_2$ at the $\alpha$ level of significance and (possibly) entertain the alternative 
+$H_1$: $\sigma_1 \neq \sigma_2$  when our observed $F$-statistic exceeds the critical value $F_{\alpha/2}$.
+Note that because of the way (\ref{eq:F}) forces $F$ to be equal to or larger than unity, any $F$-ratio that would
+have been located into the left tail is now instead mapped to the right tail.  This is why we use $\alpha/2$ in determining
+the critical value as it is still a two-sided test.
+\begin{example}
+In our case of rock magnetizations we assumed that the two standard deviations were approximately 
+the same.  Let us now show that this was actually justified.  We find
+\begin{equation}
+	\index{\emph{F}-test}
+	\index{F-test}
+	\index{Test!\emph{F}}
+F=\frac{5.5^2}{5.0^2}=1.21.
+\end{equation}	 
+From Table~\ref{tbl:Critical_F975} we find $F_{0.025}(\nu_1 = 5, \nu _2 = 4) = 9.36$. Hence we cannot reject $H_0$ and conclude 
+that the difference in sample standard deviations is not statistically significant at the 95\% level.  In fact, $s_1$ would
+have to be over three times larger than $s_2$ ($\sqrt{9.36} = 3.06$ to be exact) before we would be able to reject $H_0$.
+\end{example}
+
+\subsection{Testing distribution shape: The $\chi^2$ test}
+\index{Test!$\chi^2$ (``chi-squared'')}
+\index{Test!chi-squared ($\chi^2$)}
+\index{$\chi^2$ test (``chi-squared'')}
+\index{Chi-squared test ($\chi^2$)}
+
+	The next parametric test we shall be concerned with is the chi-squared test.  It is a sample-based
+statistic using normal scores that are squared and summed up:
+\begin{equation}
+\chi^2=\sum^n_{i=1}z_i^2=\sum^n_{i=1}\left(\frac{x_i-\bar{x}}{s}\right)^2.
+\label{eq:ch:2_test}
+\end{equation}
+If we draw all possible samples of size $n$ from a normal population and plotted a histogram of the resulting $\sum z^2$ they would 
+approximate the $\chi^2$ distribution mentioned earlier.  The $\chi^2$ test is used to compare the \emph{shape} of our data 
+distribution to a distribution of known shape (which is usually a normal distribution).
+\PSfig[h]{Fig1_Whitewater}{By desiring equal probabilities ($p = 0.2$) we obtain $z$-values for the bin boundaries that are not equidistant.
+This ensures that each bin has an acceptable number of observations and simplifies the calculation of the expected
+values.}
+\index{Data!binned}
+	The $\chi^2$ test is most often used on data that have been categorized or \emph{binned}.  Assuming that 
+our observations have been binned into $k$ bins, the test statistic is found as 
+\begin{equation}
+\chi^2=\sum^k_{j=1}\frac{(O_j-E_j)^2}{E_j},
+\label{eq:chi2_test}
+\end{equation}
+where $O_j$ and $E_j$ are the number of observed and expected values in the $j$'th bin.  At first glance
+you may think we have a typographical error in (\ref{eq:chi2_test}) --- we do not.  Note that this $\chi^2$ 
+still is nondimensional since we are using counts, even if the denominator is not squared.  With 
+counts, the probability that $m$ out of $n$ counts will fall in a given bin $j$ is determined by the 
+binomial distribution approximated by (\ref{sec:binom}), with
+\begin{equation}
+\bar{x} = E_j = np_j
+\end{equation}
+and
+\begin{equation}
+s = \sqrt{np_j (1- p_j)} \approx \sqrt{np_j} = \sqrt{E_j}. 
+\end{equation} 	
+Here, $p_j$ is the probability that any value will fall in the $j$'th bin.  Plugging in for $\chi^2$, we find
+\begin{equation}
+\chi^2 = \sum^k_{j=1} \left ( \frac{x_j - \bar{x}}{s} \right) ^2 =
+\sum^k_{j=1} \left( \frac{O_j - E_j}{\sqrt{E_j}} \right) ^2 = \sum^k_{j=1}
+\frac{(O_j - E_j)^2}{E_j}.	 
+\end{equation}
+as stated in (\ref{eq:chi2_test}).  Since $\chi^2 = 0$ would mean a perfect match between observations and
+expectations we realize that this $\chi^2$ test is \emph{one-sided}, hence we will only check if our observed $\chi^2$
+statistic exceeds the critical $\chi^2_{\alpha, \nu}$ value.
+\begin{example}
+Consider the 48 measurements of salinity from Whitewater Bay in Florida (Table~\ref{tbl:salinity}). We would like to
+know if these observations come from a normal distribution or not.  The 
+answer might have implications for models of mixing salt and fresh water in the bay.
+
+	The first step is to normalize the data into normal scores.  We find $\bar{x}  = 49.54$ and $s = 9.27$, and
+thus transfer all values via
+\index{Standard units}
+\index{Standard scores}
+\index{Normal scores}
+\begin{equation}
+z_i = \frac{x_i - 49.54}{9.27}.
+\end{equation}	 
+We choose to bin the data into five bins whose boundaries were chosen so that the area under the curve for each bin is the 
+same, i.e., 0.2.  This choice ensures that the expected value will be the same for all bins (Figure~\ref{fig:Fig1_Whitewater}).
+Using Table~\ref{tbl:Critical_z}, we find that the corresponding $z$-values 
+for the intervals are (-$\infty$, -0.84), (-0.84, -0.26), (-0.26, +0.26), (0.26, 0.84), and (0.84, $\infty$).  Counting 
+the values in Table~\ref{tbl:salinity} we find the observed number of samples for each of the five bins to be 10, 11, 
+10, 5, and 12.  These are the observed $O_j$'s.  The expected values $E_j$ are all the same, i.e.,
+\begin{equation}
+E_j = \frac{n}{k} = \frac{48}{5} = 9.6.
+\end{equation}
+Using (\ref{eq:chi2_test}) we find the observed value $\chi^2 = 3.04$.
+\index{Degrees of freedom}
+
+	The $\chi^2$ distribution depends on $\nu$, the degrees of freedom, which normally would be 
+$\nu = k - 1 = 4$ in 
+our case (we lose one since the bin counts must sum to $n$).  However, we also used our observations to
+compute $\bar{x}$, then $s$, in order to \emph{determine the bin boundaries}.  These estimations further reduce $\nu$ by two, leaving 
+just two degrees of freedom.  From the relevant Table~\ref{tbl:Critical_chi2} we find critical $\chi^2$ for $\nu = 2$ and $\alpha = 0.05$ to be 
+5.99.  Since this is much larger than our computed value we conclude that we cannot, at the 0.05 level of confidence, reject the 
+null hypothesis that the salinities were drawn from a normal distribution. 
+We stress that while we used a normal distribution for comparison in this example, the $E_j$ could have 
+been derived from any other distribution we may wish to compare our data to. 
+\end{example}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|c|c|c||c|c|c|} \hline
+\bf{Sample} &  \bf{Original}  & \bf{Standardized} & \bf{Sample} & \bf{Original}  & \bf{Standardized} \\
+\bf{Number} & \bf{Sample} & \bf{Sample}  & \bf{Number} & \bf{Sample} & \bf{Sample} \\ \hline
+1 & 46.00 & -0.38 \, & 25 & 35.00 & -1.57 \, \\ \hline
+2 & 37.00 & -1.35 \, & 26 & 49.00 & -0.06 \, \\ \hline
+3 & 62.00 & 1.34 & 27 & 48.00 & -0.17 \,  \\ \hline
+4 & 59.00 & 1.02 & 28 & 39.00 & -1.14  \, \\ \hline
+5 & 40.00 & -1.03 \, & 29 & 36.00 & -1.46 \, \\ \hline
+6 & 53.00 & 0.37 & 30 & 47.00 & -0.27 \, \\ \hline
+7 & 58.00 & 0.91 & 31 & 59.00 & 1.02 \\ \hline
+8 & 49.00 & -0.06 \, & 32 & 42.00 & -0.81 \,  \\ \hline
+9 & 60.00 & 1.13 & 33 & 61.00 & 1.24 \\ \hline
+10 & 56.00 & 0.70 & 34 & 67.00 & 1.88 \\ \hline
+11 & 58.00 & 0.91 & 35 & 53.00 & 0.37 \\ \hline
+12 & 46.00 & -0.38 \, & 36 & 48.00 & -0.17 \, \\ \hline
+13 & 47.00 & -0.27 \, & 37 & 50.00 & 0.05 \\ \hline
+14 & 52.00 & 0.27 & 38 & 43.00 & -0.71 \, \\ \hline
+15 & 51.00 & 0.16 & 39 & 44.00 & -0.60 \, \\ \hline
+16 & 60.00 & 1.13 & 40 & 49.00 & -0.06 \, \\ \hline
+17 & 46.00 & -0.38 \, & 41 & 46.00 & -0.38 \, \\ \hline
+18 & 36.00 & -1.46 \, & 42 & 63.00 & 1.45 \\ \hline
+19 & 34.00 & -1.68 \, & 43 & 53.00 & 0.37 \\ \hline
+20 & 51.00 & 0.16 & 44 & 40.00 & -1.03 \, \\ \hline
+21 & 60.00 & 1.13 & 45 & 50.00 & 0.05 \\ \hline
+22 & 47.00 & -0.27 \, & 46 & 78.00 & 3.07 \\ \hline
+23 & 40.00 & -1.03 \, & 47 & 48.00 & -0.17 \, \\ \hline
+24 & 40.00 & -1.03 \, & 48 & 42.00 & -0.81 \, \\ \hline
+\end{tabular}
+\normalsize
+\caption{Standardized scores of salinity measurements from Whitewater Bay.}
+\label{tbl:salinity}
+\end{table}
+
+\subsection{Test for a correlation coefficient}
+\index{Test!correlation coefficient}
+\index{Correlation!parametric test}
+
+We recall that the conventional correlation coefficient was defined as
+\begin{equation}
+r = \frac{s_{xy}}{s_x s_y} = 
+\frac{\sum^n_{i=1} ( x_i - \bar{x}) (y_i - \bar{y})} {\sqrt { \sum^n_{i=1} (x_i - \bar{x})^2  \sum^n _{i=1} (y_i - \bar{y})^2}}.
+\label{eq:corrcoef}
+\end{equation}
+Often, we need to test if an observed $r$ is \emph{significant}.  In such tests, $r$ is our sample-derived estimate of $\rho$, the 
+actual correlation of the population pairs.  The most useful null hypothesis is simply H$_0: \rho = 0$.  It can be 
+shown that the sampling distribution of correlations for a population that has zero correlation ($\rho = 0$) is a normal distribution 
+with mean $\mu = 0$ and $\sigma = \sqrt{(1 - r^2)/(n-2)}$.  Hence, a $t$ statistic can be calculated as
+\begin{equation}
+t = \frac{r - \mu}{\sigma} = \frac{r}{\sqrt{(1-r^2)/(n-2)}} = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}.
+\label{eq:t_stat_corr}
+\end{equation}
+The degrees of freedom, $\nu$, is $n - 2$ since we needed to compute both $\bar{x}$ and $\bar{y}$ first to determine $r$.
+\begin{example}
+Suppose we roll a pair of dice, one red and one green 
+(Table~\ref{tbl:dice1}).  Using (\ref{eq:corrcoef}) we obtain $r = 0.66$ which seems quite high, especially since there is no 
+reason to believe a correlation should exist at all.  Let us run a test to determine if the correlation is 
+significant.  Choosing $\alpha = 0.05$, Table~\ref{tbl:Critical_t} shows that critical $t_{\alpha/2,3} = 3.182$.  Applying
+(\ref{eq:t_stat_corr}) gives the observed 
+$t = 1.52$, hence the correlation of 0.66 is most likely caused by random fluctuations found in small 
+samples and (gratefully) we cannot reject $H_0$.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|} \hline
+\bf{Red} (x) & \bf{Green} (y) \\ \hline
+4 & 5 \\ \hline
+2 & 2 \\ \hline
+4 & 6 \\ \hline
+2 & 1 \\ \hline
+6 & 4 \\ \hline
+\end{tabular}
+\caption{Result of tossing a pair of dice five times.}
+\label{tbl:dice1}
+\end{table}
+
+\index{Type I error}
+ 	How high would $r$ have to be for us to find it significant and commit a type I error by 
+rejecting the (true) null hypothesis?  We can solve for $r$ in
+\begin{equation}
+t_{\alpha/2,n-2} = \frac{r \sqrt{n-2}}{\sqrt{1 - r^2}} \Rightarrow  3.182^2 = \frac{3r^2}{1-r^2} \Rightarrow r =  \pm 0.88.
+\end{equation}
+So, if $r$ happens to equal or exceed $\pm 0.88$ we would find ourselves awkwardly concluding that red and green dice give 
+correlated pairs of values, but we would only make that mistake once in twenty tries on average.
+\end{example}
+Going a bit further, we can use (\ref{eq:t_stat_corr}) to determine what the critical correlation, $r_c$, has to be
+for a given sample size (i.e., number of rolls) before we would suspect the dice have been tampered with.  We
+simply solve the equation for $r$ given a level of confidence and sample size.  The results are displayed in
+Figure ~\ref{fig:Fig1_dice}.  High correlations are required when the number of rolls are relatively small.
+\PSfig[h]{Fig1_dice}{The critical values of correlation, i.e., how large the observed correlation would have
+to be before we must reject the null hypothesis.  The circle and dashed lines reflect the situation in Example~{\thechapter.\theexample}.}
+\index{Parametric tests|)}
+
+\subsection{Analysis of variance}
+\index{Analysis of variance (ANOVA)}
+\index{Variance!analysis of (ANOVA)}
+	We found earlier that we could use the Student's $t$-test to decide if two 
+samples had different means.  However, very often we are faced with the task of deciding 
+whether observed differences among \emph{more} than two sample means can be attributed to chance, or 
+whether there are real differences among the means of the populations sampled.
+Statistical scientists developed an exploratory procedure to analyze such observations known as \emph{ANOVA},
+which stands for ``ANalysis Of VAriance''.  ANOVA usually comes in two flavors: One-way and two-way.
+
+\subsubsection{One-way ANOVA}
+\index{One-way ANOVA|(}
+\index{ANOVA!one-way|(}
+
+	In one-way ANOVA, the basic idea is to express the total variation of the data as a 
+sum of two terms, each of which can be attributed to a specific \emph{source}.  The two sources of variation are:
+\begin{enumerate}
+\item Actual differences (different means) among the populations that the samples represent.
+\item Chance or experimental error.
+\end{enumerate}
+The measure of the total variation that we shall use here is the \emph{total sum of squares}, \emph{SST}, which is simply
+\begin{equation}
+SST = \sum ^k _{j=1} \sum ^n _{i=1} (x_{ij} - \bar{\bar{x}} ) ^2,
+\label{eq:SST}
+\end{equation}	 	
+where $x_{ij}$ is the $i$'th observation from the $j$'th sample.  Thus, we have $k$ samples with $n$ observations 
+each and $\bar{\bar{x}}$  is the grand mean of all observations.  Note that if we divided $SST$ by 
+$kn-1$ we would obtain the variance 
+of the combined data set.  Let $\bar{x}_j$  be the mean of the $j$'th sample.  We can then rewrite (\ref{eq:SST}) as
+\begin{equation}
+\begin{array}{rcl}
+SST & = & \displaystyle \sum^k_j \sum^n_i [ ( \bar{x}_j - \bar{\bar{x}})   + (x_{ij} - \bar{x}_j)]^2 =  \sum^k_j \sum^n_i [(\bar{x}_{j} - \bar{\bar{x}})^2  + 2 (\bar{x}_j - \bar{\bar{x}}) (x_{ij} - \bar{x}_j) +  (x_{ij} - \bar{x}_j)^2]   \\
+ & = & \displaystyle n \sum^k_j   ( \bar{x}_j - \bar{\bar{x}})^2  +  \sum^k_j \sum^n_i  (x_{ij} - \bar{x}_j)^2  +   2 \sum^k_j \sum^n_i (\bar{x}_j x_{ij} - \bar{x}^2_j - \bar{\bar{x}}x_{ij} + \bar{\bar{x}}  \bar{x}_j)   \\
+ & = &   \displaystyle n \sum^k_j  ( \bar{x}_j - \bar{\bar{x}})^2 + \sum^k_j \sum^n_i  (x_{ij} - \bar{x}_j)^2 +     2  \sum^k_j  \bar{x}_j n \bar{x}_j - 2n        \sum^k_j   \bar{x}^2_j - 2\bar{\bar{x}}    \sum^k_j \sum^n_i  x_{ij} + 2 \bar{\bar{x}} n  \sum^k_j \bar{x}_j\\
+& = & n \displaystyle  \sum^k_j  ( \bar{x}_j - \bar{\bar{x}})^2    + \sum^k_j \sum^n_i (x_{ij} - \bar{x}_j)^2 + 2n      \sum^k_j  \bar{x}^2_j - 2n \sum^k_j \bar{x}^2_j - 2 \bar{\bar{x}}kn \bar{\bar{x}} + 2 \bar{\bar{x}} nk \bar{\bar{x}} \\
+& = &  n \displaystyle  \sum^k_j  ( \bar{x}_j - \bar{\bar{x}})^2    + \sum^k_j \sum^n_i
+(x_{ij} - \bar{x}_j)^2.
+\end{array}
+\end{equation}	 
+Looking at the last two terms remaining we see that the first is a measure of the variation \emph{among} the sample 
+means.  Similarly, the second term is a measure of the variation \emph{within} the individual samples.  It 
+is customary to refer to the first term as the \emph{treatment sum of squares}, $SS(Tr)$
+\index{Treatment sum of squares}
+\index{Sum of squares!treatment}
+and to the second 
+term as the \emph{error sum of squares}, $SSE$ (Note: these names originated from agricultural experiments, i.e., ``treatments'' of 
+different fertilizers.)
+\index{Error sum of squares}
+\index{Sum of squares!error}
+Our overall goal with the ANOVA test is to investigate 
+if the sample means are all statistically equal, hence the null hypothesis is
+\[
+H_0 = \mu_1 = \mu_2 = \cdots    = \mu_k \mbox{ versus } H_1: \mbox{they are not all equal}.
+\]
+We usually state that $\mu_i = \mu + \epsilon_i$, so  $\sum \epsilon_i \equiv 0$.  Thus, the null hypothesis can also be 
+written,
+$$
+H_0: \epsilon_1 = \epsilon_2 = \cdots    = \epsilon_k = 0.
+$$
+Let us introduce two assumptions that are critical to this test:
+\begin{enumerate}
+\item The populations we are sampling are approximately normal.
+\item They all have the same variance, $\sigma^2$.
+\end{enumerate}
+If true, then we can look upon the $k$ samples as if they came from the same (normal) population and 
+therefore consider the variance of their means $s^2_{\bar{\bar{x}}}$  as an estimate of $\sigma_{\bar{\bar{x}}}$.
+Since $\sigma_{\bar{\bar{x}}} = \sigma / \sqrt{n}$  for infinite 
+populations (recall the central limits theorem), we find that $ns^2_{\bar{\bar{x}}} = \sigma^2$.
+This is, upon examination, the same as $SS(Tr)/(k-1)$.
+
+	Since $\sigma^2$ is not known it must be estimated from the data.  Furthermore, since the populations are assumed to be normal then any 
+one of the sample variances could be used.  To improve on the estimate we chose to take the mean of the sample variances,
+\begin{equation}
+\frac{s^2_1 + s^2_2 + \cdots s^2_k}{k}.
+\end{equation}	 
+This turns out to equal the (normalized) second variance term, i.e., $SSE/(k(n-1))$.  We now have two competing estimates of $s^2$ for the population 
+variance $\sigma^2$.  If the first estimate (based on variation among the sample means) is much larger 
+than the second estimate (based on variations within the samples, i.e., variation due to chance) we 
+should reject $H_0$.   This is simply the \emph{F}-test comparing two variances.  Consequently, we shall use the 
+statistic
+\begin{equation}
+F = \frac{SS(Tr)/_{k-1}}{SSE/_{k(n-1)}}.
+\end{equation}
+where the numerator is our estimate of $\sigma^2$ from variation among the $\bar{x}_j$ while the
+denominator is our estimate of $\sigma^2$ from variation within the samples.  The expected value of $F$ is therefore unity.
+In practice, we construct an ANOVA table (Table~\ref{tbl:one_way_ANOVA}).
+\begin{table}[H]
+\center
+\begin{tabular}{|l|c|c|c|c|} \hline
+\bf{Source of} & \bf{Degrees of} & \bf{Sum of} & \bf{Mean Square} & $F$ \\ 
+\bf{Variation} & \bf{Freedom} & \bf{Squares} & &  \\ \hline
+\rule{0pt}{4ex}Treatments & $k - 1$ & $SS(Tr)$ & $MS(Tr) = \displaystyle \frac{SS(Tr)}{k-1}$ & $ \displaystyle \frac{MS(Tr)}{MSE}$\\[9pt]  \hline
+\rule{0pt}{4ex}Error & $k(n - 1)$ & $SSE$ &  $MSE = \displaystyle \frac{SSE}{k(n-1)}$ &  \\[9pt] \hline
+Total & $kn-1$ & $SST$ & & \\ \hline
+\end{tabular}
+\caption{Table used for a one-way analysis of variance (ANOVA).}
+\label{tbl:one_way_ANOVA}
+\end{table}
+We will apply this procedure to a small data set of four samples with six observations each (Table~\ref{tbl:sandstone_data}).
+\begin{example}
+The porosity of a sandstone was measured at four different 
+locales and the observed values are listed in Table~\ref{tbl:sandstone_data}.
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|c|c|c|c|} \hline
+\bf{Loc A} &  \bf{Loc B} & \bf{Loc C} & \bf{Loc D} \\ \hline
+23.1 & 21.7 & 21.9 & 19.8 \\ \hline
+22.8  & 23.0 & 21.3 & 20.4 \\ \hline
+23.2  & 22.4 & 21.6 & 19.3 \\ \hline
+23.4 & 21.1 & 20.2 & 18.5 \\ \hline
+23.6 & 21.9 & 21.6 & 19.1 \\ \hline
+21.7 & 23.4 & 23.8 & 21.9 \\ \hline
+\end{tabular}
+\caption{Four samples of sandstone porosity take from different locations.}
+\label{tbl:sandstone_data}
+\end{table}
+At the 0.05 level of significance, is the porosity the same at all four locations?  The null 
+hypothesis becomes
+\begin{equation}
+H_0: \bar{\varphi} _1 = \bar{\varphi}_2  = \bar{\varphi}_3 = \bar{\varphi}_4.
+\end{equation}	 
+We first find
+\begin{equation}
+\bar{x}_1 = 22.97, \bar{x}_2 = 22.25, \bar{x}_3 = 21.73, \bar{x}_4 = 19.83, \bar{\bar{x}} = 21.70.
+\end{equation}
+The resulting ANOVA table is given as Table \ref{tbl:sandstone_ANOVA}.
+\begin{table}[h]
+\center
+\begin{tabular}{|l|c|c|c|c|} \hline
+\bf{Source of Variation} & $\nu$ & \bf{SS} & \bf{MS} & $F$ \\ \hline	
+Treatments & 3 & 32.35 & 10.78 & 10.78  \\ \hline
+Error & 20 & 20.02 & 1.000 &   \\ \hline
+Total & 23 & 52.37 & &  \\ \hline
+\end{tabular}
+\caption{One-way ANOVA table based on the statistics from the porosity data given in Table~\ref{tbl:sandstone_data}.}
+\label{tbl:sandstone_ANOVA}
+\end{table}
+\index{\emph{F}-test}
+\index{Test!\emph{F}}
+From Table~\ref{tbl:Critical_F95} we find the critical $F$ value for 3 and 20 degrees of freedom at the 5\% level to 
+be $F_{0.05,3,20} = 3.10$ (This is a one-sided test since we only consider if $F > 1$ or not).  Since our 
+observed $F$ is much larger than the critical value we must reject our null hypothesis:  The porosity at the four 
+locations are not all the same.
+\end{example}
+To simplify the calculations, we rewrite the expressions for the various sums of squares as
+\begin{equation}
+SST = \left \{ \sum^k_{j=1} \sum^n_{i=1} x^2_{ij} \right \} - \frac{1}{kn} S^2,
+\end{equation}
+\begin{equation}
+SS(Tr) = \left \{ \frac{1}{n}  \sum^k_{j=1} S^2_j \right \} - \frac{1}{kn} S^2,
+\end{equation}
+and
+\begin{equation}
+SSE = SST - SS(Tr).
+\end{equation}
+Here, $S_j$ is the sum of the values in the $j$'th sample, and $S$  is the total sum of all observations.
+
+	So far we assumed that each sample has the same number of observations.  Instead, if there are $n_j$ 
+observations in the $j$'th sample we get
+\begin{equation}
+SST = \left \{ \sum^k_{j=1} \sum^{n_j}_{i=1} x^2_{ij} \right \} - \frac{1}{N} S^2,
+\end{equation}
+\begin{equation}
+SS(Tr) = \left \{ \sum^k_{j=1} \frac{S^2_j}{n_j} \right \} - \frac{1}{N} S^2,
+\end{equation}
+where $\displaystyle N = \sum^k_{j=1} n_j$.  Also, $\nu_{\mbox{treat}} \ = k-1$ but $\nu_{\mbox{error}} = N-k$.
+\index{One-way ANOVA|)}
+\index{ANOVA!one-way|)}
+
+\subsubsection{Two-way ANOVA}
+\index{Two-way ANOVA|(}
+\index{ANOVA!two-way|(}
+
+	The previous ANOVA test was concerned only with the task of checking if the means of the 
+populations were the same.   The two-way ANOVA procedure extends the test to whether there also are variations 
+\emph{across} the populations.  In other words, the population mean for $j$'th treatment and $i$'th \emph{block} is expected to be
+\begin{equation}
+\mu _{ij} = \mu + \epsilon_j + \gamma_i.
+\end{equation}
+Thus, $\epsilon_j$ are the treatment effects that vary from  sample to sample, and $\gamma_i$ are called the \emph{block 
+effects}  and vary within each sample.  Examples might be porosity at four locations where the $\epsilon_j$ 
+represent differences among the locations and $\gamma_i$ may represent variations with depth across all 
+samples.  Again, we test
+$$
+H_0: \epsilon_1 = \epsilon_2 = \ldots = \epsilon_k = 0,
+$$	 
+but now we also consider the second null hypothesis
+$$
+H_0: \gamma_1 = \gamma_2 = \ldots = \gamma_n = 0.
+$$	 
+To do this we must obtain a quantity, similar to the treatment sum of squares, which measures 
+the variation among the block means.  If we let $S_i$ be the total of all values in the $i$'th block (e.g., 
+depth) and substitute it for $S_j$, sum over $i$ instead of $j$, and swap $n$ and $k$, we find the \emph{block sum of 
+squares} via
+\index{Sum of squares!block}
+\index{Block sum of squares}
+\begin{equation}
+SSB = \left \{ \frac{1}{k} \sum^n _{i=1} S^2_i \right \} - \frac{1}{kn} S^2.
+\end{equation}
+Hence, we compute $SST$ and $SS(Tr)$ as before, $SSB$ as just given, and $SSE$ now becomes
+\begin{equation}
+	SSE = SST - [SS(Tr) + SSB].
+\end{equation}
+Hence, Table~\ref{tbl:two_way_ANOVA} shows the extended ANOVA table for two-way analysis.
+\begin{table}[H]
+\center
+\begin{tabular}{|l|c|c|c|c|} \hline
+\bf{Source of}  & \bf{Degrees of}  & \bf{Sum of Squares} & \bf{Mean Square} & $F$ \\ 
+\bf{Variation} & \bf{Freedom} & & & \\ \hline
+\rule{0pt}{4ex}Treatments & $k - 1$ & $SS(Tr)$ & $MS(Tr) = \displaystyle \frac{SS(Tr)}{k-1}$ & $\displaystyle \frac{MS(Tr)}{MSE}$ \\[9pt] \hline
+\rule{0pt}{4ex}Blocks  & $n -1$ & $SSB$ & $MSB = \displaystyle \frac{SSB}{n-1}$ & $\displaystyle \frac{MSB}{MSE}$ \\[9pt] \hline
+\rule{0pt}{4ex}Error & $(k - 1)(n - 1)$ & $SSE$  & $MSE = \displaystyle \frac{SSE}{(k-1)(n-1)}$  & \\[9pt] \hline
+Total & $kn - 1$ & $SST$ & & \\ \hline
+\end{tabular}
+\caption{Two-way table for the analysis of variance (ANOVA).}
+\label{tbl:two_way_ANOVA}
+\end{table}
+\begin{example2}
+We have measured the nickel concentration in a shale at four locations where we have obtained three 
+observations at different depths in the unit.  Our data are given in parts per million (ppm), with depth
+increasing downward in Table~\ref{tbl:two_way_nickel}.  We want to do a two-way ANOVA 
+to see if the variations among the locations and among observations at the same depth (our ``blocks'') are similar 
+at the 95\% level of confidence.  We state
+$$
+H_0: \epsilon_1 = \epsilon_2 = \epsilon_3 = \epsilon_4 = 0,$$
+$$
+\gamma_1 = \gamma_2 = \gamma_3 = 0.
+$$
+\begin{table}[H]
+\center
+\begin{tabular}{|c|r|r|r|r|r|} \hline
+& 	  \bf{Loc 1} & \bf{Loc 2} & \bf{Loc 3} & \bf{Loc 4} & $S_i$ \\ \hline
+\bf{Depth 1} & 71 & 44 & 50 & 67 & 232 \\ \hline
+\bf{Depth 2} & 92 & 51 & 64 & 81 & 288 \\ \hline
+\bf{Depth 3} & 89 & 85 & 72 & 86 & 332 \\ \hline
+$S_j$ & 252 &  180 & 186 & 234 & 852  \\ \hline
+\end{tabular}
+\caption{Four samples of nickel concentrations from different locations, sorted by depth.}
+\label{tbl:two_way_nickel}
+\end{table}
+\noindent
+Following the procedure, we compute the total sum of squares to be
+\begin{equation}
+\sum \sum x^2 = 63,414.
+\end{equation}
+Combined with the sums in Table~\ref{tbl:two_way_nickel} we find
+\begin{equation}
+SST = 63,414 - \frac{1}{12}(852)^2 = 63,414 - 60,492 = 2922,
+\end{equation}
+\begin{equation}
+SS(Tr) = \frac{1}{3}[252^2 + 180^2 + 186^2 + 234^2] -  60,494 = 1260,
+\end{equation}
+\begin{equation}
+SSB = \frac{1}{4} [232^2 + 288^2  + 332^2 ] - 60,492 = 1256,
+\end{equation}
+\begin{equation}
+SSE = 2922 - [1260 + 1256] = 406.
+\end{equation}
+We construct a two-way ANOVA table presented as Table~\ref{tbl:two_way_F}.
+\begin{table}[H]
+\center
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\bf{Source of Variation} & $\nu$ & \bf{SS} & \bf{MS} & $F$ \\ \hline	
+{Treatments} & 3 & 1260 & 420 & 6.21\\ \hline
+{Blocks} & 2 & 1256 & 628 & 9.28 \\ \hline
+{Error} & 6 & 406 & 67.67 & \\ \hline
+{Total} & 11 & 2922 &  & \\ \hline
+\end{tabular}
+\caption{Two-way ANOVA table resulting from the statistics of the nickel concentrations given in Table~\ref{tbl:two_way_nickel}.}
+\label{tbl:two_way_F}
+\end{table}
+\noindent
+With the help of Table~\ref{tbl:Critical_F95} we reach the following decisions:
+\begin{description}
+
+\item [Treatments (locations):] Critical value $F_{0.05,3,6} = 4.76$, so we reject the hypothesis that $\epsilon_i = 0$.
+\item [Blocks (depth):]  Critical value $F_{0.05,2,6} = 5.14$, so again we reject the hypothesis that all $\gamma_j = 0$.
+\end{description}
+\index{\emph{F}-test}
+\index{Test!\emph{F}}
+In other words, we conclude that the average nickel concentration is not the same at the four 
+locations, and that it is not the same at all depths.
+\end{example2}
+\index{Two-way ANOVA|)}
+\index{ANOVA!two-way|)}
+\section{Nonparametric Tests}
+\index{Nonparametric tests|(}
+
+	The last section concluded the examination of standard parametric tests (i.e., the $t$-, $F$-, and $\chi^2$-tests.)  
+We justified using these tests by \emph{either} having large samples and invoking the central limits 
+theorem \emph{or} simply assuming that the distribution we have sampled is approximately normal.  
+Sometimes, however, none of these conditions are met.  The two typical situations that can arise are:
+\begin{enumerate}
+\item You have a small sample $(n < 30)$ and you \emph{cannot} assume that the population it came from is normal.
+\index{Small sample}
+\index{Sample!small}
+\item You have \emph{ordinal} data (which can be ranked, but not operated on numerically).
+\index{Ordinal data}
+\index{Data!ordinal}
+\end{enumerate}
+In those cases we must consider \emph{nonparametric} methods, which make no assumptions about the shape of 
+the data distribution.  In particular, nonparametric tests \emph{do not} involve the calculation
+of distribution parameters, such as the mean and standard deviation.
+
+\subsection{Sign test for the one-sample mean or median}
+\index{Sign test}
+\index{Test!sign}
+
+The nonparametric sign test is a robust alternative to the standard one-sample $t$-test.
+It can be used when the distribution we have sampled has a continuous symmetrical population.
+This implies that the probability of getting a data value \emph{less} than the mean is the same as
+getting one \emph{larger} than the mean: both probabilities equal 0.5.  However, if we cannot assume
+that the population is symmetrical, the test should instead apply to the median value rather than the mean.
+Since we will be testing whether or not our sample mean (or median) is statistically indistinguishable
+from a specified hypothetical mean (or median), the procedure relies on properties of the binomial
+distribution encountered in Chapter~\ref{ch:basics} and is reminiscent of the simple coin-toss analogy.
+Values may be less than or larger than the hypothetical mean (median), and the probability of finding
+$x$ values out of $n$ values to be less than the median follows directly from (\ref{eq:binomial_dist}), with $p = 0.5$.
+To perform the sign test we need to evaluate the cumulative binomial distribution or consult pre-tabulated distributions.
+\begin{example}
+The following data constitute a random sample of 15 measurements of salinity
+content (in ppt):
+\begin{center}
+	97.5, 95.2, 97.3, 96.0, 96.8, 100.3, 97.4, 95.3, 93.2, 99.1, 96.1, 97.6, 98.2, 98.5, 94.9
+\end{center}
+We will use the one-sample sign test to test the null hypothesis, $H_0$: $\tilde{\mu} \geq 98.5$ against the
+alternative hypothesis, $H_1$: $\tilde{\mu} < 98.5$ at the $\alpha = 0.01$ level of significance.  Because of the inequality
+we have a one-sided test.  We replace all values greater than 98.5 with a plus sign and all values less
+than 98.5 with a minus sign.  Values that equal 98.5 exactly are discarded; in our case we lose one value,
+thus $n = 14$, resulting in the following series:
+\begin{center}
+	- - - - - + - - - + - - - -
+\end{center}
+We find $x = 2$ values (represented by the two plus-signs) larger than the hypothetical median.  The probability of finding $x \le 2$ is given by
+the binomial distribution (\ref{eq:binomial_dist}) by adding up the probabilities for $x = 0$, $x = 1$, and
+$x = 2$.  We find
+\begin{equation}
+P = P_{14,0.5}(0) + P_{14,0.5}(1) + P_{14,0.5}(2) = C_{14,0.5}(2) = \sum_{x=0}^{2} P_{14,0.5}(x),
+\end{equation}
+which evaluates as
+\begin{equation}
+P = \binom{14}{0} \frac{1}{2}^{14} + \binom{14}{1} \frac{1}{2}^{14} + \binom{14}{2} \frac{1}{2}^{14} = 0.00006 + 0.0009 + 0.0056 \approx 0.0065.
+\end{equation}
+Since 0.0065 is less than 0.01, we must reject $H_0$. We conclude that the null hypothesis must be rejected as the
+data suggest that the median salinity from the sampled
+region is less than 98.5 ppt.  Note that in this test we did not compute a critical value for $x$ but compared
+the probability for the observed case with a specified probability $\alpha$.
+\end{example}
+
+When both $np$ and $n(1 - p)$ are greater than 5 (here they are both equal to 7) we are allowed to use the normal approximation to
+the binomial distribution.  Per (\ref{eq:binomial_approx_norm}), the sign test may then be based on the statistic
+
+\begin{equation}
+z = \frac{x - np}{\sqrt{np(1-p)}},
+\end{equation}
+which in our situation (with $p$ = 0.5) simplifies to
+\begin{equation}
+z = \frac{2x - n}{\sqrt{n}}.
+\end{equation}
+We may now simply compare the observed $z$ statistic with the chosen $z_{\alpha/2}$
+critical value as in the standard parametric case (or $z_{\alpha}$ for a one-sided test like the present case).  Here,
+$z_{\alpha} = -2.326$ while observed $z = -2.676$ and we again must reject the null hypothesis.
+
+\subsection{Mann-Whitney test ($U$-test)}
+\index{$U$-test|(}
+\index{Mann-Whitney test|(}
+\index{Test!Mann-Whitney|(}
+\index{Test!U|(}
+
+	This test is a nonparametric alternative to the two-sample Student's $t$-test.  It also goes by the 
+names \emph{Wilcoxon}\index{Wilcoxon test}\index{Test!Wilcoxon} test and the $U$-test.  The Mann-Whitney test is performed by combining the two 
+data sets we want to compare, sorting the combined set into ascending order, and assigning each point a \emph{rank}: 
+the smallest value is given rank $= 1$, while the largest observation is ranked $n_1 + n_2$.  Should some of the 
+observations be identical one assigns the average rank to all tied values.  E.g., if the 7th and 8th 
+sorted values were identical, we would assign to each the rank of 7.5.  The idea here is that if the samples 
+consist of random drawings from the same population (i.e., when $H_0$ is true) then we would expect the ranks for both 
+samples to be scattered more-or-less uniformly throughout the sequence.  This would be true regardless of the
+distribution that characterizes the population.
+
+	After sorting the data we add up the ranks for each data set separately into \emph{rank sums}, which we 
+denote $S_1$ and $S_2$.  The sum of $S_1 + S_2$ must obviously equal the sum of the first 
+$(n_1 + n_2)$ integers, which is
+\index{Rank sum}
+\begin{equation}
+\frac{1}{2} (n_1 + n_2) (n_1 + n_2 + 1 ).
+\end{equation}
+Many early rank sum tests were based on $S_1$ or $S_2$ but now it is customary to use the statistic $U$,
+defined as $U = \min {(U_1,U_2)}$, i.e., the smallest of $U_1$ and $U_2$, with
+\begin{equation}
+U_1 = S_1 - \frac{1}{2} n_1 (n_1 + 1)
+\label{eq:U1}
+\end{equation}
+and
+\begin{equation}
+U_2 = S_2 - \frac{1}{2} n_2 (n_2 + 1).
+\label{eq:U2}
+\end{equation}	 	
+This statistic can range from 0 to $n_1\cdot n_2$ and its 
+sampling distribution is symmetrical about $n_1 \cdot n_2/2$.  The test, then, consists of these steps:
+\begin{enumerate}
+	\item Compute the $U$-statistic using the smallest value of (\ref{eq:U1}) and (\ref{eq:U2}).
+	\item Given the sample sizes and the desired level of significance 
+		$\alpha$, evaluate critical $U_{\alpha,n_1,n_2}$.
+	\item Compare the calculated $U$ statistic to the critical $U_{\alpha,n_1,n_2}$ and
+		reject $H_0$ if our $U$ is \emph{less than} the critical value.
+\end{enumerate}
+Note that for the $U$-test, $H_0$ is rejected when our $U$-value is \emph{less} than and not larger than
+the critical value, as is common for most other tests we have discussed.
+\begin{example}
+We want to compare the grain size of sand obtained from two different locations on 
+the moon on the basis of measurements of grain diameters (in mm), as follows:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|l|} \hline
+\bf{Location 1} & 0.37 & 0.70 & 0.75 & 0.30 & 0.45 & 0.16 & 0.62 & 0.73 & 0.33 &      & $n_1 = 9$ \\ \hline
+\bf{Location 2} & 0.86 & 0.55 & 0.80 & 0.42 & 0.97 & 0.84 & 0.24 & 0.51 & 0.92 & 0.69 & $n_2 = 10$ \\ \hline
+\end{tabular}
+\end{table}
+We do not know what type of distribution that grain sizes of sand on the moon might follow, so we choose the 
+$U$-test to see if the mean grain size differ between the two samples.
+Computing the sample means gives $\bar{x}_1 = 0.49$ and $\bar{x}_2 = 0.68$.  If we wanted to use the $t$-test we would have to 
+assume that the underlying distributions are normal, since the samples are small.  The $U$-test requires no such assumptions.  
+We start by arranging the data jointly into ascending order and keep track of which location each 
+point originated from (Table~\ref{tbl:moonsand}).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c||c|c|c|} \hline
+\bf{Data} & \bf{Location} & \bf{Rank} & \bf{Data} & \bf{Location} & \bf{Rank}\\ \hline
+0.16 & 1 & 1  & 0.69 & 2 & 11 \\ \hline
+0.24 & 2 & 2  & 0.70 & 1 & 12 \\ \hline
+0.30 & 1 & 3  & 0.73 & 1 & 13 \\ \hline
+0.33 & 1 & 4  & 0.75 & 1 & 14 \\ \hline
+0.37 & 1 & 5  & 0.80 & 2 & 15 \\ \hline
+0.42 & 2 & 6  & 0.84 & 2 & 16 \\ \hline
+0.45 & 1 & 7  & 0.86 & 2 & 17 \\ \hline
+0.51 & 2 & 8  & 0.92 & 2 & 18 \\ \hline
+0.55 & 2 & 9  & 0.97 & 2 & 19 \\ \hline
+0.62 & 1 & 10 &      &   &    \\ \hline
+\end{tabular}
+\caption{Sorted listing of the grain sizes of moon sand with auxiliary column containing the location of each specimen.}
+\label{tbl:moonsand}
+\end{table}
+We first evaluate the rank sum for location 1, giving $S_1 = 69$, from which it follows that
+\begin{equation}
+S_2 = \frac{19 \cdot 20}{2} - S_1 = 190 - 69 = 121.
+\end{equation}	 
+We now form the null hypothesis H$_0: \mu_1 = \mu_2$, with H$_1: \mu_1 \neq \mu_2$, and state the level of 
+significance $\alpha = 0.05$.  Table~\ref{tbl:Critical_U3} has critical values for $U$ and we find $U_{\alpha, 9, 10} = 20$.  We will 
+reject the null hypothesis if $U$ is $\leq 20$.  From $S_1$ and $S_2$ we find 
+\begin{equation}
+U_1 = 69 - \frac{9\cdot 10}{2} = 24,
+\end{equation}	  
+\begin{equation}
+U_2 = 121 - \frac{10 \cdot 11}{2} = 66,
+\end{equation}
+and hence $U = \min(24, 66) = 24$.  This is larger than the critical value of 20, suggesting we 
+cannot reject the null hypothesis.  In other words, the observed difference in mean grain size at the two locations is 
+not statistically significant at the 95\% level of confidence.
+\end{example}
+	For large samples $(n_1, n_2 > 30)$ the procedure again simplifies and it can be shown that the mean and 
+standard deviation of the $U$ sampling distribution approach
+
+\begin{equation}
+\mu_U = \frac{n_1 n_2}{2}, \ \ \  \sigma _U = \sqrt{\frac{n_1 n_2(n_1 + n_2 + 1)}{12}     },
+\label{eq:U_approx}
+\end{equation}
+provided there are no tied ranks.  We could then evaluate standard $z$-scores as $z = (U - \mu_U)/\sigma_U$
+and use the familiar critical values $\pm z_{\alpha/2}$ from Table~\ref{tbl:Critical_t}.
+\index{$U$-test|)}
+\index{Mann-Whitney test|)}
+\index{Test!Mann-Whitney|)}
+\index{Test!U|)}
+
+\subsection{Comparing distributions: The Kolmogorov-Smirnov test}
+\index{Kolmogorov-Smirnov test|(}
+\index{Test!Kolmogorov-Smirnov|(}
+
+\PSfig[h]{Fig1_KS}{Solid line is a cumulative normal distribution for $\mu = 49.59$ ppm and $\sigma = 9.27$ ppm.
+The stair-case curve is the observed cumulative distribution which has its maximum difference, $D$, from the theoretical
+curve at the 53 ppm point.}
+
+	Another very useful nonparametric method is the Kolmogorov-Smirnov test  (or K-S for short).  It is a 
+test for goodness of fit or \emph{shape} and is often used instead of the $\chi^2 $-test.
+We may use it to test the null hypothesis that two distributions have the same probability density function
+(i.e., the same shape).  A big advantage of the 
+K-S test over the $\chi^2$-test is that one does not have to bin the data, which is an arbitrary procedure 
+anyway (how do you select bin size and why?).  In the K-S test we convert the data distribution 
+to a cumulative distribution $C(x)$.  Clearly, $C(x)$ then gives the fraction of data points to the ``left'' of $x$.  
+While different data sets will in general have different distributions, all cumulative distributions 
+agree at the smallest $x \mbox{ } (C(x) \equiv 0)$ and at the largest $x \mbox{ } (C(x) \equiv 1)$.
+Thus, it is the behavior \emph{between} 
+these points that sets distributions apart (e.g., Figure~\ref{fig:Fig1_KS}).  There is of course an infinite number of ways to 
+measure the overall difference between two cumulative distributions: we could look at the absolute 
+value of the area between the curves, the mean square difference, etc.  The K-S statistic chooses 
+a simple measure: It determines the maximum absolute difference between the two cumulative 
+curves.  Thus, when comparing two cumulative distributions $C_1(x)$ and $C_2(x)$ our K-S statistic becomes
+
+\begin{equation}
+D = \max_{-\infty < x < \infty} |C_1 (x) - C_2 (x) |.
+\end{equation}
+Note that $C_2$ may be another data-derived cumulative distribution (the test is then a two-sample test)
+or a theoretical cumulative probability function like the cumulative normal 
+distribution (we call this case a one-sample test).  The distribution of the K-S statistic itself can be calculated under the assumption 
+that $C_1$ and $C_2$ are drawn from the same distribution (i.e., $H_0$), thus providing critical values for $D$.  For the one-sample
+scenario there are two different cases to consider:
+\begin{enumerate}
+	\item $C_2$ is a \emph{known} cumulative distribution function, i.e., its parameters are prescribed
+	by the null hypothesis.
+	\item $C_2$ is an \emph{unknown} cumulative distribution function, i.e., its parameters must first
+	be computed from $C_1$.
+\end{enumerate}
+The former case is the problem studied by Kolmogorov and Smirnov. The latter case, however, clearly reduces the
+degrees of freedom and the standard K-S critical values are overestimated.
+A different set of critical values (called the \emph{Lilliefors} critical values) has been developed for the normal
+distribution.  Hence, when we need to compute the mean and standard deviation first we say we are performing a
+\emph{Lilliefors test} rather than a Kolmogorov-Smirnov test.
+
+We will use this test on the salinity measurements we looked at previously (Table~\ref{tbl:salinity}).
+We sort the salinity measurements, convert them to a cumulative distribution (e.g., $C_1$), and plot the cumulative function
+on the same graph as that of a normal cumulative distribution with the same mean and standard deviation (e.g., $C_2$).
+Inspecting Figure~\ref{fig:Fig1_KS} we find the maximum absolute 
+difference to occur at the 53 ppt observation.  The $D$ estimate is $0.701 - 0.641 
+= 0.06$.  Based on a significance level of $\alpha = 0.05$ and $n = 48$, the critical Lilliefors value for a two-sided test
+is found in Table~\ref{tbl:Critical_KS2} to be $\sim 0.128$, which is much 
+larger than observed.  Hence we cannot reject the null hypothesis that the samples were collected 
+from a normally distributed population.  In this example, both the K-S and $\chi^2$ tests reached the same conclusion.
+\index{Kolmogorov-Smirnov test|)}
+\index{Test!Kolmogorov-Smirnov|)}
+
+\subsection{Spearman's rank correlation}
+\index{Spearman's rank correlation|(}
+\index{Test!Spearman's rank correlation|(}
+\index{Correlation!Spearman's rank|(}
+
+	Finally, we will look at nonparametric correlation called Spearman's \emph{rank correlation},
+denoted by $r_s$.  The rank correlation is carried out by ranking the $x_i$'s and $y_i$'s 
+\emph{separately}, then computing the standard correlation coefficient (i.e., \ref{eq:corrcoef}) using the ranks \emph{in lieu} of the data values. Let
+$u_i$ be the rank of the $i$'th pair's $x$-value and $v_i$ be the rank of the $i$'th pair's $y$-value.  Then,
+Spearman's rank correlation depends on the covariance and variances of the ranks: 
+\begin{equation}
+r_s = \frac{s_{uv}}{s_u s_v} = \frac{n \sum_{i=1}^n u_i v_i - \left(\sum_{i=1}^n u_i \right)\left(\sum_{i=1}^n v_i \right)}{\sqrt{\left [n \sum_{i=1}^n u_i^2 - \left(\sum_{i=1}^n u_i \right)^2 \right] \left [n \sum_{i=1}^n v_i^2 - \left(\sum_{i=1}^n v_i \right)^2 \right]}}.
+\label{eq:spearman_r_exact}
+\end{equation}
+If there are runs of tied ranks then we assign those points their \emph{average} rank. Fortunately, for
+situations where there are no ties (\ref{eq:spearman_r_exact}) simplifies greatly to
+\begin{equation}
+r_s = 1 - \frac{6\sum d^2_i}{n(n^2 - 1)},
+\label{eq:spearman_r}
+\end{equation}
+where $d_i = u_i - v_i$ is the difference in rank for each $(x_i, y_i)$ pair.
+In the case where the null hypothesis $H_0$: $\rho = 0$ is true, the sampling distribution of $r_s$ is approximately normal and
+has zero mean ($\mu = 0$) and standard deviation $\sigma = 1/\sqrt{n-1}$.  We could therefore base our statistics on 
+\begin{equation}
+z = \frac{r_s - \mu}{\sigma} = \frac{r_s - 0}{1/\sqrt{n-1}} = r _s\sqrt{n-1}
+\label{eq:z_spearman}
+\end{equation}
+and compare this observed $z$-value to critical $z_{ \alpha / 2}$ values.
+However, it turns out that a better approximation is the one given by (\ref{eq:t_stat_corr}), which we utilized when testing
+the standard correlation coefficient.  Even so, for small data sets ($n < 20$) either approximation deviates
+from the true distribution and hence special tables are required (see Table~\ref{tbl:Critical_Spearman}).
+
+\index{Test!correlation coefficient}
+A comparison between the standard correlation and the Spearman's rank correlation reveals some interesting differences:
+\begin{itemize}
+	\item Spearman's rank correlation is more tolerant of outliers since only their outlying \emph{ranks} and not actual
+	data values enter into the calculation.
+	\item While the standard correlation measures the degree of \emph{linear} correlation between $x$ and $y$,
+		Spearman's rank correlation measures the degree of \emph{monotonicity} of the two rank series.  Any data set whose ranks
+		$u$ and $v$ vary monotonically will yield $r_s = \pm 1$, even if they do not form a linear trend.
+\end{itemize}
+In most other situations the two correlations will be similar.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|} \hline
+\bf{Red} (x) & \bf{Rank} x & \bf{Green} (y) & \bf{Rank} y & \bf{d} \\ \hline
+4 & 3.5 & 5 & 4 & 0.5 \\ \hline
+2 & 1.5 & 2 & 2 & 0.5 \\ \hline
+4 & 3.5 & 6 & 5 & 1.5 \\ \hline
+2 & 1.5 & 1 & 1 & -0.5 \\ \hline
+6 & 5    & 4 & 3 & -2 \\ \hline
+\end{tabular}
+\caption{Evaluating the differences in ranks among $x-y$ pairs obtained by rolling red and green dice.
+Notice there are two groups of $x$-values with tied ranks but none among the $y$-values.}
+\label{tbl:dice2}
+\end{table}
+
+Ranking the dice data discussed earlier (Table~\ref{tbl:dice1}) gives the values
+listed in Table~\ref{tbl:dice2}.
+Using (\ref{eq:spearman_r}) we find $r_s = 0.65$ (surprisingly similar to the $r = 0.66$ we found using (\ref{eq:corrcoef})),
+while the exact equation (\ref{eq:spearman_r_exact}) yields $r_s = 0.6325$, which may be close enough for government work.
+For the simplified value the $z$-statistic from (\ref{eq:z_spearman}) becomes $z = 1.3$, which is well inside the 95\% confidence limits
+$(z_{0.025} = \pm 1.96)$ for a normal distribution.  Likewise, using (\ref{eq:t_stat_corr}) we find $t = 1.41$ with critical
+$t_{0.025,3} = 3.18$.  Hence, in either case we again arrive at the same conclusion
+that we cannot reject $H_0$.  However, for such a small data set the approximations usually are quite poor;
+Table~\ref{tbl:Critical_Spearman} states the critical correlation is 1, meaning it would take a perfect nonparametric correlation to reject $H_0$.
+
+\index{Nonparametric tests|)}
+\index{Spearman's rank correlation|)}
+\index{Test!Spearman's rank correlation|)}
+\index{Correlation!Spearman's rank|)}
+\index{Correlation!nonparametric test}
+
+In summary, there are numerous tests, both parametric and nonparametric, that can be applied to our data,
+and there are many others not covered in these notes.  However, the ones presented here are the most common
+hypothesis tests that all scientists should be aware of.  A simple guide to their use is given in Figure~\ref{fig:Fig1_HypothesisChart}.
+\PSfig[h]{Fig1_HypothesisChart}{Simple decision chart for selecting standard parametric or nonparametric tests.  The
+\emph{run test}\index{Run test} is a specific application of the sign test and will be discussed in Chapter~\ref{ch:sequences}.}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+
+\begin{problem}
+The following data were obtained in an experiment designed to check whether there is a systematic difference
+in the weights (in grams) obtained with two different scales.
+At the 0.01 level of significance, is there a systematic bias in the readings from the two scales?
+Hint: Given the hypothesis, do we have one or two samples? (Embrace the hint!).
+\begin{table}[H]
+\centering
+\begin{tabular}{|l||c|c|} \hline
+\bf{Item} & \bf{Scale 1} & \bf{Scale 2} \\ \hline
+1  & 2.13	& 2.17 \\ \hline
+2  & 17.56	& 17.61 \\ \hline
+3  & 9.33	& 9.35 \\ \hline
+4  & 11.40	& 11.42 \\ \hline
+5  & 288.62	& 288.61 \\ \hline
+6  & 10.25	& 10.27 \\ \hline
+7  & 23.37	& 23.42 \\ \hline
+8  & 106.27	& 106.26 \\ \hline
+9  & 12.40	& 12.45 \\ \hline
+10 & 24.78      & 24.75 \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+We have obtained two samples of magnesium concentrations (in ppm) from an igneous rock unit.
+The samples, obtained at two different locations, exhibit the concentrations listed below.
+At the 95\% level of confidence, do the samples support the hypothesis that the average
+Mg concentration is the same at both locations? (Assume such data are normally distributed.).
+\begin{table}[H]
+\centering
+\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|} \hline
+\bf{Location 1} & 123 &  151 & 162 & 130 & 156 & 120 & 139 & 133 & \\ \hline
+\bf{Location 2} & 142 &  131 & 138 & 145 & 166 & 159 & 173 & 151 & 155 \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+The following random samples are measurements of the heat-producing capacity (in millions of calories
+per ton) of specimens of coal from two mines:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l||c|c|c|c|c|} \hline
+\bf{Mine 1} & 8,400 &  8,230 & 8,380 & 7,860 & 7,930 \\ \hline
+\bf{Mine 2} & 7,510 &  7,690 & 7,720 & 8,070 & 7,660 \\ \hline
+\end{tabular}
+\end{table}
+At the 95\% level of confidence, is the difference in mean value different?
+(You must first check if the standard deviations are similar).
+\end{problem}
+
+\begin{problem}
+If the seismic velocities $v$ (in km/sec) in a limestone layer are normally distributed according to the probability density function
+$$
+p(v) = \frac{1}{1.45\sqrt{2\pi}} \exp{\left \{ -\frac{1}{2} \left (\frac{v - 5.15}{1.45} \right )^2 \right \}},
+$$
+then what is the probability that any single seismic refraction study will yield a velocity in the $5.5 < v < 6.0$ range?
+\end{problem}
+
+\begin{problem}
+After three months of strenuous field work a graduate student returns to the lab with new data to analyze.
+Water samples collected from two remote rivers are analyzed for mercury contamination.  The
+results of the analysis (in ppm) are:
+\begin{description}
+\item [River A:] $9.86, 12.02, 12.96, 10.40, 12.43, 9.61, 11.12, 10.64, 10.22$.
+\item [River B:] $11.36, 10.48, 11.06, 11.61, 13.28, 12.72, 13.91, 12.08, 12.38, 12.80$.
+\end{description}
+\begin{enumerate}[label=\alph*)]
+\item At the 95\% confidence level, do these samples support the alarming hypothesis that the average
+mercury contamination is higher in river B than in river A?
+\item Given the statistical
+parameters you have obtained, plot on a single graph the two normal probability density distributions showing
+how the mercury samples are distributed, as well as the two \emph{theoretical} probability density distributions of
+the sample means.  Label your illustration and comment on what you see.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	The water contents of soils (in volume \%) were measured at two different sites A and B
+	and are reproduced in \emph{soilwater.txt}.
+At the 99\% level of confidence, do the soils at the two sites have different water content?
+\end{problem}
+
+\begin{problem}
+A sensitive instrument measuring nickel content (in ppm)  was tested on a set of reference
+specimens with known concentrations.  The results (listed below in the ``Before'' columns) were
+unbiased and no calibration was necessary.  After a thorough cleaning of the instrument the test
+sequence was repeated, with results listed in the ``After'' columns below.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c||c|c|} \hline
+\bf{Before} & \bf{After} &  \bf{Before} & \bf{After} \\ \hline
+211	&	198	&	172	&	166 \\
+180	&	173	&	155	&	154 \\
+171	&	172	&	185	&	181 \\
+214	&	209	&	168	&	164 \\
+183	&	179	&	203	&	201 \\
+194	&	192	&	180	&	175 \\
+160	&	161	&	245	&	240 \\
+181	&	182	&	146	&	142 \\ \hline
+\end{tabular}
+\end{table}
+\noindent
+At the 0.01 level of significance, is there a need to re-calibrate the instrument after the cleaning?
+Hint: Consider the differences in the measurements.
+\end{problem}
+
+\begin{problem}
+A soil scientist worrying about toxic waste wants to know if the standard deviation of a certain pollutant
+coming from several nearby factories is less than 10 ppm.  Based on a sample of 15 values she finds
+$s = 11.3$ ppm.  What can she conclude at the 95\% level of confidence?
+\end{problem}
+
+\begin{problem}
+A designer of seismometers must know whether or not the standard deviation of
+the time it takes the instrument to start recording an event after being triggered by
+an earthquake is less than 0.010 s.  Use the 0.05 level of significance to test the
+null hypothesis $H_0: \sigma \leq 0.010$ s against the alternative hypothesis
+$H_1: \sigma > 0.010$ on the basis of a random sample of size $n = 16$ for which the
+sample standard deviation was found to be $s = 0.012$ s.
+\end{problem}
+
+\begin{problem}
+An examination designed to measure basic knowledge in geology was given to random samples
+of freshmen at two major universities, and their scores were:
+\begin{description}
+\item [University A]: $77, 72, 58, 92, 87, 93, 97, 91, 70, 98, 76, 90, 62, 69, 90, 78, 96, 84, 73, 80$
+\item [University B]: $89, 74, 45, 56, 71, 74, 94, 88, 66, 62, 88, 63, 88, 37, 63, 75, 78, 34, 75, 68$
+\end{description}
+Apply the $U$-test at the 0.05 level of significance to test the null hypothesis that there
+is no significant difference in average knowledge of geology at the two universities.
+(MATLAB hint: Fill in vectors g and source (A = 1, B = 2), use [gsorted, gkey] = sort (g)
+to sort g, and use ranks1 = find (source(gkey) == 1) to get the ranks of entries from University A, etc.)
+\end{problem}
+
+\begin{problem}
+Given 10 data pairs you find $r = -0.85$.  Is this correlation significant at the 99\% level?
+\end{problem}
+
+\begin{problem}
+Given three data pairs $(x_i, y_i)$, how high correlation coefficient would you need to determine for it to be significant at the 95\% level of confidence?
+\end{problem}
+
+\begin{problem}
+\newcounter{qfringec}
+\setcounter{qfringec}{\thechapter}
+\newcounter{qfringep}
+\setcounter{qfringep}{\theproblem}
+A fringe seismologist goes on TV and claims there are
+more local earthquakes during certain months of the year when planetary constellations are
+considered ``favorable''.  A wee bit skeptical, you decide to examine the earthquake catalog
+for a whole year (see table \emph{quakedays.txt}) to test his claim.  The table gives
+the day number (1--365) when a local earthquake occurred.  Assume this is not a leap year.
+\begin{enumerate}[label=\alph*)]
+\item State the null hypothesis and the alternative hypothesis.
+\item What are the expected number of events for each month?
+\item Using the $\chi^2$-test and a 95\% level of confidence,
+do the data suggest that some months have more earthquakes than others?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+An environmental scientist measures the sulfur dioxide emissions from an industrial plant
+over an 80 day period.  The amounts (in tons per day) are given in the file \emph{sulfur.txt}.
+\begin{enumerate}[label=\alph*)]
+\item Bin the data using the categories less than 10, 10--15, 15--20, 20--25, 25 and above.
+   Plot the histogram and indicate the counts.
+\item The scientist wonders if the emissions are well described by the expected normal distribution.
+  What are the mean and standard deviation for the raw data?
+\item The scientist decides to use a $\chi^2$ test.  What are the expected counts in each bin?
+\item Test whether or not the binned data are indistinguishable from a normal distribution
+  at the 95\% level of confidence.  Should she reject $H_0$?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+From past experience, we know there is a weak correlation between the the proportion
+of manganese nodules on the seafloor and the age of the underlying crust.  How many data
+pairs, $n$, do we need to sample before an inferred positive correlation of $r = 0.32$ is significantly
+larger than zero at the 95\% level of confidence?  (MATLAB hint:  Use \texttt {icdf} to get
+critical $t$-values -- try \texttt {help icdf} to see how to use it.)
+\end{problem}
+
+\begin{problem}
+A senator from a ``blue state'' believes oil imported to the US from Norway has been infused with a nefarious
+toxic chemical.  He theorizes that when drivers in the US use fuel from the imported oil they
+become debilitated from the fumes and the chance of accidents at railroad crossings increases significantly.
+He obtains two data sets from 1999--2009 showing the annual import of oil (in millions of barrels) and the number of drivers
+killed in collisions with railway trains, reproduced in the file \emph{conspiracy.txt}.  Plot the two time series
+on the same graph (with different vertical scales), then calculate the correlation between
+the annual data pairs.  Is the correlation significant at the 95\% level?  Should the Senate punish the
+Norwegians by authorizing US forces to invade their little kingdom and confiscate their oil rigs?
+\end{problem}
+
+\begin{problem}
+A republican congressman is upset with the amount of funding the US National Science Foundation allocates to
+support research in the social sciences.  Looking for arguments to reduce this wasteful spending, he
+comes across data that seem to suggest that awarding too many doctorates in sociology may cause an increase in deaths
+due to \emph{anticoagulants}.  He theorizes that the lack of rigor in the social sciences causes blood to
+thin, leading to these unnecessary deaths.  As his intern, you are tasked with examining the data (see file \emph{PhD\_deaths.txt})
+and determine if the correlation between the number of Ph.D.'s and deaths might be significant at the 99\% level.
+What will your report to the Congressman conclude?
+\end{problem}
+
+\begin{problem}
+We have made determinations of chromium content in four shale units.  For each unit we obtained six measurements;
+the data are summarized below (values are given in ppm).  With a one-way ANOVA at the 0.05 level of significance, can the
+differences among the four sample means be attributed solely to measurement uncertainties?
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|} \hline
+\bf{Unit A} & \bf{Unit B} & \bf{Unit C} & \bf{Unit D} \\ \hline
+181.3 & 160.6 & 163.2 & 132.3 \\ \hline
+176.8 & 179.9 & 154.1 & 140.8 \\ \hline
+182.7 & 170.9 & 158.6 & 124.5 \\ \hline
+186.0 & 151.3 & 137.8 & 123.2 \\ \hline
+188.4 & 163.4 & 158.7 & 121.1 \\ \hline
+160.2 & 185.8 & 191.8 & 163.2 \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+Four different temperature gauges recorded the temperature in a storage room.  The data are summarized
+below.  At the 0.05 level of significance, can the differences among the four sample means be attributed to chance?
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|} \hline
+\bf{Gauge A} & \bf{Gauge B} & \bf{Gauge C} & \bf{Gauge D} \\ \hline
+23.1	&	21.7	&	21.9	&	19.8 \\ \hline
+22.8	&	23.0	&	21.3	&	20.4 \\ \hline
+23.2	&	22.4	&	21.6	&	19.3 \\ \hline
+23.4	&	21.1	&	20.2	&	18.5 \\ \hline
+23.6	&	21.9	&	21.6	&	19.1 \\ \hline
+21.7	&	23.4	&	23.8	&	21.9 \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+	Water samples were obtained from four different locations along a river to determine
+	whether the quantity of dissolved oxygen, a proxy for water pollution, varies between
+	the locations.  Locations A and B were selected above an industrial plant: one near
+	the shore and another in midstream. Location C was adjacent to the industrial water
+	discharge from the plant, and location D was slightly downriver in midstream.  Live
+	water specimens were randomly selected at each location, but one specimen, from location
+	D, was lost in the laboratory.  The data are shown in the table below, with lower values
+	corresponding to higher levels of pollution.
+	\begin{enumerate}[label=\alph*)]
+	\item Do the data provide sufficient evidence to indicate a significant difference in mean dissolved oxygen
+	content for the four locations?
+	\item Compare the mean dissolved oxygen content in midstream above the plant with the mean content
+	adjacent to the plant (i.e., locations B versus C).  Use a 95\% confidence interval.  What do you conclude?
+	\end{enumerate}
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{|c||c|c|c|c|c|} \hline
+	\bf{Location} & \multicolumn{5}{c|}{\bf{Mean Oxygen Content}} \\ \hline
+	A & 5.9 &  6.1 & 6.3  & 6.1 & 6.0 \\ \hline
+	B & 6.3 &  6.6 & 6.4  & 6.4 & 6.5 \\ \hline
+	C & 4.8 &  4.3 & 5.0  & 4.7 & 5.1 \\ \hline
+	D & 6.0 &  6.2 & 6.1  & 5.8 &     \\ \hline
+	\end{tabular}
+	\end{table}
+\end{problem}
+
+\begin{problem}
+A laboratory technician measures the breaking (tensile) strength of each of five
+samples of granite ($G_1$ -- $G_5$) using four different measuring instruments ($I_1$ -- $I_4$),
+and obtains the following results (in MPa):
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|} \hline
+ & $I_1$ & $I_2$ & $I_3$ & $I_4$ \\ \hline
+$G_1$ & 18.6 &  18.1 & 17.6  & 19.6 \\ \hline
+$G_2$ & 22.7 &  23.9 & 24.7  & 22.5 \\ \hline
+$G_3$ & 23.2 &  20.8 & 19.2  & 22.1 \\ \hline
+$G_4$ & 22.5 &  18.9 & 21.2  & 23.4 \\ \hline
+$G_5$ & 17.3 &  18.9 & 19.8  & 18.8 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}[label=\alph*)]
+\item Using a two-way ANOVA test, do the data provide sufficient evidence to indicate a difference in strength for the five samples?
+(Use $\alpha = 0.1$)
+\item Is there any statistical evidence of instrument bias? (Use $\alpha = 0.1$)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+A study was conducted to compare automobile gasoline mileage for three brands of gasoline,
+A, B, C.  Four cars, all of the same make and model, were employed in the experiment and
+each gasoline brand was tested in each car.  The data, in miles per gallon, are as follows:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|} \hline
+	&	\bf{CAR 1}	&	\bf{CAR 2}	&	\bf{CAR 3}	&	\bf{CAR 4} \\ \hline
+\bf{GAS A}	&	15.7	&	17.0	&	17.3	&	16.1  \\ \hline
+\bf{GAS B}	&	17.2	&	18.1	&	17.9	&	17.7  \\ \hline
+\bf{GAS C}	&	16.1	&	17.5	&	16.8	&	17.8  \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}[label=\alph*)]
+\item Using a two-way ANOVA, do the data provide sufficient evidence to indicate a difference in the
+	mean mileage per gallon for the three gasoline brands?
+(Use $\alpha = 0.1$)
+\item Is there any statistical evidence of differences mean mileage for the four automobiles? (Use $\alpha = 0.1$)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Densities $\rho_i$ were obtained from a sample of 40 specimens from the
+same lithological unit (see \emph{rho.txt}).
+Use the sign test at the 0.01 level of significance to test the null hypothesis $\tilde{\rho} \leq 2.42$
+against the alternative hypothesis $\tilde{\rho} > 2.42$.
+\end{problem}
+
+\begin{problem}
+The science team on an oceanographic research vessel has measured the heat flux through
+the ocean floor at two sites with similar crustal ages.  Site I was formed by seafloor spreading
+with a spreading rate of 15 cm/yr while site II was formed at half the spreading rate.  The
+heat flux values (in mWm$^{-2}$) recorded were:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|} \hline
+\bf{Site I} & 57.15 &  63.00 & 67.64 & 62.09 & 73.84 & 65.54 & 61.88 & 67.95 \\ \hline
+\bf{Site II} & 56.82 & 58.88 & 65.93 & 56.34 & 59.92 & 50.52 & 65.37 & 53.62 \\ \hline
+\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item Use the $U$-test at the 0.05 level of significance to test the hypothesis that the heat flux
+from site II is different from that of site I. (MATLAB hint: Fill in vectors q and source, use [qsorted, key] = sort (q)
+to sort q, and use ranks1 = find (source(key) == 1) to get the ranks of entries from site 1, etc.)
+\item Upon reviewing the literature for the region, it is discovered that a previous cruise recorded
+one heat flux measurement from Site I, yielding a value of 74.19 mWm$^{-2}$.  Does this change the results
+obtained above?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The Earth's surface temperature (important in many agricultural as well as hydrological problems)
+can be tediously measured on the ground or conveniently recorded by remote infrared sensors mounted on
+airplanes or satellites.  However, the remotely sensed data appear to have a bias.  At the 95\%
+level of confidence, is there such a bias in the data below?
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|} \hline
+\bf{Location}	&	\bf{Ground (\DS C)}	&	\bf{Remote (\DS C)} \\ \hline
+1	&	36.9	&	37.3 \\ \hline
+2	&	35.4	&	38.1 \\ \hline
+3	&	26.3	&	27.9 \\ \hline
+4	&	21.0	&	22.7 \\ \hline
+5	&	14.7	&	16.2 \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+The textural properties of sandstones are believed to reflect environmental 
+conditions when they first formed.  Textural maturity is defined as the degree to which a sand is 
+both well \emph{sorted} and well \emph{rounded}.  These two characteristics are expected to be correlated.  
+However, roundness and degree of sorting are not quantified on a ratio scale but assigned ordinal 
+values such as ``moderately sorted'' or ``well sorted''.  Hence, we can rank the assessments but not 
+calculate ordinary statistics from them.  Based on the table below, is there a significant (95\% 
+level) correlation between roundness and degree of sorting? (P = poor, M = moderate, W = well sorted,
+and A = angular, SA = subangular, SR = subrounded.)
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|r|c|r|} \hline
+\bf{Sorting} &  \bf{Rank} & \bf{Roundness} & \bf{Rank} \\ \hline \hline
+P & 4  & SR & 11 \\ \hline
+W & 10 & SA & 9  \\ \hline
+P & 2  & A  & 1  \\ \hline
+M & 8  & SA & 4  \\ \hline
+M & 6  & SA & 6  \\ \hline
+W & 9  & SR & 12 \\ \hline
+P & 3  & SA & 8  \\ \hline
+M & 7  & SA & 3  \\ \hline
+W & 11 & SA & 7  \\ \hline
+W & 12 & SR & 10 \\ \hline
+M & 5  & A  & 2  \\ \hline
+P & 1  & SA & 5  \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+A homeowner decides to test whether or not the level of salt in his drinking water
+at home is significantly higher than that of the drinking water at his office.  Measuring the salinity (in ppm) gives:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||r|r|r|r|r|r|r|r|} \hline
+\bf{Home}	& 76.19	& 84.00	& 79.89	& 82.78	& 98.45	& 87.38	& 82.50	& 90.60 \\ \hline
+\bf{Office}	& 75.76	& 78.51	& 87.91	& 75.12	& 90.19	& 67.36	& 87.16	&       \\ \hline
+\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item Use the $U$-test at the 0.01 level of significance to test his hypothesis.
+\item He decides to get an 8th measurement from the office and finds salinity to be 72.31.
+  Does this change the results obtained above?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Permeabilities have been estimated in the lab for samples taken from two different
+sandstone outcrops.  We obtained these values (in Darcy; 1 Darcy = $9.8697\times10^{-13}\mbox{m}^2$):
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||r|r|r|r|r|r|r|r|r|r|} \hline
+\bf{A} & 18.76 & 13.24 & 3.83 & 10.12 & 8.40 & 8.60 & 18.18 & 15.04 & 9.62 & 13.22 \\ \hline
+\bf{B} & 15.90 & 5.80 & 1.31 & 17.50 & 9.22 & 6.20 & 1.92 & 13.46 & 2.61 & 8.01 \\ \hline
+\end{tabular}
+\end{table}
+
+Using the Kolmogorov-Smirnov test at the 95\% level of confidence, do these samples appear to come from the same
+lithological unit (i.e., population)?  Use the MATLAB script \texttt{kolsmir.m} and the two-sample critical
+values provided in Table~\ref{tbl:Critical_KS3}.
+\end{problem}
+
+\begin{problem}
+We have obtained two samples of residual magnetization from a basaltic sill at two different sites.  The values are:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||r|r|r|r|r|r|r|r|r|r|} \hline
+\bf{Site 1} & 68.9 & 41.1 & -6.1  & 25.6 & 17.0 & 18.0 &  65.9 & 50.0 &  23.1 & 41.1 \\ \hline
+\bf{Site 2} & 54.5 &  4.0 & -18.5 & 62.5 & 21.0 &  6.0 & -15.5 & 42.2 & -13.0 & 15.0 \\ \hline
+\end{tabular}
+\end{table}
+Using the Kolmogorov-Smirnov test at the 95\% level of confidence, do these samples come from the same population?
+\end{problem}
+
+\begin{problem}
+As discussed in Chapter~\ref{ch:EDA}, the Earth's magnetic field reverses direction. Table \emph{GK2007.txt} contains data from the
+Gee and Kent (2007) geomagnetic time scale. It lists all normal and reversely magnetized chrons and gives the duration
+of each interval in Myr.  Note: Examine the last letter in the chron: ``n'' means normalized and ``r'' stands for reversed polarity.
+Using the Kolmogorov-Smirnov test at the 95\% level of confidence, are the distributions of intervals for the normal and
+reverse polarities different?
+\end{problem}
+
+\begin{problem}
+We will revisit Problem~\theqfringec.\theqfringep, but this time we will utilize the Kolmogorov-Smirnov test and completely
+avoid any discussion about binning artifacts.
+\begin{enumerate}[label=\alph*)]
+	\item What is the cumulative distribution function you will compare your observed data to?
+	\item Can you reject the null hypothesis at the 99\% level of confidence?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+From a Carboniferous shale we obtain the following concentrations of chromium and nickel (in ppm):
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\bf{Cr (ppm)}	&	\bf{Ni (ppm)} \\ \hline
+122	&	604 \\ \hline
+340	&	311 \\ \hline
+522	&	173 \\ \hline
+61	&	503 \\ \hline
+133	&	495 \\ \hline
+235	&	444 \\ \hline
+498	&	272 \\ \hline
+371	&	362 \\ \hline
+239	&	384 \\ \hline
+\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item	What is the correlation coefficient, $r$.  Is the correlation significant at $\alpha = 0.01$?
+\item	What is Spearman's rank correlation coefficient, $r_s$? Is it significant at $\alpha = 0.01$?
+\item	Suppose one additional measurement was added to the table, with Cr = 698, Ni = 597.
+	What are the new correlations $r$ and $r_s$?  Are these correlations significant at $\alpha = 0.01$?
+\item	We suspect the last measurement to be an outlier.  Given the recipe of detecting outliers discussed
+	previously based on the statistical properties of the first 9 values, are the Cr and Ni values
+	for the additional measurement outliers in their respective groups?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The abundance (in \%) of four elements in seven samples of basalt from the Pacific has been recorded as
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|} \hline
+\bf{Sample \#}	& \bf{Si} & \bf{Al} & \bf{Fe} & \bf{Mg} \\ \hline
+1	& 22.5	& 9.6	& 6.6	& 3.4 \\ \hline
+2	& 22.1	& 8.4	& 7.8	& 3.6 \\ \hline
+3	& 25.9	& 8.7	& 4.8	& 4.0 \\ \hline
+4	& 23.5	& 8.1	& 5.0	& 5.2 \\ \hline
+5	& 21.7	& 10.0	& 8.2	& 4.9 \\ \hline
+6	& 21.9	& 8.2	& 9.3	& 4.9 \\ \hline
+7	& 23.7	& 7.2	& 9.5	& 3.3 \\ \hline
+\end{tabular}
+\end{table}
+Compute the correlations between all pairs of elements.  Are any of the correlations significant at the 0.05 level?
+\end{problem}

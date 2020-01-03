@@ -1,0 +1,1752 @@
+%  $Id: DA1_Chap5.tex 688 2019-06-09 09:24:42Z pwessel $
+%
+\chapter{LINEAR (MATRIX) ALGEBRA}
+\epigraph{``Never send a human to do a machine's job.''}{\textit{Agent Smith} in \textit{The Matrix}}
+\label{ch:matrix}
+A large subset of data analysis techniques is simply the practical application of
+linear algebra.  Undergraduate students in the natural sciences often lack any formal introduction
+to this material, or they suffered through an overly theoretical presentation in a course
+offered by a mathematics department.  In this book we will not dwell too much on the finer
+theoretical points of linear algebra but instead present a simple overview of the aspects that are particularly
+pertinent in data analysis.  There are of course an infinite number of books on matrix and
+linear algebra that the eager reader could consult beyond this brief introduction.
+
+\section{Matrix Algebra Terminology}
+
+\index{Matrix!definition}
+\index{Matrix!order}
+	A \emph{matrix} is simply a rectangular array of elements arranged in a series of $m$  rows and $n$  
+columns. The \emph{order} of a matrix is the specification of the number of rows by the number of 
+columns. \emph{Elements} of a matrix are denoted $a_{ij}$, where index $i$ specifies the \emph{row} position 
+and index $j$ specifies the \emph{column} position; thus $a_{ij}$ identifies the element at position $i,j$.
+
+\index{Matrix!element}
+	An element can be a number (real or complex), an algebraic expression, or (with some 
+restrictions) another matrix or matrix expression. As an example of a real matrix,  consider
+\begin{equation}
+\mathbf{A} = \left[ \begin{array}{rcc}
+12 & 4 & 10 \\
+8 & 1 & 11\\
+15 & 3 & 11\\
+14 & 1 & 11
+\end{array}   \right]	 
+ \ = \
+\left[  \begin{array}{ccc}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33} \\
+a_{41} & a_{42} & a_{43}
+\end{array} \right].
+\end{equation}
+This matrix, $\mathbf A$, is of order $4 \times 3$, with elements $a_{11}$ = 12, $a_{21}$ = 8, and so on. The notation for matrices is 
+not always consistent, but it is usually one of the following schemes:
+
+\begin{description}
+
+\item [Matrix:] Designated by a bold, uppercase letter (the most common scheme), brackets, or hat $(\hat{ \ })$,
+sometimes with one or (more commonly) two underscores.
+The order is also sometimes explicitly given.  E.g., $\mathbf{A}_{(4,3)}$ means 
+$\mathbf A$ is of order $4 \times 3$.
+
+\item [Order:] Always given as rows x columns but uses letters $n,m,p$ differently: $n$ (rows) x $m$ (columns) or 
+$m$ (rows) $\times n$ (columns).
+
+\item [Element:] Most commonly $a_{ij}$, with $i =$ row; $j =$ column (sometimes other dummy indices like $k,l,p$ are used).
+\end{description}
+
+The advantages of matrix algebra mainly lies in the fact that it provides a concise and simple 
+method for manipulating large sets of numbers or computations, making it ideal for computers. 
+Furthermore,
+
+\begin{enumerate}
+
+\item The compact form of matrices allows a convenient notation for describing large tables of data.
+
+\item Matrix operations allow complex relationships to be seen, which otherwise would be obscured by the 
+shear size of the data (i.e., it aids in clarification).
+
+\item Most matrix manipulations involve just a 
+few standard operations for which standard subroutines are readily available.
+\end{enumerate}
+
+MATLAB, which stands for ``Matrix Laboratory'', is ideally suited to perform such manipulations,
+as is its Open Source clone, Octave. Python with numPy is also a good choice.
+\index{MATLAB}
+\index{Octave}
+
+	As a convention with data matrices (i.e., when the elements are data values), the columns 
+usually represent the different \emph{variables} (e.g., one column contains temperatures, another salinity, 
+etc.) while rows contain the \emph{observations} (e.g., the values of the variables at different depths, times, or positions). Since 
+there are usually more observations than variables, such data matrices are typically rectangular, having 
+more rows $(m)$ than columns $(n)$, i.e., the matrix has an order $m \times n$ where $m > n$.
+
+\section{Matrix Definitions}
+
+Matrices whose smallest dimension equals one are called \emph{vectors} and are typically designated
+by a bold, lowercase letter, but sometimes they may be typeset normally with either an
+arrow above them or a single underscore beneath. By having only one dimension, one of the two indices (row or column) is dropped.
+A \emph{column vector} is a matrix containing only a single column of elements, such as
+\index{Column vector}
+\index{Vector!column}
+\begin{equation}
+\mathbf{a} = \left[ \begin{array}{c}
+a_1\\
+a_2\\
+\vdots\\
+a_n
+\end{array}  \right] . 
+\end{equation}
+\noindent
+A \emph{row vector} is a matrix containing only a single row of elements, e.g.,
+\index{Row vector}
+\index{Vector!row}
+\begin{equation}
+\mathbf{a} = \left[ \begin{array}{cccc}
+a_1 & a_2 & \cdots & a_n
+\end{array}  \right] .
+\end{equation}
+The size of a vector is simply the number of elements it contains ($n$, in both examples above).
+\index{Null matrix}
+\index{Matrix!null}
+The \emph{null matrix}, written as $\mathbf{0}$ or $\mathbf{0}_{(m,n)}$ has all its elements set equal to 0 --- it plays the
+role of ``zero'' in matrix algebra.
+A \emph{square matrix} has the same numbers of rows as columns, so its order is $n \times n$.
+\index{Square matrix}
+\index{Matrix!square}
+A \emph{diagonal matrix} is a square matrix with zeros in all positions except along the principal (or 
+leading) diagonal:
+\begin{equation}
+	\index{Diagonal matrix}
+	\index{Matrix!diagonal}
+\mathbf{D} = \left[ 
+\begin{array}{ccc}
+3 & 0 & 0 \\
+0 & 1 & 0\\
+0 & 0 & 6
+\end{array} \right]	 
+\end{equation}
+or
+\index{Matrix!identity}
+\index{Identity matrix}
+\begin{equation}
+d_{ij} = \left \{ \begin{array}{cl}
+0 & \mbox{for } i \neq j\\
+\mbox{nonzero} & \mbox{for } i = j 
+\end{array} \right.
+\end{equation}	 
+This type of matrix is important for scaling the rows or columns of other matrices.  The \emph{identity 
+matrix} is a diagonal matrix with all of its nonzero elements equal to one. Written as $\mathbf{I}$ or $\mathbf{I}_n$,
+it plays the role of ``one'' in matrix algebra.
+A \emph{lower triangular matrix} ($\mathbf{L}$) is a square 
+matrix with all elements equal to zero \emph{above} the principal diagonal:
+\begin{equation}
+	\index{Matrix!lower triangular}
+	\index{Lower triangular matrix}
+\mathbf{L} = \left [ \begin{array}{ccc}
+1 & 0 & 0 \\
+3 & 7 & 0 \\
+8 & 2 & 6
+\end{array}
+\right ] =
+\left[ \begin{array}{ccc}
+1 \\
+3 & 7 \\
+8 & 2 & 6 \end{array} \right]
+\end{equation}
+or
+\begin{equation}
+\ell_{ij} = \left \{ \begin{array}
+{cl}
+0 & \mbox{for } i < j\\
+\mbox{nonzero} & \mbox{for } i \geq j 
+\end{array} \right .
+\end{equation}	 
+An \emph{upper triangular matrix} is thus a square matrix with all elements equal to zero \emph{below} the principal 
+diagonal
+\begin{equation}
+	\index{Matrix!upper triangular}
+	\index{Upper triangular matrix}
+u_{ij} = \left \{ \begin{array}{cl}
+0 & \mbox{for } i > j\\
+\mbox{nonzero} & \mbox{for } i \leq j 
+\end{array} \right .
+\end{equation}
+If one multiplies two triangular matrices of the same form, the result is a third matrix of the same 
+form.
+
+\index{Fully populated matrix}
+\index{Matrix!fully populated}
+\index{Matrix!sparse}
+\index{Sparse matrix}
+	We also have the \emph{fully populated matrix} which is a matrix with all of its elements nonzero, 
+the \emph{sparse matrix} which is a matrix with only a small proportion of its elements nonzero, and the \emph{scalar} 
+which simply is a number (i.e., a matrix of order 1x1, representing a single element).
+
+   A \emph{matrix transpose} (or the transpose of a matrix) is obtained by \emph{interchanging} the rows and columns 
+of the matrix. Thus, row $i$ becomes column $i$ and column $j$ becomes row $j$. As a consequence, the order of the matrix 
+is reversed:
+\begin{equation}
+	\index{Matrix!transpose}
+	\index{Transpose of matrix}
+\mathbf{A} = \left[     \begin{array}{cc}
+1 & 14 \\
+6 & 7 \\
+8 & 2 
+\end{array} \right]
+ \Rightarrow
+\mathbf{A}^T = \left[ \begin{array}{ccr}
+1 & 6 & 8 \\
+14 & 7 & 2 \end{array} \right]
+\end{equation}
+As shown, taking the transpose is indicated by the superscript ``T''.
+Repeated transposing yields the original matrix, i.e.,
+\begin{equation}
+(\mathbf{A}^T)^T = \mathbf{A}.
+\end{equation} 
+A diagonal matrix is its own transpose: $\mathbf{D}^T = \mathbf{D}$. In general, we find the transpose rule
+\begin{equation}
+a_{ij} \Leftrightarrow a_{ji}.
+\end{equation}	 
+   A \emph{symmetric matrix} is a square matrix that is symmetric about its principal diagonal, so 
+$a_{ij} = a_{ji}$.  Therefore, a symmetric matrix is equal to its own transpose:
+\begin{equation}
+	\index{Matrix!symmetric}
+	\index{Symmetric matrix}
+\mathbf{A} = \left[ \begin{array}{ccc} 
+1 & 2 & 5 \\
+2 & 6 & 3 \\
+5 & 3 & 4
+\end{array}
+\right]
+= \mathbf{A}^T .
+\end{equation} 	 
+A \emph{skew symmetric matrix} is a matrix in which
+\begin{equation}
+a_{ij} = -a_{ji}.
+\end{equation}
+Therefore, $\mathbf{A}^T = - \mathbf{A}$.  Thus, $a_{ii}$, the principal diagonal elements, must all be zero.
+The following matrix is skew symmetric:
+\begin{equation}
+	\index{Matrix!skew symmetric}
+	\index{Skew symmetric matrix}
+\mathbf{A} = \left[ \begin{array}{ccc} 
+0 & 4 & -5 \\
+-4 & 0 & 3 \\
+5 & -3 & 0
+\end{array}
+\right].
+\end{equation}
+Any square matrix can be decomposed into the \emph{sum} of a symmetric and a skew-symmetric matrix:
+\begin{equation}
+\mathbf{A} = \frac{1}{2} (\mathbf{A} + \mathbf{A}^T) + \frac{1}{2} (\mathbf{A} - \mathbf{A}^T).
+\end{equation}
+The \emph{trace} of a square matrix is simply the sum of the elements along the principal diagonal. It 
+is symbolized as tr ($\mathbf{A}$).\index{Matrix!trace}\index{Trace of matrix}
+This property is useful in calculating various quantities from matrices. 
+\index{Matrix!submatrix}
+\index{Submatrix}
+\index{Matrix!supermatrix}
+\index{Supermatrix}
+\emph{Submatrices} are smaller matrix partitions of the larger \emph{supermatrix}, i.e.,
+\begin{equation}
+\left [ \frac{\mbox{Supermatrix}}{\mathbf{F}} \right] = \left[	\frac{\mathbf{A} | \mathbf{B}}{\mathbf{C} | \mathbf{D}} \right].
+\end{equation}
+Such partitioning will frequently be useful.
+	 
+\section{Matrix Addition}
+\index{Matrix!addition}
+
+	Matrix addition and subtraction require matrices of the \emph{same order} since each operation 
+simply involves the addition or subtraction of corresponding elements. So, if $\mathbf{C} = \mathbf{A} + \mathbf{B}$ then
+\begin{equation}
+\mathbf{A} = \left[ \begin{array}{cc}
+a_{11} & a_{12}\\
+a_{21} & a_{22}\\
+a_{31} & a_{32} \end{array} \right]	 , \mathbf{B} = 
+\left[ \begin{array}{cc}
+b_{11} & b_{12}\\
+b_{21} & b_{22}\\
+b_{31} & b_{32} \end{array} \right]	 ,
+\mathbf{C} = \left[ \begin{array}{cc}
+a_{11}+  b_{11} & a_{12} +  b_{12}\\
+a_{21}+  b_{21} & a_{22} +  b_{22}\\
+a_{31} + b_{31} & a_{32} + b_{32} \end{array} \right]	 ,
+\end{equation}
+and (with apologies to ABBA fans)
+\begin{equation}
+\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A},
+\end{equation}
+\begin{equation}
+(\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C}),
+\end{equation}	 
+where all matrices must be of the same order. \emph{Scalar multiplication} of a matrix is achieved by multiplying all elements of a matrix 
+by a constant (the scalar):
+\begin{equation}
+\beta \mathbf{A} = \beta \left[ \begin{array}{cc}
+a_{11} & a_{12} \\
+a_{21} & a_{32}\\
+a_{31} & a_{32}
+\end{array}
+\right]
+=
+\left[ \begin{array}{cc}
+\beta a_{11} & \beta a_{12} \\
+\beta a_{21} & \beta a_{22}\\
+\beta a_{31} & \beta a_{32}
+\end{array}
+\right],
+\end{equation}	 
+where $\beta$ is a scalar. 
+Thus, every element is multiplied by the scalar. 
+
+\section{Dot Product}
+\index{Vector!product|(}
+\index{Dot product|(}
+
+The \emph{scalar product} (or \emph{dot product} or 
+\emph{inner product}) is the product of two vectors of the same size, e.g.,
+\begin{equation}
+\mathbf{a}\cdot \mathbf{b} = \beta,
+\end{equation}	 
+where $\mathbf a$ is a row vector (or the transpose of a column vector) of length $n, \mathbf{b}$ is a column vector (or 
+the transpose of a row vector), also of length $n$, and $\beta$ is the scalar product of $\mathbf a \cdot \mathbf b$.
+Given the two vectors
+\begin{equation}
+\mathbf{a} = [a_1 \ a_2 \ a_3 ], \quad \mathbf{b} = \left[ \begin{array}{c}
+b_1\\
+b_2\\
+b_3
+\end{array}
+\right],
+\end{equation}	 
+we sum the products of corresponding elements in the two vectors, obtaining
+\begin{equation}
+\beta = a_1 b_1 + a_2b_2 + a_3b_3.
+\end{equation}
+We may visualize this multiplication, as illustrated in Figure~\ref{fig:Fig1_dotproduct} for two 4-D vectors.
+\PSfig[H]{Fig1_dotproduct}{The dot product of the two 4-D vectors $\mathbf{a} = [2 \ 1 \ 4 \ 5]$
+and $\mathbf{b} = [1 \ 3 \ 4 \ 2]$
+is obtained by multiplying the component pairs and calculating the sum of these products.}
+
+Geometrically, this product can be thought of as multiplying the length of one vector by the 
+component of the other vector that is parallel to the first, as shown in Figure~\ref{fig:Fig1_dotvector}:
+\PSfig[H]{Fig1_dotvector}{Geometrical meaning of the dot product of two vectors.  Regardless of dimension, the
+dot product is proportional to the cosine of the angle between the two vectors.}
+
+
+As an example, think of $\mathbf b$ as a force and $|\mathbf a|$ as the magnitude of displacement, with their product equal to the work in the 
+direction of $\mathbf a$. Thus:
+\begin{equation}
+\mathbf{a \cdot b = |a||b|} \cos (\theta),
+\end{equation}	 
+where the \emph{magnitude} of a vector $\mathbf x$ is given by
+\begin{equation}
+|\mathbf{x}| = \sqrt{x^2_1 + x ^2_2 + \ldots + x^2_n}. 
+\end{equation}
+The maximum principle says that the unit vector $\mathbf{(\hat{n})}$ making $\mathbf{ a \cdot \hat{n}}$ a maximum is that unit vector 
+pointing in the same direction as $\mathbf{a}:$ If $\mathbf{\hat{n} \parallel a}$ then $\cos(\theta) = \cos(0^{\circ}) = 1$ and $\mathbf{a\cdot n = |a| |n|}\cos(\theta) =  
+\mathbf{|a||\hat{n}| = |a|}$. This is equally true where $\mathbf{d}$ is any vector of a given magnitude --- that vector $\mathbf{\hat{n}}$ which 
+parallels $\mathbf{d}$ will give the largest scalar product.
+Parallel vectors thus have $\cos(\theta) = 1$, then $\mathbf{a \cdot b = |a||b|}$ and 
+$\mathbf{a = \beta b}$ (i.e., two vectors are parallel if 
+one is simply a scalar multiple of the other --- this property comes from equating direction cosines), 
+where
+\begin{equation}
+\beta =  \mathbf{|a|/|b|}.
+\end{equation}
+In contrast, perpendicular vectors have $\cos \theta = \cos 90^\circ = 0$, so that $\mathbf{ a \cdot b} = 0$, where $\mathbf{a \bot   b}$.
+
+Squaring vectors is simply the dot product of a vector with its own transpose, i.e.,
+\begin{equation}
+\mathbf{a}^2 = \mathbf{ a \cdot a}^T \mbox{ for row vectors}
+\end{equation}
+and
+\begin{equation}
+\mathbf{a}^2 = \mathbf{ a}^T \cdot \mathbf{a} \mbox{ for column vectors}.
+\end{equation}
+\index{Vector!product|)}
+\index{Dot product|)}
+
+\section{Matrix Multiplication}
+\index{Matrix!multiplication|(}
+
+Matrix multiplication requires ``conformable'' matrices. Matrices are conformable when 
+there are as many columns in the first matrix as there are rows in the second matrix.  Consider
+\index{Matrix!conformable}
+\begin{equation}
+\mathbf{C}_{(m,n)} = \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,n)}.
+\end{equation}	 
+The matrix product $\mathbf{C}$ is of order $m \times n$ and has elements $c_{ij}$, given by
+\begin{equation}
+c_{ij} = \sum^p _{k=1} a_{ik}b_{kj}.
+\end{equation}	 
+This is an extension of the scalar product --- in this case, each element of $\mathbf{C}$ is the scalar product of a row 
+vector in $\mathbf{A}$ and a column vector in $\mathbf{B}$.  For instance, if
+\begin{equation}
+\left[
+\begin{array}{cc}
+c_{11} & c_{12} \\
+c_{21} & c_{22} 
+\end{array}
+\right ]
+=
+\left[
+\begin{array}{ccc}
+a_{11}&  a_{12} &  a_{13}\\
+a_{21}&  a_{22} &  a_{23}
+\end{array}
+\right ]
+\left [
+\begin{array}{cc}
+b_{11} & b_{12}\\
+b_{21} & b_{22}\\
+b_{31} & b_{32}
+\end{array}
+\right],
+\end{equation}
+then
+\begin{equation}
+c_{12} = a_{11}b_{12} + a_{12}b_{22} + a_{13}b_{32}.
+\end{equation}
+We illustrate the situation in Figure~\ref{fig:Fig1_matprod1}.
+\PSfig[h]{Fig1_matprod1}{The matrix product of two matrices $\mathbf{A}$ and $\mathbf{B}$.  The light blue row in $\mathbf{A}$ is ``dotted'' with
+the light blue column in $\mathbf{B}$, resulting in the single, light blue element in $\mathbf{C}$.  Similarly, the dot
+product of the light green vectors result in the single, light green element.  This process is repeated by letting
+all rows in $\mathbf{A}$ be ``dotted'' with all the columns in $\mathbf{B}$.}
+The order of multiplication is critical. Usually
+\begin{equation}
+\mathbf{A \cdot B \neq B \cdot A},
+\end{equation}	 
+and unless $\mathbf{A}$ and $\mathbf{B}$ are square matrices or the order of $\mathbf{A}^T$ is the same as the order of $\mathbf{B}$ (or vice 
+versa), one of the two products cannot even be formed. The multiplication order is specified by stating
+
+\begin{description}
+\item [A] is \emph{pre}-multiplied by $\mathbf{B}$ (yielding $\mathbf{B \cdot  A}$)
+\index{Matrix!premultiply}
+\item [A] is \emph{post}-multiplied by $\mathbf{B}$ (yielding $\mathbf{ A \cdot B}$)
+\index{Matrix!postmultiply}
+\end{description}
+
+The order in which the pairs are multiplied is not important \emph{mathematically}, i.e.,
+\begin{equation}
+\mathbf{ D = (A \cdot B) \cdot C = A \cdot (B \cdot C)},
+\end{equation}
+but we will see later that the order matter \emph{computationally}.
+The \emph{transpose of a matrix product} is simply the multiplication of the transpose of each individual matrix in 
+reverse order, i.e.,
+\begin{equation}
+\mathbf{D = A \cdot B \cdot C},
+\end{equation}
+\begin{equation}
+\mathbf{D}^T = \mathbf{C}^T \cdot \mathbf{B}^T \cdot \mathbf{A}^T.
+\label{eq:transposerule}
+\end{equation}
+\emph{Multiplication by $\mathbf{I}$} leaves the matrix unchanged, i.e.,
+\begin{equation}
+\mathbf{A \cdot I = I \cdot A = A}.
+\end{equation}
+For example, 
+\begin{equation}
+\left[ \begin{array}{ccc}
+3 & 6 & 9 \\
+2 & 8 & 7 
+\end{array} \right]
+\left[ \begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1 \end{array}
+\right]
+ = 
+\left[
+\begin{array}{ccc}
+3 & 6 & 9 \\
+2 & 8 & 7
+\end{array}
+\right] .
+\end{equation}
+\emph{Premultiplication by a diagonal matrix} is written
+$\mathbf{C = D \cdot A}$,
+where $\mathbf{D}$  is  a diagonal matrix. Here, $\mathbf{C}$  is the $\mathbf{A}$ matrix with each \emph{row} scaled by the corresponding diagonal 
+element of $\mathbf{D}$:
+\begin{equation}
+\mathbf{D}   =  \left[ \begin{array}{ccc}
+d_{11}\\
+& d_{22} \\
+& & d_{33}
+\end{array} \right] ,    \quad  \mathbf{A} = \left[ \begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array} \right ]
+\end{equation}
+\begin{equation}
+\mathbf{C = D \cdot A}  =  \left[ \begin{array}{ccc}
+a_{11}d_{11} & a_{12}d_{11} & a_{13}d_{11}\\
+a_{21}d_{22} & a_{22}d_{22} & a_{23}d_{22}\\
+a_{31}d_{33} & a_{32}d_{33} & a_{33}d_{33}
+\end{array} \right]
+\quad 
+\begin{array}{l}
+\leftarrow \mbox{ each element } \times d_{11}\\
+\leftarrow \mbox{ each element } \times d_{22}\\
+\leftarrow \mbox{ each element } \times d_{33}
+\end{array} 
+\end{equation}
+\emph{Postmultiplication by a diagonal matrix} produces a matrix in which each \emph{column} has been 
+scaled by the corresponding diagonal element $\mathbf{D}$.  Hence,
+\begin{equation}
+\mathbf{C = A \cdot D} = \left[\begin{array}{ccc} a_{11} d_{11} & a_{12} d_{22} & a_{13} d_{33}\\
+a_{21} d_{11} & a_{22} d_{22} & a_{23} d_{33}\\
+a_{31} d_{11} & a_{32}d_{22} & a_{33} d_{33}
+\end{array} \right],
+\end{equation}	 
+where each column in $\mathbf{A}$ has been scaled by the corresponding diagonal matrix elements, $d_{ii}$.
+
+\subsection{Computational considerations}
+The matrix product
+\begin{equation}
+\mathbf{C}_{(m,n)} = \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,n)}
+\end{equation}
+involves $m \times n \times p$ multiplications and $m \times n  \times (p -1)$ additions.  hence,
+\begin{equation}
+\mathbf{E}_{(m,n)} = [ \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,q)}] \cdot \mathbf{C}_{(q,n)}
+\end{equation}	 
+gives $m \times p \times q$ multiplications, so
+\begin{equation}
+\mathbf{E} = [\mathbf{D}_{(m,q)}] \cdot \mathbf{C}_{(q,n)}
+\end{equation}
+gives $m\times q \times n$ multiplications, and
+\begin{equation}
+\mathbf{E} _{(m,n)} = \mathbf{A}_{(m,p)} \cdot [\mathbf{B}_{(p,q)} \cdot \mathbf{C}_{(q,n)}]
+\end{equation}
+gives $p\times q \times n$ multiplications, while
+\begin{equation}
+\mathbf{E}_{(m,n)} = \mathbf{A}_{(m,p)}\cdot [\mathbf{D}_{(p,n)} ]
+\end{equation}	
+gives $m \times p \times n$ multiplications. Therefore, the total number of operations depend on the order of multiplications:
+\begin{enumerate}
+\item $\mathbf{(A \cdot B) \cdot C} \Rightarrow mq(p+n)$ total multiplications
+\item $\mathbf{A \cdot (B \cdot C)} \Rightarrow pn(m+q)$ total multiplications
+\end{enumerate}
+If both $\mathbf{A}$ and $\mathbf{B}$ are $100 \times 100$ matrices and $\mathbf{C}$ is $100 \times 1$, then $m = p = q = 100$, and $n 
+= 1$. Multiplying using form (1) involves $\sim 1 \times 10^6$ multiplications, whereas form (2) involves $2 \times 
+10^4$; so computing $\mathbf{B \cdot C}$ first, then premultiplying by $\mathbf{A}$ saves almost a million multiplications 
+and almost an equal number of additions. Therefore, the order of operations is extremely important 
+computationally for both speed and accuracy, as more operations lead to a greater accumulation of 
+\emph{round-off errors}.
+\index{Matrix!multiplication|)}
+
+\section{Matrix Determinant}
+\index{Matrix!determinant|(}
+The \emph{determinant of a matrix} is a single number representing a property of a square matrix 
+(and is dependent upon what the matrix represents). The main use here is for finding the inverse of a 
+matrix or for solving simultaneous linear equations. Symbolically, the determinant is usually written as
+det $(\mathbf{A})$, $\mathbf{|A|}$ or $\mathbf{||A||}$ (to differentiate from magnitude).
+The calculation of a $2 \times 2$ determinant is carried out using the definition
+\begin{equation}
+|\mathbf{A}| = \left| \begin{array}{cc} a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{array} \right| = a_{11}a_{22} - a_{12}a_{21},
+\end{equation}	 
+which is the difference of the cross products. The calculation of an $n \times n$ determinant is given by
+\begin{equation}
+|\mathbf{A}| = a_{11} m_{11} - a_{12} m_{12} + a_{13} m_{13} - \cdots - (-1)^na_{1n} m_{1n},
+\end{equation}	 
+where $m_{11}$ is the determinant of $\mathbf{A}$ with the first row and column missing; $m_{12}$ is the determinant with 
+the first row and second column missing, etc. For larger matrices the procedure is used recursively.
+The determinant of a $1 \times 1$ matrix is just the 
+particular element. An example of a $3 \times 3$ determinant follows:
+\begin{equation}
+|\mathbf{A} | = \left | \begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array}\right |
+\end{equation}
+\begin{equation}
+m_{11} = \left| \begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array} \right |
+= a_{22}a_{33} - a_{23}a_{32}
+\end{equation}
+\begin{equation}
+m_{12} = \left| \begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array} \right |
+= a_{21}a_{33} - a_{23}a_{31}
+\end{equation}
+
+\begin{equation}
+m_{13} = \left| \begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array} \right |
+= a_{21}a_{32} - a_{22}a_{31}
+\end{equation}
+So
+\begin{equation}
+\begin{array}{c}
+|\mathbf{A}| = a_{11}m_{11} - a_{12}m_{12} + a_{13}m_{13}	 \\
+= a_{11}(a_{22}a_{33} - a_{23}a_{32}) - a_{12}(a_{21}a_{33} - a_{23}a_{31}) + a_{13}(a_{21}a_{32} - a_{22}a_{31}).
+\end{array}
+\end{equation}
+For a $4 \times 4$ determinant, each $m_{1i}$ would be an entire expansion given above for the 
+$3 \times 3$ 
+determinant --- one quickly needs a computer.
+
+\index{Matrix!singular}
+\index{Singular matrix}
+A \emph{singular matrix} is a square matrix whose determinant is zero. A determinant is zero if:
+\begin{enumerate}
+\item Any row or column is zero.
+\item Any row or column is equal to a linear combination of other rows or columns.
+\end{enumerate}
+As an example of a singular matrix, consider
+\begin{equation}
+|{\mathbf A}| = \left | \begin{array}{ccc} 1 & 6 & 4 \\
+2 & 1 & 0 \\
+5 & -3 & -4 
+\end{array} \right |,
+\end{equation}
+where row $1 = 3$(row 2) $-$ row 3.  Then, the determinant becomes
+\begin{equation}
+\begin{array}{ccl}
+|\mathbf{A}| & = & a_{11}(a_{22}a_{33}-a_{23}a_{32})-a_{12}(a_{21}a_{33}-a_{23}a_{31})+a_{13}(a_{21}a_{32}-a_{22}a_{31})     \\
+& = & 1[1(-4)-0(-3)]-6[2(-4)-0(5)]+4[2(-3)-1(5)]=-4+48-44=0.  \\
+\end{array}
+\end{equation}
+
+\index{Matrix!degree of clustering}
+\index{Matrix!rank}
+The \emph{degree of clustering} symmetrically about the principal diagonal is another (of many) 
+properties of a determinant. The more the clustering, the higher the value of the determinant.
+The \emph{rank} of a matrix is the number of linearly 
+independent vectors that it contains (either row or column vectors).  Consider
+\begin{equation}
+\mathbf{A} = \left [ \begin{array}{cccc}
+1 & 4 & 0 & 2 \\1 & 0 & 1 & -1\\
+-3 & -4 & -2 & 0
+\end{array} \right] .
+\end{equation}
+Since row $3 = -$(row 1)$ - 2$ (row 2), or col $3 = $ col $1 - 1/4$ (col 2) and col 4 $= -$(col 1)$ + 3/4$ (col 2), 
+the matrix $\mathbf{A}$ has rank 2 (i.e., it has only two linearly independent vectors, independent of whether 
+viewed by rows or columns).
+
+\index{Matrix!rank}
+The \emph{rank} of a \emph{matrix product} must be less than or equal to the 
+smallest rank of the matrices being multiplied:
+\begin{equation}
+\mathbf{A}_{\mbox{(rank 2)}}\cdot \mathbf{B}_{\mbox{(rank 1)}} = \mathbf{C}_{\mbox{(rank 1)}}.
+\end{equation}	 
+Therefore (and seen from another angle), if a matrix has rank $r$ then any matrix factor of it must have 
+rank of at least $r$. Since the rank cannot be greater than the smallest of $m$ or $n$ in a $m \times n$ matrix, 
+this definition also limits the size (order) of factor matrices. (That is, one cannot factor a matrix 
+of rank 2, into two matrices of which either is of less than rank 2, so $m$ and $n$ of each factor must 
+also be $\geq 2$).
+
+\index{Matrix!determinant|)}
+
+\section{Matrix Division (Matrix Inverse)}
+\index{Matrix!division}
+\index{Matrix!inverse}
+%Was {Fig1_matrixalien}{Abducted by an alien circus company, Professor Wessel
+%is forced to write Linear Algebra equations in center ring.}
+\emph{Matrix division} can be thought of as multiplying by the \emph{inverse}.  Consider the scalar division
+\begin{equation}
+\frac{x}{b}=x\frac{1}{b}=xb^{-1},
+\end{equation}	 
+where we can write
+\begin{equation}
+bb^{-1}=1.
+\end{equation}
+Likewise, matrices can be effectively divided by multiplying by an inverse matrix. \emph{Nonsingular square 
+matrices} may have an inverse symbolized as $\mathbf{A}^{-1}$ and satisfying $\mathbf{AA}^{-1} = \mathbf{A}^{-1}\mathbf{A} = \mathbf{I}$.
+The calculation of a matrix inverse is usually done using elimination methods on the computer.
+For a simple 2 x 2 matrix, its inverse is given by
+\begin{equation}
+\mathbf{A}^{-1} = \frac{1}{|\mathbf{A}|}   
+\left [ \begin{array}{cc} a_{22} & -a_{12} \\
+-a_{21} & a_{11} \\
+\end{array}
+\right ] .
+\end{equation}
+	 As an example, let
+\begin{equation}
+\mathbf{A}=
+\left [\begin{array}{cc} 7 & 2\\
+10 & 3\\
+\end{array}
+\right].
+\end{equation}
+We solve for the inverse as
+\begin{equation}
+\mathbf{A}^{-1}=\frac{1}{21-20}
+\left [\begin{array}{cc}3 & -2\\
+ -10 & 7\\
+\end{array}
+\right]=
+\left [\begin{array}{cc}3 & -2\\
+-10 & 7\\
+\end{array}
+\right],
+\end{equation}
+and as a check we note that
+\begin{equation}
+\mathbf{AA}^{-1}=
+\left [\begin{array}{cc} 7 & 2\\ 10 & 3\\ 
+\end{array} \right] \left [\begin{array}{cc}3 & -2\\ -10 & 7\\ \end{array} \right]=
+\left [\begin{array}{ccr} 1 & 0\\ 0 & 1\\ \end{array} \right]=\mathbf{I}.
+\end{equation}
+Given the concept of a matrix inverse we may summarize a few useful matrix properties:
+\begin{equation}
+(\mathbf{A}^{-1})^{-1} = \mathbf{A},
+\end{equation}
+\begin{equation}
+(\mathbf{A}^{-1})^T = (\mathbf{A}^T)^{-1} = \mathbf{A}^{-T},
+\end{equation}
+\begin{equation}
+\mathbf{D} = \mathbf{ABC} \mbox{ then } \mathbf{D}^{-1} = \mathbf{C}^{-1} \mathbf{B}^{-1} \mathbf{A}^{-1}.
+\end{equation}
+	This ``reversal rule'' for inverse products may be useful for eliminating or minimizing the number 
+of matrix inverses requiring calculation.
+
+\section{Matrix Manipulation and Normal Scores}
+\index{Normal scores|(}
+We will look at a few examples of matrix manipulations. Consider the data matrix
+\begin{equation}
+\mathbf{A} = \left[ \begin{array}{c}
+1 \ 2 \ 3 \\
+4 \ 5 \ 6 \\7 \ 8 \ 9
+\end{array} \right ]
+\end{equation}
+and unit row vector
+\begin{equation}
+\mathbf{j}^T_3 = [1 \ 1 \ 1].
+\end{equation} 
+To compute the mean of each column vector in $\mathbf{A}$ (here, each column has length $n = 3$), we note that
+\begin{equation}
+\mathbf{\bar{x}} _c = \frac{1}{3} \mathbf{j}^T_3 \mathbf{A}, \mbox{ and in general } \mathbf{\bar{x}} _c = \frac{1}{n} \mathbf{j}^T_n \mathbf{A}.
+\end{equation}	
+For our example, we find
+\begin{equation}
+\mathbf{\bar{x}}_c = \frac{1}{3} \left[ 1 \  1\  1 \right ] \cdot
+\left[ \begin{array}{c}
+1 \ 2 \ 3 \\ 4 \ 5 \ 6 \\ 7 \ 8 \ 9 \end{array} \right ] 
+= \frac{1}{3} \left[ 12 \ 15 \ 18 \right] =  \left[ 4 \ 5 \ 6 \right].
+\end{equation}
+To compute the mean of each row vector in $\mathbf{A}$ (here, each row has length $m = 3$), let
+\begin{equation}
+\mathbf{\bar{x}}_r = \frac{1}{3} \mathbf{Aj}_3, \mbox{ and in general }  \mathbf{\bar{x}}_r = \frac{1}{m} \mathbf{Aj}_m .
+\end{equation} 
+Again, for our example, we find
+\begin{equation}
+\mathbf{\bar{x}}_r = \frac{1}{3}
+\left [ \begin{array}{c}
+1 \ 2 \ 3 \\
+4 \ 5 \ 6 \\
+7 \ 8 \ 9 
+\end{array} \right ] \cdot 
+\left [ \begin{array}{c}
+1\\
+1\\
+1
+\end{array} \right ] = \frac{1}{3}
+\left[
+\begin{array}{c}
+6 \\
+15\\
+24 \end{array} \right ] 
+=
+\left[
+\begin{array}{c}
+2 \\
+5\\
+8 \end{array} \right ].
+\end{equation}
+Given these terms, how can we compute normal scores for a data table (or matrix)?  What we want in 
+each cell are the elements
+\begin{equation}
+z_{ij} = \frac{a_{ij} - \bar{a}_j}{s_j}.
+\end{equation} 
+In matrix terminology we would first need to form the difference matrix, $\mathbf{D}$, given as
+\begin{equation}
+\mathbf{D = A} - \frac{1}{n}\mathbf{JA},
+\end{equation}
+where $\mathbf{J}$ is the $n \times n$ unit matrix (all entries equal 1).
+Given the diagonal matrix $\mathbf{S}$ containing the standard deviation of each column defined as
+\begin{equation}
+\mathbf{S} = 
+\left [ \begin{array}{cccc}
+s_1 & 0 & \ldots & 0 \\
+0 & s_2 & \ldots & 0 \\
+\vdots & \vdots &  \ddots  & \vdots\\
+0 & 0 & \ldots & s_m
+\end{array} \right]
+\end{equation}
+we get the normal scores (here, $\mathbf{I}$ is of size $n \times n$) as
+\begin{equation}
+\mathbf{Z = DS}^{-1} = \left ( \mathbf{A} - \frac{1}{n} \mathbf{JA} \right) \mathbf{S}^{-1} = \left ( \mathbf{I} - \frac{1}{n} \mathbf{J} \right)
+\mathbf{AS}^{-1}.
+\end{equation}
+\index{Normal scores|)}
+
+\section{Solution of Simultaneous Linear Equations}
+\index{Solution of simultaneous linear equations|(}
+
+A system of four simultaneous linear equations in four unknowns $x_1, x_2, x_3, x_4$ can be written
+\begin{equation}
+\begin{array}{c}
+a_{11}x_1+a_{12}x_2+a_{13}x_3+a_{14}x_4=b_1\\
+a_{21}x_1+a_{22}x_2+a_{23}x_3+a_{24}x_4=b_2\\
+a_{31}x_1+a_{32}x_2+a_{33}x_3+a_{34}x_4=b_3\\
+a_{41}x_1+a_{42}x_2+a_{43}x_3+a_{44}x_4=b_4\\
+\end{array}
+\end{equation}
+or, in matrix form, 
+\begin{equation}
+\mathbf {Ax=b},
+\end{equation}	 
+where
+\begin{equation}
+\mathbf{A}=
+\left[\begin{array}{cccc}
+a_{11} & a_{12} & a_{13} & a_{14}\\	 
+a_{21} & a_{22} & a_{23} & a_{24}\\
+a_{31} & a_{32} & a_{33} & a_{34}\\
+a_{41} & a_{42} & a_{43} & a_{44}\\	 
+\end{array}
+\right]
+\end{equation}
+is called the coefficient matrix,
+\begin{equation}
+\mathbf{x}= \left[\begin{array}{c}x_1\\x_2\\x_3\\x_4\\
+\end{array}\right]
+\end{equation}
+is the unknown vector, and
+\begin{equation}
+\mathbf{b}=\left[\begin{array}{c}b_1\\b_2\\b_3\\b_4\\
+\end{array}
+\right]
+\end{equation}
+is the right hand side (i.e., the observations).  Premultiplying both sides by $\mathbf{A}^{-1}$ yields
+\begin{equation}
+\mathbf{A}^{-1}\mathbf{Ax}=\mathbf{A}^{-1}\mathbf{b},
+\end{equation}	 
+hence
+\begin{equation}
+\mathbf{Ix=x=A}^{-1}\mathbf{b}
+\end{equation}	 
+gives the solution for values of $x_1, x_2, x_3, x_4$ which solve the system. For simplicity, the following example 
+solves for two simultaneous equations only. Consider two equations in two unknowns (e.g., equations of lines 
+in the $x_1-x_2$ plane):
+\begin{equation}
+\begin{array}{c}
+5x_1 + 7x_{2} = 19\\
+3x_1 - 2 x_2 = -1
+\end{array} .
+\end{equation}
+In matrix form this system translates to
+\begin{equation}
+\left[ \begin{array}{cc}
+5 & 7\\
+3 & -2 
+\end{array}
+\right ] 
+\left[
+\begin{array}{c}
+x_1\\
+x_2
+\end{array}
+\right ] =
+\left[ \begin{array}{c}
+19\\
+-1
+\end{array}
+\right ]
+\end{equation}
+or
+\begin{equation}
+\mathbf{A \cdot x = b}.
+\end{equation}
+To solve this matrix equation we need the inverse of $\mathbf{A}$, which is simply
+\begin{equation}
+\mathbf{A}^{-1} = \frac{1}{-10 - 21} \quad
+\left[ \begin{array}{cc}
+-2 & -7\\
+-3 & 5
+\end{array}\right ] = \left[ \begin{array}{cc}
+\frac{2}{31} & \frac{7}{31}\\[4pt]
+\frac{3}{31} & \frac{-5}{31}
+\end{array} \right ] .
+\end{equation}	 
+Then, $\mathbf{x = A}^{-1}\cdot \mathbf{b}$, where
+\begin{equation}
+\mathbf{x = A}^{-1}\mathbf{b} = \left[ \begin{array}{cc}
+\frac{2}{31} & \frac{7}{31}\\[4pt]
+\frac{3}{31} & \frac{-5}{31}
+\end{array}
+\right] 
+\left[ \begin{array}{c}
+19\\
+-1
+\end{array} \right ] = \left [ \begin{array}{c}
+\frac{38}{31} - \frac{7}{31} \\[4pt]
+\frac{57}{31} + \frac{5}{31}
+\end{array} \right ]
+= \left[ \begin{array}{c}
+1 \\
+2 \end{array} \right ] .
+\end{equation}
+So, the values $x_1 = 1$ and $x_2 = 2$ solve the above system, or
+\begin{equation}
+\mathbf{x} = \left[ \begin{array}{c}
+x_1\\ x_2 \end{array} \right]
+=
+\left[ \begin{array}{c}
+1\\ 2 \end{array} 
+\right ] .
+\end{equation}	 
+
+While this approach may seem burdensome, it is good because it is extremely general and 
+allows for a straightforward solution to very large systems. However, it is 
+true that direct (elimination) methods to the solution are in fact quicker for fully populated 
+matrices:
+
+\begin{enumerate}
+\item 	A solution using the inverse matrix approach involves $n^3$ multiplications for the inversion and $n^2m$ 
+more multiplications to finish the solution, where $n$ is the number of equations per set, and $m$ 
+is the number of sets of equations (each of the same form but different $\mathbf{b}$ vector). The total 
+number of multiplications is $n^3 + n^2m$.
+\item	A solution by directly solving the linear equations involves $n^3/3 + n^2m$ multiplications.
+\end{enumerate}
+
+Hence, while the matrix form is easy to handle, one should not necessarily always use it blindly. We 
+will consider many situations for which matrix solutions are ideal. For sparse or symmetrical 
+matrices, the above relationships may not hold.
+\index{Solution of simultaneous linear equations|)}
+
+\subsection{Simple regression and curve fitting}
+\index{Simple regression|(}
+\index{Regression!simple|(}
+\index{Curve fitting|(}
+
+\PSfig[h]{Fig1_L2_error}{Graphical representation of the regression errors used in least-squares procedures.
+We measure misfit vertically in the $y$-direction from data point to regression curve.}
+	Whereas an interpolant fits each data point exactly, it is frequently advantageous to produce a 
+smoothed fit to the data --- not exactly fitting each point, but producing a ``best'' fit. A popular (and 
+convenient) method for producing such fits is known as the \emph{method of least squares}.
+\index{Method of least squares}
+\index{Least squares method}
+
+	The method of least squares produces a fit of a specified (usually continuous) basis to a set of 
+data points which minimizes the sum of the squared misfit (error) between the fitted curve 
+and the data. The misfit can be measured vertically, as in Figure~\ref{fig:Fig1_L2_error}.
+\index{Regression}
+This \emph{regression} of $y$ on $x$ is the most commonly used method. Less common methods (i.e., more work 
+involved) is the regression of $x$ on $y$ and even orthogonal regression (which we will return to later;
+see Figure~\ref{fig:Fig1_y_and_ortho_error}).
+
+\PSfig[h]{Fig1_y_and_ortho_error}{Two other regression methods: regressing $x$ on $y$ and orthogonal regression.
+Here we measure misfits horizontally from data point to regression line or orthogonally onto the regression line,
+respectively.}
+
+	Consider fitting a single ``best'' linear curve to $n$ data points. This can be a scatter plot of $x(t)$, $d(t)$ 
+plotted at similar values of $t$, or a simple $d = f(x)$ relationship. At any rate, $d$ (our data) are considered a 
+function of $x$ (which may be a spatial coordinate or time). We wish to fit a line of the form
+\begin{equation}
+d(x) = m_1 + m_2 (x-x_0)
+\end{equation}
+and must therefore determine values for the model coefficients $m_1$ and $m_2$ that produce a line that minimizes the sum 
+of the squared misfits (here, $x_0$ is a constant specified beforehand). In other words,
+\begin{equation}
+\mbox{minimize } \sum ^n _{i=1} \left [(d_{\mbox{computed}}(x_i) - d_{\mbox{observed}}(x_i) \right ]^2.
+\end{equation}	 
+Ideally, for each observation $d_i$ at location $x_i$ we should have
+\begin{equation}
+\begin{array}{c}
+m_1 + m_2(x_1 - x_0) = d_1\\
+m_1 + m_2(x_2 - x_0) = d_2\\
+m_1 + m_2(x_3 - x_0) = d_3\\
+\vdots\\
+m_1 + m_2 (x_n - x_0) = d_n
+\end{array}
+\end{equation}
+There are many more equations ($n$ --- one for each observed value of $d$) than unknowns (2 --- $m_1$ and 
+$m_2$). Such a system is \emph{overdetermined} and there exists no unique solution (unless all the $d_i$'s do 
+lie exactly on a single line, in which case any two equations will uniquely determine $m_1$ and $m_2$).  
+In matrix form,
+\index{Overdetermined system of equations}
+\begin{equation}
+\left[
+\begin{array}{cc}
+1 & (x_1 - x_0) \\
+1 & (x_2 - x_0) \\
+\vdots & \vdots \\
+1 & (x_n - x_0) 
+\end{array} \right]
+\ \left [ \begin{array}{c}
+m_1\\
+m_2
+\end{array} \right ] =
+\left [ \begin{array}{c}
+d_1\\
+d_2\\
+\vdots\\
+d_n
+\end{array} \right ],
+\end{equation}
+i.e., $\mathbf{G \cdot m = d}$.  Here, $\mathbf{G}$ represents how predictions of $\mathbf{d}$ are related to the model $\mathbf{m}$ and is often
+called the \emph{design matrix}.
+However, since $\mathbf{G}$ is a not square it has no inverse, hence the equation cannot be inverted and solved as is. 
+Consider instead the \emph{misfit}, $e_i$, at each point, between prediction and observation:
+\begin{equation}
+\begin{array}{c}
+m_1 + m_2 (x_1 - x_0) - d_1 = e_1\\
+m_1 + m_2 (x_2 - x_0) - d_2 = e_2\\
+\vdots\\
+m_1 + m_2(x_n - x_0) - d_n = e_n
+\end{array}
+\end{equation}
+We wish to determine the values for $m_1$ and $m_2$ that minimize
+\begin{equation}
+	\index{Misfit function}
+E(m_1, m_2) = \sum^n_{i=1} e^2_i = {\mathbf e}^T{\mathbf e},
+\end{equation}
+where $\mathbf{e}^T = (e_1, e_2, ..., e_n)$ is the \emph{misfit vector}.       
+This condition will minimize the variance of the residuals about the regression line and give the desired least-squares fit.
+Thus, $E(m_1 ,m_2)$ and the minimum of this function (with respect to the two unknown coefficients) 
+can be determined using simple differential calculus where, at the desired minimum, we require
+\PSfig[h]{Fig1_3D_misfit}{(left) The solution we seek minimizes the misfit function $E(\mathbf{m}) = E(m_1, m_2)$,
+which portrays a surface in 3-D.  Because of the functional (quadratic) form of $E$ we are guaranteed a unique global
+minimum. (right) Two orthogonal cross-sections of E along the axes $M_1$ and $m_2$.  We seek the solutions for these
+two parameters so that the respective slopes in $E$ are zero simultaneously.}
+\begin{equation}
+\frac{\partial E(m_1,m_2)}{\partial m_1} = \frac{\partial E (m_1, m_2)}{\partial m_2} = 0.
+\end{equation}
+Thus, the \emph{slopes} of the misfit function with respect to each parameter must be zero (see Figure~\ref{fig:Fig1_3D_misfit}).  We find
+\begin{equation}
+\begin{array}{rcl}
+\displaystyle
+\frac{\partial E}{\partial m_1} & = & \displaystyle \frac{\partial}{\partial m_1} \left ( \sum^n_{i=1} \ e^2_i \right ) = \frac{\partial}{\partial m_1} \left \{ \sum^n_{i=1} \left [ m_1 + m_2 (x_i - x_0) - d_i \right ] ^2 \right \}\\*[4ex]
+ &  = & \displaystyle 2 \sum^n_{i=1} \left [ m_1 + m_2 (x_i - x_0) - d_i \right ] = 0
+\end{array}
+\end{equation}
+\begin{equation}
+\begin{array}{rcl}
+\displaystyle
+\frac{\partial E}{\partial m_2} & = & \displaystyle \frac{\partial}{\partial m_2} \left ( \sum^n_{i=1} \ e^2_i \right ) = \frac{\partial}{\partial m_2} \left \{ \sum^n_{i=1} \left [ m_1 + m_2 (x_i - x_0) - d_i \right ] ^2 \right \}\\*[4ex]
+ & = & \displaystyle 2 \sum^n_{i=1} \left [ m_1 + m_2 (x_i - x_0) - d_i \right ](x_i - x_0) = 0.
+\end{array}
+\end{equation}
+These two equations can now be expanded into their individual terms, forming what are known as 
+the \emph{normal equations}.  This system of two equations with two unknowns can be uniquely 
+solved. Rearranging, we find
+\index{Normal equations}
+\begin{equation}
+nm_1 + m_2 \sum^n_{i=1} (x_i - x_0) = \sum^n_{i=1} d _i,
+\label{eq:normeq1}
+\end{equation}
+\begin{equation}
+m_1 \sum^n_{i=1} (x_i - x_0) + m_2 \sum^n_{i=1} (x_i - x_0)^2 = \sum^n_{i=1} d_i (x_i - x_0).
+\label{eq:normeq2}
+\end{equation}
+Notice that all sums involved involve known values that add to simple constants. 
+Specifically, we must compute the sums
+\begin{equation}
+S_y = \sum^n_{i=1} d_i, \ S_{xy} = \sum^n_{i=1}d_i (x_i - x_0), S_x = \sum^n_{i=1}(x_i - x_0), \mbox{ and} \ 
+S_{xx} = \sum^n_{i=1}(x_i - x_0)^2.
+\end{equation}
+Substituting these symbols into (\ref{eq:normeq1}) and (\ref{eq:normeq2}), we obtain
+\begin{equation}
+nm_1 + m_2 S_x = S_y
+\end{equation}
+\begin{equation}
+m_1 S_x + m_2 S_{xx} = S_{xy}
+\label{eq:slope_equation}
+\end{equation}
+Solving for the intercept yields
+\begin{equation}
+m_1 = \frac{1}{n} S_y - \frac{m_2}{n} S_x.
+\label{eq:intercept_equation}
+\end{equation}
+We substitute $m_1$ into (\ref{eq:slope_equation}) and find
+\begin{equation}
+\left [ \frac{1}{n} S_y - \frac{m_2}{n} S_x \right ] S_x + m_2 S_{xx} = S_{xy}.
+\end{equation}
+Now solve for $m_2$:
+\begin{equation}
+\frac{1}{n} S_y S_x - \frac{m_2}{n} S_x^2 + m_2 S_{xx} = S_{xy},
+\end{equation}
+\begin{equation}
+m_2 \left ( S_{xx} - \frac{1}{n} S_x^2 \right ) = S_{xy} - \frac{1}{n} S_y S_x.
+\end{equation}	 
+Finally,
+\begin{equation}
+m_2 = \left ( S_{xy} - \frac{1}{n} S_y  S_x \right ) / \left ( S_{xx} - \frac{1}{n} S_x^2 \right )  =\frac{n S_{xy} - S_x  S_y}{n S_{xx} - S_x^2},
+\label{eq:slope_solution}
+\end{equation}	 
+and we substitute $m_2$ into (\ref{eq:intercept_equation}) to find
+\begin{equation}
+m_1 = \frac{S_{xx} S_y - S_x  S_{xy}}{n S_{xx} - S_x^2}.
+\label{eq:intercept_solution}
+\end{equation}	 
+In matrix form the normal equations are
+\begin{equation}
+\left [
+\begin{array}{cc}
+n & \displaystyle \sum^n_{i=1}(x_i - x_0)\\
+\displaystyle \sum^n_{i=1}(x_i - x_0) & \displaystyle \sum^n_{i=1}(x_i - x_0)^2
+\end{array} \right ]
+\left [
+\begin{array}{c}
+m_1\\ m_2
+\end{array} \right ] =
+\left[
+\begin{array}{c}
+\displaystyle \sum^n_{i=1}d_i\\
+\displaystyle \sum^n_{i=1}d_i(x_i - x_0)
+\end{array}
+\right ],
+\end{equation}
+which may be simplified to
+\begin{equation}
+\left [
+\begin{array}{cc}
+n & S_x \\
+S_x & S_{xx}
+\end{array} \right ]
+\left [
+\begin{array}{c}
+m_1\\ m_2
+\end{array} \right ] =
+\left[
+\begin{array}{c}
+S_y\\
+S_{xy}
+\end{array}
+\right ] .
+\end{equation}
+Therefore, $\mathbf{Nm = v}$, and since $\mathbf{N}$ is square, symmetric and of full rank, this equation is solved in 
+the standard manner:
+\begin{equation}
+\mathbf{N}^{-1} \mathbf{Nm = m = N}^{-1} \mathbf{v}.
+\end{equation}	 
+This problem was simple enough $(2 \times 2)$ to solve for $m_1$ and $m_2$ by brute force. For larger systems,
+this approach becomes impractical and instead a matrix solution to the rectangular $\mathbf{G\cdot m = d}$ equation must be 
+sought. We will next look at the general linear least-squares problem and find a solution in 
+matrix notation.
+\index{Simple regression|)}
+\index{Regression!simple|)}
+\index{Curve fitting|)}
+
+\subsection{General linear least squares method, version 1}
+\index{General linear least squares method|(}
+
+	We have looked at a few special cases where we have sought to fit a model to data in a 
+least-squares sense.  Fitting a straight line to the $x-d$ points was a very simple example of this 
+technique. We will now look at the more general problem of finding the coefficients for \emph{any} 
+linear combination of a chosen set of basis functions that fits a data set in a least squares sense. There are 
+numerous situations where this is needed; some are listed in Table~\ref{tbl:LLS_examples}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{1.5in}|l|}
+\hline
+\bf{Situation}  & \multicolumn{1}{c|}{\bf{Model Parameters}} & \multicolumn{1}{c|}{\bf{Data}} \\ \hline
+Curve Fitting & 
+Coefficients of polynomials ($x^m$), $\sin, \cos$, etc. &
+Points in $x-y$ plane \\ \hline
+Gravity modeling &
+Densities of subsurface polygons & 
+Gravity observations\\ \hline
+Hypocenter location & 
+Small perturbations to hypocenter location & Seismic arrival times \\ \hline
+\end{tabular}
+\caption{Examples of situations where linear least squares solutions are used.}
+\label{tbl:LLS_examples}
+\end{table}
+
+While the basis functions in these cases are all vastly different, they are all used in linear 
+combinations to fit the observed data. We will therefore take time to investigate how such a 
+problem is set up, and how the setup can be simplified with matrix algebra.
+Some typical basis functions are given in Table~\ref{tbl:basis_funcs}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\bf{Polynomial basis} & \bf{Fourier sine basis}\\ \hline
+$g_1=x^0$  & $g_1=\sin(2\pi x/T)$\\ \hline
+$g_2=x^1$  & $g_2=\sin(4\pi x/T)$\\ \hline
+$g_3=x^2$  & $g_3=\sin(6\pi x/T)$\\ \hline
+$\vdots$ & $\vdots$\\ \hline
+$g_m=x^{m-1}$  & $g_m=\sin(2m\pi x/T)$ \\ \hline
+\end{tabular}
+\caption{Examples of basis functions used for modeling of data.}
+\label{tbl:basis_funcs}
+\end{table}
+
+Consider the least squares fitting of any continuous basis of the form
+\begin{equation}
+g_1(x), g_2(x), g_3(x), \cdots , g_m(x).
+\end{equation}
+For example, we desire to fit a model with $m$ terms
+\begin{equation}
+d(x) = m_1g_1(x) + m_2g_2(x) + \cdots + m_mg_m(x)
+\label{eq:lsgenmodel}
+\end{equation}
+to a data set of $n$  data points, where $n > m$, by minimizing $E(\mathbf{m})$ given by
+\begin{equation}
+E(\mathbf{m}) = E(m_1, m_2, \cdots, m_m) = \sum ^n _{i=1}  (e_i)^2  = \sum ^n _{i=1} (m_1 g_1(x_i) + m_2g_2(x_i) + \cdots + m_m g_m(x_i) - d_i)^2,
+\end{equation}
+or simply
+\begin{equation}
+E(\mathbf{m}) = \sum ^n _{i=1} (m_1g_{i1} + m_2g_{i2} + \cdots + m_mg_{im} - d_i)^2,
+\label{eq:L2_misfit}
+\end{equation}
+where $d_i$ is the observed value and $g_{ij}$ is the $j'$th basis function, evaluated at the location (or time) $x_i$. In other words,
+$g_{ij} = g_j(x_i)$.
+
+There are \emph{four} concepts of vital importance in a general linear least squares modeling problem:
+\begin{enumerate}
+	\item The \emph{observed data}, $(x_i, d_i), i = 1, n$, where $n$ is the number of observations.  These are all known quantities.
+	\item The \emph{general linear model} (linear in $\mathbf{m} = m_j, j = 1,m$, with $m$ unknown parameters), given by (\ref{eq:lsgenmodel}).
+	\item The $m$ chosen \emph{basis functions}, $g_j(x), j = 1, m$.  We can evaluate these for any $x$.
+	\item The \emph{least squares misfit criteria}, given by (\ref{eq:L2_misfit}).
+\end{enumerate}
+We can write a linear system of equations for the misfit at each data point:
+\begin{equation}
+\begin{array}{c}
+m_1 g_{11} + m_2 g_{12} + \cdots + m_m g_{1m} - d_1 = e_1\\
+m_1 g_{21} + m_2 g_{22} + \cdots + m_m g_{2m} - d_2 = e_2\\
+\vdots\\
+m_1 g_{n1} + m_2 g_{n2} + \cdots + m_m g_{nm} - d_n = e_n\\
+\end{array}.
+\end{equation}     
+To minimize $E$, we require
+\begin{equation}
+\displaystyle
+\frac{\partial E(\mathbf{m})}{\partial m_{j}} = 0, j = 1,m.
+\label{eq:L2_criteria}
+\end{equation}
+Considering the first term (case $j = 1$), we see
+\begin{equation}
+\begin{array}{rcl}
+\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_1} & = & \displaystyle \frac{\partial}{\partial m_1}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_mg_{im} -d_i)^2 \\
+ & = & \displaystyle 2 \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{i1}= 0, \\
+\end{array}
+\end{equation}
+while for the second term (case $j = 2$), we find
+\begin{equation}
+\begin{array}{rcl} 
+\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_2} & = & \displaystyle \frac{\partial}{\partial m_2}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_mg_{im} -d_i)^2 \\
+& = & 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{i2}= 0. \\
+\end{array}
+\end{equation}
+Consequently, for the $j$'th parameter,
+\begin{equation}
+\frac{\partial E(\mathbf{m})}{\partial m_j} = 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{ij}= 0.
+\end{equation}
+Rearranging these normal equations gives the square $m \times m$ system
+\begin{equation}
+\begin{array}{c}
+m_1 \displaystyle \sum ^n _{i=1} g^2_{i1} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{i1} + \cdots + m_m 
+ \displaystyle \sum ^n _{i=1} g_{im}g_{i1} =  \displaystyle \sum^n _{i=1} d_i g_{i1}\\
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{i2} + m_2 \displaystyle \sum ^n _{i=1} g^2_{i2} + \cdots + m_m  \displaystyle \sum ^n _{i=1} g_{im}g_{i2} =  \displaystyle \sum^n _{i=1} d_i g_{i2}\\
+\vdots \\
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{im} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{im} + \cdots + m_m 
+ \displaystyle \sum ^n _{i=1} g^2_{im} =  \displaystyle \sum^n _{i=1} d_i g_{im}
+\end{array}
+\end{equation}
+or equivalently,
+\begin{equation}
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ij} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{ij} + \cdots + m_m 
+ \displaystyle \sum ^n _{i=1} g_{im}g_{ij} =  \displaystyle \sum^n _{i=1} d_i g_{ij}, j=1,m.
+\end{equation}
+This setup provides a \emph{closed system} of $m$ normal equations.  In matrix form,
+\begin{equation}
+\left [  \begin{array}{cccc}
+\displaystyle \sum ^n _{i=1} g^2_{i1} & \displaystyle \sum ^n _{i=1} g_{i2}g_{i1} & \cdots &
+\displaystyle \sum ^n _{i=1} g_{im}g_{i1} \\
+\displaystyle \sum ^n _{i=1} g_{i1}g_{i2} &  \displaystyle \sum ^n _{i=1} g^2_{i2} & \cdots &
+\displaystyle \sum^n _{i=1} g_{im}g_{i2} \\
+\vdots & \vdots & \ddots & \vdots\\
+\displaystyle \sum ^n _{i=1} g_{i1}g_{im} &  \displaystyle \sum ^n _{i=1} g_{i2}g_{im} & \cdots & \displaystyle \sum ^n _{i=1} g^2_{im} 
+\end{array}   \right ]	\left[ \begin{array}{c} m_1 \\ m_2 \\ \vdots \\ m_m     \end{array}  \right ]  = \left[  \begin{array}{c}\displaystyle \sum ^n _{i=1} d_{i}g_{i1}\\
+\displaystyle \sum ^n _{i=1} d_{i}g_{i2}\\
+\vdots \\
+\displaystyle \sum ^n _{i=1} d_{i}g_{im}\\
+   \end{array} \right].
+\label{eq:normalwsums}
+\end{equation}
+Hence, we simply have
+\begin{equation}
+\mathbf{N \cdot m = v},
+\label{eq:Nxvsolution}
+\end{equation}
+where $\mathbf{N}$ is the (known) coefficient matrix, $\mathbf{m}$ the vector with the unknowns $m_j$, and $\mathbf{v}$ contains 
+weighted sums of known (observed or computable) quantities. Solving for the $\mathbf{m}$ vector (since $\mathbf{N}$ is square, symmetric and 
+of full rank) yields
+\begin{equation}
+\mathbf{N}^{-1} \cdot \mathbf{N \cdot m} = \mathbf{m} = \mathbf{N}^{-1} \cdot \mathbf{v}.
+\end{equation}	 
+The resulting $m_j$ values are the ones which satisfy (\ref{eq:L2_criteria}) and 
+therefore the same ones, when combined with the chosen basis, that produce the ``best'' fit to the 
+$n$ data points such that (\ref{eq:L2_misfit}) is minimized.
+
+\subsection{General linear least squares method, version 2}
+
+We will now look at a simpler approach to the same problem using matrix algebra. We have $\mathbf{e = G \cdot m - d}$, or
+\begin{equation}
+\left [ \begin{array}{c} e_1\\ e_2 \\ \vdots \\ e_n  \end{array} \right ] =
+\left [
+\begin{array}{cccc}
+g_{11} & g_{12} & \cdots & g_{1m} \\	 
+g_{21} & g_{22} & \cdots & g_{2m} \\
+\vdots & \vdots & \ddots & \vdots\\
+g_{n1} & g_{n2} & \cdots & g_{nm} \\
+\end{array} \right ]
+\cdot
+\left [ \begin{array}{c} 
+m_1\\ 
+m_2\\
+ \vdots\\ 
+m_m   \end{array}   \right]
+-
+\left [ \begin{array}{c} d_1\\ d_2 \\ \vdots \\ d_n  \end{array} \right ].
+\end{equation}
+We note that each column vector of $\mathbf{G}$ is simply a single basis function evaluated at all our
+observation points.  In fact, we could write $\mathbf{G}$ as
+\begin{equation}
+\mathbf{G} = \left [
+\begin{array}{cccc}
+\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_m \\	 
+\end{array} \right ],
+\label{eq:Aasvectors}
+\end{equation}
+where
+\begin{equation}
+\mathbf{g}_j = \left [
+\begin{array}{cccc}
+g_j(x_1) & g_j(x_2) & \cdots & g_j(x_n) \\	 
+\end{array} \right ]^T.
+\end{equation}
+We wish to find the $m_j$ values that minimize $E = \mathbf{e}^T\mathbf{e}$.
+Minimizing the misfit with respect to the unknown model parameters $\mathbf{m}$ means we must solve
+the $m$ linear equations that result from setting all partial derivatives of $E$ to zero (i.e., \ref{eq:L2_criteria}).
+Using matrix algebra, we express the \emph{predicted} solution as $\hat{\mathbf{d}} = \mathbf{G \cdot m}$.
+We may now express the misfit
+between model and observations as $\mathbf{e} = \hat{\mathbf{d}} - \mathbf{d} = \mathbf{G \cdot m} - \mathbf{d}$
+and use this expression to evaluate the misfit as
+\begin{equation}
+E(\mathbf{m}) = \sum ^n _{i=1}  (e_i)^2  = \mathbf{e}^T \cdot \mathbf{e} = \left(\hat{\mathbf{d}} - \mathbf{d}\right)^T\cdot \left(\hat{\mathbf{d}} - \mathbf{d}\right) = \left(\mathbf{G \cdot m} - \mathbf{d}\right)^T \cdot \left(\mathbf{G \cdot m} - \mathbf{d}\right).
+\end{equation}
+Expanding terms, we find
+\begin{equation}
+E(\mathbf{m}) =  \left(\mathbf{m}^T\mathbf{G}^T - \mathbf{d}^T\right) \cdot \left(\mathbf{G \cdot m} - \mathbf{d}\right) = \
+\mathbf{m}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{m}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{Gm} + \mathbf{d}^T\mathbf{d},
+\end{equation}
+where we have used (\ref{eq:transposerule}) to handle the transpose of a matrix product.
+Note that since $E$ is a scalar then each of these terms must evaluate to scalars as well.  To find the solution, we set
+\begin{equation}
+\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} + \mathbf{m}^T\mathbf{G}^T\mathbf{G\dot{m}} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{G\dot{m}} = 0, j = 1,m,
+\end{equation}
+where the ``dot'' over a vector represents the derivative of that vector with respect to $m_j$.
+We note the first and second terms are transposes of each other, as are the third and fourth terms.
+However, since they all evaluate to scalars the two transposes must be identical and hence this
+repetition simply constitutes a factor of two, which we delete by retaining only the first and third term:
+\begin{equation}
+\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, j = 1,m.
+\end{equation}
+What is the mysterious ``dot''-derivative, written as
+\begin{equation}
+\mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,m?
+\end{equation}
+We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T = [m_1\ m_2 \ \cdots \ m_m ]$:
+\[\begin{array}{*{20}{c}}
+{{\rm{Case }}j = 1:{\frac{\partial}{\partial m_1}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
+1&0& \cdots &0
+\end{array}} \right]}^T}}\\[4pt]
+{{\rm{Case }}j = 2:{\frac{\partial}{\partial m_2}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
+0&1& \cdots &0
+\end{array}} \right]}^T}}\\[4pt]
+ \vdots \\[4pt]
+{{\rm{Case }}j = m:{\frac{\partial}{\partial m_m}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
+0&0& \cdots &1
+\end{array}} \right]}^T}}
+\end{array}\]
+Thus, the $m$ linear equations can be combined into a single matrix equation, noting that all these derivatives (each producing a row vector)
+combine to form the identity matrix, $\mathbf{I}$:
+\begin{equation}
+\frac{\partial }{{\partial {m_j}}}\left( {{{{\mathbf{m}}}^T}} \right), j = 1,m \to \left[ {\begin{array}{*{20}{c}}
+1&0& \cdots &0\\
+0&1& \cdots &0\\
+ \vdots & \vdots & \ddots & \vdots \\
+0&0& \cdots &1
+\end{array}} \right] = {\mathbf{I}}.
+\end{equation}
+Hence, we may write
+\begin{equation}
+\mathbf{I}\mathbf{G}^T\mathbf{Gm} - \mathbf{I}\mathbf{G}^T\mathbf{d} = \mathbf{0},
+\end{equation}
+or by rearranging,
+\begin{equation}
+\mathbf{G}^T\mathbf{Gm} = \mathbf{G}^T\mathbf{d}.
+\end{equation}
+Because the $\mathbf{G}^T\mathbf{G}$ matrix is square and symmetric and thus can be inverted, we simply multiply by its inverse
+and obtain the general least squares solution as
+\begin{equation}
+\mathbf{m} = \left [\mathbf{G}^T\mathbf{G}\right ]^{-1}\mathbf{G}^T\mathbf{d}.
+\label{eq:lsgensolution}
+\end{equation}
+Comparing (\ref{eq:lsgensolution}) with (\ref{eq:Nxvsolution}) we see clearly that $\mathbf{N} = \mathbf{G}^T\mathbf{G}$
+and $\mathbf{v} = \mathbf{G}^T\mathbf{d}$.  Furthermore, given (\ref{eq:Aasvectors}) we may write
+$\mathbf{G}^T\mathbf{G}$ using the product
+\begin{equation}
+\mathbf{N} = \mathbf{G}^T\mathbf{G} = \left [
+	\begin{array}{c}
+	\mathbf{g}_1^T \\[6pt]
+	\mathbf{g}_2^T \\[6pt]
+	\vdots \\[6pt]
+	\mathbf{g}_m^T \\	 
+	\end{array} \right ] \cdot
+	\left [
+		\begin{array}{cccc}
+		\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_m \\	 
+		\end{array}
+	\right ] =
+	 \left [
+	\begin{array}{cccc}
+	\mathbf{g}_1^T\mathbf{g}_1 & \mathbf{g}_1^T\mathbf{g}_2 & \cdots & \mathbf{g}_1^T\mathbf{g}_m \\[6pt]	 
+	\mathbf{g}_2^T\mathbf{g}_1 & \mathbf{g}_2^T\mathbf{g}_2 & \cdots & \mathbf{g}_2^T\mathbf{g}_m \\[6pt]	 
+	\vdots & \vdots & \ddots & \vdots \\[6pt]
+	\mathbf{g}_m^T\mathbf{g}_1 & \mathbf{g}_m^T\mathbf{g}_2 & \cdots & \mathbf{g}_m^T\mathbf{g}_m \\	 
+	\end{array} \right ],
+	\label{eq:gdotg}
+\end{equation}
+which makes it clear that each element of $\mathbf{N}$, such as $n_{kj}$, is the dot product between two basis vectors $\mathbf{g}_k^T$ and $\mathbf{g}_j$, and
+\begin{equation}
+\mathbf{v} = \mathbf{G}^T\mathbf{d} = \left [
+	\begin{array}{c}
+	\mathbf{g}_1^T \\[6pt]
+	\mathbf{g}_2^T \\[6pt]
+	\vdots \\[6pt]
+	\mathbf{g}_m^T \\	 
+	\end{array} \right ] \cdot \mathbf{d} =
+	 \left [
+	\begin{array}{c}
+	\mathbf{g}_1^T\mathbf{d} \\[6pt]	 
+	\mathbf{g}_2^T\mathbf{d}  \\[6pt]	 
+	\vdots \\[6pt]
+	\mathbf{g}_m^T\mathbf{d} \\	 
+	\end{array} \right ],
+	\label{eq:gdotd}
+\end{equation}
+which shows each element of $\mathbf{v}$ is the dot product between each basis function $\mathbf{g}_j^T$ and the data vector $\mathbf{d}$.
+This is simply what we found the hard way earlier (i.e., \ref{eq:normalwsums}).
+Thus, to solve a general linear least squares problem, all we have to do is to evaluate $\mathbf{G}$ via (\ref{eq:Aasvectors}) and
+the rest is taken care of by (\ref{eq:lsgensolution}).
+\begin{example}
+We are given a data set with four data pairs (2,1), (4,4), (6,3) and (8,4) ($n = 4$) and asked to determine the
+coefficients for a \emph{quadratic} curve that best describes the data.  Except for special situations, we know that the
+three-parameter curve will not pass through all the four points, so we decide to seek a least squares solution.
+
+We write down the functional form for our quadratic curve as $d = m_1 + m_2 x + m_3 x^2$ and use it to
+form the matrix equation
+\begin{equation} \begin{array}{c}
+m_1 + m_2 x_1 + m_3 x_1^2 = d_1\\[6pt]
+m_1 + m_2 x_2 + m_3 x_2^2 = d_2\\[6pt]
+m_1 + m_2 x_3 + m_3 x_3^2 = d_3\\[6pt]
+m_1 + m_2 x_4 + m_3 x_4^2 = d_4\\[6pt]
+\end{array},
+\end{equation}
+which for our data yields the linear system
+\begin{equation}
+ \left [
+\begin{array}{ccccc}
+1 & 2 & 4 \\	 
+1 & 4 & 16 \\
+1 & 6 & 36 \\
+1 & 8 & 64 \\
+\end{array} \right ]
+\cdot
+\left [ \begin{array}{c} 
+m_1\\ m_2\\ m_3  \end{array}   \right]
+=
+\left [ \begin{array}{c} 1\\ 4 \\ 3 \\ 4  \end{array} \right ] .
+\end{equation}
+Using (\ref{eq:lsgensolution}) we find the solution to be
+$d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as well as the best quadratic curve.
+\PSfig[h]{Fig1_GenLS}{Fitting a three-parameter quadratic curve to four data points by minimizing the least squares misfit.}
+\end{example}
+\index{General linear least squares method|)}
+
+\subsection{Weighted least squares solution}
+\index{Weighted least squares solution|(}
+
+	What if some data constraints are more reliable than others? We may simply give those residuals more 
+weight than the others, i.e.,
+\begin{equation}
+\mathbf{e} = \left[ \begin{array}{c} e_1 \\ 2e_2\\ \vdots \\ e_n \end{array} \right ] .
+\end{equation}	 
+In general, we can assign weights $w_i$ to each misfit so that the new weighted misfits become $e_i' = e_i\cdot w_i$.
+Very often, the weights will simply be $s_{ii} = 1/s_i$, where $s_i$ is the one-sigma uncertainty in the $i$'th measurement $d_i$.
+We implement such weighting by introducing a diagonal weight matrix,
+\begin{equation}
+{\mathbf S} = \left[\begin{array}{cccc}
+s_{11} \\ & s_{22}\\ & & \ddots\\ & & & s_{nn} \end{array}
+  \right ],
+\end{equation}
+which means the weighted residuals are $\mathbf{S}\cdot\mathbf{e}$ and the sum of the squared errors, $E$, becomes
+\begin{equation}
+E = \left (\mathbf{S}\cdot\mathbf{e}\right )^T\left (\mathbf{S}\cdot\mathbf{e}\right ) = \mathbf{e}^T \cdot \mathbf{S}^T \cdot \mathbf{S \cdot e = e}^T \cdot \mathbf{W \cdot e},
+\end{equation}	 
+where we have introduced $\mathbf{W = S}^T\mathbf{S}$. Since $\mathbf{S} \cdot \mathbf{e = S\cdot(G \cdot m - d)}$ we obtain
+\begin{equation}
+\begin{array}{rcl}
+E(\mathbf{m}) & = & \mathbf{(S \cdot G \cdot m - S\cdot d)}^T \cdot \mathbf{(S \cdot G \cdot m - S \cdot d)} =
+(\mathbf{m}^T \cdot \mathbf{G}^T \cdot \mathbf{S}^T - \mathbf{d}^T \cdot S\mathbf{^T) \cdot (S \cdot G \cdot m - S \cdot d)}\\
+& = & \mathbf{m}^T \cdot \mathbf{G} ^T \cdot \mathbf{S}^T \cdot \mathbf{S \cdot G \cdot  m - m}^T \cdot \mathbf{G}^T \cdot \mathbf{S}^T \cdot \mathbf{S \cdot d - d}^T \cdot \mathbf{S}^T \cdot \mathbf{S \cdot G  \cdot m + d}^T \cdot \mathbf{S}^T \cdot \mathbf{S \cdot d}.
+\end{array}
+\end{equation}
+We substitute $\mathbf{W = S}^T\mathbf{S}$, take the partial derivatives, and obtain
+\begin{equation}
+\frac{\partial E(\mathbf{m})}{\partial m_j }
+= \mathbf{  0 =  \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  \cdot \dot{m} - \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G  \cdot \dot{m}}, j = 1,m.
+\end{equation}	 
+Since $\mathbf{m}$ only contains the $m_j$, we know $\mathbf{\dot{m}}^T = \mathbf{\dot{m} = I}$. We again find the $m$ normal equations can be written more compactly as the single matrix equation
+\begin{equation}
+\mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  -  G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G = 0}.
+\end{equation}
+As before, the second and fourth terms are the transposes of the first and third terms, and as they all represent scalars our equation reduces to
+\begin{equation}
+\mathbf{G}^T \cdot \mathbf{W \cdot G \cdot m - G}^T \cdot \mathbf{W \cdot d = 0}.
+\end{equation}	 
+Thus, the weighted linear least squares solution is
+\begin{equation}
+\mathbf{m} = \left [ \mathbf{G}^T \cdot \mathbf{W \cdot G} \right ] ^{-1} \mathbf{G}^T \cdot \mathbf{W \cdot d}.
+\label{eq:weightedLSgeneral}
+\end{equation}
+This solution is universal and applies to \emph{any} linear least squares problem one can imagine.
+In the particular case when all $s_{ii} = 1$ the solution reduces to (\ref{eq:lsgensolution}).
+\begin{example}
+\PSfig[h]{Fig1_grav_model}{Observed and modeled gravity anomalies over a dense ore body.
+While the model is nonlinear in $x$ and $z$, it is \emph{linear} in the coefficients $p_i$.}
+We will try the least squares machinery on an example taken from exploration geophysics.
+Figure~\ref{fig:Fig1_grav_model} shows how observed gravity anomalies ($d_i$, solid circles) vary
+over a buried dense ore body as a function of location $x_i$.
+Based on the inferred geometry of the ore (from subsurface geology seen in mine shafts, etc.) we
+expect that a first-order approximation to the ore body could be a sphere buried at a depth of 5 km, with
+a radius of 2.5 km, and located at 15 km to the right of the origin.  We would like to determine
+the density of that ore body.  Exploration geophysics textbooks tell us that the gravity anomaly over
+a buried sphere of radius $r$ and \emph{unit} density is
+\begin{equation}
+g_{sp}(x, z, r) = \gamma \frac{\frac{4}{3}\pi r^3 z}{(x^2 + z^2)^{3/2}},
+\end{equation}	 
+where $z$ is the depth to the center of the sphere, $x = 0$ is where the sphere is located, and $\gamma$
+is the universal gravitational constant ($6.674\cdot10^{-11}$ m$^3$kg$^{-1}$s$^{-2}$).  However, 
+inspection of the data suggests that the anomaly due to the ore body is superimposed on a regional field
+with some curvature to it (i.e., dashed trend in Figure~\ref{fig:Fig1_grav_model}).  Therefore, we decide to model
+these anomalies as a sum of a quadratic background (regional) field and the attraction of the sphere;
+this is accomplished with the four-parameter linear model
+\begin{equation}
+g(x) = m_1 + m_2 x + m_3 x^2 + m_4 g_{sp}(x-15, 5, 2.5),
+\end{equation}	 
+where $m_4 = \Delta \rho$, the density contrast between the ore and the host rock.  In the parlance of
+the previous sections, our basis functions $g_j(x)$ are \{1, $x$, $x^2$, and $g_{sp}(x)$\}.  To solve the
+problem we need to evaluate the matrix equation $\mathbf{G \cdot m = d}$, i.e.,
+\begin{equation}
+\left[ \begin{array}{cccc}
+1 & x_1 & x_1^2 & g_{sp}(x_1-15,5, 2.5) \\[5pt]
+1 & x_2 & x_2^2 & g_{sp}(x_2-15,5, 2.5) \\[5pt]
+1 & x_3 & x_3^2 & g_{sp}(x_3-15,5, 2.5) \\[5pt]
+\vdots	&	\vdots & \vdots & \vdots \\
+1 & x_n & x_n^2 & g_{sp}(x_n-15,5, 2.5)
+\end{array}   \right]	 
+\cdot
+\left [ \begin{array}{c} 
+m_1\\ m_2\\ m_3 \\ m_4  \end{array}   \right]
+=
+\left [ \begin{array}{c} d_1\\ d_2 \\ d_3 \\ \vdots \\ d_n  \end{array} \right ],
+\end{equation}
+whose solution becomes
+\begin{equation}
+\mathbf{m} = [ \mathbf{G}^T \cdot \mathbf{G} ]^{-1} \mathbf{G}^T \cdot \mathbf{d}.
+\label{eq:LS_grav}
+\end{equation}
+
+Thus, we have solved a fairly complicated least squares modeling problem (solution is
+the solid line in Figure~\ref{fig:Fig1_grav_model}).
+\end{example}
+\index{Weighted least squares solution|)}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+
+\begin{problem}
+If the major product moment $\mathbf{A}^T\mathbf{A} = \mathbf{0}$, show that all elements in
+$\mathbf{A}$ must be zero, i.e. $a_{ij} = 0$. (Hint: what does an element in $\mathbf{A}^T\mathbf{A}$ represent?)
+\end{problem}
+
+\begin{problem}
+An analytical experiment yields the following data pairs $t$ and $d(t)$:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+$t$ & $d$ \\ \hline
+-0.82 & -0.86 \\ \hline
+0.23 & -0.58 \\ \hline
+1.35 & 0.54 \\ \hline
+2.25 & 1.30 \\ \hline
+3.33 & 2.20 \\ \hline
+\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item Using the solutions for least-squares regression lines, i.e., (\ref{eq:intercept_solution}) and (\ref{eq:slope_solution})
+above, determine the slope and intercept of the best-fitting line.
+\item Plot this line and the data points.
+\item Redo the problem using matrix algebra.  Write down the various components in the matrix equation
+$\mathbf{G \cdot m = d}$.  What does $\mathbf{G \cdot m}$ represent?
+\item Evaluate the matrix solution (i.e., $\mathbf{m} = [ \mathbf{G}^T\mathbf{G} ]^{-1}\mathbf{G}^T\mathbf{d}$)
+in MATLAB, and make sure it matches your answer in (a).
+\item What is the total misfit, $E$?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+A detailed study of seafloor heat flow was conducted along a transect perpendicular
+to a mid-ocean ridge.  The results are reported as distance (km), heat flow (mWm$^{-2}$) pairs in
+the file \emph{heatflow.txt}.  Because of hydrothermal circulation, we choose to model the
+decay of heat flow with distance from the ridge as
+\[
+q(x) = q_0 + q_1x + \frac{q_2}{x}.
+\]
+\begin{enumerate}[label=\alph*)]
+\item Using matrix algebra, what are the least-squares values for the model coefficients?
+\item Plot the data as points and the model as a solid line evaluated every km from 25 km to 250 km
+on the same graph.
+\item What is the r.m.s (root-mean-square) misfit (r.m.s = $\sqrt{E/n}$)? Be sure to give units.
+\item Using your error analysis skills, what is the estimated
+heat flow at a distance of $x = 25 \pm 1$ km from the ridge axis? (Hint: Consider the uncertainty
+in the function $q(x)$.)
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The file \emph{faultstep.txt} contains distance (m) and relief (m) for a topographic profile across
+an small normal fault.  We want to estimate the total vertical offset across the fault.  There is also a
+linear trend in the data because the the fault sits on a gently dipping monocline.
+\begin{enumerate}[label=\alph*)]
+\item  Make a linear model that includes the trend and the step.  You may want to use the Heaviside 
+step function (\texttt{heaviside} in MATLAB), defined as
+$$
+H(x) = \left \{ \begin{array}{rr} 
+0, & x < 0 \\
+\frac{1}{2}, & x = 0 \\
+1, & x > 0
+\end{array} \right.
+$$
+What is your model equation for the topographic profile?
+\item  Let your best guess for the fault location be $x_0 = 145$ m and use matrix algebra
+to solve for the model parameters.  Write the first few terms of the matrix equation
+$\mathbf{G \cdot m = d}$ so you can see the pattern.  
+Plot your model prediction on top of the data and indicate the values of the parameters.  What is the
+rms misfit? What is the size of the fault offset?
+\item  Guessing $x_0$ is not very robust.  Determine the best choice for $x_0$ that minimizes the total 
+misfit $E$ by trying a range of $x_0$ (hint: evaluate $E(x_0)$ for a dense set of $x_0$ values
+covering the likely range, plot $E$ versus $x_0$, and find the value of $x_0$ where $E$ has its minimum).
+What is your final model parameters for the fault profile? Plot it on top of the data.
+What is your minimum r.m.s. value?  What is the final size of the fault offset?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+As sedimentary layers become buried they compact, reducing the porosity of the unit.
+The empirical relation between depth ($z$) and porosity ($\theta$) in well-compacted sediments is called \emph{Athy's law}:
+$$
+\theta = \theta_0 e^{-\alpha z},
+$$
+where $\theta_0$ and $\alpha$ are constants that vary with sediment type and location, and $z$ is depth of burial.  
+\begin{enumerate}[label=\alph*)]
+\item	Given the data set below, find the weighted least-squares estimates of $\theta_0$ and $\alpha$ using matrix algebra,
+taking the uncertainties in $\theta$ into account (note: Your first idea on how to do that is likely to be wrong!).
+Plot the data and your Athy's law.  (Hint:  Athy's law as given
+is not linear!  You must transform it first.)
+\item	What is the predicted porosity ($\pm$ uncertainty) at a depth of 6 km ($\pm 200$m)?
+\end{enumerate}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|} \hline
+\bf{Depth} (m) &	\bf{Porosity (\%)} \\ \hline
+650	& $38 \pm 5.0$ \\ \hline
+1000	& $35 \pm 4.0$ \\ \hline
+2050	& $24 \pm 2.5$ \\ \hline
+2950	& $18 \pm 2.0$ \\ \hline
+4075	& $14 \pm 1.5$ \\ \hline
+5030	& $9.8 \pm 1.0$ \\ \hline
+\end{tabular}
+\end{table}
+\end{problem}
+
+\begin{problem}
+The rim of Halemaumau crater within Kilauea caldera has been digitized and its UTM coordinates ($x_i, d_i$) are
+listed in \emph{halemaumau.txt}.  We wish to approximate this shape by a perfect circle with parameters
+$(x_0, d_0, r)$.
+\begin{enumerate}[label=\alph*)]
+	\item What is the misfit function, $E$, that we want to minimize using the least-squares criterion?
+	\item Determine the three parameters for the circular model by minimizing $E$.
+	\item Estimate the area of the crater and use the standard deviation of the radial residual misfits to assign
+	  one-sigma confidence bounds on the area.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	\newcounter{noisyc}
+	\setcounter{noisyc}{\thechapter}
+	\newcounter{noisyp}
+	\setcounter{noisyp}{\theproblem}
+The file \emph{noisy.txt} contains observations of a phenomenon known to oscillate at a single frequency, $\omega$.
+This signal is superimposed on a linear trend in the presence of some random noise.
+\begin{enumerate}[label=\alph*)]
+	\item Assume you know the frequency $\omega$. What is the form of the model you could use to fit the data?
+	Hint: $A\cos(\omega t - \phi) = a \cos(\omega t) + b \sin(\omega t)$.
+	\item Plot the data and eye-ball the period and use it to determine the frequency.  Use least-squares to fit your
+	model and plot it.  What is the misfit, $E$, for this trial model?
+	\item Try a range of frequencies centered on your best guess and determine the frequency $\omega_0$ that minimizes
+	the misfit.  Plot the optimal model, and in a separate diagram plot the misfits you obtained versus the frequencies
+	you explored.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Having crash-landed on an alien planet you worry you may not have enough fuel to reach escape velocity.  To find out you
+need to know the planet's gravitational attraction, $g_p$ (which on Earth is 9.81 m s$^{-2}$).  To get an estimate you decide
+to drop rocks off cliffs of various heights and clock the time it takes for them to reach the valley floor.  Your data
+are listed in the file \emph{drops.txt}.  You vaguely remember your high-school physics exploits where you learned that the vertical drop in vacuum
+is related to drop time given by $h = \frac{1}{2}g_p t^2$.  Plotting the data you realize that the height measurements obtained with your damaged laser
+rangefinder is biased by some unknown but constant offset.  Aargh, there is always something....
+\begin{enumerate}[label=\alph*)]
+	\item What is a suitable linear model that will relate your observations and unknowns?
+	\item Determine the planet's gravity and the bias in your instrument using the linear least squares method.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+An elongated sedimentary basin is estimated to have a width of 20 km and a depth of 4 km.  The gravity anomalies measured across the
+basin are given in \emph{basingrav.txt} and show a broad negative anomaly due to the lower density sediments relative to
+the surrounding higher density igneous bedrock, but some lateral regional trend is also apparent.  You decide to model the anomalies as
+a linear regional trend plus the attraction of a
+prism-shaped two-dimensional basin of given dimensions.  You may use the MATLAB function \texttt{g\_basin.m} to compute the gravity of the prism.
+\begin{enumerate}[label=\alph*)]
+	\item Determine the least-squares solution for the density contrast.  If the bedrock density is 2670 kg m$^{-3}$,
+	what is your estimate of the sediment density?
+	\item A seismic crew collects data that throw some doubt on your depth estimate of 4 km.  You decide to repeat your
+	modeling for a range of depths (from 3 to 6 km in steps of 100 m) and keep track of the misfit $E$ as a function
+	of the chosen depth.  Find the optimal depth that minimizes the misfit and report this depth and the corresponding density contrast.
+\end{enumerate}
+\end{problem}

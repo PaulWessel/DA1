@@ -1,0 +1,149 @@
+%------------------------------------------
+%	$Id: DA1_book.tex 598 2017-11-17 21:02:22Z pwessel $
+%
+%	Geological Data Analysis - Part I
+%	Copyright 1992-2015.
+%	Paul Wessel
+%------------------------------------------
+%
+% This almost empty document includes all the actual
+% files with material.  It is the master
+% file that sets up the general layout of the book
+
+\ifdefined\mypdfbook
+   \documentclass[10pt,letter]{report}
+   \usepackage[margin=1in]{geometry}
+\else
+   \documentclass[10pt,oneside,openany,a5paper]{book}
+   \usepackage[margin=0.25in]{geometry}
+   %\usepackage[utf8x]{inputenc}
+\fi
+
+\usepackage{ifpdf}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{makeidx}
+\usepackage{float}
+\usepackage{times}
+\usepackage{mathptm}
+\usepackage{afterpage}
+\usepackage{xcolor}
+%\usepackage{newtxmath}
+\usepackage{enumitem}
+\usepackage{epigraph}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage[labelfont=bf]{caption}
+% Special commands & environments for this book
+%
+%	PSfig will insert an eps file, add a label, and set a caption
+%
+\ifpdf
+   % Here for creating PDF output with pdfLaTeX
+   \usepackage{hyperref}
+   \DeclareGraphicsExtensions{.pdf}
+   \newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=pdf/#2} \caption{#3} \label{fig:#2} \end{figure}}
+   \newcommand{\PSfigplace}[1]{\epsfig{figure=pdf/#1.pdf}}
+   \newcommand{\PSfignarrow}[3]{\begin{wrapfigure}{#1}{0.5\textwidth} \setlength\intextsep{0pt} \centering \epsfig{figure=pdf/#2} \caption{#3} \label{fig:#2} \vspace{-12pt} \end{wrapfigure}}
+   \pdfcompresslevel=9
+   \hypersetup{%
+      pdfauthor={Paul Wessel},
+      pdftitle={INTRODUCTION TO STATISTICS \& DATA ANALYSIS},
+      pdfsubject={Introduction to Statistics \& Data Analysis},
+      pdfkeywords={DATA ANALYSIS, statistics, hypothesis testing, modeling},
+      pdfcreator={pdfLaTeX},
+      bookmarksopen=true,
+      bookmarksnumbered=true,
+      hypertexnames=true,
+      breaklinks=true,
+      %pdfstartview={FitH},
+      %linkbordercolor={1 1 0},
+      %urlbordercolor={1 0 0},
+   }%
+\else
+   % Here for creating PS or HTML output with LaTeX
+   \usepackage[margin=0.5in]{geometry}
+   \DeclareGraphicsExtensions{.svg}
+   \newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=svg/#2.svg} \caption{#3} \label{fig:#2} \end{figure}}
+   \newcommand{\PSfigplace}[1]{\epsfig{figure=svg/#1.svg}}
+   %\DeclareGraphicsExtensions{.png}
+   %\newcommand{\PSfig}[3][tbp]{\begin{figure}[#1] \centering \epsfig{figure=png/#2.png} \caption{#3} \label{fig:#2} \end{figure}}
+   %\newcommand{\PSfigplace}[1]{\epsfig{figure=png/#1.png}}
+\fi
+
+%%------------ THESE COMMANDS TO BE USED FOR POSTSCRIPT --------
+\newcommand{\DS}{$^{\circ}$}
+\newcommand{\DSm}{^{\circ}}
+\newcounter{example}[chapter]
+\newcounter{problem}[chapter]
+\renewcommand{\bf}{\textbf}
+%\newcommand{\important}[1]{\emph{#1}\index{#1}}
+
+\newenvironment{example}{\stepcounter{example}\\\noindent\rule{\textwidth}{.01in}\\\textbf{Example~\thechapter--\theexample}.}{\\\noindent\rule{\textwidth}{.01in}\linebreak}
+\newenvironment{example2}{\stepcounter{example}\noindent\rule{\textwidth}{.01in}\\\textbf{Example~\thechapter--\theexample}.}{\\\noindent\rule{\textwidth}{.01in}\linebreak}
+
+\newenvironment{problem}{\stepcounter{problem}\noindent\\\textbf{Problem~\thechapter.\theproblem}.}{}
+\DeclareMathOperator\erf{erf}
+\DeclareMathOperator\sinc{sinc}
+
+%%------------ THESE COMMANDS TOBE USED FOR HTML ---------
+%\newcommand{\DS}{$^{o}$}%HTMLGMT
+
+%--------------------------------------------------------------------------
+
+%\date{1 July 2015}
+%\pagecolor{white}
+
+\makeindex
+\usepackage[totoc]{idxlayout}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+%\maketitle
+
+\include{DA1_Version}
+\include{DA1_cover}
+\clearpage
+
+\pagestyle{plain}
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+
+%\clearpage
+%\addcontentsline{toc}{chapter}{List of tables}
+%\listoftables
+
+%\clearpage
+%\addcontentsline{toc}{chapter}{List of figures}
+%\listoffigures
+
+\include{DA1_Preface}
+
+\pagenumbering{arabic}
+\pagestyle{headings}
+
+\include{DA1_Chap1}
+\include{DA1_Chap2}
+\include{DA1_Chap3}
+\include{DA1_Chap4}
+\include{DA1_Chap5}
+\include{DA1_Chap6}
+\include{DA1_Chap7}
+\include{DA1_Chap8}
+\include{DA1_Chap9}
+
+\appendix
+
+%\include{DA1_Appendix_A}
+%\include{DA1_Appendix_B}
+\include{DA1_Tables}
+\ifdefined\mypdfanswer
+\include{DA1_Answers}
+\fi
+
+\printindex
+
+\end{document}

@@ -1,0 +1,11 @@
+% MakeIndex style file DA_book.ist for Data Analysis book
+%
+%	$Id: DA_book.ist 8 2012-02-27 20:41:48Z pwessel $
+%
+% Will format the index a little differently
+heading_prefix "{\\bfseries\\hfil "	% insert in from of letter
+heading_suffix "\\hfil}\\nopagebreak\n"	% Append after letter
+headings_flag	1			% Turn on headings (uppercase)
+delim_0	"\\dotfill "
+delim_1 "\\dotfill "
+delim_2 "\\dotfill "

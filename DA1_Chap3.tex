@@ -1,0 +1,1366 @@
+% $Id$
+%
+\chapter{BASIC STATISTICAL CONCEPTS}
+\label{ch:basics}
+\epigraph{``The most important questions of life are, for the most part, really only problems of probability.''}{\textit{Pierre Simon de Laplace, Mathematician}}
+
+Probability is mostly organized common sense.  However, being able to be specific about what probability is
+enables us to more accurately calculate probabilities and to employ theoretical statistical distributions to
+address confidence limits on data-derived quantities.
+
+\section{Probability Basics}
+\index{Probability!basics|(}
+
+	In data analysis and hypothesis testing we are concerned with separating the probable from 
+the possible.  First, let us have a look at possibilities.  In many situations we can either list all the 
+possibilities or say how many such outcomes there are.  In evaluating possibilities, we are often 
+concerned with finding all the possible choices that are offered.  Studying these choices leads us 
+to the ``multiplication of choices'' rule:
+\index{Multiplication of choices}
+\begin{quote}
+If a choice consists of $k$ steps, of which the first can be made in $n_1$ ways and 
+the $k^{th}$ in $n_k$ ways, the total number of choices is $\Pi n_{i}, i = 1,k$.
+\end{quote}
+This can often be seen most clearly with a tree diagram (Figure~\ref{fig:Fig1_choices}).
+The number of choices here are $3 \times 4 = 12$.
+
+\PSfig[h]{Fig1_choices}{Tree diagram for illustrating all possible choices.}
+
+\subsection{Permutations}
+\index{Permutations}
+How many ways can we arrange $r$ objects selected from a set of $n$ distinct objects?
+This question applies to numerous statistical and probabilistic situations.  We will first
+consider a simple example.
+\begin{example}
+We have a tray with 20 water samples.  How many ways can you select three samples 
+from  the 20?  The first sample can be any of 20, the second will be any of the remaining 19, while the third is one of 
+the remaining 18.  The total ways must therefore be $20 \times 19 \times  18 = 6840$.
+\end{example}
+We can write the number of choices as $20 \times (20-1) \times (20-2)$, and by induction we find 
+\begin{equation}
+\mbox{ways} = n(n-1)(n-2)\ldots(n - r + 1 ) = {}_n P_r.
+\label{eq:choices}
+\end{equation}
+It is convenient to introduce the factorial $n!$, defined as 
+\begin{equation}
+n! = \prod^n_{i=1} i.
+\end{equation}
+For convenience, we also define $0!$ to equal 1.  We can then rewrite (\ref{eq:choices}) as
+\begin{equation}
+_{n}P_{r} = \frac{n (n-1) (n-2) \ldots (n-r + 1) (n-r) (n-r -1) \dots 1}{(n-r) (n-r-1) \ldots 1} = \frac{n!}{(n-r)!}.	
+\end{equation}
+This quantity is called the number of \emph{permutations} of $r$ objects selected from a set of $n$ distinct 
+objects.
+\begin{example}
+	We wish to determine how many different hands one can be dealt in a game of poker.
+With $n = 52$ (total number of cards in the deck) and $r = 5$ (number of cards in a hand), we find
+\begin{equation}
+_{52} P_5 = \frac{52!}{(52-5)!} = \frac{52!}{47!} = 48 \cdot 49 \cdot 50 \cdot 51 \cdot 52 = 
+3 \cdot 10^8.
+\end{equation}	 
+However, this calculation assumes that the \emph{order} in which you receive the cards is important.
+\end{example}
+
+\subsection{Combinations}
+\index{Combinations}
+
+	In many situations we do not care about the exact ordering of the $r$ objects, i.e., $abc$ is the 
+same choice as $acb$ for our purpose.  In general, $r$ objects can be arranged in $r!$ different ways 
+($_{r}P_r = r!$).  Since we are only concerned about \emph{which} $r$ objects have been selected and not their 
+order, we can use ${}_nP_r$ but must now normalize the result by $r!$, i.e., 
+\begin{equation}
+_{n} C_{r} = \frac{_{n} P_{r}}{r!} = \frac{n!}{r!(n-r)!} = \binom{n}{r}.
+\end{equation}
+The quantity $_{n} C_{r}$ is called the number of \emph{combinations}, and
+the factors $\binom{n}{r}$ are called the 
+\emph{binomial coefficients}.
+\index{Binomial coefficients}
+After picking the $r$ objects, $n - r$ objects are left, so consequently there are as many ways of 
+selecting $n - r$ objects from $n$ as there are of selecting $r$ objects, i.e.,
+\begin{equation}
+\binom{n}{r} = \binom{n}{n-r}.
+\label{eq:binom_inverse}
+\end{equation}
+\begin{example}
+How many ways can you select three tide gauge records from 10 available stations?
+This is a question of combinations:
+\begin{equation}
+{}_{10} C_3 = \binom{10}{3} =
+\frac{10!}{3!7!} = \frac{8\cdot 9 \cdot 10}{1\cdot 2 \cdot 3} = 8 \cdot 3 \cdot 5 = 120.
+\end{equation}	
+Likewise, per (\ref{eq:binom_inverse}), there are also 120 ways to select 7 tide gauge records from the same 10 stations. 
+\end{example}
+
+\subsection{Probability}
+\index{Probability}
+
+	So far we have studied only what is \emph{possible} in a given situation.  We have listed all 
+possibilities or determined how many possibilities there are.  However, to be of use to us we 
+need to be able to judge which of the possibilities are \emph{probable} and which are \emph{improbable}.
+	The basic concept of probability can be stated thus: If there are $n$ possible outcomes or 
+results, and $s$ of those are regarded as favorable (or as ``successes''), then the probability of
+success is given by
+\begin{equation}
+P = s/n.
+\end{equation}
+This classical definition applies only when all possible outcomes are \emph{equally likely}.
+\begin{example}
+What is the probability of drawing an ace from a deck of cards?
+\emph{Answer}:  $P = 4/52 = 1/13 = 7.7\%$.
+How about getting a 3 \emph{or} a 4 with a balanced die?
+\emph{Answer}: $s = 2$ and $n = 6$, so $P = 2/6 = 33\%$
+\end{example}
+While equally likely possibilities are found mostly in games of chance, the classical probability 
+concept also applies to random selections, such as making selections to reduce a large set of data
+down to a manageable quantity without introducing sampling bias.
+\begin{example}
+If three of 20 water samples have been 
+contaminated and you select four random samples, what is the probability of picking one of the 
+bad samples?
+
+\emph{Answer}:  We have 
+$\binom{20}{4} = 3 \cdot 5 \cdot 17 \cdot 19 = 4845$
+ways of making the selection of our four samples.  The number of 
+``favorable'' outcomes is $\binom{17}{3}$ [we pick three good samples of the 17 good ones] times $\binom{3}{1}$ 
+[we pick one of  the three bad samples] = 2040.  It then follows that the probability is
+$P = s/n = 2040/4845 = 42\%$.
+Here we used the rule of multiplicative choices.
+\end{example}
+
+	Obviously, the classical probability concept will not be useful when some outcomes are more 
+likely than others.  A better definition would then be
+
+\begin{quote}
+\emph{The probability of an event is the proportion of the time that events of the same 
+kind will occur in the long run.}
+\end{quote}
+So, when the National Weather Service says that the chance of rain on any day in June is 0.2, it is based 
+on past experiences that on average June had 6 days of rain.  Another important probability 
+theorem is the \emph{law of large numbers}, which states
+\index{Law of large numbers}
+\begin{quote}
+\emph{If a situation, trial, or experiment is repeated again and again, the proportion of 
+successes will tend to approach the probability that any one outcome will be a 
+success.}
+\end{quote}
+which is basically our probability concept in reverse.
+
+Coin tosses illustrate the law of large numbers nicely.  We toss the coin and keep track of how many
+times we get ``heads'' versus the total number of tosses.  For a nice symmetric coin we expect the
+proportion of heads to total tosses to approach 0.5 over the long haul, but initially we are not surprised
+that there can be large departures from this expectation.  Figure~\ref{fig:Fig1_coin} shows how the
+proportion may oscillate for a small number of tosses but eventually it will approach the expected value.
+\PSfig[h]{Fig1_coin}{Proportion of heads in a series of coin tosses.  The more tosses we complete,
+the closer the ratio of heads to total tosses will approach 0.5. Shown are five separate sequences.
+They differ considerably for small numbers but all converge on the expected proportion.}
+
+\subsection{Some rules of probability}
+\index{Probability!rules}
+\index{Event}
+	In statistics, the set of all possible outcomes of an experiment is called the \emph{sample space}, 
+usually denoted by the letter $S$.  Any subset of $S$ is called an \emph{event}.  An event may contain more 
+than one item.  Sample spaces may be finite or infinite.  Two events that have no elements in 
+common are said to be \emph{mutually exclusive}, meaning they cannot both occur at the same time.
+
+There are only positive (or zero) probabilities, symbolically written
+\begin{equation}
+P(A) \geq 0
+\end{equation}
+for any event $A$.
+Every sample space has probability 1, so that
+\begin{equation}
+P(S) = 1,
+\end{equation}
+where $P = 1$ means absolute certainty.
+If two events are mutually exclusive, the probability that one \emph{or} the other will occur equals the 
+sum of their probabilities
+\begin{equation}
+P(A \cup B) = P (A) + P(B).
+\label{eq:add_probe}
+\end{equation}
+Regarding the notation, $\cup$ means \emph{union} (which we read as ``OR''),  $\cap$ means \emph{intersection} (``AND''), and $'$ 
+(the prime symbol) means \emph{complement} (``NOT''). We can furthermore state that
+\begin{equation}
+	P(A)\leq 1,
+\end{equation}
+since absolute certainty is the most we can ask for.  Also,
+\begin{equation}
+P(A) + P(A') = 1,
+\end{equation}
+since it is certain that an event either will or will not occur.
+
+
+\subsection{Probabilities and odds}
+\index{Odds}
+\index{Probability!odds}
+
+Bookmakers in London use a slightly different system of reporting probabilities.
+If the probability of an event is $p$, then the \emph{odds} for its occurrence are
+\begin{equation}
+a : b = \frac{p}{1-p}.
+\end{equation}
+The inverse relation gives
+\begin{equation}
+p = \frac{a}{a+b}.	 
+\end{equation}
+If you are still reading this book then odds are you will pass this course!
+
+\subsection{Addition rules}
+\index{Probability!addition}
+\index{Probability!Venn}
+\index{Venn diagram}
+\index{Plot!Venn}
+
+\PSfig[h]{Fig1_Venn}{A Venn diagram illustrating the probabilities of finding hydrocarbons.  The overlapping magenta
+wedge graphically represents the probabilities of finding \emph{both} oil and gas.}
+
+	The addition rules demonstrated above only holds for \emph{mutually exclusive events}.  Let us now 
+consider a more general case.
+The sketch in Figure~\ref{fig:Fig1_Venn} is a \emph{Venn diagram}, a handy graphical way of illustrating the various 
+combinations of possibilities and probabilities.  The diagram illustrates the probabilities 
+associated with finding hydrocarbons during a hypothetical exploration campaign. We see from 
+the diagram that
+\begin{equation}
+\begin{array}{rcl}
+P(\mbox{oil}) & = &0.18 + 0.12 = 0.3,\\
+P(\mbox{gas}) & = & 0.24 + 0.12 = 0.36, \\
+P(\mbox{oil} \cup \mbox{gas} ) & = & 0.18 + 0.12 + 0.24 = 0.54.
+\end{array}
+\end{equation}	 
+Now, if we used the simple addition rule (\ref{eq:add_probe}), we would find
+\begin{equation}
+P(\mbox{oil} \cup \mbox{gas} ) = P (\mbox{oil}) + P \mbox{(gas)} = 0.3 + 0.36 = 0.66.
+\end{equation}
+This value overestimates the probability, because finding oil and finding gas are \emph{not} mutually 
+exclusive since we might find both.  We can correct the equation by writing 
+\begin{equation}
+P (\mbox{oil} \cup \mbox{gas}) = P\mbox{(oil)} + P \mbox{(gas)} - P(\mbox{oil} \cap \mbox{gas}) = 0.3 + 0.36 - 0.12 = 0.54.
+\end{equation}	 
+The general addition rule for probabilities thus becomes
+\begin{equation}
+P(A\cup B) = P(A) + P(B) - P(A \cap B).
+\end{equation}
+Note that if the events \emph{are} mutually exclusive then 
+$P(A \cap B) = 0$ and we recover the original rule.
+
+\subsection{Conditional probability and Bayes basic theorem}
+\index{Probability!conditional}
+\index{Conditional probability}
+
+	We must sometimes evaluate the probability of an event \emph{given that another event already has occurred}.
+We write the probability that $A$ will occur given that $B$ already has occurred as
+\begin{equation}
+	P(A | B) = \frac{P(A \cap B)}{P(B)}.
+	\label{eq:cond_prob}
+\end{equation}
+In our exploration example, we can find the probability of finding oil given that gas already has 
+been found as
+\begin{equation}
+	P(\mbox{oil}|\mbox{gas}) = \frac{P(\mbox{oil} \cap \mbox{gas})}{P(\mbox{gas})} = \frac{0.12}{0.36} = \frac{1}{3}.
+\end{equation}	 
+We can now derive a general multiplication rule from (\ref{eq:cond_prob}) by multiplying it by $P(B)$ and
+exchange \emph{A} and \emph{B}, which gives
+\begin{equation}
+\begin{array}{rcl}
+P(A \cap B) & = & P(B) P (A | B)\\
+P(A \cap B) & = & P(A) P (B | A)
+\end{array}
+\label{eq:Bayes_basic}
+\end{equation}
+and implies that the probability of both events $A$ and $B$ occurring is given by the probability of 
+one event occurring multiplied by the probability that the other event will occur given that the first one 
+already has occurred (occurs, or will occur).  This rule is called the \emph{joint probability} or \emph{Bayes 
+basic theorem}.
+\index{Probability!joint}
+\index{Joint probability}
+\index{Bayes basic theorem}
+\index{Probability!Bayes basic theorem}
+	Now, if the events $A$ and $B$ are independent events, then the probability that $A$ will take place 
+is not influenced by whether $B$ has taken place or not, i.e.
+\begin{equation}
+	P(A|B) = P(A).
+\end{equation}
+Substituting this expression into (\ref{eq:Bayes_basic}) we obtain
+\begin{equation}
+P(A\cap B) = P(A) \cdot P(B).
+\label{eq:jointindependent}
+\end{equation}	 
+That is, the probability that two independent events $A$ and $B$ both will occur equals the product of their probabilities.  In 
+general, for $n$ independent events with individual probability $p_i$, the probability that all $n$ events 
+occur is
+\begin{equation}
+P = \prod ^n_{i=1} p_i.
+\end{equation}
+\begin{example}
+What is the probability of rolling three ones in a row with a balanced die?
+
+\emph{Answer}: With $n = 3$ and $p =1/6$,
+\begin{equation}
+P = \frac{1}{6} \cdot  \frac{1}{6} \cdot  \frac{1}{6} \approx 0.005.
+\end{equation} 	 
+\end{example}
+While $P(A | B)$ and $P(B|A)$ may look similar, they can be vastly different.  For example, let $A$ be the event 
+of a death on the Bay Bridge connecting San Francisco and Oakland, and $B$ the event of a magnitude 8 earthquake in the area.  
+Then,  $P(A|B)$ is the probability of a fatality on the Bay Bridge \emph{given} that a large earthquake has 
+taken place nearby, while $P(B|A)$ is the probability that we will have a magnitude 8 quake \emph{given} that a 
+death has been reported on the bridge.  Clearly $P(A|B)$ seems more likely than $P(B|A)$ since we know the former to 
+have happened in the past.  On the other hand, we can list many causes of fatalities on the freeway other than 
+earthquakes (e.g., traffic accidents, heart attacks, old age, road rage, talk radio rants, and so on).
+
+	We can arrive at a relation between $P(B|A)$ and $P(A|B)$ by equating the two expressions for $P(A\cap B)$ in 
+(\ref{eq:Bayes_basic}).  We obtain $P(A) \cdot P (B|A) = P (B) \cdot P (A|B)$, or
+\begin{equation}
+P(B | A) = \frac{P(B) \cdot P (A | B)}{P(A)}.
+\label{eq:relate_cond_prob}
+\end{equation}
+This is a useful relation since we may sometimes know one conditional probability but are 
+interested in the inverse relationship.  For example, we may know that salt domes
+(known as potential traps for hydrocarbons) often are associated with 
+large curvatures in the gravity field.  However, we may be more interested in the converse: 
+Given that large curvatures in the gravity field exist, what is the probability that salt domes are 
+the cause of such anomalies?
+
+\subsection{Bayes general theorem}
+\index{Bayes general theorem}
+\index{Probability!Bayes general theorem}
+
+	If there are more than one event $B_i$ (all mutually exclusive) that are conditionally related to an
+event $A$, then $P(A)$ is simply the sum of the conditional probabilities of the events $B_i$ times their individual probabilities, i.e.
+\begin{equation}
+P(A) = \sum^n_{i=1} P (A|B_i) \cdot P (B_i).	 	
+\label{eq:cond_prob_sum}
+\end{equation}
+Substituting (\ref{eq:cond_prob_sum}) into (\ref{eq:relate_cond_prob}) gives, for any of the $n$ events $B_i$,
+\begin{equation}
+P(B_i |A) = \frac{P (B_i) \cdot P (A|B_i)}{\displaystyle \sum ^n _{j=1} P (A|B_j)\cdot P(B_j)}.
+\label{eq:Bayes_theorem}
+\end{equation}
+
+\PSfig[h]{Fig1_fossil_site}{Location of a fossil discovery with respect to the two drainage basins from which it
+must have originated.  Bayes theorem provides a formal way to assign likelihood to the possible origins.}
+\noindent
+This is the general \emph{Bayes theorem}.
+\begin{example}
+Let us assume that an unknown marine fossil 
+fragment was found in a dry stream bed in northern Sahara.  Excited, a paleontologist would like to send out an
+expendable graduate student field party to search for a more complete specimen of the unknown species.
+Unfortunately, the source of the 
+fragment cannot be identified uniquely since it was found several kilometers below the junction of two dry stream 
+tributaries (Figure~\ref{fig:Fig1_fossil_site}).  The drainage basin $B_1$ of the larger stream covers
+407.5 km$^2$, while the other basin ($B_2$) covers only 207.5 
+km$^2$.  Based on this difference in basin size alone we might expect the probabilities that the fragment came from one of 
+the basins are
+\begin{equation}
+\begin{array}{c}
+P(B_1) = \frac{407.5} {615} = 0.66,\\*[1ex]
+P(B_2) = \frac{207.5} {615} = 0.34,
+\end{array}
+\end{equation}
+based solely on the proportion of each basin's area to the combined area.  However, inspecting an ancient British-produced geological map 
+reveals that only 31\% of the outcropping rocks in the larger basin $B_1$ are marine, whereas almost 85\% of 
+the outcrops in basin $B_2$ are marine.  We can now state two conditional probabilities:\\
+
+	$P(A|B_1) = 0.31$  (Probability of a marine fossil, given it was derived from basin $B_1$.)
+
+	$P(A|B_2) = 0.85$  (Probability of a marine fossil, given it was derived from basin $B_2$.)\\
+
+\noindent
+With these probabilities and Bayes general theorem (\ref{eq:Bayes_theorem}) we can find the conditional probability that 
+the fossil came from basin $B_1$ given that the fossil is marine:
+\begin{equation}
+P(B_1|A) =
+\frac{P(A|B_1) \cdot P (B_1)} {P(A|B_1) \cdot P (B_1) + P (A|B_2) \cdot P(B_2)}
+=
+\frac{0.31 \cdot 0.66}{0.31 \cdot 0.66 + 0.85 \cdot 0.34} = 0.41.
+\end{equation}	 
+Consequently, the probability of the fossil coming from the smaller basin $B_2$ is the complimentary probability
+\begin{equation}
+P(B_2|A) = 0.59.
+\end{equation}	 
+It therefore seems somewhat more likely that the smaller basin was the source of the fossil and that this area should be
+the initial target for the student-led expedition.
+However, $P(B_1|A)$ and $P(B_2|A)$ are not dramatically different and depends to some extent on the assumptions used to 
+select $P(B_i)$ and $P(A|B_i)$ in the first place.
+Bayes general theorem is extensively used in such search and find scenarios and the probabilities that go into
+the procedure are constantly being revised as more is learned during the search.
+\end{example}
+\index{Probability!basics|)}
+
+\section{The M\&M's of Statistics}
+
+	When discussing exploratory data analysis we mentioned that it is useful to be able to present 
+large data sets using just a few parameters.  We saw the box-and-whisker diagram graphically 
+summarized a data distribution.  However, it is often desirable to represent a data set by 
+a \emph{single} number which, in its way, is descriptive of the entire data set.  We will see there are 
+several ways to select this ``representative'' value.  We will mostly be concerned with measures 
+that somehow describe the center or middle of the data set.  These are called estimates of 
+\emph{central location}\index{Central location}.
+
+\subsection{Population and samples}
+\index{Data!population}
+\index{Population}
+\index{Data!sample}
+\index{Sample}
+
+	If a data set consists of all conceivably possible (or hypothetically possible) observations of a 
+certain phenomenon then we call it a \emph{population}.  A population can be finite or infinite.  Any subset 
+of the population is called a \emph{sample}.  Thus, a series of 12 coin-tosses is a sample of the potentially 
+unlimited number of tosses in the population.  We will most often find that we are analyzing 
+samples taken from a much larger population, and our aim will be to learn something about the 
+population by studying the smaller sample set (Figure~\ref{fig:Fig1_outcrop}).
+
+\PSfig[h]{Fig1_outcrop}{We must always try to select an unbiased sample from the population.  In this example we are sampling 
+the weathered outcrop of a sedimentary layer, which most likely is not representative of the entire formation.}
+
+\subsection{Measures of central location (mean, median, mode)}
+
+	The best known estimate of central location is called the \emph{arithmetic mean}, defined as 
+\begin{equation}
+	\index{Sample!mean}
+	\index{Mean}
+	\index{Arithmetic mean}
+\bar{x} = \frac{1}{n} \sum^n_{i=1} x_i.
+\label{eq:arith_mean}
+\end{equation}
+The mean is also loosely called the ``average.''  Resist being that sloppy! When reporting the mean value, always say ``mean'' and 
+not ``average'' so that the reader knows exactly what you have done.  We call $\bar{x}$  the \emph{sample mean} to 
+distinguish it from the true mean of the population, denoted
+\begin{equation}
+\mu = \frac{1}{N} \sum^N_{i=1} x_i,
+\end{equation}
+which likely will remain unknown to us.  The mean has many useful properties, which explains its common use:
+\begin{itemize}
+\item	It can always be calculated for any numerical data, i.e., it always exists.
+\item	It is unique and straightforward to calculate.
+\item It is relatively stable and does not fluctuate much from sample to sample taken from the same 
+population.
+\item 	It lends itself to further statistical treatment:  several $\bar{x}$ estimates from subgroups can later be combined into an overall grand
+mean.
+\item	It takes into account every data value.
+\end{itemize}
+However, the last property can sometimes be a liability.  Should a few points deviate excessively 
+from the bulk of the data then it does not make sense to include them in the sample.  A better 
+estimate for the central location may then be the \emph{sample median}:
+\begin{equation}
+	\index{Sample!median}
+	\index{Median}
+\mbox{median } x_i = \tilde{x} = \left \{ \begin{array}{cl}
+x_{ n/2 + 1}, & n \mbox{ is odd}\\*[1ex]
+\displaystyle \frac{1}{2} (x_{n/2 + 1} + x_{n/2} ), & n \mbox{ is even}
+\end{array} \right.
+\end{equation}
+Here, the data first must be sorted into ascending (or descending) order.  We then choose the middle 
+value (or mean of the two middle values for even $n$) as our median estimate.
+\index{Robust estimation}
+
+	Consider this sample of sandstone densities: \{2.30, 2.20, 2.35, 2.25, 2.30, 23.0, 2.25\}, $n = 7$.  
+The median density can be found to be $\tilde{x}  = 2.30$, a reasonable value, while the mean density $\bar{x} = 5.24$, 
+which is a rather useless estimate since it is clearly far outside the bulk of the data \emph{and} outside
+the range of known sandstone densities anywhere.  For this reason we 
+say that the median is a \emph{robust} estimate of central location.  Here it is rather obvious that the value 
+23.0, which probably is a clerical error, threw off the mean and we could correct for that by excluding
+it from the calculation and find $\bar{x} = 2.28$ 
+instead.  However, in many cases our data set will be very large and we must anticipate that some 
+values may be erroneous.
+
+	The disadvantage of the median is the need to sort the data, which can be slow. (Do you think this is really
+a valid reason not to use it?).  However, 
+like the mean, the median always exists and is unique.
+
+\index{Sample!mode}
+\index{Mode}
+	Our final traditional estimate for central location is the \emph{mode}.  The mode is defined as 
+the observation that occurs the most frequently.  For defining the central location the mode is at a 
+disadvantage since it may not exist (perhaps no two values are the same) or it may not be unique (our 
+densities actually have two modes).  Of course, if our data set is expected to have more than one ``peak,'' 
+modal estimates are important, and we will return to that later.  The mode will be denoted as $\hat{x}$.  
+The mean, median and mode of a distribution typically are related as indicated in
+Figure~\ref{fig:Fig1_mmm}.
+ 
+\PSfig[h]{Fig1_mmm}{The relationship between the mean, median, and mode estimates of central location for
+a skewed data distribution.  These
+estimates will all coincide for a perfectly symmetric and unimodal distribution.}
+
+	Returning to the mean, it is occasionally the case that some measurements are considered 
+more important than others.  It could be that some observations were made with a more precise 
+instrument, or simply that some values are not as well documented as others.  These are 
+examples of situations where we should use a \emph{weighted mean}
+\index{Mean!weighted}
+\index{Weighted mean}
+\begin{equation}
+\bar{x} = \sum^n_{i=1} w_i x_i \left / \sum^n_{i=1} w_i \right.,
+\label{eq:weighted_mean}
+\end{equation}
+where $w_i$ is the weight of the $i$'th data value.  If all $w_i = 1$ then we recover the original definition for the 
+mean (\ref{eq:arith_mean}).  This general equation is also convenient when we need to compute the overall, or
+\emph{grand mean} based on the individual means from several data sets.  The grand mean based on $m$ data sets may be 
+written as
+\index{Grand mean}
+\index{Mean!grand}
+\begin{equation}
+\bar{\bar{x}} = \frac{\sum^m _{i=1} n_i \bar{x}_i}{\sum^m_{i=1} n_i},
+\end{equation}
+where the sample sizes $n_i$ take the place of the weights in (\ref{eq:weighted_mean}).
+
+\subsection{Measures of variation}
+
+	While a measure of central location is an important attribute of our data, it says little 
+about how the data are distributed.  We need some way of representing the \emph{variation} of our 
+observations about the central location.  In the EDA section, we used the \emph{range} and \emph{hinges} to 
+indicate data variability.  Another way to define the variability would be to compute the 
+deviations from the mean,
+\begin{equation}
+\Delta x_i = x_i - \bar{x},
+\end{equation}
+and take the average of the sum of deviations, $\frac{1}{n}\displaystyle \sum^n_{i=1} \Delta x_i$.
+Sadly, it turns out that this sum is 
+always zero, which makes it rather useless for our purposes.  A more useful quantity might be the 
+mean of the absolute value ($AD$) of the deviations:
+\begin{equation}
+	\index{AD (Absolute value of deviation)}
+	\index{Deviation!absolute value}
+	\index{Absolute value of deviation (AD)}
+AD = \frac{1}{n} \sum^n _{i=1} | \Delta x_i |.
+\label{eq:AD}
+\end{equation}
+Because of the absolute value sign this function is nonanalytic and often completely ignored by 
+statisticians.  You will find very superficial treatment of medians and absolute deviations in most 
+elementary statistics books.  However, when dealing with real data that include occasional bad 
+values, the $AD$ is useful, just as the median can be more useful than the mean.  However, the most 
+common way to describe variation of a population is to define it as the average \emph{squared} 
+deviation.  Hence, the population \emph{variance} is
+\begin{equation}
+	\index{Variance}
+	\index{Data!variance}
+	\index{Population!variance}
+\sigma^2 = \frac{1}{N} \sum^N _{i=1} (x_i - \mu)^2,
+\end{equation}
+and the population \emph{standard deviation} is therefore
+\index{Standard deviation}
+\begin{equation}
+\sigma = \sqrt{ \frac{1}{N} \sum^N_{i=1} (x_i - \mu) ^2}.
+\end{equation}
+Most often we will be working with samples rather than entire populations, and we hope (and will later test)
+that the sample is representative of the population.
+The sample standard deviation $s$ is given by
+\begin{equation}
+	\index{Sample!variance}
+s = \sqrt{ \frac{1}{n-1} \displaystyle \sum^n_{i=1} (x_i - \bar{x}) ^2}.
+\label{eq:stdev}
+\end{equation}
+Note that we are dividing by $n - 1$ rather than by $n$.  This is done because $\bar{x}$  must first be \emph{estimated} from the 
+sample rather than being a \emph{given} parameter of the population, such as $\mu$ and $N$.  This reduces the degrees 
+of freedom by one; hence we divide by $n - 1$ (we will have more to say about degrees of freedom in Section~\ref{sec:freedom}).
+	We can now show one property of the mean:  It is clear that $s^2$ depends on the choice for $\bar{x}$.  
+Let us find the value for $\bar{x}$   in (\ref{eq:stdev}) that gives the smallest value for $s^2$.  Consider
+\begin{equation}
+f(\bar{x}) = s^2 = \frac{1}{n-1} \sum^n_{i=1} (x_i - \bar{x})^2.
+\end{equation}
+The function $f$ has a minimum where $df/d\bar{x}= 0$  and $d^2f/d\bar{x}^2 > 0$, so we find
+\begin{equation}
+\frac{df}{d\bar{x}} = \displaystyle \frac{\displaystyle  \sum ^n_{i=1} - 2 (x_i - \bar{x})} {n-1} =
+\frac{-2}{n-1} \sum ^n _{i=1} (x_i - \bar{x}) =  0,
+\end{equation}	 
+which gives
+\begin{equation}
+\sum^n_{i=1} (x_i - \bar{x}) = 0.
+\end{equation}	 
+We can solve this equation and find
+\begin{equation}
+\bar{x} = \frac{1}{n} \sum^n _{i=1} x_i.
+\end{equation}	 
+Since
+\begin{equation}
+\frac{d^2f}{dx^2} = \frac{2n}{n-1} > 0,
+\end{equation} 
+we know that $f$ has a minimum for this value of $\bar{x}$.  Thus, we have shown that the value $\bar{x}$
+that minimizes the standard deviation equals 
+the mean we defined earlier in (\ref{eq:arith_mean}).  This is a very useful and important property of the mean. 
+Because $\bar{x}$ 
+minimizes the squared ``misfit'', it is also called the \emph{least-squares estimate} of central location 
+(or L$_2$ estimate for short).  When computing the mean and standard deviation on a computer we 
+do not normally use (\ref{eq:stdev}) since it requires two passes through the data: One to compute the $\bar{x}$ and 
+another to solve (\ref{eq:stdev}).  Rather, we rearrange (\ref{eq:stdev}) to give
+\begin{equation}
+\begin{array}{ll}
+s & = \displaystyle \sqrt{ \sum^n _{i=1} \frac{(x_i - \bar{x})^2} {n-1} } =
+\sqrt{ \sum^n_{i=1} \frac{x^2_i - 2x_i \bar{x} + \bar{x}^2} {n-1} }\\*[3ex] \\ 
+ \ & = \displaystyle \sqrt{\frac{n \displaystyle \sum x^2_i - 2 n \bar{x} \displaystyle \sum x_i + n \sum \bar{x}^2}
+{n(n-1)} } = \sqrt{\frac{n \displaystyle \sum x^2_i - (\sum x_i)^2}{n(n-1)} }.
+\end{array}
+\end{equation}
+
+\subsection{Robust estimation}
+\label{sec:zscore}
+\index{Robust!estimation|(}
+
+	We found that the arithmetic mean is the value that minimizes the sum of the squared deviations from the 
+central value.  Can we apply the same argument to the mean absolute deviation and find what the 
+best value for  $\tilde{x}$ may be?  In other words, let
+\index{Median}
+\begin{equation}
+\frac{d}{d\tilde{x}} \left( \frac{1}{n}\displaystyle \sum^n_{i=1} \left |x_i - \tilde{x}\right | \right) = -\frac{1}{n} \sum^n_{i=1} \frac{x_i - \tilde{x}}{|x_i - \tilde{x}|} = 0.
+\label{eq:dAD-d*}
+\end{equation}
+The term inside the summation can only take on the values $-1$, $0$, or $+1$.  Thus, the only $\tilde{x}$  that can 
+satisfy (\ref{eq:dAD-d*}) is a value chosen such that half the $x_i$ are smaller (giving $-1$) and half the $x_i$ are 
+larger (giving $+1$), and for odd sample sizes we also get one or more exact zeros.  Thus, we
+have proven that the median is the location estimate that minimizes 
+the mean absolute deviation.  The 
+median is also called the L$_1$-estimate of central location.
+
+	The discussion of mean and median brings up the general issue of \emph{robust estimation}: How to 
+calculate a stable and reasonable estimate of central location in the presence of contaminated 
+data?  As an indicator of how robust a method is, we will introduce the concept of ``breakdown 
+point.''  It is the \emph{smallest fraction} of the observations that must be replaced by outliers in order to throw 
+the estimator outside reasonable bounds.  
+
+	We have already seen that even a single bad value is enough to throw the mean way off.  For our 
+densities of sandstone, we had $\rho = \{2.2, 2.25, 2.25, 2.3, 2.3, 2.35, 23.0\}$, with $n = 7$.  If we 
+realized that 23.0 should be 2.3, we find $\bar{\rho} = 2.28 \pm 0.05$, while if we included $\rho_7 = 23.0$ we 
+would find $\bar{\rho} = 5.24 \pm 7.8$.  The second estimate is obviously far outside the 2.20--2.35 range we first 
+determined.  We can therefore say that the least squares estimate (i.e., the mean) has a breakdown value of 
+$1/n$; it only takes one outlier to ruin our day.  On the other hand, note that the median is $\sim 2.3$ in 
+both cases, well inside the acceptable interval.  It is found that the breakdown point of the 
+median is 
+50\%:  We would have to replace half the data with bad outliers to move the estimate of 
+the median outside the range of the original (good) data values.
+
+	Apart from the central location estimator, we also want a robust estimate of the spread of the 
+data.  Clearly, the classical standard deviation is problematic since only one bad value will make it 
+biased due to the $x^2$  effect.  From the success of taking the median of a string of numbers rather 
+than summing them up, could we do something similar with the deviations?  Consider what 
+value of $\tilde{x}$ would minimize the median of $\{|x_i - \tilde{x}|\}$.
+You can probably see for yourselves that the $\tilde{x}$ must equal 
+our old friend the median.  Because of the robustness of the median operator, we will often use 
+the quantity called the \emph{median absolute deviation} ($MAD$) as our robust estimate of ``spread'' or variation.
+Note: Many textbooks and software packages (such as MATLAB) use $MAD$ to indicate \emph{mean absolute deviation}
+instead, as defined in (\ref{eq:AD}) and called $AD$ in these notes.  Thus, we define
+\index{Mean absolute deviation}
+\begin{equation}
+	\index{MAD}
+	\index{Median absolute deviation}
+MAD = 1.4826 \mbox{ median } |x_i - \tilde{x} |,
+\end{equation}
+where the factor 1.4826 is a correction term that makes the $MAD$ equal to the standard deviation 
+of normally distributed data\footnote{This factor equals $1/P^{-1}_c(0.75)$, where $z = P^{-1}_c(p)$ is
+the inverse cumulative normal distribution.}.  Like the median, the $MAD$ has a breakdown point of 50\%.  The $MAD$ 
+for our  example was 0.07 and it remained unchanged by using the contaminated value.
+	Having robust estimates of central location and scale, we can attempt to identify \emph{outliers}.  We may 
+compute the robust \emph{standard units}
+\begin{equation}
+	\index{Normal scores!robust}
+	\index{Standard scores!robust}
+z_i = \frac{x_i - \tilde{x}} {MAD}
+\end{equation}
+and compare them to a cutoff value: If $|z_i| > z_{cut}$ we say we have detected an outlier.  The choice 
+for $z_{cut}$ is to a certain extent arbitrary.  It is, however, quite standard to choose $z_{cut} = 2.5$.  Chances 
+that any $z_i$ will exceed $z_{cut}$  is very small if the $z_i$'s came from a normal distribution.  Our 
+normalized densities (including the contaminated value) using $\bar{x}$ and $s$ to compute $z_i$ gives 
+\begin{equation}
+z_{\scriptscriptstyle L_{\scriptscriptstyle 2}} = \left \{ -0.39, -0.38, -0.38, -0.377, -0.377, -0.37, 2.28\right \},
+\end{equation}
+where none of the values qualify as an outlier.  Using the median and $MAD$ instead, we find
+\begin{equation}
+z_{\scriptscriptstyle L_{\scriptscriptstyle 1}}
+ = \left \{ -1.35, -0.68, -0.68, 0.0, 0.0, 0.68, 280.0 \right \},
+\end{equation}
+and we see that the bad observation gives a huge $z$-value two orders of magnitude larger than any other.  
+Clearly, the least-squares technique alone is not trustworthy when it comes to detecting bad 
+points.  The outlier-detecting scheme presents us with an elegant two-step technique:  First find and remove 
+the outliers from the data, then use classical \emph{least-squares} techniques on the remaining data 
+points.  The resulting statistics are called the \emph{least trimmed squares} estimates (LTS).  We 
+will return to the concept of robustness when discussing regression in Chapter~\ref{ch:regression}.
+\index{Least trimmed squares (LTS)}
+\index{Robust!estimation|)}
+
+\subsection{Central limit theorem}
+
+	How well does our sample mean, $\bar{x}$, compare to the true population mean, $\mu$?  An important 
+theorem, called the \emph{central limit theorem}, states 
+\begin{quote}
+	\index{Central limit theorem}
+\emph{If $n$ (the sample size) is large, the theoretical sampling distribution of the mean 
+can be approximated closely with a normal distribution.}
+\end{quote}
+This is rather important since it justifies the use of the normal distribution in a wide range of 
+situations.  It simply states that the sample mean $\bar{x}$ is an \emph{unbiased estimate} of the population 
+mean and that the scatter about $\mu$ is \emph{normally distributed}.  It can be shown that the standard 
+deviation of the sampling mean, $s_{\bar{x}}$, is related to the population deviation, $\sigma$, by
+\begin{equation}
+s_{\bar{x}} = \frac{\sigma} {\sqrt{n}}
+\label{eq:samp_dev_int}
+\end{equation}
+or
+\begin{equation}
+	\index{Sample!mean}
+s_{\bar{x}} = \frac{\sigma} {\sqrt{n}} \sqrt{\frac{N-n}{N-1}}
+\label{eq:samp_dev_int2}
+\end{equation}
+depending on whether the population is infinite (\ref{eq:samp_dev_int}) or finite of size $N$ (\ref{eq:samp_dev_int2}).  Thus, as $n$ 
+grows large, $s_{\bar{x}} \rightarrow 0$.   Furthermore, the sample variance $s^2$ has the mean value $\sigma^2$ with 
+standard deviation
+\begin{equation}
+	\index{Sample!variance}
+\sigma^2_s = \frac{2\sigma^4 }{n-1},
+\end{equation}
+which also $\rightarrow 0$ for large $n$.  For our analysis we will substitute the sample standard deviation
+$s$ \emph{in lieu} of the unknown population standard deviation $\sigma$, since $s$ is an \emph{unbiased estimator} of $\sigma$.
+
+\subsection{Covariance and correlation}
+\label{sc:cc}
+We found earlier that the sample variance was defined as 
+\begin{equation}
+s^2_x = \frac{\displaystyle \sum^n_{i=1} (x_i - \bar{x})^2}{n-1} =
+ \frac{\displaystyle \sum^n_{i=1} (x_i - \bar{x})(x_i - \bar{x}) }{n-1}.
+\end{equation}	 
+It is often the case that our data set consists of pairs of properties, such as sets of (depth, pressure), 
+(time, temperature), concentrations of two elements, and more.  Denoting the paired properties by $x$ and $y$, 
+we can compute the variance of each quantity separately.  For instance, for $y$ we find
+\begin{equation}
+s^2_y = \frac{\displaystyle \sum ^n_{i=1} (y_i - \bar{y})^2} {n-1}=
+\frac{\displaystyle \sum^n_{i=1} (y_i - \bar{y}) (y_i - \bar{y})} {n-1}.
+\end{equation}
+We can now define the \emph{covariance} between $x$ and $y$ in a similar way as
+\begin{equation}
+	\index{Sample!covariance}
+	\index{Covariance}
+s_{xy} =  \frac{\displaystyle \sum^n_{i=1} (x_i - \bar{x})(y_i - \bar{y})} {n-1}.
+\end{equation}
+While $s_x$ and $s_y$ tell us how the $x$ and $y$ values are distributed \emph{individually}, $s_{xy}$  tells us how 
+the $x$ and $y$ values vary \emph{together}.
+
+	Because the value of the covariance clearly depends on the units of $x$ and $y$, it is difficult to 
+state what covariance values are meaningful.  This difficulty is overcome by defining the Pearson
+\emph{correlation coefficient} $r$, which normalizes the covariance to yield correlations in the $\pm 1$ range, i.e.,
+\begin{equation}
+	\index{Sample!correlation}
+	\index{Correlation}
+r = \frac{s_{xy}} {s_x s_y}.
+\end{equation}
+If $|r|$ is close to 1, then the variables are strongly correlated or anti-correlated.  Values of $r$ close to 0 mean that there 
+is little significant correlation between the data pairs.  Figure~\ref{fig:Fig1_correlations} shows some examples of 
+data pairs and their correlations.
+We see that in general, $r$ will tell us how well the data are ``clustered'' in some direction.  Note in 
+particular example (f), which presents data that are clearly correlated (i.e., all pairs lie on a circle), yet $r 
+= 0$.  This occurs because $r$ is a measure of a \emph{linear} relationship between values; a nonlinear 
+relationship may not register a significant correlation.  Thus, we must be careful with how we use $r$ to draw conclusions 
+about the interdependency of paired values.  For example, if our ($x,y$) data are governed by a $y = \sqrt{x}$ law then we 
+may find a fairly good correlation between $x$ and $y$, but we would be wrong to conclude that $x$ and $y$ 
+have a \emph{linear} relationship (plotting $y$ versus $\sqrt{x}$  \emph{would give} a linear relationship and a much higher 
+value of $r$).  We will return to correlation under the rubrics of curve fitting and multiple regression in 
+Chapter~\ref{ch:regression}.
+\PSfig[h]{Fig1_correlations}{Some examples of data sets and their correlation coefficients.  Note that the perfect
+circular correlation in (f) gives a zero linear correlation coefficient.  While clearly $x$ and $y$ are correlated,
+their relationship is not \emph{linear}.}
+
+\subsection{Moments}
+
+	Returning to the L$_2$ estimates, we will briefly introduce the concept of \emph{moments}.  In general, 
+the $r$'th moment is defined as
+\begin{equation}
+	\index{Moments}
+m_r = \frac{1}{n} \sum^n_{i = 1} (x_i - \mu)^r,
+\end{equation}
+except for $r = 1$ where it is customary to use the ``raw moment'' about zero instead.  From this definition it can be seen
+that the mean and variance are the first (raw) and second (central) moments, 
+respectively.  We will look at two higher order (central) moments that one may encounter in the literature.  
+The first is called the \emph{skewness} ($SK$) and it is the third central moment, given by
+\begin{equation}
+	\index{Skewness}
+	\index{Data!skewness}
+SK = \frac{1}{n} \sum ^n_{i=1} \left ( \frac{x_i - \bar{x}} {s} \right) ^3 = \frac{1}{n} \sum ^n_{i=1} z_i^3,
+\end{equation}
+where we normalize by $s$ to get dimensionless values for $SK$.  The skewness is used to investigate 
+our data sets' \emph{degree of symmetry} about the mean.  A positive $SK$ means we have a longer tail 
+to the right of the mean than to the left, and vice versa for a negative $SK$ (Figure ~\ref{fig:Fig1_skewness}).
+
+\PSfig[h]{Fig1_skewness}{Examples of data distributions with positive and negative skewness.  The
+sign of the skewness indicates which side of the distribution is long-tailed.}
+
+\noindent
+Unfortunately, if the data contain outliers then the $SK$ will be very sensitive to these values and 
+consequently be of little use to us.  A more robust estimate of skewness is the \emph{Pearson 
+coefficient of skewness},
+\begin{equation}
+	\index{Pearson skewness}
+	\index{Skewness!Pearson}
+SK_p = \frac{3(\bar{x} - \tilde{x})} {s},
+\end{equation}
+where we basically compare the mean and the median.  An even higher-order central moment is the 
+\emph{kurtosis},
+\begin{equation}
+	\index{Kurtosis}
+	\index{Data!kurtosis}
+K  = \left \{ \frac{1}{n} \sum^n_{i=1} \left ( \frac{x_i - \bar{x}}{s} \right) ^4 \right \} -3 = \left \{ \frac{1}{n} \sum ^n_{i=1} z_i^4 \right \} - 3.
+\end{equation}
+The correction term $-3$ makes $K = 0$ for a normal distribution, which we will discuss shortly.  The kurtosis $K$ attempts to 
+quantify a data distribution's ``sharpness'' ($K > 0$) or ``flatness'' ($K < 0$; Figure ~\ref{fig:Fig1_kurtosis}).
+However, for most real data $K$ can be almost infinite and should be used only with 
+``well-behaved'' data.
+
+\PSfig[h]{Fig1_kurtosis}{Examples of distributions with different kurtosis.  Distributions with negative $K$ are
+called \emph{platykurtic}\index{Platykurtic}, while a positive $K$ is called \emph{leptokurtic}\index{Leptokurtic}.  You will of course be immensely pleased to learn
+that an intermediate case is called \emph{mesokurtic}\index{Mesokurtic}.}
+
+\section{Discrete Probability Distributions}
+\index{Probability distributions|(}
+\index{Probability distribution!discrete}
+
+	An important concept in statistics and probability is the notion of a \emph{probability distribution}.  It is a 
+function $P(x)$, which indicates the probability that the event $x$ will take place.  $P(x)$ can be a 
+discrete or continuous function.  As an example of a discrete function, consider the function $P(x), x=1, 2,..,6$, that gives 
+the probability of throwing an $x$ with a balanced die:
+\begin{equation}
+P(x) = 1/6,\quad x = 1,2, \ldots, 6,
+\end{equation}	 
+or for flipping a coin:
+\begin{equation}
+P(x) = 1/2,\quad x = \left \{ H, T \right \}.
+\end{equation}	 
+Staying with the throws of the die, we can relate $P(x)$ to the area under the curve in Figure ~\ref{fig:Fig1_die_probability}.
+
+\PSfig[h]{Fig1_die_probability}{Probability of throwing any number on a die is a constant $1/6$, unless
+the die is ``loaded''.}
+
+Two important properties shared by all discrete probability distributions are
+\begin{equation}
+0 \leq P (x_i) \leq 1, \mbox{ for all } x_i,
+\end{equation}
+\begin{equation}
+\sum^n_{i=1} P(x_i) = 1.
+\label{eq:Pdiscretesum}
+\end{equation}	 
+\subsection{Binomial probability distribution}
+\label{sec:binom}
+\index{Probability distribution!binomial}
+\index{Binomial probability distribution}
+Often we are more interested in knowing the probability of a certain outcome after $n$ repeated 
+tries, such as ``what is the probability of receiving junk mail three days in one week?''  To derive such a 
+function, we will assume that each event is independent and has the same probability, $p$.  Then, the 
+probability that an event \emph{does not} occur is the complement, $q = 1 - p$.  Consequently, the probability of 
+getting $x$ successes in $n$ tries (and thus $n - x$ failures) is
+\begin{equation}
+P_1(x) = p^x q^{n-x}.
+\end{equation}
+However, this probability applies to a \emph{specific order} of all possible outcomes.  Since we may not care about 
+the order in which the successful $x$ events occurred, we must scale $P_1(x)$ by the number of 
+possible combinations of $x$ successes in $n$ tries.  We already know this amount to be given by $\binom{n}{x}$,
+so our discrete probability function becomes
+\begin{equation}
+P_{n,p}(x) = \binom{n}{x} p^x q^{n-x} = \binom{n}{x} p^x (1 - p)^{n-x}, \quad x =0, 1, \ldots, n. 
+\label{eq:binomial_dist}
+\end{equation}
+This expression is known as the binomial probability distribution or simply the \emph{binomial distribution}
+(Figure~\ref{fig:Fig1_binom_dist}) and it is used to predict the probability that $x$ events out of $n$
+tries will be successful, given that each  independent $x$ has the probability $p$ of success.
+\PSfig[h]{Fig1_binom_dist}{Binomial probability distribution $P_{n,p}(x)$, which shows the probability of having $x$ successful
+outcomes out of a total of $n$ tries, when each try has the probability $p$ of success (and $q = 1 - p$ of failure).
+Here, $p = 0.25$ and $n = 8$.}
+\begin{example}
+What are the chances of drawing three red cards in six tries from a deck (assuming we place the card back 
+into the deck after each try)?  Here $p = 1/2$, so 
+\begin{equation}
+P_{6,0.5}(3) = \frac {6!}{3!3!} \left ( \frac{1}{2} \right ) ^3 \left ( \frac{1}{2} \right )^{6-3} = 0.31.
+\end{equation}
+One might have thought that getting half red and half black cards would have a higher probability, but 
+remember that we require \emph{exactly} 3 reds.  If we compute the probability of getting 1, 2, or 3 reds 
+separately and used the summation rule to compute the probability that we would draw 1, 2, or 3 
+red cards then $P$ would be much higher.
+\end{example}
+The binomial probability distribution can also be used to assess the likelihood of more serious scenarios, such as the
+next example presents.
+\begin{example}
+	A silver-tonged con artist approaches you on a street in New York City with a simple proposition: He has
+	10 beads --- 9 black and one white.  You get to pick one bead from his bag.  You are
+	given six opportunities to draw a bead (the bead is returned to the bag after each try), and
+	if anytime during the six tries you pick the white bead then you have won and he will give you \$20.
+	However, if you
+	have not picked the white bead after six tries then you owe him \$20 instead.  Is this a good deal?
+	Answer: Clearly, the probability of picking the white bead is fixed at $p = 0.1$. To lose
+	the bet you will have to come up empty-handed six times in a row.  For $n = 6$ and $r = 0$ the
+	chances of that is simply
+\begin{equation}
+P_{6,0.1}(0) =  \binom{6}{0} 0.1^0(1-0.1)^6 = 0.53.
+\end{equation}
+So while it is close to 50--50 the con-artist will most likely win, at least in the long run.
+You probably should also be concerned that there might be something else going on as well, such as sleight-of-hand
+removal of the white bead before each try...
+\end{example}
+
+\subsection{The Poisson distribution}
+\index{Poisson distribution}
+\index{Probability distribution!Poisson}
+\index{Rare events}
+\index{Binomial probability distribution!approximation}
+	In some situations, the binomial distribution can be approximated by simpler expressions.
+One such case arises when the probability $p$ for one event is 
+very small and $n$ is large.  Such events are called \emph{rare}, and the discrete distribution may then be approximated by 
+\index{Rate of occurrence}
+\begin{equation}
+P(x) = \frac{\lambda^x e^{-\lambda}}{x!},\quad x = 0, 1, 2, \ldots, n
+\end{equation}
+where $\lambda = np$ is the \emph{rate of occurrence}.  The Poisson distribution can be used to evaluate the 
+probabilities for the occurrence of rare events such as large earthquakes, volcanic eruptions, and reversals of the 
+geomagnetic field.  For instance, the number of floods occurring in a 50-year period has been shown to 
+follow a Poisson distribution with $\lambda = 2.2$.  What is the probability that we will have at least 
+one flood in the next 50 year period?  Here, $P = 1 - P_0$, the probability of having no flood.  
+Plugging in for $x = 0$ and $\lambda = 2.2$ we find $P_0 = 0.1108$, so $P = 0.8892$.
+\begin{example}
+A student is monitoring the radioactive decay of a certain sample that is expected to
+undergo three decays per minute.  The student observes the number of decays over 100
+individual one-minute periods and constructs the summary shown in Table~\ref{tbl:decay1}.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|} \hline
+\bf{Decays}   & 0 &  1 &  2 &  3 &  4 &  5 & 6 & 7 & 8 & 9 \\ \hline
+\bf{Observed} & 5 & 19 & 23 & 21 & 14 & 12 & 3 & 2 & 1 & 0 \\ \hline
+\end{tabular}
+\caption{Number of decays observed in one-minute interval.}
+\label{tbl:decay1}
+\end{table}
+Does the data support the expected decay rate?  We make a histogram of the data
+by normalizing the observed frequencies by the total count
+and superimposing the Poisson distribution for the expected rate.  The result (Figure~\ref{fig:Fig1_poisson})
+shows a very good fit.	
+\PSfig[h]{Fig1_poisson}{Histogram of observed decay rate frequencies (bars) and
+the theoretical Poisson distribution (circles) for the expected rate $\lambda = 3$.}
+\end{example}
+
+\section{Continuous Probability Distributions}
+
+	While many populations are of a discrete nature (e.g., outcomes of coin tosses, numbers of 
+microfossils in a core, etc.), we are very often dealing with observations of a phenomenon that 
+can take on any of a continuous spectrum of values.  We may sample the phenomenon at certain 
+points in space-time and thus have discrete observations.  Nevertheless, the underlying probability 
+distribution is continuous (e.g., Figure~\ref{fig:Fig1_cont_pdf}).
+
+\PSfig[h]{Fig1_cont_pdf}{Example of a continuous probability density function (pdf).  The area under any pdf
+must equal 1.  The finite probability identified in (\ref{eq:probfinite}) is indicated in dark gray.}
+
+	Continuous distributions can be thought of as the limit for discrete distributions when the 
+``spacing'' between events shrinks to zero.  Hence, we must replace the summation in (\ref{eq:Pdiscretesum}) with the integral
+\index{Probability distribution!continuous}
+\index{Continuous probability distribution}
+\index{pdf (probability density function)}
+\index{Probability density function (pdf)}
+\begin{equation}
+\int^\infty _{-\infty} p (x) d x = 1.
+\label{eq:pdf}
+\end{equation}
+Because of their continuous nature, functions such as $p(x)$ in (\ref{eq:pdf}) are called \emph{probability} 
+\emph{density functions} (pdf).  The probability of an event is still defined by the area under the curve, but 
+now we must integrate to find the area and hence the probability.
+E.g.,  the probability that a random variable will take on a  value between $a - \Delta$  and $a +\Delta$ is 
+\begin{equation}
+P(a\pm \Delta) =  \int ^{a+\Delta} _{a - \Delta} p(x) dx.
+\label{eq:probfinite}
+\end{equation}	 
+As $\Delta \rightarrow 0$ we find that the probability goes to zero.  Thus, the probability of getting exactly $x = a $
+is nil.
+
+	The \emph{cumulative distribution function} (cdf) gives the probability that an observation less than or 
+equal to $a$ will occur.  We obtain the integral expression for this distribution by replacing the 
+lower limit by $-\infty$ and the upper limit by $a$, finding
+\begin{equation}
+	\index{Probability distribution!cumulative}
+	\index{Cumulative probability distribution}
+P_c(a) = \int^a _{-\infty} p (x) dx.
+\end{equation}
+Obviously, as $a \rightarrow \infty, P_c(a)\rightarrow 1$.  Given the cumulative distribution function we can
+revisit (\ref{eq:probfinite}) and instead state
+\begin{equation}
+P(a\pm \Delta) =  P_c(a+\Delta) - P_c(a - \Delta).
+\label{eq:probfinite2}
+\end{equation}
+
+\subsection{The normal distribution}
+\index{Normal distribution|(}
+\index{Gaussian distribution|(}
+
+	So far the function $p(x)$ has been arbitrary. Any continuous function with unit area under 
+the curve (i.e., \ref{eq:pdf}) would qualify.  We will now turn our attention to the best known and most frequently 
+used pdf: the \emph{normal distribution}.  Its study dates back to  18th 
+century investigations into the nature of experimental error.  It was found that repeat 
+measurements of the same quantity displayed a surprising degree of regularity.  In particular, the German scientist K. 
+F. Gauss played a major role in developing the theoretical foundations for the normal distribution,
+hence its other name: the \emph{Gaussian} distribution.  It is given by
+\begin{equation}
+p(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{1}{2} \left( \frac{x-\mu}{\sigma} \right) ^2 },
+\label{eq:gnorm}
+\end{equation}
+where $\mu$ and $\sigma$ have been defined previously.  The constant term before the exponential normalizes the 
+area under the curve to unity (Figure~\ref{fig:Fig1_normal_pdf}).  As discussed in Section~\ref{sec:zscore},
+it is often convenient to transform your data into so-called 
+\emph{standard scores}:
+\begin{equation}
+	\index{Standard scores}
+	\index{Normal scores}
+z_i = \frac{x_i - \mu} {\sigma},
+\end{equation}
+in which case (\ref{eq:gnorm}) reduces to 
+\begin{equation}
+p(z) = \frac{1}{ \sqrt{2\pi}} e^{-\frac{1}{2}z^2},
+\end{equation}
+which has zero mean and unit standard deviation.
+
+\PSfig[h]{Fig1_normal_pdf}{A normally distributed data set will have almost all of
+its values within $\pm 3\sigma$  of the mean (this corresponds to 99.73\% of the data; see legend for percentages corresponding to other multiples of $\pm \sigma$).}
+
+Given the functional form of $p(z)$ we can evaluate the probability that an observation 
+$z$ will be $\leq a$:
+\begin{equation}
+P_c(a) = \int ^a_{-\infty} p (z) = \int ^0 _{-\infty} p (z) + \int^a_0 p(z) = \frac{1}{2} + \frac{1}{\sqrt{2\pi}} \int ^a_0
+e^{- \frac{z^2}{2}} dz.
+\end{equation}	 
+Let
+\begin{equation}
+u^2 = \frac{z^2}{2}, \mbox{ hence } dz = \sqrt{2} du,
+\end{equation}	 
+then
+\begin{equation}
+P_c(a) = \frac{1}{2} + \frac{1}{\sqrt{\pi}} \int^{\frac{a}{\sqrt{2}}}_{0} e^{-u^2} du = 
+\frac{1}{2} + \frac{1}{\sqrt{\pi}} \frac{\sqrt{\pi}}{2} \erf{\left ( \frac{a}{\sqrt{2}} \right)} =
+\frac{1}{2} \left [ 1 + \erf \left( \frac{a}{\sqrt{2}} \right) \right ].
+\label{eq:erf}
+\index{Error function ($\erf$)}
+\index{$\erf$ (error function)}
+\end{equation}	 
+It follows that, for any value $z$, the cumulative distribution function is
+\begin{equation}
+	\index{Cumulative normal distribution}
+P_c(z) = \frac{1}{2} \left [ 1 + \erf \left ( \frac{z}{\sqrt{2}} \right) \right]. 
+\end{equation}
+Here, $\erf$ represents the \emph{error function} and it is defined by the definite integral in (\ref{eq:erf})
+and tabulated in Table~\ref{tbl:Critical_z}.
+Furthermore, the probability that $z$ falls between $a$ and $b$ must necessarily be 
+\begin{equation}
+P_c (a \leq z \leq b) = P_c (b) - P_c (a)
+ = \frac{1}{2} \left[ \erf  \left ( \frac{b}{\sqrt{2}}\right) -
+\erf \left( \frac{a}{\sqrt{2}}\right)\right].
+\label{eq:cumpart}
+\end{equation}
+\begin{example}
+Investigations into the strength of olivine have provided estimates of Young's modulus ($E$) 
+that follow a normal distribution given by $\mu = 1.0\cdot10^{11}$ Pa and $\sigma = 1.0 \cdot 10^{10}$ Pa.  What is the 
+probability that a single estimate $E$ will lie in the interval  $9.8 \cdot 10^{10}$ Pa $<$ E $< 1.1\cdot 10^{11}$ Pa?  We 
+convert the limits to normal scores and find they correspond to the interval $-0.2 \leq z \leq 1.0$.  Using 
+these values for $a$ and $b$ in (\ref{eq:cumpart}) (or using Table~\ref{tbl:Critical_z}) we find the probability to be 0.4206.
+\end{example}
+
+\subsubsection{Approximate binomial distribution}
+\index{Binomial probability distribution!approximation}
+	Like the Poisson distribution, the normal distribution may also serve as an approximation to the binomial distribution
+when $n$ is large. More specifically, this approximation holds when both $np$ and $(1 - p)n$ exceed 5.  Under those circumstances,
+the mean and standard deviation of the approximate normal distribution become
+\begin{equation}
+	\index{Binomial probability distribution!approximation}
+\mu = np, \quad \sigma = \sqrt{np(1-p)},
+\label{eq:binomial_approx}
+\end{equation}	 
+leading to the simplified distribution
+\begin{equation}
+P_b(x) = \frac{1}{\sqrt{2 \pi np (1- p)}} \exp{\left \{ \frac{-(x-np)^2}{2 np (1-p)}\right \}}.
+\label{eq:binomial_approx_norm}
+\end{equation}
+\begin{example}
+What is the probability that at least 70 of 100 sand grains will be larger than 0.5 mm if 
+the probability that any single grain is that large is $p = 0.75$?  Using the approximation (\ref{eq:binomial_approx}) we 
+find $\mu = np = 75$ and $s   = \sqrt{np(1-p)} = 4.33$.  Converting 69.5 (halfway between 69 and 70) to a $z$ 
+score gives $-1.27$, and we find via Table~\ref{tbl:Critical_z} that the probability becomes 0.898 or about 90\%.
+\end{example}
+\index{Gaussian distribution|)}
+\index{Normal distribution|)}
+
+\subsection{The exponential distribution}
+\index{Exponential distribution}
+\index{Probability distribution!exponential}
+
+	Another important probability density distribution is the \emph{exponential} distribution.  It is given by
+\begin{equation}
+p_e(x) = \lambda e ^{-\lambda x}
+\end{equation}
+for some constant $\lambda$.  However, most of the time we will see it used as a cumulative distribution function:
+\begin{equation}P_c(x) = 1-e^{-\lambda x}.
+\label{eq:cum_exp_dist}
+\end{equation}
+Eq.\ (\ref{eq:cum_exp_dist}) gives the probability that the observation $a$ will be in the range $0 \leq a \leq x$.
+\begin{example}
+It has been reported that the heights ($z$) of Pacific seamounts follow an 
+exponential distribution defined as 
+\begin{equation}
+P_c(z \leq h) = 1 - e^{-h/340},
+\label{eq:Pac_segments}
+\end{equation}
+which gives the probability that a seamount is shorter than $h$ meters.  Equation 
+(\ref{eq:Pac_segments}) then predicts that we might expect that 
+\begin{equation}
+P_c(1000) = 1 - e^{-1000/340} \approx 95\%
+\end{equation}
+of them are less than one km tall.
+\end{example}
+
+\subsection{Log-normal distribution}
+\index{Log-normal distribution}
+\index{Probability distribution!log-normal}
+
+	Many data sets, such as grain-sizes of sediments and geochemical concentrations, have very 
+skewed and long-tailed distributions (e.g., Figure~\ref{fig:Fig1_lognormal}).  In general, such distributions arise when the observed 
+quantities have errors that depend on \emph{products} rather than \emph{sums}.  It therefore follows that the \emph{logarithm} of the 
+data may be normally distributed.  Hence, taking the logarithm of your data may make the 
+transformed distribution look normal.  If this is the case, you can apply standard statistical 
+techniques applicable to normal distributions to the logarithm of your data and convert the results 
+(e.g., mean, standard deviation) back to get the proper units.  The log-normal probability density distribution is therefore given by
+\begin{equation}
+	p(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{1}{2} \left( \frac{\log x-\mu}{\sigma} \right) ^2 }.
+	\label{eq:lognorm}
+\end{equation}
+\PSfig[h]{Fig1_lognormal}{(left) The concentration of Pb in soil is very long-tailed and clearly not normally distributed.
+The red squares indicate individual sample values. (right) The same distribution after taking the logarithm of the data values.
+The resulting distribution is approximately normal, hence a log-normal distribution might be suitable to describe the data.}
+\index{Probability distributions|)}
+
+\section{Inferences about Means}
+\index{Confidence interval!sample mean}
+\index{Sample!mean!confidence interval}
+
+\index{Central limit theorem}
+	The central limits theorem states that the mean of a large sample taken from any distribution will be 
+normally distributed even if the data themselves are not normally distributed, and furthermore it says
+that the sample mean is an unbiased estimator of the population mean.  We can then use our 
+knowledge of the normal distribution to quantify our faith in the precision of our sample mean.  
+We already know that $s_{\bar{x}} = \sigma/ \sqrt{n}$,  so we can state with probability $1-\alpha$
+that $\bar{x}$ will differ from $\mu$ by at most $E$, which is given by
+\begin{equation}
+E = z_{\alpha/2} \cdot \frac{s}{\sqrt{n}},
+\label{eq:sample_error}
+\end{equation}
+where $s$ is our estimate of $\sigma$.  In other words, the chance that $\bar{x}$ exceeds
+the $\pm z_{\alpha/2}$ confidence interval is $\alpha$.
+These error estimates apply to large samples ($n \geq 30$) and infinite populations.  In those cases we 
+can use our sample standard deviation $s$ in place of $\sigma$, which we usually do not know.  Here, (\ref{eq:sample_error}) can 
+be inverted to yield the sample size necessary to be confident that the error in our sample mean is 
+no larger than $E$, and we find
+\begin{equation}
+n = \left( \frac{z_{\alpha/2} \cdot s}{E} \right)^2.
+\end{equation}
+
+\PSfig[h]{Fig1_normal_tails}{Probability is $\alpha$ that a value will fall in one of the two tails of
+the normal distribution, and $\alpha/2$ that it will fall in a specific tail.}
+
+The normal score for our sample mean is
+\begin{equation}
+z = \frac{\bar{x} - \mu} {s_{\bar{x}}} = \frac{\bar{x} - \mu} {s/ \sqrt{n}}.
+\end{equation}	 
+Since this statistic is normally distributed we know that the probability is $1 - \alpha$ that $z$ will take on 
+a value in the interval $-z _{\alpha/2} < z < +z_{\alpha/2}$.  Plugging in for the limits on $z$,
+\begin{equation}
+-z_{\alpha/2} < \frac{\bar{x} - \mu}{s/\sqrt{n}} < +z_{\alpha/2}
+\end{equation} 	  
+or							
+\begin{equation}
+\bar{x} - z _{\alpha/2} \cdot \frac{s}{\sqrt{n}} < \mu < \bar{x} + 
+z _{\alpha/2} \cdot  \frac{s}{\sqrt{n}}.
+\label{eq:conf_inter}
+\end{equation}
+Rearranging, we find
+\begin{equation}
+\mu = \bar{x} \pm z _{\alpha/2} \cdot \frac{s}{\sqrt{n}}.
+\label{eq:conf_inter_mu}
+\end{equation}
+    Eq.\ (\ref{eq:conf_inter_mu}) shows the \emph{confidence interval} on $\mu$ at the $1 - \alpha$ confidence level.
+Very often, our confidence levels will be 95\% ($\sim 2 \sigma$) or 99\% ($\sim3\sigma$).
+
+\subsection{Small samples}
+\index{Small sample}
+\index{Sample!small}
+
+\index{Central limit theorem}
+	The previous section dealt with large ($n \geq 30$) samples, where we could assume that $\bar{x}$ would be 
+normally distributed as dictated by the central limits theorem.  For smaller samples we must 
+assume instead that the \emph{population we are sampling} is normally distributed.  We can then base our 
+inferences on the statistic
+\begin{equation}
+	\index{Student's $t$ distribution}
+	\index{Test!Student's $t$}
+	\index{Probability distribution!Student's $t$}
+t = \frac{\bar{x} - \mu}{s_{\bar{x}}} = \frac{\bar{x} - \mu}{s/ \sqrt{n}},
+\end{equation}
+whose distribution is called the \emph{Student's} $t$-distribution (Figure~\ref{fig:Fig1_normal_tdist}).  It is similar to the normal distribution but 
+its shape depends on the degrees of freedom, $\nu = n -1$.  For large $n$ (and hence $\nu$) the $t$ 
+statistics approach the $z$ statistics.  As for $z$ statistics, one can find tables with $t$ values 
+for various combinations of confidence levels and degrees of freedom (see Table~\ref{tbl:Critical_t}).  For insight into what the $t$-distribution
+and others really are, get \emph{Numerical Recipes} by Press et al.  This excellent book gives both 
+theory and computer code (in C++, C, FORTRAN, Java and a host of legacy languages).
+\index{Numerical recipes}
+\PSfig[h]{Fig1_normal_tdist}{The same normal distribution and critical tails as in Figure~\ref{fig:Fig1_normal_tails}, overlain
+by the Student's $t$-distribution for $\nu = 3$ degrees of freedom (red line).  For small samples the
+probability distribution becomes wider.}
+\begin{example}
+Given our sandstone density estimates from earlier, i.e., \{2.2, 2.25, 2.25, 2.3, 2.3, 2.3, 2.35\}, what is 
+the 95\% confidence interval on the population mean?
+
+\emph{Answer}:  We have $\bar{x} = 2.28$ with $s = 0.05$, and $\alpha = 1 - 95\% = 0.05$.  The degrees of freedom $\nu = n - 1 = 6$.
+Table~\ref{tbl:Critical_t} gives $t_{\alpha/2,\nu} = t_{0.025,6} = 2.447$.
+Using (\ref{eq:conf_inter}), we find our sample mean brackets the population mean, thus (with $t_{\alpha/2}$
+instead of  $z_{\alpha/2}$ and $s$ instead of $\sigma$)
+\begin{equation}
+2.28 - 2.447 \cdot \frac{0.05}{\sqrt{7}} < \mu < 2.28 + 2.447 \cdot \frac{0.05}{\sqrt{7}}
+\end{equation}	 
+or (since the bounds are symmetrical)
+\begin{equation}
+2.234 < \mu < 2.326
+\label{eq:conf_interval}
+\end{equation}	 
+or 
+\begin{equation}
+\mu = 2.280 \pm 0.046.
+\end{equation}
+\end{example}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+
+\begin{problem}
+A student prepares for an exam in a data analysis class by studying a list of 10 specific topics.  She is
+confident that she can answer any question related to six of these topics, but is ill prepared to handle the
+remaining four.  For the exam, the instructor selects five topics at random from the same list of 10 topics.
+What is the probability that the student can solve all five problems on the exam?
+\end{problem}
+
+\begin{problem}
+During an expedition to Antarctica a research team collects 22 oriented rock cores to be used to determine
+the paleo-magnetic field.  Among the 22 samples there are 7 of utmost importance: three are from an exciting new
+basaltic outcrop and four were recovered from another area with no prior samples.  During the flight back to Punta Arenas
+the Principal Investigator samples too much Chilean wine and proceeds to trip over the box with the rock samples,
+causing 8 of the rock cores to fall out and break.
+\begin{enumerate}[label=\alph*)]
+\item What is the probability of total disaster (i.e., all 7 important samples are destroyed)?
+\item What is the probability that the 7 samples are all intact?
+\item What is the probability that \emph{at least} two samples from each of the two exciting areas have been ruined?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Returning from extensive fieldwork
+in the Congo, a biologist calmly discovers that the glue behind the
+labels on her glass specimen jars with spiders has dissolved and all the labels have
+separated from their corresponding jars.  Of a total of 28 specimens, 8 of the specimens
+are previously unknown spiders; the remaining 20 are known to be harmless to humans.  Given past
+experience that half of newly discovered spiders are venomous,
+what is the probability that, in randomly selecting four specimens:
+\begin{enumerate}[label=\alph*)]
+\item One of the specimens is a venomous spider?
+\item All four are nonvenomous?
+\end{enumerate}
+Note: Unlike the biologist, the technician
+making the selection has no knowledge of spider species.
+\end{problem}
+
+\begin{problem}
+Tuco owns a tire manufacturing plant in South America that makes
+automobile tires for American-produced cars.  For each batch of 100 tires, Tuco's quality control
+team goes to work:  They randomly select four tires, mount them on a vehicle, and
+give each tire a solid kick.  If any one of the four tires fall apart then the whole batch is sent
+back for reprocessing.  How many defective tires can one batch have and still have at least
+a 50/50 chance of passing the test? [Hint: Plot the probability of passing the
+test as a function of the number of defective tires and graphically find the answer.]
+\end{problem}
+
+\begin{problem}
+A manufacturer of compasses used in geological field mapping
+has three physical plants that make the compasses.  Plant A produces 55\%, plant B 30\%, and plant
+C 15\% of the total production.  If 0.4 \% of the compasses from plant A are defective, and the corresponding
+numbers for plants B and C are 0.6 \% and 1.2\%, what is the probability that a defective
+compass purchased by mail-order was produced by plant A?
+
+\end{problem}
+
+\begin{problem}
+In the poor kingdom of Parador the levels of pollutants in water wells are measured using older,
+imprecise instruments.  Here, 25\% of all wells have excessive amounts of pollutants.  When tested, 99\% of all
+wells that have excessive amounts of pollutants will fail the test, but 17\% of the wells that do \emph{not} have
+excessive amounts of pollutants will also fail due to the poor quality of the instruments.  What is the
+probability that a well failing the test actually has excessive amounts of pollutants?
+\end{problem}
+
+\begin{problem}
+A sample of 64 specimens of a particular fossil gives a mean length of 52.8 mm, with a standard deviation of 4.5 mm.
+Find the 99\% confidence intervals for the mean length.
+\end{problem}
+
+\begin{problem}
+An expedition measuring the heat flux, $q$, out of the seafloor near a mid-ocean ridge returned
+with 13 independent measurements (in mW m$^{-2}$), given by
+
+\[
+q = \{45.2, 47.4, 55.1, 39.2, 51.2, 46.3, 49.9, 42.9,
+75.3, 53.1, 48.8, 58.8, 42.2\}.
+\]
+
+\begin{enumerate}[label=\alph*)]
+\item Estimate the sample mean and sample standard deviation, as well as
+the median and the median absolute deviation (MAD).
+\item Using robust scores, are there any outliers?  If so, identify them,
+remove them from the data, and redo the answers from (a).
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Walter, a youngster growing up in rural North Dakota, spends two winter weeks in bed with chicken pox.
+To stave off boredom he decides to measure the lowest temperatures (in \DS C) reached during each night.
+He obtains the following series of 14 measurements:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|} \hline
+	-51.32 & -49.34 & -42.41 & -56.72 & -45.92 & -50.33 & -47.09 \\  \hline
+	-53.39 & -24.23 & -27.41 & -44.21 & -48.08 & -39.08 & -54.02 \\  \hline
+	\end{tabular}
+\end{table}
+\begin{enumerate}[label=\alph*)]
+\item Estimate the sample mean and sample standard deviation, as well as
+the median and the median absolute deviation (MAD).
+\item Using robust scores, are there any outlying data that suggest 
+Walter's fever may have affected his measurements?  If so, identify them,
+remove them from the data, and redo your analysis.
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+The data set \emph{depths.txt} contains the bathymetric depths (in meters) for part of an ocean basin.
+\begin{enumerate}[label=\alph*)]
+\item Find the mean depth, the standard deviation, and the 95\% confidence interval on the mean depth.
+\item What is the probability that a random depth measurement will be shallower than $-4000$m?
+\item Determine the median and median absolute deviation (MAD).
+\item Given the criteria for outliers ($|z_i| > 2.5$) using the median and MAD, find the robust confidence limits in meters.
+How many measurements are considered outliers?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Previous sampling of the salinity in tap water from a local water company has
+revealed that the salinity content is well described as following a normal distribution,
+with $\mu = 10$ ppm and $\sigma = 5$ ppm.  When randomly testing households in this
+neighborhood for the salinity of the drinking water, what is the probability that
+the salinity will be:
+\begin{enumerate}[label=\alph*)]
+\item Less than 4 ppm?
+\item Between 8 and 16 ppm?
+\end{enumerate}
+Make sure to illustrate the two cases graphically.
+\end{problem}
+
+\begin{problem}
+In Texas, past experience has shown that, on average, only one in 10 exploratory wells drilled discovers oil.
+Let $n$ be the number of holes drilled until the first success (i.e., oil is struck).  Assume that
+the exploratory wells represent independent events.
+\begin{enumerate}[label=\alph*)]
+\item Find $P(1)$, $P(2)$, and $P(3)$.
+\item Derive a formula for $P(n)$.
+\item Plot $P(n)$ for $n = 1$ to $30$.
+\item Find $P_c(n)$, the cumulative probability that we will
+find oil in $n$ \emph{or less} tries, and plot it.
+\item How many holes should we expect to drill
+in order to have a 90\%  probability of finding oil?
+\end{enumerate}
+\end{problem}

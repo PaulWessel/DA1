@@ -1,0 +1,138 @@
+% $Id: DA1_Preface.tex 630 2018-07-28 20:59:29Z pwessel $
+%
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+I initially developed this book in support of an introductory course in statistics
+and data analysis taken by many of our undergraduate majors and some graduate students in the Department of
+Earth Sciences in the School of Ocean and Earth Science and Technology at
+the University of Hawaii at M\={a}noa.  Over the years, I have
+expanded them to support undergraduate students in the broad area of the natural sciences
+anywhere.  There were several goals I tried to meet in designing this book:
+\begin{enumerate}
+\item I wanted to introduce students of science and environmental engineering to some
+   of the most common methods used in the examination and analysis of simple data sets
+   encountered in the sciences.  By learning these techniques your data analysis tool
+   chest will expand and prepare you for further learning when you need it.
+\item I sought to fill in many of the intermediate steps in derivations that traditional
+   textbooks will skip.  Thus, it should be much easier to trace these derivations since there
+   are no annoying messages of the type ``the derivation has been left as an exercise for the reader.''
+   The more elaborate derivations also help potential instructors using this book to present such
+   material at the level of detail they require.
+\item I wished the book to be affordable.  Publishing it as a digital book directly by the author
+   means it costs a fraction of a traditional, professionally produced textbook.  This method also enables timely updates
+   and easy corrections, at no extra cost to the purchaser.  Of course, the flip-side of this decision
+   is that the book has not benefited from the help of professional editors and graphics artists
+   (but it \emph{has} been extensively reviewed by scientists familiar with the methodologies).
+   In the end, the user will have to decide if the benefits outweigh any real or perceived drawbacks.
+\item I hoped to make the book suitable for introductory college level courses in data analysis and statistics, with
+   examples of analysis using real data sets.  Thus, I have added a
+   variety of assignments at the end of each chapter, for which data sets are available from my website.
+\end{enumerate}
+
+As a science student or curious bystander, why should you consider this book?  While many
+general answers may be given, including the relatively low cost, I believe some are particularly relevant:
+
+\begin{enumerate}
+\item The natural and environmental sciences have become very data intensive, with huge data sets readily accessible
+   over the Internet or being collected by improved instrumentation capable of high sampling rates.  Consequently, old-fashioned
+   hand analyses are no longer practical undertakings.
+\item The job market requires quantitative skills, in particular for those pursuing a career in the natural
+   or environmental sciences.  You will be dead in the water if you cannot juggle data to some extent.
+\item All sciences need reproducibility of analyses for the testing of relevant hypotheses.
+   This concept goes to the heart of what science and the scientific method are all about.
+\item The increased sophistication of newer instruments is transforming visual
+   characterizations into numbers that need to be analyzed quantitatively, hence new methods of analyses
+   continue to be developed.
+\end{enumerate}
+
+What is the target audience for this book?  There are numerous candidates,
+and I recommend the book specifically to:
+
+\begin{enumerate}
+\item Anyone ever planning to analyze data of any kind. This is of course a pretty broad statement but I believe it is true.
+   Once you get into the habit of thinking and working quantitatively, there is no going back.
+\item Anyone who wants to be prepared for a changing job market, considering that you are competing for
+   opportunities with other students who likely have been exposed to similar material.
+\item Budding scientists, engineers and technical personnel, especially those fearful of mathematics. Many students
+   tend to avoid courses and treatises that expose them to mathematics, thus limiting what they
+   can achieve as scientists.  I hope, by showing all the steps in the derivations and presenting the coupling of
+   mathematics to data sets, that this book will help alleviate such fears.
+\end{enumerate}
+
+The main purpose of this book is to prepare you for facing and dealing with data, their limitations and
+the methods of analysis that may be most suitable for different types of data.  I hope to achieve that goal by
+a multiprong series of attacks:
+
+\begin{enumerate}
+\item Expose you to many different data analysis techniques and thus broaden your horizon. (No book can cover
+   everything but being aware of other approaches allows you to pursue alternative
+methodologies when the need arises.)
+\item Make you appreciate why you should fully understand a technique's nuts and bolts before running a ``black
+   box'' operator, such as most typical software packages, on your data.
+\item Except for the simplest problems, instill a preference for using computers to solve data
+   analysis problems, since many data sets may simply be too large and too numerous to process manually.
+\item Make you comfortable with applied mathematics at an intermediate level.  The mathematics we employ
+   in this book is mostly algebra, trigonometry and calculus, with an introduction to matrix algebra.
+   There are numerous data analysis techniques that are simply exercises in applied matrix algebra.
+\item Make you comfortable with the tools of the trade, such as MATLAB, R, Python, or Octave for your data analysis needs
+   rather than depending on ``business software'', such a spreadsheets.
+   However, this book is not a recipe collection of algorithms in these languages, but rather presents equations and the
+   assumptions used to pursue specific analysis goals or tests.  The author's data analysis website
+   (\url{http://www.soest.hawaii.edu/pwessel/DA}) contains links to all the
+   data sets used in this book as well as any MATLAB example code discussed. (Additional modules may be added over time.)
+\end{enumerate}
+
+Finally, data analysis is a very broad subject and I am certainly not an expert in all the available
+techniques. In fact, I am probably not an expert in any of them [:-(].  My goal is to give you a flavor
+of what is available, show you how to find out more, and enable you to make sensible decisions on how
+to approach and analyze your data.
+
+This book is based on my collection of course notes that was inspired by several sources.  Here are the ones I have
+found most useful:
+\begin{enumerate}
+\item Course notes from a class in data analysis at Columbia University during my graduate school days, developed by Doug Martinson
+	   at Lamont-Doherty Earth Observatory, provided a clear introduction to spectral analysis.  His willingness to
+	let me use some of his early material in this book is gratefully acknowledged.
+\item John C. Davis' textbook, \emph{Statistics and Data Analysis in Geology, 3rd edition} available from John Wiley and Sons.
+   His textbook has numerous useful problems complete with data sets that are now in the public domain
+   (\url{http://www.kgs.ku.edu/Mathgeo/Books/Stat}). A few of these are used in this book.
+\item \emph{Exploratory Data Analysis} by John W. Tukey, available from Addison-Wesley Publishing Company, outlines the basics
+   of exploratory data analysis.
+\item \emph{An Introduction to Error Analysis} by John R. Taylor, available from University Science Books, reviews the
+   various rules for the propagation of errors in compound expressions.
+\item \emph{Numerical Recipes} by Press et al., available from Cambridge University Press in multiple language flavors,
+   clarifies many statistical procedures with a dose of nerd humor.
+\item \emph{Robust Regression and Outlier Detection} by Peter. J. Rousseeuw and Annick M. Leroy, available from John Wiley and Sons, is a classic
+   for understanding why using robust methods is imperative when dealing with actual data.
+\item \emph{Applied Regression Analysis} by Norman R. Draper and Harry Smith, also available from John Wiley and Sons, deals with
+   conventional least squares regressions.
+\item \emph{Developments in Geomathematics} by Frederik P. Agterberg, available from Elsevier, deals with
+   a variety of topics, including multiple regressions.
+\item My cumulative experience with analyzing marine geophysical and plate kinematic data since 1985.
+\end{enumerate}
+
+Depending on the time available, this book may cover more material than can be presented in a single course.  However,
+many of the topics may be of interest to you at a later stage, hence I hope the book may serve a valuable
+purpose as a reference.
+
+I am grateful to my SOEST colleagues, past and present (Fred Duennebier, Robert Dunn, Neil Frazier,
+Garrett Ito, Julia Morgan, and Cecily Wolfe) who have used these notes when teaching
+courses and provided me with valuable suggestions and error corrections.  Likewise, numerous former students have
+also provided valuable feedback by pointing out typographical errors in the equations, odd or foul language,
+stale jokes, or confusing illustrations.  Obviously, I alone am to blame for any remaining errors.
+
+I am also grateful to our (now retired) secretary, Evelyn Norris,
+who taught herself enough \LaTeX\ to help typeset large portions of this manuscript from printouts of clumsy Microsoft Word documents
+with obsolete equation editing plug-ins.  As software come and go, \LaTeX\ remains solid and postprocessing tools allow
+for new output formats, such as the digital version you are reading.  All illustrations are data-driven, original creations using the
+Generic Mapping Tools (GMT; \url{http://gmt.soest.hawaii.edu}) via individual scripts that produce
+publication-quality \emph{PostScript} documents.  These files are then converted to PDF (via \emph{Ghostscript}).  The entire
+processing workflow from \LaTeX\ and GMT source code to PDF is automated.
+
+Because it is relatively easy to update digital books as frequently as required, I hope to hear from you should you find any remaining errors
+in the text or graphics.  By bringing them to my attention (\url{mailto:pwessel@hawaii.edu})
+they can be corrected and updated as soon as possible.  Thank you for your interest in this book.
+
+\vspace{2\baselineskip}
+Paul Wessel, \DAmonth\ \DAyear.

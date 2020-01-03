@@ -1,0 +1,1120 @@
+%  $Id: DA1_Chap7.tex 670 2018-12-20 20:37:20Z pwessel $
+%
+\chapter{SEQUENCES AND SERIES ANALYSIS}
+\label{ch:sequences}
+\epigraph{``If you can't explain it simply, you don't understand it well enough.''}{\textit{Albert Einstein, Physicist}}
+\index{Sequence}
+\index{Data!sequence}
+	The geosciences are replete with observational data that can be viewed as ordered sequences.  
+Their single most important property is that they form a \emph{sequence}, and the \emph{positions} where 
+data points occur within the sequence are important.  Contrast that arrangement to a set of repeated 
+measurements of some quantity, say ten determinations of sandstone densities.  Our goal of 
+determining the average density is not affected by how we order our data --- the order in the 
+sequence is not important.  Sequential data therefore often consist of series with \emph{pairs} of 
+variables:  The first indicates the position in the sequence, the other gives the observation.  A 
+special family of such sequences consists of those in which an observation is given as a function of \emph{time}.  
+The analysis of such data is traditionally called \emph{time series analysis}.  In this book we will 
+extend these techniques to include ``space series'' as well, i.e., time and distance will be 
+considered interchangeable, and we will discuss such data and the methods used to analyze them at
+length in Chapter~\ref{cg:spectralanallysis}.
+ 
+      We can think of many examples of natural data that are time --- or space ---
+sequences, e.g., a series of temperatures as a function of time, tide gauge readings taken over  a 
+long period, topography measured along a transect, and much more.  While such data sets will be our 
+main concern, we should not forget that much sequential data do not have the format 
+of a ``time''-series.  We might be considering a stratigraphic sequence consisting of the lithologic 
+states encountered in a sedimentary succession.  The stratigraphy might show a cyclothem of 
+shale--sandstone--shale--sandstone--shale--coal, etc., going from top to bottom.  We would like to 
+investigate the significance of the succession, but cannot put a meaningful scale on the sequence.  
+It is clear that the succession of lithologies represents changes over time, but we have no way of 
+estimating the time scale.  Could we use thickness as a proxy for time?  Thickness is certainly related 
+to time through sedimentation rates, but these are known to vary.  Additional complications include 
+hard-to-estimate effects like compaction and erosion.  Furthermore, the thicknesses are likely to change 
+significantly from location to location.  Thus, if we use thickness or any other measure of down-hole
+position it may obscure the examination of the \emph{successions}, which is the primary objective of interest. 
+For example, consider an observation that sandstone is the second state and coal the sixth state
+in a sequence.  Clearly, this relationship has no meaning that can be 
+expressed numerically, e.g., 6th is not $3 \times$ ``second''.  Obviously, we have here a problem of a 
+different nature than the usual time-series mentioned above.  
+
+	Yet another type of sequence is a series of events.  Such data may be historical records of 
+earthquakes in California, volcanic eruptions of Mauna Loa, or reversals of the Earth's magnetic field.
+In these cases, the data simply consist of the time interval between events or a cumulative length of time over
+which the events occurred, and special analysis techniques are required.
+
+Thus, the nature of the sequential data and the type of sequence determine what questions we 
+may hope to answer by subjecting our data to analysis.  The purpose of any of these methods is to 
+facilitate answers to questions such as these:
+\begin{enumerate}
+\item	Are the data random, or do they exhibit a trend or pattern?
+	\item	If there is a trend, what form does it have?
+	\item	Are there any periodicities in the data?
+	\item	What can be estimated or predicted from the data?
+	\item	Are there other questions specific to the situation?
+\end{enumerate}
+
+	We shall see that while we often are concerned with the analysis of a single sequence of data, there 
+are many instances in which we want to compare two or more sequences.  One obvious example 
+to geologists is \emph{stratigraphic correlation}, based on either lithologic sections or well log data.  Sequence 
+correlation may speed up routine correlations and detect subtle correlations which may be hard to 
+detect by eye.
+
+The methods for comparing two or more sequences can be grouped into two 
+broad classes.
+In the first, the exact position in a sequence matters, and a correlation is only 
+significant if it takes place at the correct location.  One example is the comparison of an X-ray 
+diffraction chart with standard charts in attempts to recognize minerals.  The comparison can 
+only take place at certain angles.  If the shape of a spectral peak centered on 20$^\circ$ in the data looks 
+exactly like the bump at 30$^\circ$ in the standard chart it is of no significance: both peaks would have 
+to occur at the same angle.
+
+     In the other class of methods the absolute position is not important, only relative position 
+matters.  These processes, like \emph{cross-correlation}, are very similar to the mental process of 
+geologic correlation.  However, these methods are limited because they cannot take stretching 
+and compression of the scale into account.  Nevertheless, in many problems there is no distortion and we may 
+use such techniques with some success.
+
+\section{Markov Chains}
+\index{Markov chains|(}
+
+As mentioned above, many geological experiments result in data sequences consisting of 
+ordered successions of \emph{mutually exclusive} states.  We already mentioned the lithology variations 
+in stratigraphic sections.  Other examples include:
+\begin{itemize}
+\item	The changes in minerals across a line in a thin-section.
+\item	Drill holes through zoned ore bodies.
+\end{itemize}
+The observations may be obtained at evenly spaced intervals, or we may simply register the 
+position when a change of state occurs.  In the first case we would expect repeated states; the 
+latter will obviously not contain such runs since we only record changes of state. 
+
+     Such data may be subjected to \emph{cross-association} and/or \emph{auto-association} techniques, but right 
+now we are primarily concerned with the nature of transitions rather than the relative positions of 
+states in the sequence.  Therefore we will, for the moment, pay less attention to the positions of observations 
+within the succession and instead concentrate on acquiring information about the \emph{tendency} 
+of one state to follow another.
+\begin{example}
+\PSfig[H]{Fig1_lithology}{Example of a stratigraphic section with four separate lithologies.
+Assessing the lithology at every 1-foot interval down the section resulted in 62 states and thus we recorded 61 transitions of state.}
+
+     Let us look at an example of a stratigraphic section.  Here, we have determined the lithology 
+at one foot intervals down a stratigraphic section.  This exercise resulted in a sequence of states.
+	We find four mutually exclusive states: A) sandstone, B) limestone, C) shale, and 
+D) coal.  There are 62 observed states, hence 61 transitions.  We tabulate the transitions in a 
+4 x 4 matrix, since we have four possible transitions for each of the four states.  E.g., from sandstone 
+(A) we may change to A, B, C, or D, since repeated states may occur.  The \emph{transition frequency 
+matrix} $\mathbf{A}$ given in Table~\ref{tbl:markov1} expresses all the observed possibilities.
+\index{Transition frequency matrix}
+\index{Matrix!transition frequency}
+\begin{table}[h]
+\center
+\begin{tabular}{|c|r|c|r|c|c|}
+\hline
+ & \bf{A} & \bf{B} & \bf{C} & \bf{D} & \bf{Row Total}\\ \hline
+\bf{A} & 17 & 0 & 5 & 0 & 22 \\ \hline
+\bf{B} & 0 & 5 & 2 & 0 & \, 7 \\ \hline
+\bf{C} & 5 & 2 & 17 & 3 & 27 \\ \hline
+\bf{D} & 0 & 0 & 3 & 2 & \, 5 \\ \hline
+\bf{Column total} & 22 & 7 & 27 & 5 & 61 \\ \hline
+\end{tabular} 
+\caption{Transition frequency matrix for the transitions seen in Figure~\ref{fig:Fig1_lithology}.}
+\label{tbl:markov1}
+\end{table}
+We can now see that element $a_{ij}$ reads ``number of transitions from state $i$ to state $j$''.
+For our section, the matrix is symmetric.  However, in general this will not be the case, so $a_{ij} \neq   a_{ji}$.
+
+	The tendency for one state to succeed another can be made clearer by converting the 
+frequencies to percentages or fractions.  We do this by dividing each row by its row total.  These 
+percentages may be considered conditional probabilities in that they measure the probability 
+that state $j$ will follow \emph{given} that the present state is $i$, which we write as
+$P(j|i)$ or $P(i \rightarrow  j)$.  The resulting \emph{transition probability matrix} $\mathbf{P}$
+is given by Table~\ref{tbl:markov2} and graphically
+illustrated in Figure~\ref{fig:Fig1_Markov}.
+\index{Transition probability matrix}
+\index{Matrix!transition probability}
+\begin{table}[h]
+\center
+\begin{tabular}{|c|l|l|l|l|}
+\hline
+\bf{From/To} & \ \ \bf{A}  & \  \bf{B}  & \ \ \bf{C}  & \  \bf{D} \\ \hline
+\bf{A} & 0.77 & 0.00 & 0.23 & 0.00 \\ \hline
+\bf{B} & 0.00 & 0.71 & 0.29 & 0.00 \\ \hline
+\bf{C} & 0.19 & 0.07 & 0.63 & 0.11 \\ \hline
+\bf{D} & 0.00 & 0.00 & 0.60 & 0.40 \\ \hline
+\end{tabular}
+\caption{The transition probability matrix for the transitions in Table~\ref{tbl:markov1}.}
+\label{tbl:markov2}
+\end{table}
+
+\PSfig[h]{Fig1_Markov}{A cyclic diagram may be used to represent the frequencies of transition between
+the various lithologies.}
+
+This operation will usually result in an asymmetrical matrix.  If we divide the row totals (the 
+counts) by the grand total number of counts we find the relative \emph{proportions} of the four lithologies.  
+This is called the marginal or \emph{fixed probability vector}:
+\index{Marginal probability vector}
+\index{Fixed probability vector}
+\index{Vector!fixed probability}
+\index{Vector!marginal probability}
+\begin{equation}
+\mathbf{f} = 
+\left [ \begin{array}{cccc}
+0.36 & 0.12 & 0.44 & 0.08
+\end{array}
+\right ].
+\end{equation}
+You may remember (if not, brush up on the probability theory in Chapter~\ref{ch:basics}) that the joint probability of two events 
+$A$ and $B$ is
+\begin{equation}
+P(A \cap B) = P(B|A)\cdot P(A),
+\end{equation}
+which we can rearrange to give
+\begin{equation}
+P(B|A) = \frac{P(A \cap B)}{P(A)}.
+\end{equation}
+The probability that state $B$ will follow $A$ is the probability that both states $A$ and $B$ will occur,
+divided by the probability that $A$ occurs.  Now, if $A$ and $B$ are independent states, then (e.g., \ref{eq:jointindependent})
+\begin{equation}
+P(A \cap B) = P(A) \cdot P(B).
+\end{equation}
+Therefore, if there are no dependencies then the probability that $B$ will follow $A$ is simply the 
+probability that $B$ occurs.  This must hold for all independent states, so
+\begin{equation}
+P(B|A) = P(B|B)  = P(B|C) = P(B|D) = P(B).
+\end{equation}
+This result provides us with a method to predict what the transition probability matrix should look 
+like if the occurrence of a lithologic state at one point were completely independent of the 
+lithology at the underlying point.  Naturally, that matrix will have rows matching the fixed 
+probability vector.  So, for our stratigraphic example, we find the expected matrix to be
+$$
+\begin{array}
+{|c|c|c|c|c|} \hline
+ & \bf{A} & \bf{B} & \bf{C} & \bf{D} \\ \hline
+\bf{A} & 0.36 & 0.12 & 0.44 & 0.08  \\ \hline
+\bf{B} & 0.36 & 0.12 & 0.44 & 0.08 \\ \hline
+\bf{C} & 0.36 & 0.12 & 0.44 &  0.08 \\ \hline
+\bf{D} &  0.36 & 0.12 & 0.44 &  0.08\\ \hline
+\end{array}
+$$
+We are now in the position to compare the observed transition frequencies to the predicted frequencies 
+and test the null hypothesis that all lithologic states are independent of the state immediately below it.  
+To do so we use a $\chi^2$-test after first converting the expected percentages back to counts or frequencies.  
+We find
+\begin{equation}
+\left [\begin{array}{cccc}
+22 &  &  & \\
+ & 7 &  &  \\
+ &  & 27 &  \\ 
+ &  &  & 5 \end{array}
+\right ] \cdot
+\left [\begin{array}{cccc}
+0.36 & 0.12 & 0.44 & 0.08\\
+0.36 & 0.12 & 0.44 & 0.08 \\
+0.36 & 0.12 & 0.44 & 0.08 \\ 
+0.36 & 0.12 & 0.44 & 0.08 \end{array}
+\right ] 
+= 
+\left [ \begin{array}{rcrc} 
+7.9 & 2.6 & 9.7 & 1.8 \\
+2.5 & 0.8 & 3.1 & 0.6 \\
+9.7 & 3.2 & 11.9 & 2.2 \\
+1.8 & 0.6 & 2.2 & 0.4 \end{array}
+\right ].
+\label{eq:markov_E}
+\end{equation}
+The test statistic is, as usual, given by 
+\index{Test!$\chi^2$ (``chi-squared'')}
+\index{Test!chi-squared ($\chi^2$)}
+\index{$\chi^2$ test (``chi-squared'')}
+\index{Chi-squared test ($\chi^2$)}
+\begin{equation}
+\chi^2 = \sum^n_{i=1} \frac{(O_i - E_i)^2}{E_i},
+\end{equation}
+where $O_i$ is the observed number of transitions and $E_i$ is the expectation for each transition, as given by (\ref{eq:markov_E}).  The 
+degrees of freedom, $\nu$, is $(m-1) \cdot (m-1)$, with $m = 4$.  One degree of freedom is lost from each row and column 
+because all rows of $\mathbf{P}$ must sum to 1 and we computed $\mathbf{f}$ from the row sums.  
+
+     For the $\chi^2$-test to be valid, each category should have an expected value of at least 5.  Several 
+of our categories do not fulfill that criteria.  Because we only are testing whether the transition 
+frequencies are independent (random) or not, we may combine some categories to raise the 
+expected values above 5.  Hence, we use the four largest categories $A\rightarrow A, A\rightarrow C, C\rightarrow A, C\rightarrow C$ and
+the combinations $B\rightarrow$ any, $D\rightarrow$ any, and $[ A\rightarrow B, A\rightarrow D, C\rightarrow B, C\rightarrow D ]$.  We find $\chi^2$ to be 
+\begin{equation}
+\chi^2 = \begin{array}{c}
+\displaystyle \frac{(17 - 7.9)^2}{7.9} +  \frac{(5 - 9.7)^2}{9.7} + \frac{(5-9.7)^2}{9.7} +   \frac{(17 - 11.9)^2}{11.9} + \\*[2ex]
+\displaystyle \frac{(7-7.0)^2}{7.0} +  \frac{(5-5.0)^2}{5.0} +    \frac{(5-9.8)^2}{9.8} = 19.57.
+\end{array}
+\end{equation}
+From Table~\ref{tbl:Critical_chi2} we find the critical value of $\chi^2$ with $\nu = 9$ and a 5\% level of significance to be 16.92.  
+Since our computed value exceeds the critical value, we must reject the hypothesis that 
+successive states are independent.  It appears there is a significant tendency for certain states to 
+be followed by certain other states.  
+\end{example}
+
+     Sequences in which the state at one point is \emph{partially} dependent, in a probabilistic sense, on 
+the previous state is called a \emph{Markov chain}.  It is intermediate between deterministic (fully 
+predictable) and completely random sequences.  The section we examined has first-order 
+Markov properties.  This means there is statistical dependency between points and their 
+immediate predecessor. 
+
+Higher-order Markov chains can exist as well. We can use the transition probability matrix to predict what the lithology might be \emph{two} feet 
+above a point.  For example, we might want to fill in the missing part of a section in the 
+statistically most reasonable way.  Let us say we start in state B (limestone).  The probabilities of 
+reaching the next state is then given as 
+\begin{equation}
+\begin{array}{clr}
+B \rightarrow A & \mbox{(sandstone)}	& 	0\%  \\
+B \rightarrow B & \mbox{(limestone)}	&	71\% \\
+B \rightarrow C & \mbox{(shale)}	&	29\% \\
+B \rightarrow D & \mbox{(coal)}		& 	0\%
+\end{array}
+\end{equation}
+Let us pretend that the next state is shale (C). Then, reaching the following state would be associated with the probabilities
+\begin{equation}
+\begin{array}{llr}
+C \rightarrow A & \mbox{(sandstone)}	& 	19\% \\
+C \rightarrow B & \mbox{(limestone)}	& 	7\%  \\
+C \rightarrow C & \mbox{(shale)}	& 	63\% \\
+C \rightarrow D & \mbox{(coal)}		& 	11\%
+\end{array}
+\end{equation}
+Therefore, the probability that the sequence will be limestone $\rightarrow$ shale $\rightarrow$ limestone is 
+\begin{equation}
+P(B \rightarrow C) \cdot P (C \rightarrow B) = 29\% \cdot 7\% = 2\%.
+\end{equation}
+However, we can also reach limestone in two steps by way of the limestone $\rightarrow$ limestone $\rightarrow$
+limestone path.  Now
+\begin{equation}
+P (B \rightarrow B) \cdot P (B \rightarrow B) = 71\% \cdot 71\% = 50\%.
+\end{equation}
+Since $B \rightarrow
+A$  and $B\rightarrow D$ have zero probability, we can state that the probability of finding 
+limestone two steps up above limestone, regardless of intervening lithology, is the sum 
+\begin{equation}
+P(B \rightarrow ? \rightarrow B) = P(B \rightarrow B \rightarrow B) + P(B \rightarrow C \rightarrow B) = 50\% + 2\% = 52\%.
+\end{equation}
+One can use the same approach to calculate the probability of any lithology two steps up, but 
+fortunately there is a more efficient way: These multiplications and additions are exactly those that 
+define matrix multiplication.  Multiplying the transition matrix by itself (i.e., squaring it) yields
+$\mathbf{P}^2$, which describes the \emph{second-order} Markov properties of the stratigraphic section:
+\begin{equation}
+\left [ \begin{array}{rrrr}
+0.77 & 0 & 0.23 & 0 \\
+0 & 0.71 & 0.29 & 0 \\
+0.19 & 0.07 & 0.63 & 0.11 \\
+0 & 0 & 0.60 & 0.40 \end{array} \right ]^2 = \left [ \begin{array}{rrrr}
+0.64 & 0.02 & 0.32 & 0.02 \\
+0.06 & 0.52 & 0.39 & 0.03\\
+0.27 & 0.09 & 0.53 & 0.11 \\
+0.11 & 0.04 & 0.62 & 0.23
+\end{array} \right ]
+\end{equation}
+Note that again the rows have unit sums.  If we wanted to know whether the second-order Markov 
+properties are significant we convert the frequency percentages to counts by multiplying $\mathbf{P}^2$
+by the observed row totals again.  However, this time the product will approximate the second-order
+transition we would have likely observed had we measured them directly from the data.  We find
+\begin{equation}
+\left[ \begin{array}{rrrr}
+14.1 & 0.4 & 7.0 & 0.6\\
+0.4 & 3.7 & 2.7 & 0.2 \\
+7.1 & 2.5 & 14.2 & 3.1 \\
+0.6 & 0.2 & 3.1 & 1.1
+\end{array} \right ]
+\end{equation}
+and carry out another 
+$\chi^2$-test.  This time we obtain $\chi^2 = 7.73$ (critical value is still 16.92 since the expectations
+are independent of the step length).  Hence, we must conclude that there are no 
+significant second-order Markov properties present and that the lithology two steps away appears to 
+be a random selection given the volume distribution of the rock types.
+\index{Markov chains|)}
+
+\section{Embedded Markov Chains}
+\index{Embedded Markov chains|(}
+\index{Markov chains!embedded|(}
+\label{sec:embmarkov}
+
+	The choice of a sampling interval introduces an arbitrary element into our sequence analysis.  
+This can be avoided if we only record the transitions of state whenever they occur.  It follows 
+that the transition frequency matrix will have zeros along the diagonal since no state can follow 
+itself.  Sequences which cannot contain repeated states are called \emph{embedded Markov chains}.
+\begin{example}
+	Let us look at a particular example from a well drilled through a sedimentary delta plain in
+Scotland.  We have five lithologies: A (mudstone), B (shale), C (siltstone), D 
+(sandstone), and E (coal).  The analysis yields
+\begin{equation}
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0x
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaqbamqabmGaaaqaaaqaauaadeqabuaaaa
+% qaaiaadgeaaeaacaWGcbaabaGaam4qaaqaaiaadseaaeaacaWGfbaa
+% aaqaauaadeqafeaaaaqaaiaadgeaaeaacaWGcbaabaGaam4qaaqaai
+% aadseaaeaacaWGfbaaaaqaamaadmaabaqbamqabuqbaaaaaeaacaaI
+% WaaabaGaaGymaiaaigdaaeaacaaIZaGaaGOnaaqaaiaaikdacaaIXa
+% aabaGaaGynaiaaikdaaeaacaaIYaGaaGioaaqaaiaaicdaaeaacaaI
+% 0aaabaGaaGinaaqaaiaaicdaaeaacaaIZaGaaGinaaqaaiaaikdaae
+% aacaaIWaaabaGaaGinaiaaiwdaaeaacaaIXaGaaG4maaqaaiaaikda
+% caaI5aaabaGaaGymaaqaaiaaisdacaaI1aaabaGaaGimaaqaaiaaio
+% daaeaacaaIYaGaaGioaaqaaiaaikdacaaIZaaabaGaaGyoaaqaaiaa
+% iIdaaeaacaaIWaaaaaGaay5waiaaw2faaaqaaaqaauaadeqabuaaaa
+% qaaaqaaaqaaaqaaaqaaaaaaaqbamqabmqaaaqaaaqaauaadeqafeaa
+% aaqaaiabg2da9aqaaiabg2da9aqaaiabg2da9aqaaiabg2da9aqaai
+% abg2da9aaaaeaacqGH9aqpaaqbamqabmqaaaqaaiabfo6atbqaauaa
+% deqafeaaaaqaaiaaigdacaaIYaGaaGimaaqaaiaaiodacaaI2aaaba
+% GaaGyoaiaaisdaaeaacaaI3aGaaGioaaqaaiaaiAdacaaI4aaaaaqa
+% amaanaaabaGaaG4maiaaiMdacaaI2aaaaaaaaaa!662C!
+\begin{array}{*{20}{c}}
+{}&{\begin{array}{*{20}{c}}
+A&B&C&D&E
+\end{array}}\\
+{\begin{array}{*{20}{c}}
+A\\
+B\\
+C\\
+D\\
+E
+\end{array}}&{\left[ {\begin{array}{*{20}{c}}
+0&{11}&{36}&{21}&{52}\\
+{28}&0&4&4&0\\
+{34}&2&0&{45}&{13}\\
+{29}&1&{45}&0&3\\
+{28}&{23}&9&8&0
+\end{array}} \right]}\\
+{}&{\begin{array}{*{20}{c}}
+{}&{}&{}&{}&{}
+\end{array}}
+\end{array}\begin{array}{*{20}{c}}
+{}\\
+{\begin{array}{*{20}{c}}
+ = \\
+ = \\
+ = \\
+ = \\
+ = 
+\end{array}}\\
+ = 
+\end{array}\begin{array}{*{20}{c}}
+\Sigma \\
+{\begin{array}{*{20}{c}}
+{120}\\
+{36}\\
+{94}\\
+{78}\\
+{68}
+\end{array}}\\
+{\overline {396} }
+\end{array}
+\end{equation}
+The fixed probability vector is found by dividing the row totals by the grand total:
+\begin{equation}
+\mathbf{\mathbf{f}} = [0.30 \quad    0.09 \quad    0.24 \quad   0.20 \quad   0.17].
+\end{equation}
+To test whether the observed sequence has Markovian properties or independent states we 
+may use the $\chi^2$-test in a similar way to what we did above.  The problem is that we cannot use 
+the fixed vector to estimate the independent transition frequency matrix since that results in 
+nonzero diagonal terms, which is forbidden.  We must therefore use a different method to 
+estimate the necessary matrix.
+
+	Imagine our sequence is a \emph{censored} sample from a sequence where repeats \emph{may} occur.  Its 
+transition matrix would be identical to the one we observed except it would have nonzero 
+diagonal terms.  If we converted this matrix to probabilities and raised it to a high power, we 
+would find the transition probability matrix for a sequence with independent states.  We could 
+then discard the diagonal terms, adjust the off-diagonal terms (to ensure they sum to 1), and end up with $P$ 
+for an embedded sequence of independent states.  This result is achieved by trial-and-error 
+since we do not know the number of repeated states in the envisioned sequence.  We want to find 
+diagonal entries which do not change when the matrix is raised to higher powers.  An iterative scheme is used:
+\begin{enumerate}
+\item	Place arbitrary large estimates (say 1000) into the diagonal positions in the observed 
+matrix.
+\item	Divide row totals by the grand total to get diagonal probabilities.
+\item	Calculate new diagonal estimates by multiplying the diagonal probabilities from step 2 by the 
+latest row sums.
+\item	Repeat process steps (2) and (3) until the diagonal terms remain unchanged, typically after 
+10--20 iterations.
+\end{enumerate}
+We will try this procedure on the Scottish data.  For our matrix, we try inserting 1000 first:
+\begin{equation}
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0x
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaqbamqabiqaaaqaamaadmaabaqbamqabu
+% qbaaaaaeaacaaIXaGaaGimaiaaicdacaaIWaaabaGaaGymaiaaigda
+% aeaacaaIZaGaaGOnaaqaaiaaikdacaaIXaaabaGaaGynaiaaikdaae
+% aacaaIYaGaaGioaaqaaiaaigdacaaIWaGaaGimaiaaicdaaeaacaaI
+% 0aaabaGaaGinaaqaaiaaicdaaeaacaaIZaGaaGinaaqaaiaaikdaae
+% aacaaIXaGaaGimaiaaicdacaaIWaaabaGaaGinaiaaiwdaaeaacaaI
+% XaGaaG4maaqaaiaaikdacaaI5aaabaGaaGymaaqaaiaaisdacaaI1a
+% aabaGaaGymaiaaicdacaaIWaGaaGimaaqaaiaaiodaaeaacaaIYaGa
+% aGioaaqaaiaaikdacaaIZaaabaGaaGyoaaqaaiaaiIdaaeaacaaIXa
+% GaaGimaiaaicdacaaIWaaaaaGaay5waiaaw2faaaqaauaadeqabuaa
+% aaqaaaqaaaqaaaqaaaqaaaaaaaqbamqabiqaaaqaauaadeqafeaaaa
+% qaaiabg2da9aqaaiabg2da9aqaaiabg2da9aqaaiabg2da9aqaaiab
+% g2da9aaaaeaafaWabeqabaaabaGaeyypa0daaaaafaWabeGabaaaba
+% qbamqabuqaaaaabaGaaGymaiaaigdacaaIYaGaaGimaaqaaiaaigda
+% caaIWaGaaG4maiaaiAdaaeaacaaIXaGaaGimaiaaiMdacaaI0aaaba
+% GaaGymaiaaicdacaaI3aGaaGioaaqaaiaaigdacaaIWaGaaGOnaiaa
+% iIdaaaaabaWaa0aaaeaafaWabeqabaaabaGaaGynaiaaiodacaaI5a
+% GaaGOnaaaaaaaaaaaa!6EF7!
+\begin{array}{*{20}{c}}
+{\left[ {\begin{array}{*{20}{c}}
+{1000}&{11}&{36}&{21}&{52}\\
+{28}&{1000}&4&4&0\\
+{34}&2&{1000}&{45}&{13}\\
+{29}&1&{45}&{1000}&3\\
+{28}&{23}&9&8&{1000}
+\end{array}} \right]}\\
+{\begin{array}{*{20}{c}}
+{}&{}&{}&{}&{}
+\end{array}}
+\end{array}\begin{array}{*{20}{c}}
+{\begin{array}{*{20}{c}}
+ = \\
+ = \\
+ = \\
+ = \\
+ = 
+\end{array}}\\
+{\begin{array}{*{20}{c}}
+ = 
+\end{array}}
+\end{array}\begin{array}{*{20}{c}}
+{\begin{array}{*{20}{c}}
+{1120}\\
+{1036}\\
+{1094}\\
+{1078}\\
+{1068}
+\end{array}}\\
+{\overline {\begin{array}{*{20}{c}}
+{5396}
+\end{array}} }
+\end{array}
+\end{equation}
+We next obtain the new diagonal probabilities to be
+\begin{equation}
+\left [ \begin{array}{ccccc}
+0.208 & & & & \\
+& 0.192 & & &\\
+& & 0.203 & & \\
+& & & 0.200 & \\
+& & & & 0.198
+\end{array}
+\right ] .
+\end{equation}
+Step (3) is to update the diagonal elements, hence we find
+\begin{equation}
+% MathType!MTEF!2!1!+-
+% faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
+% 2BSbqefm0B1jxALjharqqtubsr4rNCHbGeaGqiVu0Je9sqqrpepC0x
+% bbL8FesqqrFfpeea0xe9Lq-Jc9vqaqpepm0xbba9pwe9Q8fs0-yqaq
+% pepae9pg0FirpepeKkFr0xfr-xfr-xb9Gqpi0dc9adbaqaaeGaciGa
+% aiaabeqaamaabaabaaGcbaqbamqabiqaaaqaamaadmaabaqbamqabu
+% qbaaaaaeaacaaIYaGaaG4maiaaiodaaeaacaaIXaGaaGymaaqaaiaa
+% iodacaaI2aaabaGaaGOmaiaaigdaaeaacaaI1aGaaGOmaaqaaiaaik
+% dacaaI4aaabaGaaGymaiaaiMdacaaI5aaabaGaaGinaaqaaiaaisda
+% aeaacaaIWaaabaGaaG4maiaaisdaaeaacaaIYaaabaGaaGOmaiaaik
+% dacaaIYaaabaGaaGinaiaaiwdaaeaacaaIXaGaaG4maaqaaiaaikda
+% caaI5aaabaGaaGymaaqaaiaaisdacaaI1aaabaGaaGOmaiaaigdaca
+% aI1aaabaGaaG4maaqaaiaaikdacaaI4aaabaGaaGOmaiaaiodaaeaa
+% caaI5aaabaGaaGioaaqaaiaaikdacaaIXaGaaGOmaaaaaiaawUfaca
+% GLDbaaaeaafaWabeqafaaaaeaaaeaaaeaaaeaaaeaaaaaaauaadeqa
+% ceaaaeaafaWabeqbbaaaaeaacqGH9aqpaeaacqGH9aqpaeaacqGH9a
+% qpaeaacqGH9aqpaeaacqGH9aqpaaaabaqbamqabeqaaaqaaiabg2da
+% 9aaaaaqbamqabiqaaaqaauaadeqafeaaaaqaaiaaiodacaaI1aGaaG
+% 4maaqaaiaaikdacaaIZaGaaGynaaqaaiaaiodacaaIXaGaaGOnaaqa
+% aiaaikdacaaI5aGaaGinaaqaaiaaikdacaaI4aGaaGimaaaaaeaada
+% qdaaqaauaadeqabeaaaeaacaaIXaGaaGinaiaaiEdacaaI4aaaaaaa
+% aaaaaa!67D6!
+\begin{array}{*{20}{c}}
+{\left[ {\begin{array}{*{20}{c}}
+{233}&{11}&{36}&{21}&{52}\\
+{28}&{199}&4&4&0\\
+{34}&2&{222}&{45}&{13}\\
+{29}&1&{45}&{215}&3\\
+{28}&{23}&9&8&{212}
+\end{array}} \right]}\\
+{\begin{array}{*{20}{c}}
+{}&{}&{}&{}&{}
+\end{array}}
+\end{array}\begin{array}{*{20}{c}}
+{\begin{array}{*{20}{c}}
+ = \\
+ = \\
+ = \\
+ = \\
+ = 
+\end{array}}\\
+{\begin{array}{*{20}{c}}
+ = 
+\end{array}}
+\end{array}\begin{array}{*{20}{c}}
+{\begin{array}{*{20}{c}}
+{353}\\
+{235}\\
+{316}\\
+{294}\\
+{280}
+\end{array}}\\
+{\overline {\begin{array}{*{20}{c}}
+{1478}
+\end{array}} }
+\end{array}
+\end{equation}
+Repeating step (2) with the new matrix gives
+\begin{equation}
+\left [ \begin{array}{ccccc}
+0.239 & & & & \\
+& 0.159 & & &\\
+& & 0.214 & & \\
+& & & 0.199 & \\
+& & & & 0.189
+\end{array}
+\right ] ,
+\end{equation}
+and we keep repeating this process until it stabilizes.  In the end we find the marginal probability 
+vector:
+\begin{equation}
+\left [ \begin{array}{ccccc}
+0.335 \\
+& 0.074 \\
+& & 0.235 \\
+& & & 0.181\\
+& & & & 0.155
+\end{array}
+\right ]
+\end{equation}
+with a corresponding grand total of 524.
+
+	Now, because all states are independent in the random case we will test for, the probability 
+that state $j$ will follow state $i$ is simply $P(i \rightarrow j) = P(i) \cdot P(j)$.  This allows us to construct the 
+expected transition probability matrix
+\begin{equation}
+\mathbf{P}_e = \left [ \begin{array}{ccccc}
+0.125 & 0.026 & 0.083 & 0.064 & 0.055 \\
+0.026 & 0.006 & 0.017 & 0.013 & 0.012\\
+0.083 & 0.017 & 0.055 & 0.043 & 0.03 \\
+0.064 & 0.013 & 0.043 & 0.033 & 0.028 \\
+0.055 & 0.012 & 0.036 & 0.028 & 0.024
+\end{array} \right ].
+\end{equation}
+Scaling these probabilities by the grand total gives the expected frequencies
+\begin{equation}
+\mathbf{E} = \left [ \begin{array}{ccccc}
+65.6  & 13.6 & 43.5 & 33.5  & 28.8  \\
+13.6  & 3.1   & 8.9   & 6.8   & 6.3  \\
+43.5  & 8.9   & 28.8 & 22.5  & 18.9 \\
+33.5 & 6.8   & 22.5  &17.3   & 14.7  \\
+28.8  & 6.3  & 18.9  & 14.7 &  12.6 
+\end{array} \right ].
+\end{equation}
+\index{Test!$\chi^2$ (``chi-squared'')}
+\index{Test!chi-squared ($\chi^2$)}
+\index{$\chi^2$ test (``chi-squared'')}
+\index{Chi-squared test ($\chi^2$)}
+We strip off the diagonal elements and use the off-diagonal counts to evaluate the $\chi^2$ statistic.  
+In this particular case, we find $\chi^2 = 172$ which greatly exceeds the critical value of 19.68 for $v = (m-1)^2 - 
+m = 11$ degrees of freedom; the test indicates a strong first order Markov sequence.
+\end{example}
+\index{Embedded Markov chains|)}
+\index{Markov chains!embedded|)}
+
+\section{Series of Events}
+\index{Series of events|(}
+\label{sec:seriestest}
+	One of many types of time series that occur in the natural sciences is the \emph{series of events}.  
+Examples of such sequences include the historical records of earthquake occurrences,  volcanic 
+eruptions, storms and hurricanes, geomagnetic reversals (Figure~\ref{fig:Fig1_series}), landslides, and tsunamis.  These series
+share some common characteristics:
+\begin{itemize}
+\item	Events are distinguished based on when they occur in time.
+\item	Events are essentially instantaneous in the context of your range.
+\item	Events are so infrequent that they do not overlap in time.
+\end{itemize}
+In some cases, spatial data sequences may be considered a series of events.  Consider a traverse 
+across a thin-section.  We may be interested in the occurrence of some rare mineral.  Another 
+possibility may be the occurrence of bentonite (volcanic ash layers) in a sedimentary sequence.  
+However, when a spatial scale acts as a proxy for the actual time scale, we know that the analysis 
+will be susceptible to errors caused by varying sedimentation rates, compaction, and erosion.
+\PSfig[H]{Fig1_series}{Times of reversals in the Earth's magnetic field during a 40 million year
+interval.  While each reversal may take a few thousand years to complete, these reversals are
+essentially instantaneous when seen as part of the much longer geological record.}
+
+	With most studies of series of events we hope to find out what the basic features of the series 
+are and how we can relate the distribution of length intervals to a physical mechanism.  We must 
+first consider the possibility of a trend in the data.   Thus, we will use a test designed to detect 
+trends in the rate of occurrence.  It works by simply comparing the mean (or centroid) of a series 
+to its midpoint and test their separation for significance.
+The centroid is given by
+\begin{equation}
+\bar{t} = \frac{1}{n} \sum^n_{i=1} t_i.
+\end{equation}
+We find
+\index{Test!series of events}
+\begin{equation}
+z = \frac{\bar{t}-t_{1/2}}{T/ \sqrt{12 n}},
+\end{equation}
+where $t_{1/2}$ is the half-point and $T$ is the length of series.  The denominator is obtained by taking
+the standard deviation of a uniform distribution over the range $\{0,T\}$ (which equals $T/\sqrt{12}$) and
+using the central limits theorem to give the expected standard deviation of the centroid.
+The test is very sensitive to changes in the rate 
+of occurrence since the centroid is a $L_2$ estimate of location.   If no trend is detected, then we may 
+conclude that the series is \emph{stationary}.
+\index{Stationary}
+	Many geological processes produce events that should be uniformly distributed in time.  For 
+instance, the steady motion of the tectonic plates produce a steady increase in stress on a fault, 
+which will slip to relieve the stress.  To test for uniformity we note that the cumulative 
+distribution of a uniform series is a straight line from 0 to 1 over the time interval.  We can then 
+compare this line to the stair-step cumulative function of our observed series of events and apply 
+the Kolmogorov-Smirnov test on the largest discrepancy, as discussed in Chapter~\ref{ch:testing}.
+\index{Series of events|)}
+
+\section{Run Test}
+\index{Run test|(}
+
+	The simplest sequence imaginable is a succession of observations that can take on only two 
+mutually exclusive states or values.  Consider a rock collector looking for fossils:  Each time he 
+or she opens a concretion there may or may not be a fossil present.  We find TRUE or FALSE, 
+yes or no, or 1 or 0.  Similar sequences are generated by coin tosses.  Twenty tosses may give the 
+series
+\begin{equation}
+HTHHTHTTTHTHTHHTTHHH
+\label{eq:heads}
+\end{equation}
+with 11 heads and 9 tails, close to the expected 10/10.  The probability of finding a given number 
+of heads ($x$) in a series of $n$ tries is given by the binomial distribution (\ref{eq:binomial_dist}).
+However, there is nothing in that expression that takes the \emph{order} in which the heads appear into account.  We would find 
+a sequence of 10H followed by 10T to be highly unlikely; the same goes for alternate HTH...  Yet, the 
+probability of the \emph{number} of heads is unchanged.  We test such binary sequences for randomness 
+of occurrence by examining the number of \emph{runs}, defined as \emph{uninterrupted sequences of the same 
+state}.
+\index{Runs}
+\begin{example}
+In our sequence above (\ref{eq:heads}) we have the following 13 runs:
+\begin{equation}
+\begin{array}{rrcrrcrrrcccc}
+                 H & T & HH &  T &  H &  TTT & H & T &  H &   T &   HH &   TT &   HHH\\
+                  1 & 2 &  3 &     4 &   5 &     6 &    7 &   8 &   9 &    10 &  11 &    12 &     13\end{array} 
+\end{equation}
+We test the significance of the runs by finding all possible ways of arranging $n_1$ items of state 1 
+and $n_2$ items of state 2.  The total number of runs is called $U$, and we can consult tables for critical 
+values of $U$ given $n_1, n_2$, and $\alpha$ (our confidence level).  However, for large $n_1, n_2 > 10$  the 
+distribution is approximated by a normal distribution with a mean of 
+\index{Test!run}
+\index{Test!U}
+\index{U test}
+\begin{equation}
+\bar{U} = \frac{2n_1 n_2}{n_1 + n_2} + 1
+\end{equation}
+and variance
+\begin{equation}
+s^2_U = \frac{2n_1 n_2 (2n_1 n_2- n_1 - n_2)}{(n_1 + n_2)^2 (n_1 + n_2 -1)}.
+\end{equation}
+We may then simply use the $z$-statistic
+\begin{equation}
+z = (U - \bar{U})/ s_U
+\end{equation}
+and see if our calculated $z$ value exceeds the $\pm z_{\alpha/2}$ interval.  For our H/T series
+$n_1 = 11$ and $n_2 = 9$ so we find
+\begin{equation}
+\bar{U} = \frac{2 \cdot 11 \cdot 9}{11 + 9} + 1 = 10.9,
+\end{equation}
+\begin{equation}
+s_U = \sqrt{\frac{(2 \cdot 11 \cdot 9)(2 \cdot 11 \cdot 9 - 11 - 9)}{(11 + 9)^2(11+9 -1)}} = \sqrt{4.6} = 2.1,
+\end{equation}
+which gives
+\begin{equation}
+z = \frac{13 - 10.9}{2.1} = 1.0.
+\end{equation}
+With $z_{\alpha/2} = z_{0.025} = \pm 1.96$ (i.e., Table~\ref{tbl:Critical_t}) we cannot reject the null hypothesis that the sequence appears random.
+\end{example}
+
+	The geological application of runs tests may seem somewhat obscure, since most data 
+consist of more than two mutually exclusive states.  A related procedure is a statistical method 
+for examining runs up and down.  Here we are again considering two distinct ``states'', i.e., 
+whether an observation is larger or smaller than the preceding observation.  Let us examine the 
+data set illustrated in Figure~\ref{fig:Fig1_Run}.
+
+\PSfig[H]{Fig1_Run}{Example of how a run test can be used on continuous data. Any multipoint segment with
+the same sign of slope is defined as a ``run''.}
+
+The segment ABC is a ``run up'' since the slopes AB and BC are both positive.  Likewise, GHI is a 
+``run down''.  CDEF is also down because all slopes are negative except DE, which is zero.  IJ can 
+be part of GHIJ or IJK.  For most floating point data there will be few points that exactly equal 
+their neighbors.  If we only consider the sign of the slope we get the sequence
+$$
++\ +\ -\ 0\ -\ +\ -\ -\ 0\ +
+$$
+Regarding the first 0 as a $`-$' and the second 0 as a $`+$', we find five runs: three of $`+$' and two of $`-$'.  Then, the $U$-test is directly 
+applicable.  Again, we need more than 10 occurrences of each type to use the normal distribution 
+approximation introduced earlier.  It is clear that one can apply runs test by converting data to a binary series
+by almost any method, provided the hypothesis tested reflects the dichotomizing method.  A 
+common technique is to dichotomize a series by removing the median or mean value and look 
+for randomness of runs about the central location. 
+\begin{example}
+Consider density measurements of ore samples across a magnetite body.  We 
+want to know if the densities vary randomly about the median or if a trend is present.  The data 
+are given in Table~\ref{tbl:runtest}.
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+3.57 & 3.63 & 2.86 & 2.94 & 3.42 & 2.85 & 3.67 & 3.78 & 3.86 & 4.02 \\ \hline
+ -   &  -   &  -   &  -   &  -   &  -   &  -   &  -   &  -   &  +   \\ \hline
+4.56 & 4.62 & 4.31 & 4.58 & 5.02 & 4.68 & 4.37 & 4.88 & 4.52 & 4.80 \\ \hline
+ +   &  +   &  +   &  +   &  +   &  +   &  +   &  +   &  +   &  +   \\ \hline
+4.55 & 4.61 & 4.93 & 4.60 & 4.51 & 3.98 & 4.22 & 3.52 & 2.91 & 3.87 \\ \hline
+ +   &  +   &  +   &  +   &  +   &  +   &  +   &  -   &  -   &  -   \\ \hline
+3.52 & 3.77 & 3.84 & 3.92 & 4.09 & 3.86 & 4.13 & 3.92 & 3.54 &      \\ \hline
+ -   &  -   &  -   &  -   &  +   &  -   &  +   &  -   &  -   &      \\ \hline
+\end{tabular}
+\caption{Density measurements and their signs if larger or smaller than the median density.}
+\label{tbl:runtest}
+\end{table}
+The median density is found to be 3.98.  We subtract this value and store the signs of the 
+deviations below the corresponding density.  We observe $U = 7$, with $n_1 = 19$, $n_2 = 20$.  For these numbers, 
+\index{Test!U}
+\index{U test}
+\begin{equation}
+\bar{U} = 20.5, \ \ s_U = 3.1,
+\end{equation}
+and we obtain $z = -4.4$.  Because our observed $U$ is far outside both the 95\% and 99\% confidence intervals we conclude 
+that the variations about the median are not random but systematic.
+\end{example}
+There are of course many 
+more variants of the run test shown here.  In general, such tests are nonparametric in that they 
+do not require the underlying distribution to be known to us.
+\index{Run test|)}
+
+\section{Autocorrelation}
+\index{Autocorrelation|(}
+
+	The main purpose of time series analysis is to take the order of the observations into account 
+and try to learn the properties of the data set, such as discovering any periodicities, trends, or repeating patterns, and 
+then use such characteristics to infer something about the process being observed.  Repetitions and 
+other patterns in a sequence can be found by computing a measure of the ``self-similarity'' of the 
+sequence, that is, to what extent a piece of the sequence looks like another piece of the same sequence.  One such 
+measure is known as the \emph{autocorrelation}.
+     
+In Section~\ref{sc:cc} we discussed the correlation between two variables $x_i$ and $y_i$ and found the 
+correlation to be given by 
+\begin{equation}
+r = \displaystyle \frac{s_{xy}}{s_x s_y},
+\end{equation}
+where $s_x, s_y$ are the sample standard deviations and $s_{xy}$ the sample covariance, given by
+\begin{equation}
+s_{xy} = \frac{\displaystyle \sum^n_{i=1} (x_i - \bar{x})(y_i - \bar{y})}{n-1} = \frac{\displaystyle  \sum^n_{i=1} x_i y_i - n \bar{x} \bar{y}}{n-1}.
+\end{equation}
+The concept of the autocorrelation is to let both $x_i$ and $y_i$ be the same signal $y_i$ and then compare 
+these two, identical, time-series.  Of course, with 
+$x_i = y_i$ we find
+\begin{equation}
+s_{yy} = \frac{\displaystyle \sum^n_{i=1} y^2_i -  n\bar{y}^2}{n-1} = s^2 _y
+\end{equation}
+and
+\begin{equation}
+r =\frac{ \displaystyle  s^2_y}{s_y s_y} = 1,
+\end{equation}
+meaning the signal is perfectly correlated with itself.
+
+\PSfig[H]{Fig1_Autocorrelation}{Autocorrelation is the correlation between a time-series and its
+identical clone at different lags, $\tau$.}
+
+To get more useful information from the autocorrelation we will shift all values in the second 
+copy one step to the left (Figure~\ref{fig:Fig1_Autocorrelation}).  So, instead of having the covariance
+be composed of the terms
+\begin{equation}
+s_{yy}(0) \propto  y_1 \cdot y_1 + y_2 \cdot y_2 + \ldots + y_n \cdot y_n
+\end{equation}
+we will instead have
+\begin{equation}
+s_{yy}(1) \propto y_2 \cdot y_1 + y_3 \cdot y_2 + \ldots + y_n \cdot y_{n-1}.
+\end{equation}
+We then get
+\begin{equation}
+s_{yy}(1) = \frac{\displaystyle  \sum^n_{i=2} y_i y_{i-1} - \frac{1}{n -1}\displaystyle  \sum^n_{i=2} y_i \sum ^n _{i=2} y_{i- 1}}{n-2}.
+\end{equation}
+Shifting one step further will give a different result.  In general, if we shift the second sequence 
+$\tau$ steps relative to the first sequence we find the series' \emph{autocovariance}:
+\begin{equation}
+\index{Lag in autocorrelation}
+\index{Autocorrelation!lag}
+\index{Autocovariance}
+\begin{array}{c}
+s_{yy}(\tau) = \frac{\displaystyle \sum^n_{i=1 + \tau} y_i y_{i-\tau} -
+\frac{1}{n-\tau}
+\displaystyle \sum ^n_{i=1 + \tau} y_i \displaystyle \sum^n_{i = 1 + \tau} y_{i-\tau}}{n - \tau - 1} = \\[9pt]
+\frac{(n-\tau) \displaystyle \sum ^n_{i=1+\tau} y_i y_{i - \tau} -
+\displaystyle \sum^n_{i=1 + \tau} y_i \sum^n_{i = 1 + \tau} y_{i-\tau}}{(n - \tau)(n-\tau - 1)},
+\end{array}
+\end{equation}
+where we call the number of shifts, $\tau$, the \emph{lag}.  It is assumed throughout our time-series 
+discussion that the sequences are evenly spaced with spacing $\Delta t$ and contain $n$ points, so that the 
+length of a sequence is $T = \Delta t(n-1)$.  Figure~\ref{fig:Fig1_Lag} illustrates the situation for a certain lag.
+
+Computing the autocovariance for all lags from $\tau = 0$ to about $\tau = n/4$ results in
+the autocovariance function $s_{yy}(\tau)$.  This function will tell us if the
+sequence exhibits self-similarity 
+and how much we must shift it (i.e., what is the lag) to reach a maximum in the autocovariance.
+ 
+\PSfig[H]{Fig1_Lag}{Autocorrelations can be high for large lags $\tau$ if the data have ``repeating'' features.}
+
+Plotting the autocovariance function for our sequence gives an \emph{autocovariogram},
+illustrated in Figure~\ref{fig:Fig1_AC}.
+\index{Autocovariogram}
+
+\PSfig[H]{Fig1_AC}{The autocovariogram for a typical time-series.  At zero lag we obtain the variance
+of the time-series.}
+
+As was the case with the covariance for a set of paired values, the autocovariance depends on the 
+units of the data, which makes it less useful for comparison purposes.  Again, the solution is to 
+normalize it by the variance of the sequence. We find the variance to be given by
+\begin{equation}
+s^2_{y} = \frac{\displaystyle \sum^n_{i=1+\tau} (y_i - \bar{y})^2}{n - \tau - 1}.
+\end{equation}
+If we assume the mean and variance remain unchanged by the lag $\tau$, we obtain
+\begin{equation}
+r_\tau = \frac{(n-\tau ) \displaystyle \sum^n_{i=1+\tau} y_i y_{i-\tau} - \sum^n_{i=1+\tau} y_i \cdot \displaystyle \sum^n_{i=1+\tau} 
+y_{i -\tau} }
+{(n-\tau )(n-\tau - 1) \left[ \frac{1}{(n - \tau - 1)} \left ( \displaystyle \sum^n_{i=1+\tau} y^2_i - (n - \tau ) \bar{y}^2 \right) \right ]}
+\end{equation}
+which reduces to
+\begin{equation}
+r_\tau = \frac{ \displaystyle \sum^n_{i=1+\tau}y_i y_{i-\tau} - (n-\tau ) \bar{y}^2}
+{ \displaystyle\sum^n_{i=1+\tau } y^2 _i - (n - \tau )\bar{y}^2}.
+\end{equation}
+The effect of normalizing by the variance is to obtain the \emph{autocorrelation} which only takes on 
+values in the $[-1,+1]$ range.  This \emph{autocorrelogram} for our sequence remains unchanged in shape 
+but now has a maximum of $+1$ for zero lag, i.e., the series is in perfect correlation with itself.
+
+     Since it is arbitrary if we consider one copy of the sequence shifted by $-\tau$ or the other by $+\tau$, 
+the autocorrelation function is symmetric about zero lag, i.e.
+\begin{equation}
+r_{-\tau} = r_\tau.
+\end{equation}
+The autocorrelogram can be used to reveal characteristics of a time series.  Commonly, one would 
+like to compare the observed correlogram to predicted autocorrelograms for simple models or 
+processes.  The simplest of all models is the one in which successive observations are (1) 
+independent and (2) normally distributed.  Since each observation $y_i$ is independent of any other 
+observation $y_{i-\tau}$ we expect 
+\begin{equation}
+r_\tau = \left \{ \begin{array}{cc}
+1, & \tau = 0\\
+0, & \mbox{elsewhere}
+\end{array} \right . 
+\end{equation}
+\index{Autocorrelation!white noise}
+\index{White noise}
+\noindent
+The expected autocorrelation for a totally random process (also called 
+\emph{white noise}) is zero, with a variance of $\sigma^2 = 1/n$, when $n > 30$ (Figure~\ref{fig:Fig1_whitenoise}).
+\PSfig[h]{Fig1_whitenoise}{White noise and its autocorellogram.  White noise is completely uncorrelated,
+thus the expected value of correlation is zero for nonzero lags.  The finite length of a time-series
+leads to departures from this theoretical prediction, and the gray band indicates expected variation
+from zero correlation for a 95\% confidence level.}
+
+	Stationary time-series with short term correlations will typically have an autocorrelogram where the first few 
+coefficients are significantly nonzero whereas the remainder are close to zero.  If the time series 
+has a tendency to alternate direction at every step, then the autocorrelogram will alternate too, with $r_1 < 0$.  If our time-series
+is nonstationary (i.e., it includes a trend), then $r_\tau$ will not approach zero except for very 
+large values of the lag.  Other correlations tend to be completely masked by the tendency for an 
+observation to be systematically larger (or smaller) than its predecessor.  It is therefore always 
+necessary to remove linear trends from time-series prior to analysis of $r_\tau$.  Strict periodicities in 
+the data will be mimicked in the correlogram: A signal $y_t = A \cos \omega t$ will have an autocorrelation 
+of $r_\tau \sim \cos \omega \tau$ (for large $n$).
+	
+Outliers can wreak havoc on the estimation of autocorrelation coefficients.  This is not surprising since estimating the
+correlation is an L$_2$ process.  It is therefore important to suppress any outliers, using robust 
+statistical methods, to insure good and stable coefficients.
+\index{Autocorrelation|)}
+
+\section{Cross-Correlation}
+\index{Cross-correlation|(}
+
+	Rather than using two identical series, an obvious extension of the autocorrelation method is to
+compare two \emph{different} time-series at various lags.  From such an undertaking we would expect to learn 
+two things: 1) The strength of the relationship between the two series, and 2) the lag that 
+maximizes the correlation.  This process is called \emph{cross-correlation}, and it differs from 
+autocorrelation in several ways:
+\begin{enumerate}
+\item It may not be possible to specify the zero lag position, unless the two series share a common 
+origin and scale.
+\item The cross-correlation will in general be asymmetric.
+\item The two series may be of different length.
+\end{enumerate}
+The correlation coefficient for the match position $\tau$ (relative to an arbitrary origin, unless the series have a 
+common origin) is simply
+\begin{equation}
+r_{\tau} = \frac{(n-1) \displaystyle \sum ^n_{i=1} x_i y_i - \sum^n_{i=1} x_i \sum ^n _{i-1} y_i}
+{\sqrt{ \left ( (n-1) \displaystyle \sum ^n_{i=1} x_i ^2 - \left (\displaystyle \sum ^n_{i=1} x_i \right )^2 \right ) \left ( (n-1)
+\displaystyle \sum ^n_{i=1} y_i^2 - \left ( \displaystyle \sum ^n_{i=1} y_i \right )^2 \right )  }},
+\end{equation}
+where $x_i$ and $y_i$ are the two series and the sum over $n$ represents the point pairs that overlap
+for this particular lag position $\tau$ (Figure~\ref{fig:Fig1_CCLag}). One difference with 
+the expression for the autocorrelation is that the denominator will depend (and thus varies) with $n$, while for 
+the autocorrelation we used the variance for the entire chain.  
+For this reason the cross-correlation is somewhat less stable.  A simple $t$-test for the correlation $r_{\tau}$
+to determine significance can be obtained by calculating
+\begin{equation}
+	t = r_{\tau} \sqrt{\frac{n-2}{1-r_{\tau}^2}}
+\end{equation}
+and determine if the observed $t$ exceeds critical $t_{\alpha/2,n-2}$ as in a standard, two-sided $t$-test.
+
+\PSfig[h]{Fig1_CCLag}{Cross-correlation between two separate time-series for an arbitrary lag.}
+
+Cross-correlation as defined here is most useful when the two signals have a common origin and 
+time scale so that zero lag can be identified.  While $\tau = 0$ always gives $r_\tau = 1$ for autocorrelation, 
+$r_0$  may be zero for cross-correlation if one signal is delayed with respect to the other.   After 
+compiling the cross-correlation for all lags (positive and negative) we may find that the 
+correlation is maximized for a particular lag $\tau _m$. If the correlation is significantly  nonzero we may 
+draw the conclusion that there is a direct correlation between the two series, but this effect is 
+\emph{delayed} by some time $\Delta t \cdot \tau_m$.   Examples of data pairs that may exhibit 
+such cross-correlation include
+\begin{enumerate}
+\item	Time series of the amount of water injected into a well and the intensity of seismicity.  Such 
+a cross-correlation demonstrates the importance of pore-pressure on the friction on faults.  
+The increased pore-pressure reduces the effective normal stress on the fault and allows 
+for more earthquakes to occur after accounting for the delaying effect of groundwater flow.
+
+\item Glacial loading histories and land emergence since the end of the ice age.  The viscous properties
+of the mantle retard the isostatic response and produce a delay between ice melt and land emergence.
+
+\item	Any process in which the input signal $x(t)$ is delayed and gives output $y(t)$.  The optimal 
+lag $\tau$ in the cross-correlation between $x$ and $y$ will tell us something about  the process that 
+caused the delay.  This could be flow through a permeable medium, viscous response of 
+the mantle, the inelastic response of the solid Earth to tidal forces, etc.
+\end{enumerate}
+\index{Cross-correlation|)}
+
+\section{Geologic Correlation}
+\index{Geologic correlation|(}
+\index{Correlation!geologic|(}
+
+	The automated correlation of geological quantities quickly runs into trouble because
+cross-correlation techniques require a constant and common time scale for the two time series, which is 
+often not the case.  Depending on the particular nature of the data sets, systematic 
+distortions such as variable sedimentation rates for sedimentary sequences in drill holes and variable 
+spreading rates for magnetic anomalies will render cross-correlation problematic.  Also, at other times the 
+two series may have nominal values such as lithologic states and therefore cannot be assigned a numerical 
+value.  The extensions of autocorrelation and cross-correlation techniques to deal with nominal 
+data are named \emph{autoassociation} and \emph{cross-association}, respectively.
+Correlation of such data can be enumerated by \index{Auto-association}\index{Cross-association}sliding
+the two data sets by one another and counting the number of matching states, e.g., 
+sandstone at the same position as sandstone, and divide the result by the number of comparisons.  
+Plotting this ratio $r_\tau$ as a function of match position $\tau$ may reveal a preferred location where the 
+match is optimal.  
+\begin{table}[h]
+\center
+\begin{tabular}{cccccccccccccccccc}
+S & S & C & C   & L &  L  & C & L &  S  &  S  & S & C & S &  C &  C &  L  & L & \\
+  &   &   & $|$ &   & $|$ &   &   & $|$ & $|$ &   &   &   & $|$ &   & $|$ &   &  \\   
+  &   &   & C   & C &  L  & L & S &  S  &  S  & C & S & C &  C &  L &  L  & S & S  \\
+\end{tabular}
+\label{tbl:cross_assoc}
+\caption{Two lithologic sequences of sandstone (S), clay (C), and limestone (L) are compared using the cross-association 
+technique.  For the match position shown, there are six exact matches out of 14 possible, so $r_\tau = 6/14 = 0.43$.}
+\end{table}
+
+Simple binomial probability theory may then be used to test if this ratio is significant or if it is what one can 
+expect from two random sequences of the same composition.
+\index{Geologic correlation|)}
+\index{Correlation!geologic|)}
+
+\clearpage
+\section{Problems for Chapter \thechapter}
+
+\begin{problem}
+The stratigraphic column below represents the lithologic successions in a sequence taken 
+from a delta plain where we find the lithologies sandstone (light blue), siltstone (light gray), clay (light green), 
+and coal (black).  Examine and record the transitions between lithologies every meter.
+\PSfig[H]{Fig1_MarkovProblemSet1}{Observed stratigraphic section for Problem~\thechapter.\theproblem.  Distances are in meters.}
+
+\begin{enumerate}[label=\alph*)]
+\item What is the transition frequency matrix, $\mathbf{A}$, for this sequence?
+
+\item Determine the fixed probability vector, $\mathbf{f}$.
+
+\item Evaluate the transition probability matrix, $\mathbf{P}$.
+
+\item At the 95\% level of confidence, are the transitions random?
+
+\item $\mathbf{S = P \cdot P}$ gives the second order Markov transition matrix.  At the 95\% level, are there significant 
+second-order properties in the sequence?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	Same questions as above, but this time using the transitions between just three lithologies:
+	mudstone (light blue), siltstone (beige), and coal (black).
+	\PSfig[H]{Fig1_MarkovProblemSet2}{Observed stratigraphic section for Problem~\thechapter.\theproblem.  Distances are in meters.}
+\end{problem}
+
+\begin{problem}
+	The file \emph{embedded.txt} contains the embedded Markov chain transitions between four lithologies:
+	A = shale with fossils, B = siltstone, C = sandstone, and D = coal.  Determine if there is evidence
+	for a first-order cyclicity at the 95\% level of confidence using the test for embedded Markov chains.
+\end{problem}
+
+\begin{problem}
+The file \emph{aso.txt} lists the years the Japanese volcano Aso has erupted during the period 1229--1962.  
+Use a Kolmogorov-Smirnov test to determine (at the 95\% level of confidence) whether the 
+events are uniformly distributed over the time period. Plot the two cumulative distributions involved in the test.
+\end{problem}
+
+\begin{problem}
+The file \emph{GK2007.txt} lists all magnetic reversals and the duration of each chron from the last 155 million year.  
+Use a series of events test (at the 95\% level of confidence) to determine whether the 
+reversals are uniformly distributed over the time period.
+\end{problem}
+
+\begin{problem}
+The data set \emph{limestone.txt} contains the thickness of successive limestone beds in the Lower Jurassic
+from a formation in Wales.   Using the run test, is there a pattern in these sequences of thicknesses?
+\end{problem}
+
+\begin{problem}
+\newcounter{Vostok}
+\setcounter{Vostok}{\theproblem}
+The 3-km long Vostok ice core from Antarctica resolves temperature variations relative to the present via
+oxygen isotopes. These data are given in table \emph{vostok.txt}, which contains equidistant depths (in meter), the
+corresponding times (in year) and the relative change in temperature (in $^{\circ}$C).
+\begin{enumerate}[label=\alph*)]
+\item Since the autocorrelation calculation requires an equidistant interval we must compute the autocorrelation
+of the temperature changes as a function depth.
+At what lag $> 0$ is the autocorrelation maximized?  What does this lag represent and how is it related to
+time?
+\item Because of compaction, depth is not a good proxy for time, especially for the deeper (older) sections.
+To analyze the temporal periodicities we thus need an equidistant time-series. Use MATLAB's \texttt{spline}
+or other software to interpolate the data onto an
+equidistant interval in time ($\Delta t = 25$) and compute the autocorrelation
+of the resampled time-series.  How do the two autocorrelations differ? What period would you now select for the
+dominant periodicity?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+We will be revisiting Problem~\theConradchap.\theConrad\, so make sure you solve that problem first.
+\begin{enumerate}[label=\alph*)]
+\item Determine the residual bathymetry $r(x)$ and calculate their first differences, $n(x)$, using
+MATLAB's \texttt{diff} operator, and plot these values versus distance.
+\item Compute the autocorrelation of $n(x)$ for lags $\tau = 0$ through 5 (using MATLAB's \texttt{xcorr} function).
+The 99\% confidence interval for white noise is known to be $\pm 3/\sqrt{n}$.  For these lags, are the data
+compatible with a null hypothesis that states $n(x)$ may be considered white noise?
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+	An engineer generates a two-pulse, noisy signal that he sends through a ``black box'' filtering operator.
+The experimental setup records the time (in seconds) and both the input and output magnitudes, saved to file
+\emph{blackbox.txt}.  The black box filter seems to both smooth the output and delay it in time.
+Use the cross-correlation technique to determine the lag induced by the filter.
+\end{problem}
+
+\begin{problem}
+Two stratigraphic sections (A and B) separated by a few hundred meters have been obtained (Figure~\ref{fig:Fig1_crossassoc}).
+Use the cross-association technique to determine for what shift the second section B best fits the first section A.
+Plot your calculated match ratios $r_\tau$ versus the vertical offset of B relative to A and find the best fit.
+Draw your new tie-lines between the various layers.
+\PSfig[H]{Fig1_crossassoc}{Observed stratigraphic sections for Problem~\thechapter.\theproblem.}
+\end{problem}
