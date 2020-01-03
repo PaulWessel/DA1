@@ -269,5 +269,5 @@ clean:
 
 spotless:	clean clean_table
 	rm -rf pdf svg
-	rm -f scripts/*.ps scripts/gmt/conf scripts/gmt.history gmt.history
+	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history *.pdf
 	rm -f DA?_book.xml DA?_book.xhtml DA?_book.epub LaTeXML.* ltx-book.css
