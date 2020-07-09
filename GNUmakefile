@@ -268,6 +268,6 @@ clean:
 	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex x*.png x*.svg
 
 spotless:	clean clean_table
-	rm -rf pdf svg
+	rm -rf pdf svg .DS_Store
 	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history *.pdf
 	rm -f DA?_book.xml DA?_book.xhtml DA?_book.epub LaTeXML.* ltx-book.css
