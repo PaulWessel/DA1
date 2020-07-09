@@ -1,7 +1,9 @@
 #
 #       Makefile for Data Analysis Text Book 1
 #
-# Updated Dec, 2015
+# Updated July, 2020
+# Note: With SVG no longer being supported by gs it is unlikely
+# there will ever be a epub version of this book.
 
 # LaTeX command
 #PDFLATEX=pdflatex --interaction=batchmode
@@ -212,7 +214,7 @@ DA1_book.xhtml: sdir pdir $(PDF1) $(SVG1) DA1_book.xml
 	#paste x.lis f.lis | awk '{printf "s|%s|svg/%s.svg|g\n", $$1, $$2}' > fix.lis
 	#sed -f fix.lis DA1_book_png.xhtml > DA1_book.xhtml
 	#rm -f x.lis f.lis fix.lis
-  
+
 DA1_book.xml: $(TEX1)
 	# Plain conversion of tex to xml - no figures etc are touched.
 	latexml --destination=DA1_book.xml DA1_book.tex
