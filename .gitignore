@@ -1,1 +1,6 @@
 .DS_Store
+CriticalTables/*.tex
+pdf
+svg
+DA1_book*.pdf
+DA1_Version.tex

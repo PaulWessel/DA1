@@ -167,10 +167,10 @@ png/%.png: scripts/%.ps
 	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p+gwhite -E100 -P -Tg scripts/$*.ps -Dpng
 
 scripts/%.ps: scripts/%.csh
-	(cd scripts; csh $*.csh)
+	(cd scripts; csh $*.csh; rm -f gmt.conf gmt.history)
 
 CriticalTables/%.tex: CriticalTables/%.sh
-	(cd CriticalTables; bash $*.sh)
+	(cd CriticalTables; bash $*.sh; rm -f gmt.history)
 
 pdir:
 	mkdir -p pdf
