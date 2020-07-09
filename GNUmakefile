@@ -262,7 +262,7 @@ data:
 	scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
 
 clean_table:
-	rm -r CriticalTables/*.tex CriticalTables/gmt.history
+	rm -r CriticalTables/*.tex
 
 clean:
 	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex x*.png x*.svg
