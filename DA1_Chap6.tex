@@ -55,7 +55,7 @@ b & = & \displaystyle \frac{S S_{xy}- S_x S_{y}}{\Delta}.
 distribution of the $x$-positions as well as the uncertainties in the $y$-values.}
    All this is swell but we must also estimate the uncertainties in $a$ and $b$.  For the same $s_i$ we 
 may get large differences in the uncertainties in $a$ and $b$ (e.g., Figure~\ref{fig:Fig1_linefit_x}).
-As shown in Chapter~\ref{ch:EDA}, consideration of the propagation of errors (e.g., \ref{eq:uncert_func}) shows
+As shown in Chapter~\ref{ch:error}, consideration of the propagation of errors (e.g., \ref{eq:uncert_func}) shows
 that the variance $\sigma_f^2$ in the value of any function is
 \begin{equation}
 \sigma^2_f = \sum \left ( \frac{\partial f}{\partial y_i} \sigma_i \right )^2,
@@ -98,6 +98,7 @@ s^2_{ab} = \sum s ^2_i \left( \frac{\partial a}{\partial y_i} \right)
 Thus, the correlation between $a$ and $b$ becomes
 \begin{equation}
 r_{ab} = \frac{-S_x}{\sqrt{SS_{xx}}}.
+\label{eq:uncorrelated_a_b}
 \end{equation}
 It is therefore useful to shift the origin to $\bar{x}$ so that $r_{ab} = 0$, leaving our estimates for slope and intercept uncorrelated.  
 
@@ -111,38 +112,31 @@ does not, then we may say the fit is \emph{significant} at the $\alpha$ level of
 color bands reflecting different confidence levels.  Short vertical lines are the residual errors which are squared and summed
 in (\ref{eq:reg_errstd}).}
 The formalism in the previous section allowed us to derive
-solutions for slope and intercept given via (\ref{eq:L2_sol_ab}). Let us for a moment consider the case where there
-are no individual uncertainties $\sigma_i$ associated with the data.  We write the least squares
+solutions for slope and intercept given via (\ref{eq:L2_sol_ab}). Let us consider the confidence interval on the prediction.  We write the least squares
 fit as $\hat{y} = a + bx$, and by substituting $a = \bar{y} - b\bar{x}$ we obtain
 \begin{equation}
 	\hat{y} = \bar{y} + b(x-\bar{x}).
 \end{equation}
-Here, both the mean $y$-value ($\bar{y}$) and slope ($b$) are subject to error and these in turn affect $\hat{y}$.  For some
+Here, both the (weighted) mean $y$-value ($\bar{y}$) and slope ($b$) are subject to error and these in turn affect $\hat{y}$.  For some
 chosen location $x_0$ the prediction for the regression would be
 \begin{equation}
 	\hat{y}_0 = \bar{y} + b(x_0-\bar{x}).
 \end{equation}
-In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $b$ is zero.
+In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $b$ is zero (e.g., \ref{eq:uncorrelated_a_b}).
 This fact allows us to compute the expected variance $V$ of the \emph{mean predicted value} thus:
 \begin{equation}
-	V(\hat{y}_0) = V(\bar{y}) + V(b)(x-\bar{x})^2 = \frac{s^2}{n} + \frac{s^2(x_0 - \bar{x})^2}{\sum(x_i-\bar{x})^2}.
+	V(\hat{y}_0) = V(\bar{y}) + V(b)(x_0-\bar{x})^2 = \frac{s^2}{S} + \frac{s^2(x_0 - \bar{x})^2}{S_{xx}}.
 \end{equation}
-Here, $s$ is our sample estimate of the standard deviation of the regression residuals,
+Here, $s$ is our sample estimate of the \emph{standard deviation of the regression residuals},
 \begin{equation}
-	s^2 = \frac{\sum (y_i - \bar{y})^2}{n-2}.
+	s^2 = \frac{\sum (y_i - \hat{y})^2}{n-2},
 	\label{eq:reg_errstd}
 \end{equation}
-Because $\bar{y}$ and $b$ are uncorrelated we obtain the variance of an individual
-observation by adding the independent variance of $y$ about the mean, which is $s^2$, and find the regression
-variance for the individual prediction at $x = x_0$ to be
-\begin{equation}
-s^2_0 = s^2 \left [ 1 + \frac{1}{n} +  \frac{(x_0 - \bar{x})^2}{\sum(x_i-\bar{x})^2} \right ] .
-\label{eq:reg_conf}
-\end{equation}
-To obtain confidence intervals on the linear regression we simply scale (\ref{eq:reg_conf}) by a critical
+where $n-2$ are the remaining degrees of freedom after computing $a$ and $b$.
+To obtain confidence intervals on the linear regression we simply scale $s$ from (\ref{eq:reg_errstd}) by a critical
 Student's $t$-value for the degrees of freedom $\nu$ and chosen confidence level (Table~\ref{tbl:Critical_t}), i.e.,
 \begin{equation}
-	\hat{y}_0 \pm t(\nu,\alpha/2) s \sqrt{ 1 + \frac{1}{n} +  \frac{(x_0 - \bar{x})^2}{\sum(x_i-\bar{x})^2}}.
+	\hat{y}_0 \pm t(\nu,\alpha/2) s \sqrt{\frac{1}{S} +  \frac{(x_0 - \bar{x})^2}{S_{xx}}}.
 \end{equation}
 For larger data sets the Student's $t$ values approach the normal distribution critical values $|z_{\alpha/2}|$.
 Figure~\ref{fig:Fig1_Draper} illustrates how confidence bands on a least-squares regression fit takes
@@ -163,7 +157,9 @@ determine linear relationships between $x$ and $y$ (Figure~\ref{fig:Fig1_MA_misf
 $(x_i, y_i)$ denote our data points (black circles) and $(X_i, Y_i)$ are the coordinates of their orthogonal
 projections (white circles; only one is shown here) onto the regression line.}
 We will use the least squares principle and minimize the sum of the squared \emph{perpendicular} 
-distances $d_i^2$ from the data points $(x_i,y_i)$ to the regression line.  The function we want to minimize is
+distances $d_i^2$ from the data points $(x_i,y_i)$ to the regression line\footnote{This approach does not take into account
+the actual uncertainties in $x$ and $y$ (which becomes very tedious algebraically) but instead focuses on the effect
+of the orthogonal misfit criterion.}.  The function we want to minimize is
 \begin{equation}
 E = \sum_{i=1}^n \left [ (X_i - x_i)^2 + (Y_i - y_i)^2 \right ],
 \label{eq:E_major_axis}
@@ -353,7 +349,8 @@ b = \pm \sqrt{ \sum v^2_i / \sum u^2_i} = \pm \frac{s_y}{s_x},
 \end{equation}
 i.e., the best slope equals the ratio of the $y$ and $x$ observations' separate standard deviations.
 The sign is indeterminate but is inferred from the sign of the correlation coefficient (a negative
-correlation means a negative slope).
+correlation means a negative slope)\footnote{We cheated a bit as the individual terms in \ref{eq:E_RMA_axis}}
+might be negative; however, a more advanced derivation still yields the same solution}.
 
 \index{Regression!orthogonal|)}
 

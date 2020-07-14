@@ -42,7 +42,7 @@ gmt regress -Ey -N2 -Fxmc -T25/80/1 -C99 draper.txt | gmt psxy -R25/80/6/13 -JX3
 gmt regress -Ey -N2 -Fxmc -T25/80/1 -C95 draper.txt | gmt psxy -R -J -O -K -L+d -Glightorange >> $FIG.ps
 gmt regress -Ey -N2 -Fxmc -T25/80/1 -C68 draper.txt | gmt psxy -R -J -O -K -L+d -Glightred -W2p >> $FIG.ps
 gmt regress -Ey -N2 -Fxym draper.txt | awk '{printf "> error\n%s %s\n%s %s\n", $1, $2, $1, $3}' | gmt psxy -R -J -O -K -W0.25p >> $FIG.ps
-gmt psxy -R -J -O -K draper.txt -Sc0.15c -Gblue -Baf -BWSne >> $FIG.ps
+gmt psxy -R -J -O -K draper.txt -Sc0.1c -Gblue -Baf -BWSne >> $FIG.ps
 echo "$txt" | gmt pstext -R -J -O -K -F+jLB+f10p,Times-Italic -Dj0.1i >> $FIG.ps
 gmt pslegend -DjTR+w1.1i+jRT+o0.1i/0.1i -R -J -O -F+p1p --FONT_ANNOT_PRIMARY=8p << EOF >> $FIG.ps
 S 0.05i s 0.125i lightgreen  - 0.15i 99% Confidence
