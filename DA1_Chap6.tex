@@ -122,14 +122,15 @@ chosen location $x_0$ the prediction for the regression would be
 \begin{equation}
 	\hat{y}_0 = \bar{y} + b(x_0-\bar{x}).
 \end{equation}
-In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $b$ is zero (e.g., \ref{eq:uncorrelated_a_b}).
-This fact allows us to compute the expected variance $V$ of the \emph{mean predicted value} thus:
+In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $b$ is zero (e.g., \ref{eq:uncorrelated_a_b})
+and $s^2_a = 1/S$ and $s^2_b = 1/S_{xx}$.
+These facts allow us to compute the expected variance $V$ of the \emph{mean predicted value} by summing the separate variance terms:
 \begin{equation}
 	V(\hat{y}_0) = V(\bar{y}) + V(b)(x_0-\bar{x})^2 = \frac{s^2}{S} + \frac{s^2(x_0 - \bar{x})^2}{S_{xx}}.
 \end{equation}
-Here, $s$ is our sample estimate of the \emph{standard deviation of the regression residuals},
+Here, $s$ is our sample estimate of the (weighted) \emph{standard deviation of the regression residuals}, $e_i = y_i - \hat{y}$, given by
 \begin{equation}
-	s^2 = \frac{\sum (y_i - \hat{y})^2}{n-2},
+	s^2 = \frac{\sum (e_i/s_i)^2}{S(n-2)/n},
 	\label{eq:reg_errstd}
 \end{equation}
 where $n-2$ are the remaining degrees of freedom after computing $a$ and $b$.
@@ -349,8 +350,8 @@ b = \pm \sqrt{ \sum v^2_i / \sum u^2_i} = \pm \frac{s_y}{s_x},
 \end{equation}
 i.e., the best slope equals the ratio of the $y$ and $x$ observations' separate standard deviations.
 The sign is indeterminate but is inferred from the sign of the correlation coefficient (a negative
-correlation means a negative slope)\footnote{We cheated a bit as the individual terms in \ref{eq:E_RMA_axis}}
-might be negative; however, a more advanced derivation still yields the same solution}.
+correlation means a negative slope)\footnote{We cheated a bit as the individual terms in \ref{eq:E_RMA_axis}
+might be negative; however, a more advanced derivation still yields the same solution.}.
 
 \index{Regression!orthogonal|)}
 
