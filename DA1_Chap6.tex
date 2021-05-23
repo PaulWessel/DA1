@@ -855,17 +855,17 @@ that best fits the data in a least square sense.
 \subsection{Multiple regression}
 
 In general, we will be considering a linear regression 
-with $m+1$ independent variables, and our regression model will be of the form
+with $k+1$ independent variables, and our regression model will be of the form
 \begin{equation}
-m_0 + m_1 x_1 +  m_2 x_2 + \cdots + m_m x_m + \epsilon = d.
+m_0 + m_1 x_1 +  m_2 x_2 + \cdots + m_k x_k + \epsilon = d.
  \end{equation}	 	
 Our model states that the observations $d_i$ can be explained by a constant term $m_0$ plus a linear 
-combination of $m$ variables, with each variable having its own ``slope''.  Thus, $m_4$ describes how 
+combination of $k$ variables, with each variable having its own ``slope''.  Thus, $m_4$ describes how 
 fast $d$ changes when $x_4$ changes, holding all other $x_i$ fixed.  As usual, we explain the misfit as 
 being due to deviations $\epsilon_i$, which we hope are normally distributed with zero mean.
 	
 In many situations it is obvious which values are the observations and which are the 
-variables.  In our example with temperatures in $x-y-z$ we wanted to  find how $T$ varies as a 
+variables.  In our example with temperatures in space we wanted to  find how $T$ varies as a 
 function of position.  However, in other cases it may be less clear-cut.  E.g., if we measure (depth, 
 porosity, permeability, water content) in a core, we will probably let depth be a variable but which 
 of the others do we pick as our $d$ observation?  In the general case this becomes arbitrary.  It also becomes 
@@ -877,12 +877,12 @@ Once we have selected our $d$-values (and used the symbol $x_{ij}$ to represent 
 of the $j$'th variable), we set up the problem in matrix form as
 \begin{equation}
 \left [ \begin{array}{ccccc}
-1 & x_{11} & x_{12} &  \cdots & x_{1m} \\
-1 & x_{21} & x_{22} &  \cdots & x_{2m} \\
+1 & x_{11} & x_{12} &  \cdots & x_{1k} \\
+1 & x_{21} & x_{22} &  \cdots & x_{2k} \\
 \vdots & \vdots & \vdots & \cdots & \vdots \\
-1 & x_{n1} & x_{n2} & \cdots & x_{nm} \end{array}\right ]
+1 & x_{n1} & x_{n2} & \cdots & x_{nk} \end{array}\right ]
 \left [ \begin{array}{c}
-m_0\\ m_1\\ \vdots \\ m_m \end{array} \right ]  = 
+m_0\\ m_1\\ \vdots \\ m_k \end{array} \right ]  = 
 \left [ \begin{array}{c}
 d_1 \\ d_2\\ \vdots \\  d_n
 \end{array} \right ],
@@ -904,27 +904,27 @@ s_j = \sqrt{ \frac{1}{n-1} \sum ^n _{i=1} (x_{ij} - \bar{x}_j)^2} \mbox{ and } s
 \end{equation}	 
 are the sample standard deviations of the $j'$th variable and $d$, respectively.  To populate the normal equation matrix we must form 
 $\mathbf{G}^T\mathbf{G}$ and carry out the summations.  
-You will remember that the form of the  normal matrix equations is
+You will remember that the form of the normal matrix equations is
 \begin{equation}
 \left [ \begin{array}{ccccc}
-n &  \sum x_1 &  \sum x_2 & \cdots &  \sum x_m \\[5pt]
- \sum x_1 &  \sum x^2_1 & \sum x_1 x_2 & \cdots &  \sum x_1 x_m \\[5pt]
- \sum x_2 &  \sum x_2 x_1 & \sum x^2_2 & \cdots &  \sum x_2 x_m \\[5pt]
+n &  \sum x_1 &  \sum x_2 & \cdots &  \sum x_k \\[5pt]
+ \sum x_1 &  \sum x^2_1 & \sum x_1 x_2 & \cdots &  \sum x_1 x_k \\[5pt]
+ \sum x_2 &  \sum x_2 x_1 & \sum x^2_2 & \cdots &  \sum x_2 x_k \\[5pt]
 \vdots & \vdots & \vdots & \cdots & \vdots \\[5pt]
- \sum x_m &  \sum x_m x_1  & \sum x_m x_2 & \cdots &  \sum x^2_m 
+ \sum x_m &  \sum x_m x_1  & \sum x_m x_2 & \cdots &  \sum x^2_k 
 \end{array} \right ] 
 \left [ \begin{array}{c}
-m_0\\ m_1\\ \vdots \\ m_m \end{array} \right ]  = 
+m_0\\ m_1\\ \vdots \\ m_k \end{array} \right ]  = 
 \left [
 \begin{array}{c}
- \sum d \\[5pt]  \sum x_1 d \\[5pt]  \sum x_2 d \\[5pt] \vdots \\[5pt] \sum x_m d
+ \sum d \\[5pt]  \sum x_1 d \\[5pt]  \sum x_2 d \\[5pt] \vdots \\[5pt] \sum x_k d
 \end{array} \right ] ,
 \label{eq:mregsystem}
 \end{equation}
 with the sums implied to include all the data points (i.e., over $i = 1,n$).
 The effect of normalizing is two-fold:
 \begin{enumerate}
-\item	Because the linear sums over $x_i$ and $d_i$ now are zero, $m_0' = 0$, and we must find only $m$ coefficients $m_1'$, ..., $m_m'$ instead of $m + 1$, as originally 
+\item	Because the linear sums over $x_i$ and $d_i$ now are zero, $m_0' = 0$, and we must find only $k$ coefficients $m_1'$, ..., $m_k'$ instead of $k + 1$, as originally 
 intended.  Consequently, the first row and first column of the system (\ref{eq:mregsystem}) are removed.
 \item	The rest of the matrix becomes proportional to the correlation matrix, $\mathbf{C}$.
 \end{enumerate}
@@ -940,25 +940,25 @@ we note they are simply
 Since the constant $(n-1)$ appears in all terms we can delete it and find
 \begin{equation}
 \left [ \begin{array}{ccccc}
-1 & r_{12} & r_{13} & \cdots & r_{1m} \\
-r_{21} & 1 & r_{23} &  \cdots & r_{2m} \\
-r_{31} & r_{32} & 1 &  \cdots & r_{3m} \\
+1 & r_{12} & r_{13} & \cdots & r_{1k} \\
+r_{21} & 1 & r_{23} &  \cdots & r_{2k} \\
+r_{31} & r_{32} & 1 &  \cdots & r_{3k} \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-r_{m1} & r_{m2} & r_{m3} & \cdots & 1 \end{array} \right ]
+r_{k1} & r_{k2} & r_{k3} & \cdots & 1 \end{array} \right ]
 \left [
 \begin{array}{c}
-m'_1 \\ m'_2 \\ \vdots \\ m'_m \end{array} \right ] =
+m'_1 \\ m'_2 \\ \vdots \\ m'_k \end{array} \right ] =
 \left [ \begin{array}{c}
-r_{1d} \\ r_{2d} \\ r_{3d} \\ \vdots \\ r_{md}
+r_{1d} \\ r_{2d} \\ r_{3d} \\ \vdots \\ r_{kd}
 \end{array} \right ]
 \end{equation}	 	
 or $\mathbf{C} \cdot \mathbf{m'} = \mathbf{r}$.  Solving $\mathbf{m' = C}^{-1}\mathbf{r}$ we recover the unscaled regression parameters
 \begin{equation}
-m_j = m'_j \frac{s_d}{s_j},
+m_j = m'_j \frac{s_d}{s_j},\quad j = 1,k,
 \end{equation}	 
 and we can reconstruct the missing intercept via
 \begin{equation}
-m_0 = \bar{d} - m_1 \bar{x}_1 - m_2 \bar{x}_2 - \cdots - m_m \bar{x}_m.
+m_0 = \bar{d} - m_1 \bar{x}_1 - m_2 \bar{x}_2 - \cdots - m_k \bar{x}_k.
 \end{equation}	 
 As an indicator of the goodness-of-fit we use the \emph{coefficient of multiple regression},
 \begin{equation}
@@ -1015,7 +1015,7 @@ We will use multiple regression to look for a linear relation between the occurr
 and various lithological units in the area west of Quebec (Agterberg, 1974).  By overlying a grid on the geological 
 map, we can estimate the density of gold occurrence per grid cell and find the area percentage of 
 the rock units in the same cell.  The gold densities are our ``observed'' data $d_i, i=1,n$ and the rock types 
-our ``variables'' $x_j, j = 1,m$.  We chose six types of rocks ($m=6$) for the mapping, as listed in Table~\ref{tbl:rocks}.
+our ``variables'' $x_j, j = 1,k$.  We chose six types of rocks ($k=6$) for the mapping, as listed in Table~\ref{tbl:rocks}.
 \begin{table}[H]
 \center
 \begin{tabular}{|c|l|} \hline

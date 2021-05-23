@@ -1185,7 +1185,7 @@ $g_1=x^0$  & $g_1=\sin(2\pi x/T)$\\ \hline
 $g_2=x^1$  & $g_2=\sin(4\pi x/T)$\\ \hline
 $g_3=x^2$  & $g_3=\sin(6\pi x/T)$\\ \hline
 $\vdots$ & $\vdots$\\ \hline
-$g_m=x^{m-1}$  & $g_m=\sin(2m\pi x/T)$ \\ \hline
+$g_k=x^{k-1}$  & $g_k=\sin(2k\pi x/T)$ \\ \hline
 \end{tabular}
 \caption{Examples of basis functions used for modeling of data.}
 \label{tbl:basis_funcs}
@@ -1193,20 +1193,20 @@ $g_m=x^{m-1}$  & $g_m=\sin(2m\pi x/T)$ \\ \hline
 
 Consider the least squares fitting of any continuous basis of the form
 \begin{equation}
-g_1(x), g_2(x), g_3(x), \cdots , g_m(x).
+g_1(x), g_2(x), g_3(x), \cdots , g_k(x).
 \end{equation}
-For example, we desire to fit a model with $m$ terms
+For example, we desire to fit a model with $k$ terms
 \begin{equation}
-d(x) = m_1g_1(x) + m_2g_2(x) + \cdots + m_mg_m(x)
+d(x) = m_1g_1(x) + m_2g_2(x) + \cdots + m_k g_k(x)
 \label{eq:lsgenmodel}
 \end{equation}
-to a data set of $n$  data points, where $n > m$, by minimizing $E(\mathbf{m})$ given by
+to a data set of $n$  data points, where $n > k$, by minimizing $E(\mathbf{m})$ given by
 \begin{equation}
-E(\mathbf{m}) = E(m_1, m_2, \cdots, m_m) = \sum ^n _{i=1}  (e_i)^2  = \sum ^n _{i=1} (m_1 g_1(x_i) + m_2g_2(x_i) + \cdots + m_m g_m(x_i) - d_i)^2,
+E(\mathbf{m}) = E(m_1, m_2, \cdots, m_k) = \sum ^n _{i=1}  (e_i)^2  = \sum ^n _{i=1} (m_1 g_1(x_i) + m_2g_2(x_i) + \cdots + m_k g_k(x_i) - d_i)^2,
 \end{equation}
 or simply
 \begin{equation}
-E(\mathbf{m}) = \sum ^n _{i=1} (m_1g_{i1} + m_2g_{i2} + \cdots + m_mg_{im} - d_i)^2,
+E(\mathbf{m}) = \sum ^n _{i=1} (m_1g_{i1} + m_2g_{i2} + \cdots + m_k g_{ik} - d_i)^2,
 \label{eq:L2_misfit}
 \end{equation}
 where $d_i$ is the observed value and $g_{ij}$ is the $j'$th basis function, evaluated at the location (or time) $x_i$. In other words,
@@ -1215,72 +1215,72 @@ $g_{ij} = g_j(x_i)$.
 There are \emph{four} concepts of vital importance in a general linear least squares modeling problem:
 \begin{enumerate}
 	\item The \emph{observed data}, $(x_i, d_i), i = 1, n$, where $n$ is the number of observations.  These are all known quantities.
-	\item The \emph{general linear model} (linear in $\mathbf{m} = m_j, j = 1,m$, with $m$ unknown parameters), given by (\ref{eq:lsgenmodel}).
-	\item The $m$ chosen \emph{basis functions}, $g_j(x), j = 1, m$.  We can evaluate these for any $x$.
+	\item The \emph{general linear model} (linear in $\mathbf{m} = m_j, j = 1,k$, with $k$ unknown parameters), given by (\ref{eq:lsgenmodel}).
+	\item The $m$ chosen \emph{basis functions}, $g_j(x), j = 1, k$.  We can evaluate these for any $x$.
 	\item The \emph{least squares misfit criteria}, given by (\ref{eq:L2_misfit}).
 \end{enumerate}
 We can write a linear system of equations for the misfit at each data point:
 \begin{equation}
 \begin{array}{c}
-m_1 g_{11} + m_2 g_{12} + \cdots + m_m g_{1m} - d_1 = e_1\\
-m_1 g_{21} + m_2 g_{22} + \cdots + m_m g_{2m} - d_2 = e_2\\
+m_1 g_{11} + m_2 g_{12} + \cdots + m_k g_{1k} - d_1 = e_1\\
+m_1 g_{21} + m_2 g_{22} + \cdots + m_k g_{2k} - d_2 = e_2\\
 \vdots\\
-m_1 g_{n1} + m_2 g_{n2} + \cdots + m_m g_{nm} - d_n = e_n\\
+m_1 g_{n1} + m_2 g_{n2} + \cdots + m_k g_{nk} - d_n = e_n\\
 \end{array}.
 \end{equation}     
 To minimize $E$, we require
 \begin{equation}
 \displaystyle
-\frac{\partial E(\mathbf{m})}{\partial m_{j}} = 0, j = 1,m.
+\frac{\partial E(\mathbf{m})}{\partial m_{j}} = 0, j = 1,k.
 \label{eq:L2_criteria}
 \end{equation}
 Considering the first term (case $j = 1$), we see
 \begin{equation}
 \begin{array}{rcl}
-\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_1} & = & \displaystyle \frac{\partial}{\partial m_1}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_mg_{im} -d_i)^2 \\
- & = & \displaystyle 2 \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{i1}= 0, \\
+\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_1} & = & \displaystyle \frac{\partial}{\partial m_1}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_k g_{ik} -d_i)^2 \\
+ & = & \displaystyle 2 \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_k g_{ik} -d_i)g_{i1}= 0, \\
 \end{array}
 \end{equation}
 while for the second term (case $j = 2$), we find
 \begin{equation}
 \begin{array}{rcl} 
-\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_2} & = & \displaystyle \frac{\partial}{\partial m_2}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_mg_{im} -d_i)^2 \\
-& = & 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{i2}= 0. \\
+\displaystyle \frac{\partial E(\mathbf{m})}{\partial m_2} & = & \displaystyle \frac{\partial}{\partial m_2}\sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_k g_{ik} -d_i)^2 \\
+& = & 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_k g_{ik} -d_i)g_{i2}= 0. \\
 \end{array}
 \end{equation}
 Consequently, for the $j$'th parameter,
 \begin{equation}
-\frac{\partial E(\mathbf{m})}{\partial m_j} = 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_m g_{im} -d_i)g_{ij}= 0.
+\frac{\partial E(\mathbf{m})}{\partial m_j} = 2 \displaystyle \sum ^n _{i=1}(m_1g_{i1} + m_2g_{i2} + \cdots m_k g_{ik} -d_i)g_{ij}= 0.
 \end{equation}
-Rearranging these normal equations gives the square $m \times m$ system
+Rearranging these normal equations gives the square $k \times k$ system
 \begin{equation}
 \begin{array}{c}
-m_1 \displaystyle \sum ^n _{i=1} g^2_{i1} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{i1} + \cdots + m_m 
- \displaystyle \sum ^n _{i=1} g_{im}g_{i1} =  \displaystyle \sum^n _{i=1} d_i g_{i1}\\
-m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{i2} + m_2 \displaystyle \sum ^n _{i=1} g^2_{i2} + \cdots + m_m  \displaystyle \sum ^n _{i=1} g_{im}g_{i2} =  \displaystyle \sum^n _{i=1} d_i g_{i2}\\
+m_1 \displaystyle \sum ^n _{i=1} g^2_{i1} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{i1} + \cdots + m_k 
+ \displaystyle \sum ^n _{i=1} g_{ik}g_{i1} =  \displaystyle \sum^n _{i=1} d_i g_{i1}\\
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{i2} + m_2 \displaystyle \sum ^n _{i=1} g^2_{i2} + \cdots + m_k  \displaystyle \sum ^n _{i=1} g_{ik}g_{i2} =  \displaystyle \sum^n _{i=1} d_i g_{i2}\\
 \vdots \\
-m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{im} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{im} + \cdots + m_m 
- \displaystyle \sum ^n _{i=1} g^2_{im} =  \displaystyle \sum^n _{i=1} d_i g_{im}
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ik} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{ik} + \cdots + m_k 
+ \displaystyle \sum ^n _{i=1} g^2_{ik} =  \displaystyle \sum^n _{i=1} d_i g_{ik}
 \end{array}
 \end{equation}
 or equivalently,
 \begin{equation}
-m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ij} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{ij} + \cdots + m_m 
- \displaystyle \sum ^n _{i=1} g_{im}g_{ij} =  \displaystyle \sum^n _{i=1} d_i g_{ij}, j=1,m.
+m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ij} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{ij} + \cdots + m_k 
+ \displaystyle \sum ^n _{i=1} g_{ik}g_{ij} =  \displaystyle \sum^n _{i=1} d_i g_{ij}, j=1,k.
 \end{equation}
-This setup provides a \emph{closed system} of $m$ normal equations.  In matrix form,
+This setup provides a \emph{closed system} of $k$ normal equations.  In matrix form,
 \begin{equation}
 \left [  \begin{array}{cccc}
 \displaystyle \sum ^n _{i=1} g^2_{i1} & \displaystyle \sum ^n _{i=1} g_{i2}g_{i1} & \cdots &
-\displaystyle \sum ^n _{i=1} g_{im}g_{i1} \\
+\displaystyle \sum ^n _{i=1} g_{ik}g_{i1} \\
 \displaystyle \sum ^n _{i=1} g_{i1}g_{i2} &  \displaystyle \sum ^n _{i=1} g^2_{i2} & \cdots &
-\displaystyle \sum^n _{i=1} g_{im}g_{i2} \\
+\displaystyle \sum^n _{i=1} g_{ik}g_{i2} \\
 \vdots & \vdots & \ddots & \vdots\\
-\displaystyle \sum ^n _{i=1} g_{i1}g_{im} &  \displaystyle \sum ^n _{i=1} g_{i2}g_{im} & \cdots & \displaystyle \sum ^n _{i=1} g^2_{im} 
-\end{array}   \right ]	\left[ \begin{array}{c} m_1 \\ m_2 \\ \vdots \\ m_m     \end{array}  \right ]  = \left[  \begin{array}{c}\displaystyle \sum ^n _{i=1} d_{i}g_{i1}\\
+\displaystyle \sum ^n _{i=1} g_{i1}g_{ik} &  \displaystyle \sum ^n _{i=1} g_{i2}g_{ik} & \cdots & \displaystyle \sum ^n _{i=1} g^2_{ik} 
+\end{array}   \right ]	\left[ \begin{array}{c} m_1 \\ m_2 \\ \vdots \\ m_k     \end{array}  \right ]  = \left[  \begin{array}{c}\displaystyle \sum ^n _{i=1} d_{i}g_{i1}\\
 \displaystyle \sum ^n _{i=1} d_{i}g_{i2}\\
 \vdots \\
-\displaystyle \sum ^n _{i=1} d_{i}g_{im}\\
+\displaystyle \sum ^n _{i=1} d_{i}g_{ik}\\
    \end{array} \right].
 \label{eq:normalwsums}
 \end{equation}
@@ -1306,17 +1306,17 @@ We will now look at a simpler approach to the same problem using matrix algebra.
 \left [ \begin{array}{c} e_1\\ e_2 \\ \vdots \\ e_n  \end{array} \right ] =
 \left [
 \begin{array}{cccc}
-g_{11} & g_{12} & \cdots & g_{1m} \\	 
-g_{21} & g_{22} & \cdots & g_{2m} \\
+g_{11} & g_{12} & \cdots & g_{1k} \\	 
+g_{21} & g_{22} & \cdots & g_{2k} \\
 \vdots & \vdots & \ddots & \vdots\\
-g_{n1} & g_{n2} & \cdots & g_{nm} \\
+g_{n1} & g_{n2} & \cdots & g_{nk} \\
 \end{array} \right ]
 \cdot
 \left [ \begin{array}{c} 
 m_1\\ 
 m_2\\
  \vdots\\ 
-m_m   \end{array}   \right]
+m_k   \end{array}   \right]
 -
 \left [ \begin{array}{c} d_1\\ d_2 \\ \vdots \\ d_n  \end{array} \right ].
 \end{equation}
@@ -1325,7 +1325,7 @@ observation points.  In fact, we could write $\mathbf{G}$ as
 \begin{equation}
 \mathbf{G} = \left [
 \begin{array}{cccc}
-\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_m \\	 
+\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_k \\	 
 \end{array} \right ],
 \label{eq:Aasvectors}
 \end{equation}
@@ -1338,7 +1338,7 @@ g_j(x_1) & g_j(x_2) & \cdots & g_j(x_n) \\
 \end{equation}
 We wish to find the $m_j$ values that minimize $E = \mathbf{e}^T\mathbf{e}$.
 Minimizing the misfit with respect to the unknown model parameters $\mathbf{m}$ means we must solve
-the $m$ linear equations that result from setting all partial derivatives of $E$ to zero (i.e., \ref{eq:L2_criteria}).
+the $k$ linear equations that result from setting all partial derivatives of $E$ to zero (i.e., \ref{eq:L2_criteria}).
 Using matrix algebra, we express the \emph{predicted} solution as $\hat{\mathbf{d}} = \mathbf{G \cdot m}$.
 We may now express the misfit
 between model and observations as $\mathbf{e} = \hat{\mathbf{d}} - \mathbf{d} = \mathbf{G \cdot m} - \mathbf{d}$
@@ -1361,13 +1361,13 @@ We note the first and second terms are transposes of each other, as are the thir
 However, since they all evaluate to scalars the two transposes must be identical and hence this
 repetition simply constitutes a factor of two, which we delete by retaining only the first and third term:
 \begin{equation}
-\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, j = 1,m.
+\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, j = 1,k.
 \end{equation}
 What is the mysterious ``dot''-derivative, written as
 \begin{equation}
-\mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,m?
+\mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,k?
 \end{equation}
-We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T = [m_1\ m_2 \ \cdots \ m_m ]$:
+We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T = [m_1\ m_2 \ \cdots \ m_k ]$:
 \[\begin{array}{*{20}{c}}
 {{\rm{Case }}j = 1:{\frac{\partial}{\partial m_1}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
 1&0& \cdots &0
@@ -1376,14 +1376,14 @@ We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T 
 0&1& \cdots &0
 \end{array}} \right]}^T}}\\[4pt]
  \vdots \\[4pt]
-{{\rm{Case }}j = m:{\frac{\partial}{\partial m_m}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
+{{\rm{Case }}j = k:{\frac{\partial}{\partial m_k}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
 0&0& \cdots &1
 \end{array}} \right]}^T}}
 \end{array}\]
-Thus, the $m$ linear equations can be combined into a single matrix equation, noting that all these derivatives (each producing a row vector)
+Thus, the $k$ linear equations can be combined into a single matrix equation, noting that all these derivatives (each producing a row vector)
 combine to form the identity matrix, $\mathbf{I}$:
 \begin{equation}
-\frac{\partial }{{\partial {m_j}}}\left( {{{{\mathbf{m}}}^T}} \right), j = 1,m \to \left[ {\begin{array}{*{20}{c}}
+\frac{\partial }{{\partial {m_j}}}\left( {{{{\mathbf{m}}}^T}} \right), j = 1,k \to \left[ {\begin{array}{*{20}{c}}
 1&0& \cdots &0\\
 0&1& \cdots &0\\
  \vdots & \vdots & \ddots & \vdots \\
@@ -1413,37 +1413,37 @@ $\mathbf{G}^T\mathbf{G}$ using the product
 	\mathbf{g}_1^T \\[6pt]
 	\mathbf{g}_2^T \\[6pt]
 	\vdots \\[6pt]
-	\mathbf{g}_m^T \\	 
+	\mathbf{g}_k^T \\	 
 	\end{array} \right ] \cdot
 	\left [
 		\begin{array}{cccc}
-		\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_m \\	 
+		\mathbf{g}_1 & \mathbf{g}_2 & \cdots & \mathbf{g}_k \\	 
 		\end{array}
 	\right ] =
 	 \left [
 	\begin{array}{cccc}
-	\mathbf{g}_1^T\mathbf{g}_1 & \mathbf{g}_1^T\mathbf{g}_2 & \cdots & \mathbf{g}_1^T\mathbf{g}_m \\[6pt]	 
-	\mathbf{g}_2^T\mathbf{g}_1 & \mathbf{g}_2^T\mathbf{g}_2 & \cdots & \mathbf{g}_2^T\mathbf{g}_m \\[6pt]	 
+	\mathbf{g}_1^T\mathbf{g}_1 & \mathbf{g}_1^T\mathbf{g}_2 & \cdots & \mathbf{g}_1^T\mathbf{g}_k \\[6pt]	 
+	\mathbf{g}_2^T\mathbf{g}_1 & \mathbf{g}_2^T\mathbf{g}_2 & \cdots & \mathbf{g}_2^T\mathbf{g}_k \\[6pt]	 
 	\vdots & \vdots & \ddots & \vdots \\[6pt]
-	\mathbf{g}_m^T\mathbf{g}_1 & \mathbf{g}_m^T\mathbf{g}_2 & \cdots & \mathbf{g}_m^T\mathbf{g}_m \\	 
+	\mathbf{g}_k^T\mathbf{g}_1 & \mathbf{g}_k^T\mathbf{g}_2 & \cdots & \mathbf{g}_k^T\mathbf{g}_k \\	 
 	\end{array} \right ],
 	\label{eq:gdotg}
 \end{equation}
-which makes it clear that each element of $\mathbf{N}$, such as $n_{kj}$, is the dot product between two basis vectors $\mathbf{g}_k^T$ and $\mathbf{g}_j$, and
+which makes it clear that each element of $\mathbf{N}$, such as $n_{pq}$, is the dot product between two basis vectors $\mathbf{g}_p^T$ and $\mathbf{g}_q$, and
 \begin{equation}
 \mathbf{v} = \mathbf{G}^T\mathbf{d} = \left [
 	\begin{array}{c}
 	\mathbf{g}_1^T \\[6pt]
 	\mathbf{g}_2^T \\[6pt]
 	\vdots \\[6pt]
-	\mathbf{g}_m^T \\	 
+	\mathbf{g}_k^T \\	 
 	\end{array} \right ] \cdot \mathbf{d} =
 	 \left [
 	\begin{array}{c}
 	\mathbf{g}_1^T\mathbf{d} \\[6pt]	 
 	\mathbf{g}_2^T\mathbf{d}  \\[6pt]	 
 	\vdots \\[6pt]
-	\mathbf{g}_m^T\mathbf{d} \\	 
+	\mathbf{g}_k^T\mathbf{d} \\	 
 	\end{array} \right ],
 	\label{eq:gdotd}
 \end{equation}
@@ -1517,9 +1517,9 @@ E(\mathbf{m}) & = & \mathbf{(S \cdot G \cdot m - S\cdot d)}^T \cdot \mathbf{(S \
 We substitute $\mathbf{W = S}^T\mathbf{S}$, take the partial derivatives, and obtain
 \begin{equation}
 \frac{\partial E(\mathbf{m})}{\partial m_j }
-= \mathbf{  0 =  \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  \cdot \dot{m} - \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G  \cdot \dot{m}}, j = 1,m.
+= \mathbf{  0 =  \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  \cdot \dot{m} - \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G  \cdot \dot{m}}, j = 1,k.
 \end{equation}	 
-Since $\mathbf{m}$ only contains the $m_j$, we know $\mathbf{\dot{m}}^T = \mathbf{\dot{m} = I}$. We again find the $m$ normal equations can be written more compactly as the single matrix equation
+Since $\mathbf{m}$ only contains the $m_j$, we know $\mathbf{\dot{m}}^T = \mathbf{\dot{m} = I}$. We again find the $k$ normal equations can be written more compactly as the single matrix equation
 \begin{equation}
 \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  -  G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G = 0}.
 \end{equation}
@@ -1613,7 +1613,7 @@ above, determine the slope and intercept of the best-fitting line.
 \item Redo the problem using matrix algebra.  Write down the various components in the matrix equation
 $\mathbf{G \cdot m = d}$.  What does $\mathbf{G \cdot m}$ represent?
 \item Evaluate the matrix solution (i.e., $\mathbf{m} = [ \mathbf{G}^T\mathbf{G} ]^{-1}\mathbf{G}^T\mathbf{d}$)
-in MATLAB, and make sure it matches your answer in (a).
+and make sure it matches your answer in (a).
 \item What is the total misfit, $E$?
 \end{enumerate}
 \end{problem}

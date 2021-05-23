@@ -411,14 +411,6 @@ Since the orthogonality relationships hold for all $k$, we again interchange $k$
 \boxed{b_j = \frac{2}{n} \sum^n_{i=1} d_i \sin \omega_j t_i, \quad 0 < j < \frac{n}{2}.}
 \end{equation}
 
-Let us pause and lament the demise of our dear friend from Chapter~\ref{ch:matrix}, the design matrix $\mathbf{G}$.
-What just happen to it in our analysis?
-Well, recall equations (\ref{eq:gdotg}) and (\ref{eq:gdotd}), both overflowing with dot-products of the basis vectors $\mathbf{g}_j$.
-Yet, with our choice of harmonics we found that these basis vectors were in fact orthogonal and thus their dot-products yielded
-zero except along the matrix diagonal (where we got the simple constant $n/2$).  With $\mathbf{G}$ being diagonal, the formidable $[\mathbf{G}^T\mathbf{G}]^{-1}$
-collapsed to the identity matrix $\mathbf{I}$ scaled by $n/2$, as we just witnessed. Now \emph{that} is the power of
-orthogonal functions (of which sine and cosine are just two possibilities) and why they are so widely used in data analysis, as well as for modeling in the physical sciences.
-
 The formulae for $a_j$ and $b_j$ are called the \emph{Discrete Cosine and Sine Transforms} and combined they
 define the \emph{Discrete Fourier Transform}. Figure~\ref{fig:Fig1_FourierFit} shows an
 example of a data set and the determination of two Fourier components.
@@ -451,6 +443,17 @@ d(t)&  = &  \displaystyle 0.3125 - 0.0884 \cos \frac{\pi}{4} t -1.3687 \sin \fra
 Note that all the terms have periods that are multiples of the fundamental frequency; hence the 
 Fourier representation must itself be periodic with the same fundamental period $T$.  We will later 
 see that the assumption of periodic data may have grave consequences for our coefficients.
+
+\subsection{The power of orthogonality}
+Let us pause and lament the demise of our dear friend from Chapter~\ref{ch:matrix}, the design matrix $\mathbf{G}$.
+What just happen to it in our analysis?
+Well, recall equations (\ref{eq:gdotg}) and (\ref{eq:gdotd}), both overflowing with dot-products of the basis vectors $\mathbf{g}_j$.
+Yet, with our choice of harmonics we found that these basis vectors were in fact orthogonal and thus their dot-products yielded
+zero except along the matrix diagonal (where we got the simple constant $n/2$).  With $\mathbf{G}$ being diagonal, the formidable $[\mathbf{G}^T\mathbf{G}]^{-1}$
+collapsed to the identity matrix $\mathbf{I}$ scaled by $n/2$, as we just witnessed. Now \emph{that} is the power of
+orthogonal functions (of which sine and cosine are just two possibilities) and why they are so widely used in data analysis as well as for modeling in the physical sciences.
+
+
 \index{Fourier!series orthogonality|)}
 \index{Orthogonality!Fourier series|)}
 
@@ -556,10 +559,10 @@ where $s^2_j$ is the largest peak in the periodogram (we divide by two to get it
 and $s^2$ is the variance of the entire series.  For 
 a prescribed confidence level, $\alpha$, the critical value that we wish to compare to our observed $g$ is
 \begin{equation}
-g_{\alpha,m} \approx 1 - \exp \left( \frac{\ln \alpha - \ln m}{m-1} \right ),
+g_{\alpha,k} \approx 1 - \exp \left( \frac{\ln \alpha - \ln k}{k-1} \right ),
 \label{eq:critical_g}
 \end{equation}
-with $m = n/2$ (for even $n$) or $m = (n-1)/2$ (for odd $n$).  Should our observed $g$ (obtained via \ref{eq:computed_g}) exceed this 
+with $k = n/2$ (for even $n$) or $k = (n-1)/2$ (for odd $n$).  Should our observed $g$ (obtained via \ref{eq:computed_g}) exceed this 
 critical value we may decide that the dominant component is real and reflects a true 
 characteristic of the phenomenon we are observing.  Otherwise, $s^2_j$ may be large simply by 
 chance.
