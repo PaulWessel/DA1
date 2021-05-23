@@ -149,7 +149,7 @@ XTMP1= $(APP1:.sh=.tex)
 TAB1= $(addprefix CriticalTables/, $(XTMP1))
 
 DA1_Version.tex:  .FORCE
-	echo "\\def \DAversion {1}" > DA1_Version.tex
+	echo "\\def \DAversion {2}" > DA1_Version.tex
 	echo "\\def \DAday {`date +%d`}" >> DA1_Version.tex
 	echo "\\def \DAmonth {`date +%B`}" >> DA1_Version.tex
 	echo "\\def \DAyear {`date +%Y`}" >> DA1_Version.tex
