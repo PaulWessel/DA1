@@ -1607,8 +1607,31 @@ prediction and the two primates which have a larger than predicted brain size.
 \noindent
 \bf{Problem 6.6.} \\
 
-{\it new problem}\\
-
+Following the example in \ref{sec:mregexample}, we assign the permeability to be our observed
+data values $d_i$ and let porosity (1), conductivity (2), true formation factor (3), and induced polarization (4) be
+the four independent variables, $x_j$. We note there are six combinations of two parameters out of
+the four choices.  We thus first solve these six regression problems and keep track of the coefficient of
+multiple regression, $R^2$, which we scale by 100 to obtain the percentage of explain variance ({\it ESS}).
+We then solve for the four combinations of three parameters out of four, and finally the single
+combination using all four parameters.  Table~\ref{tbl:sherwood} lists the highest values of {\it ESS}
+for each combination group.
+\begin{table}[H]
+\center
+\begin{tabular}{|l|c|} \hline
+$x_j$ combination & \bf{ESS} (\%) \\ \hline
+1, 2 & 35.17 \\ \hline
+1, 2, 3 & 45.67 \\ \hline
+1, 2, 3, 4 & 48.34 \\ \hline
+\end{tabular}
+\caption{Each row shows the best parameter combination of 2--4 variables and the corresponding percentage of
+explained variation (ESS).}
+\label{tbl:sherwood}
+\end{table}
+The two-parameter model yields an observed $F = 15$, which easily exceeds the 95\% confidence level critical value of 4.13 for $n = 40$.
+Adding one more parameter gives an observed $F = 6.37$, which also exceeds a slightly higher critical
+value of 4.14.  Finally, we test the full model which evaluates to $F = 1.66$ and therefore is not a significant
+improvement.  The best significant model explains the permeability as a linear regression involving
+the three parameters porosity, conductivity, and the true formation factor.
 
 \section{Sequences and Series Analysis}
 
