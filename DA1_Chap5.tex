@@ -70,7 +70,7 @@ few standard operations for which standard subroutines are readily available.
 \end{enumerate}
 
 MATLAB, which stands for ``Matrix Laboratory'', is ideally suited to perform such manipulations,
-as is its Open Source clone, Octave. Python with numPy is also a good choice.
+as is its Open Source clone, Octave. Python with numPy, R or Julia are also good choices.
 \index{MATLAB}
 \index{Octave}
 
@@ -1231,7 +1231,7 @@ m_1 g_{n1} + m_2 g_{n2} + \cdots + m_k g_{nk} - d_n = e_n\\
 To minimize $E$, we require
 \begin{equation}
 \displaystyle
-\frac{\partial E(\mathbf{m})}{\partial m_{j}} = 0, j = 1,k.
+\frac{\partial E(\mathbf{m})}{\partial m_{j}} = 0, \quad j = 1,k.
 \label{eq:L2_criteria}
 \end{equation}
 Considering the first term (case $j = 1$), we see
@@ -1492,7 +1492,7 @@ $d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as we
 	What if some data constraints are more reliable than others? We may simply give those residuals more 
 weight than the others, i.e.,
 \begin{equation}
-\mathbf{e} = \left[ \begin{array}{c} 0.8 e_1 \\ 2e_2\\ \vdots \\ 2.7 e_n \end{array} \right ] .
+\mathbf{e} = \left[ \begin{array}{c} 0.8 e_1 \\ 2.1e_2\\ \vdots \\ 0.7 e_n \end{array} \right ] .
 \end{equation}	 
 In general, we can assign weights $w_i$ to each misfit so that the new weighted misfits become $e_i' = e_i\cdot w_i$.
 Very often, the weights will simply be $s_{ii} = 1/s_i$, where $s_i$ is the one-sigma uncertainty in the $i$'th measurement $d_i$.
