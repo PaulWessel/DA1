@@ -231,7 +231,7 @@ The test statistic is, as usual, given by
 \chi^2 = \sum^n_{i=1} \frac{(O_i - E_i)^2}{E_i},
 \end{equation}
 where $O_i$ is the observed number of transitions and $E_i$ is the expectation for each transition, as given by (\ref{eq:markov_E}).  The 
-degrees of freedom, $\nu$, is $(m-1) \cdot (m-1)$, with $m = 4$.  One degree of freedom is lost from each row and column 
+degrees of freedom, $\nu$, is $(k-1) \cdot (k-1)$, with $k = 4$.  One degree of freedom is lost from each row and column 
 because all rows of $\mathbf{P}$ must sum to 1 and we computed $\mathbf{f}$ from the row sums.  
 
      For the $\chi^2$-test to be valid, each category should have an expected value of at least 5.  Several 
@@ -615,8 +615,8 @@ Scaling these probabilities by the grand total gives the expected frequencies
 \index{$\chi^2$ test (``chi-squared'')}
 \index{Chi-squared test ($\chi^2$)}
 We strip off the diagonal elements and use the off-diagonal counts to evaluate the $\chi^2$ statistic.  
-In this particular case, we find $\chi^2 = 172$ which greatly exceeds the critical value of 19.68 for $v = (m-1)^2 - 
-m = 11$ degrees of freedom; the test indicates a strong first order Markov sequence.
+In this particular case, we find $\chi^2 = 172$ which greatly exceeds the critical value of 19.68 for $v = (k-1)^2 - 
+k = 11$ degrees of freedom; the test indicates a strong first order Markov sequence.
 \end{example}
 \index{Embedded Markov chains|)}
 \index{Markov chains!embedded|)}

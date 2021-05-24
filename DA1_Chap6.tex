@@ -695,9 +695,9 @@ least-squares estimates in the expression for correlation.
 
 	Multiple regression is an extension of the simple regression problem for including more than 
 one explanatory variable.  The most straightforward extension from 1-D to 2-D results in the 
-determination of the constants $m_1, m_2,$ and $m_3$ in
+determination of the constants $m_0, m_1,$ and $m_2$ in
 \begin{equation}
-d = m_1 + m_2 x + m_3 y,
+d = m_0 + m_1 x + m_2 y,
 \label{eq:plane}
 \end{equation}
 which you will recognize as the equation for a \emph{plane}.  A very common application of finding the 
@@ -706,7 +706,7 @@ local variations can be inspected and compared.  Let us say we have $n$ data poi
 plane and we want to determine the regional trend using standard $L_2$ techniques.  Using (\ref{eq:plane}) 
 gives
 \begin{equation}
-m_1 + m_2 x_i + m_3y_i = d_i,\quad i = 1,n
+m_0 + m_1 x_i + m_2 y_i = d_i,\quad i = 1,n
 \end{equation}
 or $\mathbf{G\cdot m=d}$.  We know how to solve these $L_2$ problems now and quickly state that the solution is 
 given by the linear system:
@@ -725,9 +725,9 @@ n & \displaystyle \sum x_i & \displaystyle \sum y_i \\*[2ex]
 \displaystyle \sum y_i & \displaystyle \sum x_i y_i & \displaystyle \sum y^2_i \\*[2ex]
 \end{array} \right ]
 \left[ \begin{array}{c}
+m_0 \\*[2ex]
 m_1 \\*[2ex]
-m_2 \\*[2ex]
-m_3 
+m_2 
 \end{array} \right]  = 
 \left[ \begin{array}{c}
 \displaystyle \sum d_i \\*[2ex] \displaystyle \sum x_i d_i\\*[2ex] 
@@ -800,7 +800,7 @@ we are left with
 0 & 50 & 0 \\
 0 & 0 & 50 \end{array} \right ]
 \left [ \begin{array}{c}
-m_1\\ m_2\\ m_3 \end{array} \right ] = \left [ \begin{array}{c}
+m_0\\ m_1\\ m_2 \end{array} \right ] = \left [ \begin{array}{c}
 20 \\ 38 \\ 25 \end{array} \right ],
 \end{equation}	 
 or directly
@@ -826,17 +826,17 @@ n & 0 & 0 \\*[2ex]
 0 & \displaystyle \sum u_i v_i & \displaystyle \sum v^2_i
 \end{array} \right ] 
 \left [ \begin{array}{c}
-m_1\\ m_2\\ m_3 \end{array} \right ] = 
+m_0\\ m_1\\ m_2 \end{array} \right ] = 
 \left[ \begin{array}{c} \displaystyle \sum d_i \\*[2ex] \displaystyle \sum u_i d_i \\*[2ex] \displaystyle \sum v_i d_i \end{array} \right ].
 \end{equation}	 
-Since the first equation directly gives us $m_1 = \bar{d}$, we are left with the simple $2\times 2$ system
+Since the first equation directly gives us $m_0 = \bar{d}$, we are left with the simple $2\times 2$ system
 \begin{equation}
 \left[ \begin{array}{cc}
 \displaystyle \sum u^2_i & \displaystyle \sum u_i v_i \\*[2ex]
 \displaystyle \sum u_i  v_i & \displaystyle \sum v^2_i
 \end{array} \right ]
 \left [ \begin{array}{c}
-m_2\\ m_3 \end{array} \right ] = 
+m_1\\ m_2 \end{array} \right ] = 
 \left [ \begin{array}{c}
 \displaystyle \sum u_i d_i \\*[2ex]
 \displaystyle \sum v_i d_i 
@@ -848,7 +848,7 @@ system.  That situation become difficult to envision but easy to construct.  As 
 measurements of temperature of points described by  $(x,y,z)$ triplets.  One can easily find the 
 equation of the hyper-plane
 \begin{equation}
-	T = m_1 + m_2 x + m_3 y + m_4 z
+	T = m_0 + m_1 x + m_2 y + m_3 z
 \end{equation}
 that best fits the data in a least square sense.
 
@@ -911,7 +911,7 @@ n &  \sum x_1 &  \sum x_2 & \cdots &  \sum x_k \\[5pt]
  \sum x_1 &  \sum x^2_1 & \sum x_1 x_2 & \cdots &  \sum x_1 x_k \\[5pt]
  \sum x_2 &  \sum x_2 x_1 & \sum x^2_2 & \cdots &  \sum x_2 x_k \\[5pt]
 \vdots & \vdots & \vdots & \cdots & \vdots \\[5pt]
- \sum x_m &  \sum x_m x_1  & \sum x_m x_2 & \cdots &  \sum x^2_k 
+ \sum x_k &  \sum x_k x_1  & \sum x_k x_2 & \cdots &  \sum x^2_k 
 \end{array} \right ] 
 \left [ \begin{array}{c}
 m_0\\ m_1\\ \vdots \\ m_k \end{array} \right ]  = 

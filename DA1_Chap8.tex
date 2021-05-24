@@ -506,10 +506,10 @@ We shall write the Fourier series as
 \end{equation}
 by pulling the constant (mean) term out separately.  Since the two means cancel, we find
 \begin{equation}
-s^2 = \frac{1}{n-1}  \sum^n_{i=1} \left \{ \left [ \sum_{j=1} ^{\leq \frac{n}{2}} \left (a_j \cos \omega_{j} t_i + b_j \sin \omega_{j} t_i \right ) \right ] \left [ \sum_{k=1} ^{\leq \frac{n}{2}} \left (a_k \cos \omega_{k} t_i + b_k \sin \omega_{k} t_i \right ) \right ] \right \}.
+s^2 = \frac{1}{n-1}  \sum^n_{i=1} \left \{ \left [ \sum_{j=1} ^{\leq \frac{n}{2}} \left (a_j \cos \omega_{j} t_i + b_j \sin \omega_{j} t_i \right ) \right ] \left [ \sum_{q=1} ^{\leq \frac{n}{2}} \left (a_q \cos \omega_{q} t_i + b_q \sin \omega_{q} t_i \right ) \right ] \right \}.
 \end{equation}
-Also recall that, because of orthogonality, all the cross terms $(k \neq j)$ resulting from the full expansion 
-of the two squared expressions will be zero when summed over $i$, while the remaining terms will sum to $n/2$ (since $j,k > 0$).
+Also recall that, because of orthogonality, all the cross terms $(q \neq j)$ resulting from the full expansion 
+of the two squared expressions will be zero when summed over $i$, while the remaining terms will sum to $n/2$ (since $j,q > 0$).
 Hence, we are left with
 \begin{equation}
 s^2 = \frac{n}{2(n-1)} \sum_{j=1} ^{\leq \frac{n}{2}} (a^2_j + b^2_j) \sim \frac{1}{2}\sum_{j=1} ^{\leq \frac{n}{2}} A^2_j.

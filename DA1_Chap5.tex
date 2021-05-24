@@ -48,10 +48,10 @@ sometimes with one or (more commonly) two underscores.
 The order is also sometimes explicitly given.  E.g., $\mathbf{A}_{(4,3)}$ means 
 $\mathbf A$ is of order $4 \times 3$.
 
-\item [Order:] Always given as rows x columns but uses letters $n,m,p$ differently: $n$ (rows) x $m$ (columns) or 
-$m$ (rows) $\times n$ (columns).
+\item [Order:] Always given as rows x columns but uses letters $n,k,p$ differently: $n$ (rows) x $k$ (columns) or 
+$k$ (rows) $\times n$ (columns).
 
-\item [Element:] Most commonly $a_{ij}$, with $i =$ row; $j =$ column (sometimes other dummy indices like $k,l,p$ are used).
+\item [Element:] Most commonly $a_{ij}$, with $i =$ row; $j =$ column (sometimes other dummy indices like $l,p,q$ are used).
 \end{description}
 
 The advantages of matrix algebra mainly lies in the fact that it provides a concise and simple 
@@ -374,11 +374,11 @@ Matrix multiplication requires ``conformable'' matrices. Matrices are conformabl
 there are as many columns in the first matrix as there are rows in the second matrix.  Consider
 \index{Matrix!conformable}
 \begin{equation}
-\mathbf{C}_{(m,n)} = \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,n)}.
+\mathbf{C}_{(k,n)} = \mathbf{A}_{(k,p)} \cdot \mathbf{B}_{(p,n)}.
 \end{equation}	 
-The matrix product $\mathbf{C}$ is of order $m \times n$ and has elements $c_{ij}$, given by
+The matrix product $\mathbf{C}$ is of order $k \times n$ and has elements $c_{ij}$, given by
 \begin{equation}
-c_{ij} = \sum^p _{k=1} a_{ik}b_{kj}.
+c_{ij} = \sum^p _{q=1} a_{iq}b_{qj}.
 \end{equation}	 
 This is an extension of the scalar product --- in this case, each element of $\mathbf{C}$ is the scalar product of a row 
 vector in $\mathbf{A}$ and a column vector in $\mathbf{B}$.  For instance, if
@@ -505,30 +505,30 @@ where each column in $\mathbf{A}$ has been scaled by the corresponding diagonal 
 \subsection{Computational considerations}
 The matrix product
 \begin{equation}
-\mathbf{C}_{(m,n)} = \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,n)}
+\mathbf{C}_{(k,n)} = \mathbf{A}_{(k,p)} \cdot \mathbf{B}_{(p,n)}
 \end{equation}
-involves $m \times n \times p$ multiplications and $m \times n  \times (p -1)$ additions.  hence,
+involves $k \times n \times p$ multiplications and $k \times n  \times (p -1)$ additions.  hence,
 \begin{equation}
-\mathbf{E}_{(m,n)} = [ \mathbf{A}_{(m,p)} \cdot \mathbf{B}_{(p,q)}] \cdot \mathbf{C}_{(q,n)}
+\mathbf{E}_{(k,n)} = [ \mathbf{A}_{(k,p)} \cdot \mathbf{B}_{(p,q)}] \cdot \mathbf{C}_{(q,n)}
 \end{equation}	 
-gives $m \times p \times q$ multiplications, so
+gives $k \times p \times q$ multiplications, so
 \begin{equation}
-\mathbf{E} = [\mathbf{D}_{(m,q)}] \cdot \mathbf{C}_{(q,n)}
+\mathbf{E} = [\mathbf{D}_{(k,q)}] \cdot \mathbf{C}_{(q,n)}
 \end{equation}
-gives $m\times q \times n$ multiplications, and
+gives $k\times q \times n$ multiplications, and
 \begin{equation}
-\mathbf{E} _{(m,n)} = \mathbf{A}_{(m,p)} \cdot [\mathbf{B}_{(p,q)} \cdot \mathbf{C}_{(q,n)}]
+\mathbf{E} _{(k,n)} = \mathbf{A}_{(k,p)} \cdot [\mathbf{B}_{(p,q)} \cdot \mathbf{C}_{(q,n)}]
 \end{equation}
 gives $p\times q \times n$ multiplications, while
 \begin{equation}
-\mathbf{E}_{(m,n)} = \mathbf{A}_{(m,p)}\cdot [\mathbf{D}_{(p,n)} ]
+\mathbf{E}_{(k,n)} = \mathbf{A}_{(k,p)}\cdot [\mathbf{D}_{(p,n)} ]
 \end{equation}	
-gives $m \times p \times n$ multiplications. Therefore, the total number of operations depend on the order of multiplications:
+gives $k \times p \times n$ multiplications. Therefore, the total number of operations depend on the order of multiplications:
 \begin{enumerate}
-\item $\mathbf{(A \cdot B) \cdot C} \Rightarrow mq(p+n)$ total multiplications
-\item $\mathbf{A \cdot (B \cdot C)} \Rightarrow pn(m+q)$ total multiplications
+\item $\mathbf{(A \cdot B) \cdot C} \Rightarrow kq(p+n)$ total multiplications
+\item $\mathbf{A \cdot (B \cdot C)} \Rightarrow pn(k+q)$ total multiplications
 \end{enumerate}
-If both $\mathbf{A}$ and $\mathbf{B}$ are $100 \times 100$ matrices and $\mathbf{C}$ is $100 \times 1$, then $m = p = q = 100$, and $n 
+If both $\mathbf{A}$ and $\mathbf{B}$ are $100 \times 100$ matrices and $\mathbf{C}$ is $100 \times 1$, then $k = p = q = 100$, and $n 
 = 1$. Multiplying using form (1) involves $\sim 1 \times 10^6$ multiplications, whereas form (2) involves $2 \times 
 10^4$; so computing $\mathbf{B \cdot C}$ first, then premultiplying by $\mathbf{A}$ saves almost a million multiplications 
 and almost an equal number of additions. Therefore, the order of operations is extremely important 
@@ -644,9 +644,9 @@ smallest rank of the matrices being multiplied:
 \mathbf{A}_{\mbox{(rank 2)}}\cdot \mathbf{B}_{\mbox{(rank 1)}} = \mathbf{C}_{\mbox{(rank 1)}}.
 \end{equation}	 
 Therefore (and seen from another angle), if a matrix has rank $r$ then any matrix factor of it must have 
-rank of at least $r$. Since the rank cannot be greater than the smallest of $m$ or $n$ in a $m \times n$ matrix, 
+rank of at least $r$. Since the rank cannot be greater than the smallest of $k$ or $n$ in a $k \times n$ matrix, 
 this definition also limits the size (order) of factor matrices. (That is, one cannot factor a matrix 
-of rank 2, into two matrices of which either is of less than rank 2, so $m$ and $n$ of each factor must 
+of rank 2, into two matrices of which either is of less than rank 2, so $k$ and $n$ of each factor must 
 also be $\geq 2$).
 
 \index{Matrix!determinant|)}
@@ -739,9 +739,9 @@ For our example, we find
 1 \ 2 \ 3 \\ 4 \ 5 \ 6 \\ 7 \ 8 \ 9 \end{array} \right ] 
 = \frac{1}{3} \left[ 12 \ 15 \ 18 \right] =  \left[ 4 \ 5 \ 6 \right].
 \end{equation}
-To compute the mean of each row vector in $\mathbf{A}$ (here, each row has length $m = 3$), let
+To compute the mean of each row vector in $\mathbf{A}$ (here, each row has length $k = 3$), let
 \begin{equation}
-\mathbf{\bar{x}}_r = \frac{1}{3} \mathbf{Aj}_3, \mbox{ and in general }  \mathbf{\bar{x}}_r = \frac{1}{m} \mathbf{Aj}_m .
+\mathbf{\bar{x}}_r = \frac{1}{3} \mathbf{Aj}_3, \mbox{ and in general }  \mathbf{\bar{x}}_r = \frac{1}{k} \mathbf{Aj}_k .
 \end{equation} 
 Again, for our example, we find
 \begin{equation}
@@ -785,7 +785,7 @@ Given the diagonal matrix $\mathbf{S}$ containing the standard deviation of each
 s_1 & 0 & \ldots & 0 \\
 0 & s_2 & \ldots & 0 \\
 \vdots & \vdots &  \ddots  & \vdots\\
-0 & 0 & \ldots & s_m
+0 & 0 & \ldots & s_n
 \end{array} \right]
 \end{equation}
 we get the normal scores (here, $\mathbf{I}$ is of size $n \times n$) as
@@ -918,11 +918,11 @@ true that direct (elimination) methods to the solution are in fact quicker for f
 matrices:
 
 \begin{enumerate}
-\item 	A solution using the inverse matrix approach involves $n^3$ multiplications for the inversion and $n^2m$ 
-more multiplications to finish the solution, where $n$ is the number of equations per set, and $m$ 
+\item 	A solution using the inverse matrix approach involves $n^3$ multiplications for the inversion and $n^2k$ 
+more multiplications to finish the solution, where $n$ is the number of equations per set, and $k$ 
 is the number of sets of equations (each of the same form but different $\mathbf{b}$ vector). The total 
-number of multiplications is $n^3 + n^2m$.
-\item	A solution by directly solving the linear equations involves $n^3/3 + n^2m$ multiplications.
+number of multiplications is $n^3 + n^2k$.
+\item	A solution by directly solving the linear equations involves $n^3/3 + n^2k$ multiplications.
 \end{enumerate}
 
 Hence, while the matrix form is easy to handle, one should not necessarily always use it blindly. We 
@@ -1266,7 +1266,7 @@ m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ik} + m_2 \displaystyle \sum ^n _{i=1}
 or equivalently,
 \begin{equation}
 m_1 \displaystyle \sum ^n _{i=1} g_{i1}g_{ij} + m_2 \displaystyle \sum ^n _{i=1} g_{i2} g_{ij} + \cdots + m_k 
- \displaystyle \sum ^n _{i=1} g_{ik}g_{ij} =  \displaystyle \sum^n _{i=1} d_i g_{ij}, j=1,k.
+ \displaystyle \sum ^n _{i=1} g_{ik}g_{ij} =  \displaystyle \sum^n _{i=1} d_i g_{ij}, \quad j=1,k.
 \end{equation}
 This setup provides a \emph{closed system} of $k$ normal equations.  In matrix form,
 \begin{equation}
@@ -1354,20 +1354,20 @@ E(\mathbf{m}) =  \left(\mathbf{m}^T\mathbf{G}^T - \mathbf{d}^T\right) \cdot \lef
 where we have used (\ref{eq:transposerule}) to handle the transpose of a matrix product.
 Note that since $E$ is a scalar then each of these terms must evaluate to scalars as well.  To find the solution, we set
 \begin{equation}
-\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} + \mathbf{m}^T\mathbf{G}^T\mathbf{G\dot{m}} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{G\dot{m}} = 0, j = 1,m,
+\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} + \mathbf{m}^T\mathbf{G}^T\mathbf{G\dot{m}} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{G\dot{m}} = 0, \quad j = 1,m,
 \end{equation}
 where the ``dot'' over a vector represents the derivative of that vector with respect to $m_j$.
 We note the first and second terms are transposes of each other, as are the third and fourth terms.
 However, since they all evaluate to scalars the two transposes must be identical and hence this
 repetition simply constitutes a factor of two, which we delete by retaining only the first and third term:
 \begin{equation}
-\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, j = 1,k.
+\frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, \quad j = 1,k.
 \end{equation}
 What is the mysterious ``dot''-derivative, written as
 \begin{equation}
-\mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,k?
+\mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,k,
 \end{equation}
-We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T = [m_1\ m_2 \ \cdots \ m_k ]$:
+mean? We illuminate this term by trying some values of $j$, remembering $\mathbf{m}^T = [m_1\ m_2 \ \cdots \ m_k ]$:
 \[\begin{array}{*{20}{c}}
 {{\rm{Case }}j = 1:{\frac{\partial}{\partial m_1}\mathbf{m}} = {{\left[ {\begin{array}{*{20}{c}}
 1&0& \cdots &0
@@ -1492,7 +1492,7 @@ $d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as we
 	What if some data constraints are more reliable than others? We may simply give those residuals more 
 weight than the others, i.e.,
 \begin{equation}
-\mathbf{e} = \left[ \begin{array}{c} e_1 \\ 2e_2\\ \vdots \\ e_n \end{array} \right ] .
+\mathbf{e} = \left[ \begin{array}{c} 0.8 e_1 \\ 2e_2\\ \vdots \\ 2.7 e_n \end{array} \right ] .
 \end{equation}	 
 In general, we can assign weights $w_i$ to each misfit so that the new weighted misfits become $e_i' = e_i\cdot w_i$.
 Very often, the weights will simply be $s_{ii} = 1/s_i$, where $s_i$ is the one-sigma uncertainty in the $i$'th measurement $d_i$.
@@ -1517,13 +1517,13 @@ E(\mathbf{m}) & = & \mathbf{(S \cdot G \cdot m - S\cdot d)}^T \cdot \mathbf{(S \
 We substitute $\mathbf{W = S}^T\mathbf{S}$, take the partial derivatives, and obtain
 \begin{equation}
 \frac{\partial E(\mathbf{m})}{\partial m_j }
-= \mathbf{  0 =  \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  \cdot \dot{m} - \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G  \cdot \dot{m}}, j = 1,k.
+= \mathbf{  0 =  \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  \cdot \dot{m} - \dot{m}}^T \cdot \mathbf{G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G  \cdot \dot{m}}, \quad j = 1,k.
 \end{equation}	 
 Since $\mathbf{m}$ only contains the $m_j$, we know $\mathbf{\dot{m}}^T = \mathbf{\dot{m} = I}$. We again find the $k$ normal equations can be written more compactly as the single matrix equation
 \begin{equation}
 \mathbf{G}^T \cdot \mathbf{W  \cdot G \cdot  m + m}^T \cdot \mathbf{G}^T  \cdot \mathbf{W  \cdot G  -  G}^T \cdot \mathbf{W  \cdot  d - d}^T \cdot \mathbf{W  \cdot G = 0}.
 \end{equation}
-As before, the second and fourth terms are the transposes of the first and third terms, and as they all represent scalars our equation reduces to
+As before, the second and fourth terms are the transposes of the first and third terms, and as they all represent the same terms our equation reduces to
 \begin{equation}
 \mathbf{G}^T \cdot \mathbf{W \cdot G \cdot m - G}^T \cdot \mathbf{W \cdot d = 0}.
 \end{equation}	 

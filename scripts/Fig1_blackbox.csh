@@ -20,7 +20,7 @@ gmt psxy -R0/6/-0.25/0.5 -Jx1i -O -K -Sv0.1i+e -Gblack -Wthicker,black -N << EOF
 3.0 0 0 0.2i
 EOF
 gmt pstext -R0/1/-0.5/1 -JX1i/0.75i -O -K -X1.9i -M -Glightgray -W1p -F+f+a+j << EOF >> $FIG.ps
-> 0.5 0 12p,Times-Roman 0 CM 12p 0.9i c
+> 0.5 0 12p 0 Times-Roman CM 12p 0.9i c
 "Black Box" Filter
 EOF
 gmt psxy -R -JX1.5i/0.75i -O -W0.25p smooth.d -Bx0 -By0g2 -BWS -X1.4i --MAP_FRAME_TYPE=graph >> $FIG.ps
