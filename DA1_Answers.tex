@@ -1830,7 +1830,19 @@ repeat time of $\sim 100,000$ years.  This is the ``ice age'' periodicity relate
 \noindent
 \bf{Problem 7.8.} \\
 
-{\it new problem}\\
+\begin{enumerate}[label=\alph*)]
+\item We follow up on Problem~\theConradchap.\theConrad\ by computing the residuals, then taking their first differences.
+These are displayed in Figure~\ref{fig:Fig1_Answer_c2407_residuals_a}, and the question is do they compare favorably to white noise
+or are there correlations between nearby values?
+\PSfig[h]{Fig1_Answer_c2407_residuals_a}{(a) The first-differences of the residual bathymetry from cruise C2407.}
+\item We subject the differences to cross-correlation.  For convenience we normalize the results to yield the autocorrelation.
+Figure~\ref{fig:Fig1_Answer_c2407_residuals_b} shows the autocorrelation, with the dashed line indicating the confidence band for
+this length of data ($n = 547$).  As you can see, the autocorrelation for lag $\tau = 1$ exceeds the threshold,
+hence we must reject the null hypothesis since that correlation is significant: There is some short-distance correlations in the
+bathymetry that is not fully explained by the hypothesis.
+\PSfig[h]{Fig1_Answer_c2407_residuals_b}{(b) The autocorrelation of the differences for the first 20 lags, with dashed line indicating
+the 99\% confidence band.}
+\end{enumerate}
 
 \noindent
 \bf{Problem 7.9.} \\
