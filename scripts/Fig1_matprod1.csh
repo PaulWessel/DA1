@@ -62,13 +62,13 @@ gmt psxy -R -J -O -K -W0.25p << EOF >> $FIG.ps
 2.60 0.30
 EOF
 gmt pstext -R -J -O -N -Dj0.075i/0.075i -F+f+j << EOF >> $FIG.ps
-0 0.375 12p,Times-Italic RM m
+0 0.375 12p,Times-Italic RM k
 0.75 0 12p,Times-Italic TC p
 0.75 0.4 12p,Times-Bold CM A
 2 2 12p,Times-Italic RM p
 2.5 1.25 12p,Times-Italic TC n
 2.5 2 12p,Times-Bold CM B
-2 0.375 12p,Times-Italic RM m
+2 0.375 12p,Times-Italic RM k
 2.5 0 12p,Times-Italic TC n
 2.5 0.375 12p,Times-Bold CM C
 EOF

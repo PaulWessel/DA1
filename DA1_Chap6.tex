@@ -904,7 +904,7 @@ s_j = \sqrt{ \frac{1}{n-1} \sum ^n _{i=1} (x_{ij} - \bar{x}_j)^2} \mbox{ and } s
 \end{equation}	 
 are the sample standard deviations of the $j'$th variable and $d$, respectively.  To populate the normal equation matrix we must form 
 $\mathbf{G}^T\mathbf{G}$ and carry out the summations.  
-You will remember that the form of the normal matrix equations is
+You will remember that the form of the matrix for normal equations is
 \begin{equation}
 \left [ \begin{array}{ccccc}
 n &  \sum x_1 &  \sum x_2 & \cdots &  \sum x_k \\[5pt]
@@ -928,7 +928,7 @@ The effect of normalizing is two-fold:
 intended.  Consequently, the first row and first column of the system (\ref{eq:mregsystem}) are removed.
 \item	The rest of the matrix becomes proportional to the correlation matrix, $\mathbf{C}$.
 \end{enumerate}
-For instance, examining the terms in the first equation in the normal system, i.e.,
+For instance, examining the terms in the second equation in the normal system, i.e.,
 \begin{equation}
 \sum \frac{(x_{i1} - \bar{x}_1) ^2}{s^2_1} \quad \sum \frac{(x_{i1} - \bar{x}_1) (x_{i2} - \bar{x}_2)}{s_1s_2} \quad \cdots \quad \sum 
 \frac{(x_{i1} - \bar{x}_1)(d_i - \bar{d})}{s_1s_d}

@@ -49,7 +49,7 @@ The order is also sometimes explicitly given.  E.g., $\mathbf{A}_{(4,3)}$ means
 $\mathbf A$ is of order $4 \times 3$.
 
 \item [Order:] Always given as rows x columns but uses letters $n,k,p$ differently: $n$ (rows) x $k$ (columns) or 
-$k$ (rows) $\times n$ (columns).
+$k$ (rows) x $n$ (columns).
 
 \item [Element:] Most commonly $a_{ij}$, with $i =$ row; $j =$ column (sometimes other dummy indices like $l,p,q$ are used).
 \end{description}
@@ -78,7 +78,7 @@ as is its Open Source clone, Octave. Python with numPy, R or Julia are also good
 usually represent the different \emph{variables} (e.g., one column contains temperatures, another salinity, 
 etc.) while rows contain the \emph{observations} (e.g., the values of the variables at different depths, times, or positions). Since 
 there are usually more observations than variables, such data matrices are typically rectangular, having 
-more rows $(m)$ than columns $(n)$, i.e., the matrix has an order $m \times n$ where $m > n$.
+more rows $(n)$ than columns $(k)$, i.e., the matrix has an order $n \times k$ where $n > k$.
 
 \section{Matrix Definitions}
 
@@ -108,7 +108,7 @@ a_1 & a_2 & \cdots & a_n
 The size of a vector is simply the number of elements it contains ($n$, in both examples above).
 \index{Null matrix}
 \index{Matrix!null}
-The \emph{null matrix}, written as $\mathbf{0}$ or $\mathbf{0}_{(m,n)}$ has all its elements set equal to 0 --- it plays the
+The \emph{null matrix}, written as $\mathbf{0}$ or $\mathbf{0}_{(k,n)}$ has all its elements set equal to 0 --- it plays the
 role of ``zero'' in matrix algebra.
 A \emph{square matrix} has the same numbers of rows as columns, so its order is $n \times n$.
 \index{Square matrix}
@@ -310,7 +310,7 @@ The \emph{scalar product} (or \emph{dot product} or
 \end{equation}	 
 where $\mathbf a$ is a row vector (or the transpose of a column vector) of length $n, \mathbf{b}$ is a column vector (or 
 the transpose of a row vector), also of length $n$, and $\beta$ is the scalar product of $\mathbf a \cdot \mathbf b$.
-Given the two vectors
+Given the two 3-D vectors
 \begin{equation}
 \mathbf{a} = [a_1 \ a_2 \ a_3 ], \quad \mathbf{b} = \left[ \begin{array}{c}
 b_1\\
@@ -613,7 +613,7 @@ As an example of a singular matrix, consider
 5 & -3 & -4 
 \end{array} \right |,
 \end{equation}
-where row $1 = 3$(row 2) $-$ row 3.  Then, the determinant becomes
+where row $1 = 3\cdot$(row 2) $-$ row 3.  Then, the determinant becomes
 \begin{equation}
 \begin{array}{ccl}
 |\mathbf{A}| & = & a_{11}(a_{22}a_{33}-a_{23}a_{32})-a_{12}(a_{21}a_{33}-a_{23}a_{31})+a_{13}(a_{21}a_{32}-a_{22}a_{31})     \\
@@ -633,7 +633,7 @@ independent vectors that it contains (either row or column vectors).  Consider
 -3 & -4 & -2 & 0
 \end{array} \right] .
 \end{equation}
-Since row $3 = -$(row 1)$ - 2$ (row 2), or col $3 = $ col $1 - 1/4$ (col 2) and col 4 $= -$(col 1)$ + 3/4$ (col 2), 
+Since row $3 = -$(row 1)$ - 2\cdot$(row 2), or col $3 = $ col $1 - 1/4\cdot$(col 2) and col 4 $= -$(col 1)$ + 3/4\cdot$(col 2), 
 the matrix $\mathbf{A}$ has rank 2 (i.e., it has only two linearly independent vectors, independent of whether 
 viewed by rows or columns).
 
@@ -1352,7 +1352,7 @@ E(\mathbf{m}) =  \left(\mathbf{m}^T\mathbf{G}^T - \mathbf{d}^T\right) \cdot \lef
 \mathbf{m}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{m}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{Gm} + \mathbf{d}^T\mathbf{d},
 \end{equation}
 where we have used (\ref{eq:transposerule}) to handle the transpose of a matrix product.
-Note that since $E$ is a scalar then each of these terms must evaluate to scalars as well.  To find the solution, we set
+Note that as $E$ is a scalar then each of these terms must evaluate to scalars as well.  To find the solution, we set
 \begin{equation}
 \frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} + \mathbf{m}^T\mathbf{G}^T\mathbf{G\dot{m}} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{G\dot{m}} = 0, \quad j = 1,m,
 \end{equation}
@@ -1363,7 +1363,7 @@ repetition simply constitutes a factor of two, which we delete by retaining only
 \begin{equation}
 \frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} = 0, \quad j = 1,k.
 \end{equation}
-What is the mysterious ``dot''-derivative, written as
+What does the mysterious ``dot''-derivative, written as
 \begin{equation}
 \mathbf{\dot{m}}^T = \frac{\partial}{\partial m_j} \left (\mathbf{m}^T \right), j = 1,k,
 \end{equation}
