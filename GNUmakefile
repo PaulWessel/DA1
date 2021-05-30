@@ -117,7 +117,7 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_Answer_HogNeck.csh		Fig1_Answer_vostok_c.csh \
 	Fig1_Answer_gbasin_a.csh	Fig1_Answer_gbasin_b.csh \
 	Fig1_Answer_gbasin_c.csh	Fig1_Euler_stamps.csh \
-	Fig1_spectratypes.csh		\
+	Fig1_spectratypes.csh		Fig1_Answer_blackbox.csh \
 	Fig1_taper.csh			Fig1_zeropad.csh \
 	Fig1_FilterWidth.csh		Fig1_gfilt_time.csh \
 	Fig1_BWfilter.csh		Fig1_Wienerfilter.csh \
