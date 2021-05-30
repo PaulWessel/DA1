@@ -2074,13 +2074,37 @@ Clearly, this direction is significant.
 
 \noindent
 \bf{Problem 9.5.} \\
+We decide to compute the mean strikes and their 95\ confidence bands of the fractures for each of the three areas.
+The results are summarized in Table~\ref{tbl:odessa}. From these calculations we note that the mean strike
+of fractures in the north Odessa area is outside the confidence bands of both of the other areas, suggesting
+those areas have significantly different strikes than found for north Odessa.  In contrast, the two other areas
+have confidence bands that contain both of their mean strikes, suggesting they are not significantly different.
+To follow this up with a stricter test we should do a pairwise $F$-test as done in other examples.
 
-{\it new problem}\\
+\begin{table}[h]
+\centering
+\begin{tabular}{|l||c|c|} \hline
+\bf{Area}		 & \bf{Mean strike}  & \bf{95\% Confidence band} \\ \hline
+North Odessa	 & $44.7\DSm$         & $39.6\DSm-49.7\DSm$ \\ \hline
+Northwest Odessa & $49.6\DSm$         & $45.6\DSm-53.6\DSm$ \\ \hline
+West Odessa		 & $53.5\DSm$         & $48.9\DSm-58.2\DSm$ \\ \hline
+\end{tabular}
+\caption{The mean strikes and their 95\% confidence bands for the three Odessa data sets.}
+\label{tbl:odessa}
+\end{table}
+
 
 \noindent
 \bf{Problem 9.6.} \\
 
-{\it new problem}\\
+We follow the recipes in Chapter~\ref{ch:directional} to solve this problem, and can report the following:
+\begin{enumerate}[label=\alph*)]
+\item The mean magnetic remanence vector $\mathbf{m} = (0.3306, 0.7125, -0.5190)$ has a declination of $65\DSm$ and an inclination of $-31\DSm$.
+\item Given $\bar{R} = 0.2425$ we find $k = 0.755$ via Table~\ref{tbl:Critical_kappa3} and evaluate
+the radius of the 95\% confidence cone to be $\delta_{95\%} \sim39\DSm$.
+\item The critical $\kappa$ value from Table~\ref{tbl:Critical_R3} for $n = 17$ is 0.388, hence our estimated $k$
+greatly exceeds it and thus the mean direction is significant at the 95\% level of confidence.
+\end{enumerate}
 
 \noindent
 \bf{Problem 9.7.} \\
