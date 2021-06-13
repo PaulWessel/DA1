@@ -1,16 +1,16 @@
 %  $Id: DA1_Chap5.tex 135 2015-05-07 02:09:16Z pwessel $
 %
 \chapter{SPECTRAL ANALYSIS}
-\label{cg:spectralanallysis}
+\label{ch:spectralanallysis}
 \epigraph{``Science is spectral analysis. Art is light synthesis.''}{\textit{Karl Kraus, Writer}}
 
 	In Chapter~\ref{ch:sequences} we were preoccupied with the topic of time-series analysis in the time-domain 
 and learned a few things about the autocorrelation and cross-correlation techniques.  
-In this chapter we will take the different perspective of studying the periodicities present in a time 
+In this chapter, we will take the different perspective of studying the periodicities present in a time 
 series.
 \index{Frequency content}
 	At the heart of spectral analysis lies the notion of a signal's \emph{frequency content}.  This concept is 
-utilized to decompose a signal into simpler components of known shape.  Because many real 
+utilized to decompose an observed signal into simpler components of known shape.  Because many real 
 observations in fact contain periodic components that fluctuate in a predictable way (e.g., yearly, monthly, 
 daily), it is desirable to use periodic functions as the basic building blocks of the time-series.  
 The most obvious choices are the trigonometric functions \emph{sine} and \emph{cosine}.
@@ -28,7 +28,7 @@ trigonometry.
 \PSfig[h]{Fig1_sincos}{The periodic functions cosine and sine are defined as the $x$ and $y$-components of
 the counter-clockwise spinning unit vector $r$ as a function of the rotation angle $\phi$.  a)
 Spinning vector at a specific time $t_0$, yielding an angle $\phi_0$ and the corresponding $x$ and $y$
-values indicated by the dashed lines. b) Over time, the components trace the sine and cosine functions.}
+values indicated by the dashed lines. b) Over time, these components trace the sine and cosine functions.}
 
 Consider a unit vector that rotates counterclockwise (Figure~\ref{fig:Fig1_sincos}).  The time it takes to
 complete one cycle is 
@@ -57,7 +57,7 @@ from the argument.
 The constant $\phi$ is called the \emph{phase} of the signal (Figure~\ref{fig:Fig1_phase}).
 It is clear that the cosine and sine are out of phase 
 by 90$^\circ$.  Let us assume that a particular time-series has one single periodic component with angular 
-frequency $\omega$.  A model for this series is shown in Figure~\ref{fig:Fig1_onecos},
+frequency $\omega$.  An example of such a series is shown in Figure~\ref{fig:Fig1_onecos},
 where we would need to find both $A$ and $\phi$.  Unfortunately, while this model is linear in $A$ it is \emph{nonlinear} 
 in $\phi$.  However, using the trigonometric identity for the cosine of a difference between two angles we find
 \index{Phase}
@@ -69,7 +69,7 @@ d(t) = A\cos (\omega t -\phi ) = A [ \cos \phi \cos \omega t + \sin \phi \sin \o
 \label{eq:sinusoid}
 \end{equation}
 which \emph{is} linear in both $a$ and $b$.  Thus, instead of finding one amplitude and a phase we instead find the two 
-amplitudes $a$ and $b$ for a cosine and sine pair, respectively, with no phase shift.  We may then easily recover the original
+amplitudes $a$ and $b$ for a cosine and sine pair, respectively, each with \emph{no} phase shift.  We may then easily recover the original
 parameters $A$ and  $\phi$ using
 \begin{equation}
 	\index{Sinusoid!amplitude}
@@ -80,11 +80,11 @@ A = \sqrt{a^2 + b^2 }, \quad \phi = \tan^{-1} b/a.
 \end{equation}
 	More often than not, the observed signal will contain many different sinusoids of different 
 periods, phases, and amplitudes.  We can use the subscript $j$ to indicate the $j$'th component of the 
-series.  The complete Fourier series for a signal $y(t)$ can therefore be written
+series.  Perhaps a complete Fourier series for a signal $y(t)$ could therefore be written
 \begin{equation}
 d(t) =  \sum^\infty_{j=0} a_{j} \cos \omega_{j}t + b_{j} \sin \omega_{j}t,
 \end{equation}
-where $\omega_j$ represent the various angular frequency components.  The $a_j$ and $b_j$ coefficients can be found 
+where $\omega_j$ represent the various angular frequency components?  The $a_j$ and $b_j$ coefficients could then be found 
 by standard least squares techniques.  However, if we try to solve this system for many 
 components we quickly run into computational problems.  To avoid this problem we must look 
 at \emph{harmonics}.
@@ -96,7 +96,7 @@ at \emph{harmonics}.
 \PSfig[h]{Fig1_fundamental}{The fundamental frequency (solid line) has period $T$ and typically represents the length of our data.  Also shown
 is the second harmonic (dashed line).}
 The \emph{fundamental} frequency of a signal has period $T$ (scaled to $2\pi$; see Figure~\ref{fig:Fig1_fundamental})
-and reproduces a full cycle over the length of the data signal.  Consequently, 
+and reproduces a full cycle corresponding to the length of the data signal.  Consequently, 
 \index{First harmonic}
 \index{Second harmonic}
 \begin{equation}
@@ -128,11 +128,11 @@ and $\delta \omega$ is small.  Using trigonometric identities,
 \begin{equation}
 d(t) = 2 \cos (\delta \omega t)\cos(\omega t).
 \end{equation}
-Thus, the component $\cos (\omega t)$ (with $T = 2 \pi/\omega$) has a slowly varying amplitude according to $\cos 
-( \delta \omega t)$, which is the \emph{modulation} function.  This phenomenon is referred to as a \emph{beat} (Figure~\ref{fig:Fig1_AM}).
 \index{Amplitude!modulation (AM)}
 \index{Beat (amplitude modulation)}
 \index{Modulation!amplitude (AM)}
+Thus, the component $\cos (\omega t)$ (with $T = 2 \pi/\omega$) has a slowly varying amplitude according to $\cos 
+( \delta \omega t)$, which is the \emph{modulation} function.  This phenomenon is referred to as a \emph{beat} (Figure~\ref{fig:Fig1_AM}).
 \PSfig[h]{Fig1_AM}{Graphical representation of a ``beat'' or amplitude modulation.  Modulating the amplitude
 of a constant frequency carrier wave is the basis for AM radio, while FM broadcasts use a constant amplitude
 carrier wave and modulate the frequency instead.}
@@ -194,7 +194,7 @@ First, we rewrite the Fourier series as
 \label{eq:thesummation}
 \end{equation}
 where $\leq n/2$ means the largest whole integer resulting from the division $n/2$.
-Thus, the unknown vector $\mathbf{m}$ would now contain the components
+Thus, the unknown vector $\mathbf{m}$ would now contain the renamed components
 \begin{equation}
 \mathbf{m}^T = \left[ a_0 \quad a_1 \quad \dots a_ {\leq n/2} \quad b_1 \quad b_2 \quad \dots \quad b_{\leq n/2} \right] .
 \end{equation}
@@ -235,7 +235,7 @@ the Fourier series may be written as
 \end{equation}
 is called the $j$'th \emph{Fourier frequency}.  Notice if $n$ is odd, then $j < n/2$, so $\omega_j < \pi/\Delta t$ and hence $\pi/\Delta t$ is \emph{not}
 a Fourier frequency, otherwise it \emph{is} a 
-Fourier frequency and the sine term is zero.  Also, $f_{n/2} = (n/2)/ (n \Delta t) = 1/(2 \Delta t)$ is called the \emph{Nyquist} 
+Fourier frequency and the sine term is zero.  Also, the highest frequency $f_{n/2} = (n/2)/ (n \Delta t) = 1/(2 \Delta t)$ is called the \emph{Nyquist} 
 frequency, which we will return to later.
 \index{Nyquist frequency}
 \index{Frequency!Nyquist}
@@ -533,7 +533,7 @@ estimated from the data is called the Nyquist frequency (or period, or wavelengt
 f_N = f_{n/2} = \frac{1}{2\Delta t}, \quad \omega_N = 2\pi f_N = \frac{\pi}{\Delta t}\quad P_{n/2} = 2 \Delta t.
 \end{equation}
 Higher frequencies, whose wavelengths are less than twice the spacing between sample points 
-cannot be detected.  However, when we sample a signal every $\Delta t$ and the original signal has 
+\emph{cannot be detected}.  However, when we sample a signal every $\Delta t$ and the original signal has 
 higher frequencies than $f_{n/2}$, we introduce \emph{aliasing}.  Aliasing means that some frequencies will 
 leak power into other frequencies.  This concept is readily seen by sampling a high-frequency 
 signal at a spacing larger than the Nyquist interval.
@@ -542,7 +542,7 @@ signal at a spacing larger than the Nyquist interval.
 or higher will instead appear as a longer-wavelength component that does not exist in the actual data.}
 Sampling of the high-frequency signal actually results in a longer-period signal (Figure~\ref{fig:Fig1_aliasing}).
 When Clint Eastwood's wagon wheels seem to spin backwards in an old Western movie --- that's aliasing:  The 24 
-pictures/sec rate is simply too slow to capture the faster rotation of the wheel.
+pictures/sec rate is simply too slow to capture the faster rotation of the wheels.
 	
 \subsection{Significance of a spectral peak}
 \index{Test!spectral peak}
@@ -563,7 +563,7 @@ g_{\alpha,k} \approx 1 - \exp \left( \frac{\ln \alpha - \ln k}{k-1} \right ),
 \label{eq:critical_g}
 \end{equation}
 with $k = n/2$ (for even $n$) or $k = (n-1)/2$ (for odd $n$).  Should our observed $g$ (obtained via \ref{eq:computed_g}) exceed this 
-critical value we may decide that the dominant component is real and reflects a true 
+critical value we decide that the dominant component is real and reflects a true 
 characteristic of the phenomenon we are observing.  Otherwise, $s^2_j$ may be large simply by 
 chance.
 
@@ -597,11 +597,11 @@ arose because, historically, the power spectrum was estimated by taking the Four
 the \emph{autocorrelation} of the data; hence many windows operated in the lag-domain.  The 
 introduction of the Fast Fourier Transform made the FFT the fastest way to obtain the spectrum, 
 which then is simply smoothed over nearby frequencies.  The FFT is a very rapid algorithm for 
-doing a discrete Fourier transform, provided $n$ is a power of 2.  It can be shown that one can 
+doing a discrete Fourier transform, especially if $n$ is a power of 2.  It can be shown that one can 
 always split the discrete transform into the sum of two discrete, scaled transforms of subsets of the data.  
 Applying this result recursively, we eventually end up with a sum of transforms of data sets 
 with one entry, whose transform equals itself.  While mathematically equivalent, there is a huge 
-difference computationally:  While the discrete Fourier transform executes proportional to $n^2$, 
+difference computationally:  While the discrete Fourier transform's execution time is proportional to $n^2$, 
 the FFT only takes $n\cdot \log(n)$.  For a data set of $10^6$ points, the speed-up is a factor of $> 75,000$.
 
 	By doing a Fourier Analysis, we have transformed our data from one domain (time or space) 
@@ -682,9 +682,10 @@ Symbolically, we write the convolution of a signal $d(t)$ by a filter $p(t)$ as 
 \index{Inverse filtering}
 \index{Filtering!inverse}
 \begin{equation}
-h(t) = d(t) * p(t) = \int_{-\infty}^{+\infty} d(u) \cdot p(t-u) du.
+h(t) = d(t) * p(t) = \int_{-\infty}^{+\infty} d(u) \cdot p(t-u) du,
 \label{eq:convolution}
 \end{equation}
+where $*$ represents the convolution operator.
 \emph{Deconvolution}, or \emph{inverse filtering}, is the process of unscrambling the convolved signal to 
 determine the nature of the filter \emph{or} the nature of the input signal.  Consider these two cases:
 \begin{enumerate}
@@ -697,14 +698,14 @@ filter $p(t)$ and deconvolve the output with the shape of the filter (i.e., $d(t
 The hard work here is to determine the inverse functions $d^{-1}(t)$ or $p^{-1}(t)$, which is akin to matrix inversion.
 Other examples of convolution include:
 \begin{enumerate}
-\item Smoothing data --- with running means, weighted means, removing specific frequency components, 
+\item Filtering data --- using running means, weighted means, removing specific frequency components, 
 etc.
  \item Recording a phenomenon with an instrument that responds slower than the rate at which the 
 phenomenon changes, or which produces a weighted mean over a narrow interval of time,
 or which has lower resolving power than the phenomenon requires.
 \item Conduction and convection of heat.
 \item Deformation and the resulting gravity anomalies caused by the flexural response of the lithosphere
-to a seamount load.
+to a volcano.
 \end{enumerate}
 
 	Convolution is most easily understood by examining its effect on discrete functions.  
@@ -722,14 +723,14 @@ Since the filter is linear, we may think of the input as a series of individual 
 is thus the sum of several impulse responses scaled by their amplitudes and shifted in 
 time.  Calculating convolutions is a lot like calculating cross-correlations, except 
 that the second time-series must be reversed.  Consider the two signals as finite sequences on separate strips of 
-paper (Figure~\ref{fig:Fig1_conv3}):
+paper (Figure~\ref{fig:Fig1_conv3}).
 \PSfig[H]{Fig1_conv3}{Graphical representation of a convolution.  We write the discrete values of $d(t)$ and $p(t)$ on two separate strips of paper.}
 \noindent
 We obtain the zero lag output by aligning the paper strips as shown in Figure~\ref{fig:Fig1_conv4},
 after reversing the red strip.
 \PSfig[H]{Fig1_conv4}{Convolution, zero lag.  Reverse one strip and arrange them to yield a single overlap.}
 \noindent
-The zero lag result $h_0$ is thus simply $d_0 \cdot p_0$.  Moving on, the first lag results from the alignment shown in  Figure~\ref{fig:Fig1_conv5}:
+The zero lag result $h_0$ is thus simply $d_0 \cdot p_0$.  Moving on, the first lag results from the alignment shown in  Figure~\ref{fig:Fig1_conv5}.
 \PSfig[H]{Fig1_conv5}{Convolution, first lag.  We shift one strip by one to increase the overlap.}
 \noindent
 This simple process is repeated, and for each lag $k$ we evaluate $h_k$ as the sum of the products of the overlapping 
@@ -829,7 +830,7 @@ The transformed function $\Delta(f)$ can be shown to be a series of impulses as 
 \noindent
 In the frequency domain, $d(t)$ is represented as $D(f)$ and illustrated in Figure~\ref{fig:Fig1_sampl4}.
 We note that while the time-domain comb function $\Delta(t)$ is a series of impulses spaced every $\Delta t$,
-the frequency-domain comb function $\Delta(f)$ is also a series of impulses but spaced every $1/\Delta t$.
+the frequency-domain comb function $\Delta(f)$ is also a series of impulses, but spaced every $1/\Delta t$.
 The time and frequency domain spacings of the comb
 functions are thus reciprocal: A finer sampling interval leads to a larger distance between the impulses in the
 frequency domain.
@@ -844,7 +845,7 @@ that are centered at the location of each impulse (see Figure~\ref{fig:Fig1_samp
 \PSfig[H]{Fig1_sampl6}{Aliasing in the frequency domain occurs when the sampling interval $\Delta t$ is too large.}
 \noindent
 This overlap introduces \emph{aliasing} (which we shall discuss more later).  To prevent aliasing, we must ensure $\Delta t \leq 1/(2 f_N)$,
-where $f_N$ is the highest (radial) frequency component present in the time series.  We call $f_N$ the
+where $f_N$ is the highest (radial) frequency component present in the time series.  As mentioned earlier, we call $f_N$ the
 \emph{Nyquist frequency} and the Nyquist sampling interval is $\Delta t  =  1/(2 f_N)$, hence $f_N = 1/(2 \Delta t)$.
 \index{Aliasing}
 \index{Frequency!Nyquist}
@@ -863,10 +864,10 @@ which is illustrated in Figure~\ref{fig:Fig1_sampl7} as a multiplication of the 
 \subsection{Aliasing, again}
 \PSfig[h]{Fig1_aliasing2}{Aliasing as seen in the time domain.  Thin line shows a phenomenon with period $P$.
 The circles and heavy dashed line show
-the signal obtained using a sampling rate of $1.25P$, while the squares and blue dashed
+the signal obtained using a sampling rate of $1.25P$, while the squares and dashed
 line show a constant signal ($f = 0$) obtained with a sampling rate of $2P$.}
-Aliasing can be viewed from several angles.  Conceptually, if $\Delta t > 1/(2 f_N)$  (where $f_N$ is 
-highest frequency component in phenomenon of interest) then a high frequency component will \emph{masquerade} in the 
+Aliasing can be viewed from several angles.  Conceptually, if $\Delta t > 1/(2 f_N)$ (where $f_N$ is 
+the highest frequency component in phenomenon of interest), then a high frequency component will \emph{masquerade} in the 
 sampled series as a lower, artificial frequency component, as shown in Figure~\ref{fig:Fig1_aliasing2}.
 \noindent
 If $\Delta t$ is a multiple of $P$ (e.g., see the squares in Figure~\ref{fig:Fig1_aliasing2}), then this frequency component is indistinguishable from a 
@@ -886,7 +887,7 @@ actual power and the result is a distorted, total power spectrum (red).}
 \index{Folding frequency}
 \index{Frequency!folding}
 	Because of this relationship, the Nyquist frequency $(f_N)$ is often called the \emph{folding frequency} since the
-aliased frequencies ($f > f_N$) have their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist1}).
+aliased frequencies ($f > f_N$) will appears as their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist1}).
 Therefore, when computing the transform of a data set,
 any frequency components in the phenomenon with true frequencies $f > f_N$ have been folded back into 
 the resolved frequency range during sampling.  Consequently, we must carefully choose $\Delta t$ so that the powers at frequencies $f' > f_N$ are either small 
@@ -939,7 +940,7 @@ discrete transform of the series on the left (which is periodic over $T$).
 
 	If the procedure in Figure~\ref{fig:Fig1_AL} is followed mathematically, it is seen that the continuous Fourier 
 transform is related to the discrete Fourier transform by the steps outlined graphically above.  
-These show that a discrete Fourier transform can differ from the continuous one by two effects:
+These show that a discrete Fourier transform will \emph{differ} from the continuous transform by two effects:
 \begin{enumerate}
 \item Aliasing --- from discrete time domain sampling.
 \item Leakage --- from finite time domain truncation.
@@ -990,7 +991,7 @@ windows include:  \emph{Hanning} (a cosine taper), \emph{Parzen} (similar to Han
 more steeply, \emph{Hamming} (like Hanning), and \emph{Bartlett-Priestley} (which is quadratic and has ``optimal'' properties, 
 satisfying specific error considerations.)  All of these tapers have transforms that are less 
 oscillatory than the $\sinc$ function but they are also wider. Therefore, multiplication of the time series with one 
-of these gate functions results in a convolution with its transform in the frequency domain that will smear spectral peaks 
+of these gate functions results in a convolution whose transform in the frequency domain will smear spectral peaks 
 more than the $\sinc$ function did. In return, it will not introduce ripples far away from these spectral peaks.
 
 \PSfig[h]{Fig1_trunc3}{Alternative gate functions and their spectral representations.  The less abrupt
@@ -1004,15 +1005,15 @@ which accounts for the smearing of spectral peaks. Hence, leakage is still not c
 \section{Complex Fourier Series}
 
 As mentioned, Fourier series combine \emph{even} (cosine) and \emph{odd} (sine) components.
-It is common to simplify these expressions by using the \emph{complex notation},
-where a \emph{complex number} $z$ is written
+It is common to simplify these expressions by using \emph{complex notation},
+in which a \emph{complex number} $z$ is written
 \begin{equation}
 	z = x + iy.
 \end{equation}
 Here, $x$ is considered the \emph{real} part, $y$ is the \emph{imaginary} part,
 and $i = \sqrt{-1}$ is the \emph{imaginary number}\index{Imaginary number}.  The concept of considering a complex number as a
 point $(x, y)$ in the complex plane was first presented by Caspar Wessel\footnote{No relation!} in 1799\index{Wessel, C.}, but like many mathematical inventions
-others had independently dabbled with this both before and after.  In the end, our old friend K. F. Gauss made
+others had independently dabbled with this both before and after 1800.  In the end, our old friend K. F. Gauss made
 many contributions to complex number theory.
 
 Simple rules govern elementary
@@ -1100,7 +1101,7 @@ while the \emph{inverse} relationships are
 %(16.5)
 \end{equation}
 We will refresh (or introduce) a few concepts that apply to complex numbers.
-The \emph{complex conjugate}\index{Complex!conjugate} (denoted by *) of a function $f(x)$ is written $f^*(x)$, with components
+The \emph{complex conjugate}\index{Complex!conjugate} (denoted by $^*$) of a function $f(x)$ is written $f^*(x)$, with components
 \begin{equation}
 %(16.6)
 \begin{array}{lcr}
@@ -1122,7 +1123,7 @@ while the \emph{phase} is obtained via
 
 \subsection{Using the complex notation}
 \index{Orthogonality!Fourier series|(}
-By using Euler's formula the \emph{five} orthogonality relations discussed in Section~\ref{sec:FFS} now become just \emph{one}:
+By using Euler's formula the \emph{five} orthogonality relations discussed in Section~\ref{sec:FFS} become just \emph{one}:
 \begin{equation}
 %(16.8)
 \sum^n_{\ell=1} e^{i \omega_j t_{\ell}} \cdot e^{-i \omega_k t_{\ell}} =
@@ -1162,7 +1163,7 @@ e^{-i \omega_j t_{\ell}} \right ].
 \end{equation}
 %(16.10)
 Since the second term contains $e^{-\omega_j t_{\ell}}$, we shall consider the effect of introducing \emph{negative}
-frequencies (i.e., let $j$ take on negative values) in simplifying this expression\index{Frequency!negative}. In general, for negative $j$ (i.e., $-j$),
+frequencies (i.e., let $j$ take on negative values) in simplifying this expression further\index{Frequency!negative}. In general, for negative $j$ (i.e., $-j$),
 \begin{equation}
 \left (a_{-j} - ib_{-j}\right )e^{i\omega_{-j} t_{\ell}} = \left (a_j +ib_j \right ) e^{-i \omega_j t_{\ell}},
 %(16.11)
@@ -1179,7 +1180,7 @@ a_{-j} &=& \displaystyle \frac{2}{n} \sum^n_{\ell=1} d_{\ell} \cos \omega_{-j} t
 b_{-j} &=& \displaystyle \frac{2}{n} \sum^{n}_{\ell=1} d_{\ell} \sin \omega_{-j} t_{\ell} = \frac {2}{n} \sum^n_{\ell=1} d_{\ell} \sin \frac {-2 \pi j}{T} t_{\ell} = \frac{-2}{n} \sum^n_{\ell=1} d_{\ell} \sin \frac{2 \pi j}{T} t_{\ell} = -b_j.
 \end{array}
 $$
-Consequently, $a_j$ is an even function, $b_j$ is an odd function, and obviously
+Consequently, $a_j$ is an \emph{even} function, $b_j$ is an \emph{odd} function, and obviously
 $$
 e^{i \omega_{-j} t_{\ell}} = e^ {-i\omega_j t_{\ell}}.
 $$
@@ -1262,7 +1263,7 @@ and
 g(t) = \int ^\infty _{-\infty} G(f) e^{+i 2 \pi t f} df,
 \label{eq:IFT1D}
 \end{equation}
-respectively, for radial frequency $f$.  The main differences between the continuous transforms and the discrete transforms
+respectively, for radial frequency $f$.  As noted, the main differences between the continuous transforms and the discrete transforms
 (which we necessarily must use to operate on observed data) are:
 \begin{enumerate}
 	\item Our data have a finite, nonzero sampling interval, whereas the theory considers continuous distributions.
@@ -1368,17 +1369,17 @@ that could not be resolved in the original time series.
 \section{Filtering}
 \index{Filtering|(}
 
-Filtering data is a major data processing procedure that is used across all the natural sciences.  Such procedures are applied to
+Filtering data is a major data processing procedure that is used throughout the natural sciences.  Such procedures are applied to
 reduce ``undesired'' features in the observations or to enhance the ``desired'' features.  What the desired and
 undesired features are may change completely from application to application and may even be interchangeable.
 Filters may be expressed as convolutions (and thus may take advantage
 of the speed-up provided by the convolution theorem) or they must be executed relatively slowly in the time (or space) domains.
 Both types of filters play important roles in data processing and interpretation.  Before we discuss a range of well-known
-filters we will digress to discuss convolution and various properties of the Fourier transform.
+filters we will digress to revisit convolution and examine various properties of the Fourier transform.
 
 \subsection{Convolution and the Fourier Transform}
 
-Before discussing convolution we need to take a closer look at the analytical
+Before revisiting convolution, we need to take a closer look at the analytical
 Fourier transform as given by (\ref{eq:FT1D}).
 Note that this general (continuous) form differs from the discrete form (\ref{eq:DA2_16.15}) in that it is no
 longer dependent upon discrete Fourier frequencies nor is it restricted to a finite period, $T$.
@@ -1588,7 +1589,7 @@ This alternative operation, which is simply carried out in the frequency domain,
 The filtered output is finally obtained by transforming $H(f)$ back to the time domain (Figure~\ref{fig:Fig1_filter4}).
 \PSfig[h]{Fig1_filter3}{Truncation of high frequencies is straightforward in the frequency domain.}
 
-We discover that the output has a lot of ``ripples'' (here somewhat exaggerated) at about the period corresponding to $1/f_{\mbox {cut}}$.  
+We discover that the output has a lot of ``ripples'' (here somewhat exaggerated) at approximately the period corresponding to $1/f_{\mbox {cut}}$.  
 This ``ringing'' is caused by our convolving of $d(t)$ with $p(t)$, which in this case is a $\sinc$ function.  Because all power 
 at higher frequencies are completely eliminated, the power at the remaining highest frequency $f_{\mbox{cut}}$
 stands out.  This effect is referred to as ``Gibbs' phenomenon''.
@@ -1812,7 +1813,7 @@ with different cutoff frequencies, which results in a certain band of frequencie
 \section{Problems for Chapter \thechapter}
 
 \begin{problem}
-	The monthly flow of water in Cave Creek, Kentucky in units of 0.01 inches are given in the file \emph{cavecreek.txt},
+	The monthly flow of water in Cave Creek, Kentucky are given in the file \emph{cavecreek.txt},
 	with the line number indicating months beginning with October, 1952.  Plot the data and compute the
 	power spectrum.  What is the Nyquist frequency? Determine the most significant peak.  What period does it correspond to? Is the peak significant
 	at the 95\% level of confidence?

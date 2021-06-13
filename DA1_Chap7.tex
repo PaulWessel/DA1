@@ -7,7 +7,7 @@
 \index{Data!sequence}
 	The geosciences are replete with observational data that can be viewed as ordered sequences.  
 Their single most important property is that they form a \emph{sequence}, and the \emph{positions} where 
-data points occur within the sequence are important.  Contrast that arrangement to a set of repeated 
+data points occur within the sequence are paramount.  Contrast that arrangement to a set of repeated 
 measurements of some quantity, say ten determinations of sandstone densities.  Our goal of 
 determining the average density is not affected by how we order our data --- the order in the 
 sequence is not important.  Sequential data therefore often consist of series with \emph{pairs} of 
@@ -16,7 +16,7 @@ special family of such sequences consists of those in which an observation is gi
 The analysis of such data is traditionally called \emph{time series analysis}.  In this book we will 
 extend these techniques to include ``space series'' as well, i.e., time and distance will be 
 considered interchangeable, and we will discuss such data and the methods used to analyze them at
-length in Chapter~\ref{cg:spectralanallysis}.
+length in Chapter~\ref{ch:spectralanallysis}.
  
       We can think of many examples of natural data that are time --- or space ---
 sequences, e.g., a series of temperatures as a function of time, tide gauge readings taken over  a 
@@ -34,12 +34,12 @@ significantly from location to location.  Thus, if we use thickness or any other
 position it may obscure the examination of the \emph{successions}, which is the primary objective of interest. 
 For example, consider an observation that sandstone is the second state and coal the sixth state
 in a sequence.  Clearly, this relationship has no meaning that can be 
-expressed numerically, e.g., 6th is not $3 \times$ ``second''.  Obviously, we have here a problem of a 
-different nature than the usual time-series mentioned above.  
+expressed numerically, e.g., ``sixth'' is not $3 \times$ ``second''.  Obviously, we have here a problem of a 
+different nature than the usual time-series analysis mentioned above.  
 
-	Yet another type of sequence is a series of events.  Such data may be historical records of 
+	Yet another type of sequence is a series of \emph{events}.  Such data may be historical records of 
 earthquakes in California, volcanic eruptions of Mauna Loa, or reversals of the Earth's magnetic field.
-In these cases, the data simply consist of the time interval between events or a cumulative length of time over
+In these cases, the data simply consist of the time interval \emph{between} events or a cumulative length of time over
 which the events occurred, and special analysis techniques are required.
 
 Thus, the nature of the sequential data and the type of sequence determine what questions we 
@@ -182,7 +182,7 @@ probability that $B$ occurs.  This must hold for all independent states, so
 \begin{equation}
 P(B|A) = P(B|B)  = P(B|C) = P(B|D) = P(B).
 \end{equation}
-This result provides us with a method to predict what the transition probability matrix should look 
+This result provides us with an opportunity to predict what the transition probability matrix should look 
 like if the occurrence of a lithologic state at one point were completely independent of the 
 lithology at the underlying point.  Naturally, that matrix will have rows matching the fixed 
 probability vector.  So, for our stratigraphic example, we find the expected matrix to be
@@ -196,7 +196,7 @@ $$
 \bf{D} &  0.36 & 0.12 & 0.44 &  0.08\\ \hline
 \end{array}
 $$
-We are now in the position to compare the observed transition frequencies to the predicted frequencies 
+Finally, we are now in the position to compare the observed transition frequencies to the predicted frequencies 
 and test the null hypothesis that all lithologic states are independent of the state immediately below it.  
 To do so we use a $\chi^2$-test after first converting the expected percentages back to counts or frequencies.  
 We find
@@ -295,7 +295,7 @@ P(B \rightarrow ? \rightarrow B) = P(B \rightarrow B \rightarrow B) + P(B \right
 \end{equation}
 One can use the same approach to calculate the probability of any lithology two steps up, but 
 fortunately there is a more efficient way: These multiplications and additions are exactly those that 
-define matrix multiplication.  Multiplying the transition matrix by itself (i.e., squaring it) yields
+define a matrix multiplication.  Multiplying the transition matrix by itself (i.e., squaring it) yields
 $\mathbf{P}^2$, which describes the \emph{second-order} Markov properties of the stratigraphic section:
 \begin{equation}
 \left [ \begin{array}{rrrr}
@@ -312,7 +312,7 @@ $\mathbf{P}^2$, which describes the \emph{second-order} Markov properties of the
 Note that again the rows have unit sums.  If we wanted to know whether the second-order Markov 
 properties are significant we convert the frequency percentages to counts by multiplying $\mathbf{P}^2$
 by the observed row totals again.  However, this time the product will approximate the second-order
-transition we would have likely observed had we measured them directly from the data.  We find
+transition we would have \emph{likely} observed had we measured them directly from the data.  We find
 \begin{equation}
 \left[ \begin{array}{rrrr}
 14.1 & 0.4 & 7.0 & 0.6\\
@@ -338,7 +338,7 @@ This can be avoided if we only record the transitions of state whenever they occ
 that the transition frequency matrix will have zeros along the diagonal since no state can follow 
 itself.  Sequences which cannot contain repeated states are called \emph{embedded Markov chains}.
 \begin{example}
-	Let us look at a particular example from a well drilled through a sedimentary delta plain in
+	Let us look at a particular example from a borehole through a sedimentary delta plain in
 Scotland.  We have five lithologies: A (mudstone), B (shale), C (siltstone), D 
 (sandstone), and E (coal).  The analysis yields
 \begin{equation}
@@ -425,7 +425,7 @@ for an embedded sequence of independent states.  This result is achieved by tria
 since we do not know the number of repeated states in the envisioned sequence.  We want to find 
 diagonal entries which do not change when the matrix is raised to higher powers.  An iterative scheme is used:
 \begin{enumerate}
-\item	Place arbitrary large estimates (say 1000) into the diagonal positions in the observed 
+\item	Place arbitrary large estimates (1--2 magnitudes larger that your observations) into the diagonal positions in the observed 
 matrix.
 \item	Divide row totals by the grand total to get diagonal probabilities.
 \item	Calculate new diagonal estimates by multiplying the diagonal probabilities from step 2 by the 
@@ -504,7 +504,7 @@ We next obtain the new diagonal probabilities to be
 \end{array}
 \right ] .
 \end{equation}
-Step (3) is to update the diagonal elements, hence we find
+Step (3) is to update the diagonal elements via the new row sums, hence we find
 \begin{equation}
 % MathType!MTEF!2!1!+-
 % faaagCart1ev2aaaKnaaaaWenf2ys9wBH5garuavP1wzZbqedmvETj
@@ -590,7 +590,7 @@ with a corresponding grand total of 524.
 
 	Now, because all states are independent in the random case we will test for, the probability 
 that state $j$ will follow state $i$ is simply $P(i \rightarrow j) = P(i) \cdot P(j)$.  This allows us to construct the 
-expected transition probability matrix
+\emph{expected} transition probability matrix
 \begin{equation}
 \mathbf{P}_e = \left [ \begin{array}{ccccc}
 0.125 & 0.026 & 0.083 & 0.064 & 0.055 \\
@@ -626,12 +626,12 @@ k = 11$ degrees of freedom; the test indicates a strong first order Markov seque
 \label{sec:seriestest}
 	One of many types of time series that occur in the natural sciences is the \emph{series of events}.  
 Examples of such sequences include the historical records of earthquake occurrences,  volcanic 
-eruptions, storms and hurricanes, geomagnetic reversals (Figure~\ref{fig:Fig1_series}), landslides, and tsunamis.  These series
+eruptions, floods, storms and hurricanes, geomagnetic reversals (Figure~\ref{fig:Fig1_series}), landslides, and tsunamis.  These series
 share some common characteristics:
 \begin{itemize}
-\item	Events are distinguished based on when they occur in time.
-\item	Events are essentially instantaneous in the context of your range.
-\item	Events are so infrequent that they do not overlap in time.
+\item	Events are distinguished based on \emph{when} they occur in time.
+\item	Events are essentially \emph{instantaneous} in the context of your range.
+\item	Events are so \emph{infrequent} that they do not overlap in time.
 \end{itemize}
 In some cases, spatial data sequences may be considered a series of events.  Consider a traverse 
 across a thin-section.  We may be interested in the occurrence of some rare mineral.  Another 
@@ -698,6 +698,7 @@ In our sequence above (\ref{eq:heads}) we have the following 13 runs:
                  H & T & HH &  T &  H &  TTT & H & T &  H &   T &   HH &   TT &   HHH\\
                   1 & 2 &  3 &     4 &   5 &     6 &    7 &   8 &   9 &    10 &  11 &    12 &     13\end{array} 
 \end{equation}
+This is a job for the $U$-test.
 We test the significance of the runs by finding all possible ways of arranging $n_1$ items of state 1 
 and $n_2$ items of state 2.  The total number of runs is called $U$, and we can consult tables for critical 
 values of $U$ given $n_1, n_2$, and $\alpha$ (our confidence level).  However, for large $n_1, n_2 > 10$  the 
@@ -717,9 +718,9 @@ We may then simply use the $z$-statistic
 z = (U - \bar{U})/ s_U
 \end{equation}
 and see if our calculated $z$ value exceeds the $\pm z_{\alpha/2}$ interval.  For our H/T series
-$n_1 = 11$ and $n_2 = 9$ so we find
+$n_1 = 11$ and $n_2 = 9$, so we find
 \begin{equation}
-\bar{U} = \frac{2 \cdot 11 \cdot 9}{11 + 9} + 1 = 10.9,
+\bar{U} = \frac{2 \cdot 11 \cdot 9}{11 + 9} + 1 = 10.9 \mbox{ and}
 \end{equation}
 \begin{equation}
 s_U = \sqrt{\frac{(2 \cdot 11 \cdot 9)(2 \cdot 11 \cdot 9 - 11 - 9)}{(11 + 9)^2(11+9 -1)}} = \sqrt{4.6} = 2.1,
@@ -731,7 +732,7 @@ z = \frac{13 - 10.9}{2.1} = 1.0.
 With $z_{\alpha/2} = z_{0.025} = \pm 1.96$ (i.e., Table~\ref{tbl:Critical_t}) we cannot reject the null hypothesis that the sequence appears random.
 \end{example}
 
-	The geological application of runs tests may seem somewhat obscure, since most data 
+	The geological application of run tests may seem somewhat obscure, since most data 
 consist of more than two mutually exclusive states.  A related procedure is a statistical method 
 for examining runs up and down.  Here we are again considering two distinct ``states'', i.e., 
 whether an observation is larger or smaller than the preceding observation.  Let us examine the 
@@ -750,7 +751,7 @@ $$
 Regarding the first 0 as a $`-$' and the second 0 as a $`+$', we find five runs: three of $`+$' and two of $`-$'.  Then, the $U$-test is directly 
 applicable.  Again, we need more than 10 occurrences of each type to use the normal distribution 
 approximation introduced earlier.  It is clear that one can apply runs test by converting data to a binary series
-by almost any method, provided the hypothesis tested reflects the dichotomizing method.  A 
+by almost any method, provided the hypothesis tested reflects the \emph{dichotomizing} method.  A 
 common technique is to dichotomize a series by removing the median or mean value and look 
 for randomness of runs about the central location. 
 \begin{example}
@@ -769,7 +770,7 @@ are given in Table~\ref{tbl:runtest}.
 3.52 & 3.77 & 3.84 & 3.92 & 4.09 & 3.86 & 4.13 & 3.92 & 3.54 &      \\ \hline
  -   &  -   &  -   &  -   &  +   &  -   &  +   &  -   &  -   &      \\ \hline
 \end{tabular}
-\caption{Density measurements and their signs if larger or smaller than the median density.}
+\caption{Density measurements and their signs indicating if larger or smaller than the median density.}
 \label{tbl:runtest}
 \end{table}
 The median density is found to be 3.98.  We subtract this value and store the signs of the 
@@ -783,7 +784,7 @@ and we obtain $z = -4.4$.  Because our observed $U$ is far outside both the 95\%
 that the variations about the median are not random but systematic.
 \end{example}
 There are of course many 
-more variants of the run test shown here.  In general, such tests are nonparametric in that they 
+more variants of the run test shown here.  In general, such tests are \emph{nonparametric} in that they 
 do not require the underlying distribution to be known to us.
 \index{Run test|)}
 
@@ -797,8 +798,8 @@ other patterns in a sequence can be found by computing a measure of the ``self-s
 sequence, that is, to what extent a piece of the sequence looks like another piece of the same sequence.  One such 
 measure is known as the \emph{autocorrelation}.
      
-In Section~\ref{sc:cc} we discussed the correlation between two variables $x_i$ and $y_i$ and found the 
-correlation to be given by 
+In Section~\ref{sc:cc} we discussed the correlation between two variables $x_i$ and $y_i$ and found it 
+to be given by 
 \begin{equation}
 r = \displaystyle \frac{s_{xy}}{s_x s_y},
 \end{equation}
@@ -995,7 +996,7 @@ the mantle, the inelastic response of the solid Earth to tidal forces, etc.
 cross-correlation techniques require a constant and common time scale for the two time series, which is 
 often not the case.  Depending on the particular nature of the data sets, systematic 
 distortions such as variable sedimentation rates for sedimentary sequences in drill holes and variable 
-spreading rates for magnetic anomalies will render cross-correlation problematic.  Also, at other times the 
+seafloor spreading rates for magnetic anomalies will render cross-correlation problematic.  Also, at other times the 
 two series may have nominal values such as lithologic states and therefore cannot be assigned a numerical 
 value.  The extensions of autocorrelation and cross-correlation techniques to deal with nominal 
 data are named \emph{autoassociation} and \emph{cross-association}, respectively.
@@ -1070,7 +1071,7 @@ reversals are uniformly distributed over the time period.
 
 \begin{problem}
 The data set \emph{limestone.txt} contains the thickness of successive limestone beds in the Lower Jurassic
-from a formation in Wales.   Using the run test, is there a pattern in these sequences of thicknesses?
+from a formation in Wales.   Using the run test, is there a pattern in this sequence of thicknesses?
 \end{problem}
 
 \begin{problem}
@@ -1078,10 +1079,10 @@ from a formation in Wales.   Using the run test, is there a pattern in these seq
 \setcounter{Vostok}{\theproblem}
 The 3-km long Vostok ice core from Antarctica resolves temperature variations relative to the present via
 oxygen isotopes. These data are given in table \emph{vostok.txt}, which contains equidistant depths (in meter), the
-corresponding times (in year) and the relative change in temperature (in $^{\circ}$C).
+corresponding times (in year), and the relative change in temperature (in $^{\circ}$C).
 \begin{enumerate}[label=\alph*)]
 \item Since the autocorrelation calculation requires an equidistant interval we must compute the autocorrelation
-of the temperature changes as a function depth.
+of the temperature changes as a function of depth.
 At what lag $> 0$ is the autocorrelation maximized?  What does this lag represent and how is it related to
 time?
 \item Because of compaction, depth is not a good proxy for time, especially for the deeper (older) sections.
@@ -1106,7 +1107,7 @@ compatible with a null hypothesis that states $n(x)$ may be considered white noi
 
 \begin{problem}
 	An engineer generates a two-pulse, noisy signal that he sends through a ``black box'' filtering operator.
-The experimental setup records the time (in seconds) and both the input and output magnitudes, saved to file
+The experimental setup records the time (in seconds) and both the input and output magnitudes, reproduced in file
 \emph{blackbox.txt}.  The black box filter seems to both smooth the output and delay it in time.
 Use the cross-correlation technique to determine the lag induced by the filter.
 \end{problem}

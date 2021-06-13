@@ -66,7 +66,7 @@ coordinates of these vectors are given by
 x_{i}=\cos \theta_{i},\quad y_{i}=\sin \theta_{i},
 \label{eq:xy_components}
 \end{equation}	 	
-we find the coordinates of the resultant $R$ to be
+we find the coordinates of the resultant $\mathbf{R} = (x_r, y_r)$ to be
 \index{Vector!resultant}
 \index{Vector!resultant length}
 \begin{equation} 
@@ -81,7 +81,7 @@ The mean direction $\bar{\theta}$ is then simply given by
 \end{equation}
 Computer implementations of (\ref{eq:meandir}) should take care to use the \texttt{atan2} function rather than \texttt{atan}
 so that the mean direction is found in the correct quadrant.
-The magnitude of the resultant should be normalized by the number of vectors before it can be 
+The magnitude $R$ of the resultant should be normalized by the number of vectors before it can be 
 used further.  This gives us the \emph{mean resultant length}
 \begin{equation}
 	\index{Mean resultant length}
@@ -106,7 +106,7 @@ been used extensively in studies of directional data is the \emph{von Mises} dis
 p(\theta) = \frac{1}{2 \pi I_0 ( \kappa)} e^{\kappa \cos\left( \theta - \mu \right)},
 \label{eg:von_Mises}
 \end{equation}
-where $\kappa$ is a measure of the \emph{concentration} of the distribution about the mean direction $\mu$ and $I_0$ is 
+where $\kappa$ is a measure of the \emph{concentration} of the distribution about the mean direction $\mu$, and $I_0$ is 
 the modified Bessel function of the first kind and order zero (it normalizes the 
 cumulative distribution of $p(\theta)$ over $360^{\circ}$ to unity.)  A large $\kappa$ means we have a strongly preferred direction.
 The concentration parameter $\kappa$ is obviously related to
@@ -165,8 +165,8 @@ exceeded by the observed $\bar{R} = 0.802$ and we must conclude that the fault s
 
 	There are instances when we would like to test whether an observed trend equals a 
 specified trend.  The determination of critical values for such a scenario is more difficult and involves 
-using complex equations or charts.  As an alternative approach we find the \emph{confidence angle} $\Delta \theta$ around
-the mean direction of the sample and investigate whether this angular interval is large enough to accommodate the specified trend
+using complex equations or charts.  As an alternative approach we may find the \emph{confidence angle} $\Delta \theta$ around
+the mean direction of the sample. We can then investigate whether this angular interval is large enough to accommodate the specified trend
 we want to test against.  The approximate standard error in $\bar{\theta}$ is given (in radians) by
 \index{Confidence interval!mean direction}
 \begin{equation}
@@ -219,7 +219,7 @@ For large $k > 10$, we may compute
 \begin{equation}
 F = \frac{(n-2)(R_1 + R_2 - R_p)}{n - R_1 -R_2},
 \end{equation}
-with $n$ being the combined number of observations, $R_1$ and $R_2$ are the resultants (not \emph{mean} resultants)
+with $n$ being the combined number of observations, $R_1$ and $R_2$ are the full resultants (not \emph{mean} resultants)
 for each data set, and
 $R_p$ is the resultant from the combined data. Here, $k$ is estimated from $\bar{R}_p$, the mean resultant.
 However, if $2 < k < 10$ then a more accurate $F$-statistic is obtained via the adjustment
@@ -264,7 +264,7 @@ different orientations at the $95 \%$ confidence level.
 
 	The concept of robustness is also applicable to directional data since such data may also contain outliers.
 However, directional outliers cause less harm than their Cartesian counterparts discussed earlier since directional data are forced
-to be periodic.  It is clear from Figure~\ref{fig:Fig1_dir2} that an outlier causes most damage when it is oriented
+to be periodic.  It is clear from Figure~\ref{fig:Fig1_dir2} that an outlier causes most damage to estimates of mean direction when it is oriented
 90$^{\circ}$ away from the trend of the bulk of the data.
 We may find the circular analog of the median by finding the direction $\tilde{\theta}$ that minimizes the sum
 \begin{equation}
@@ -299,7 +299,7 @@ with respect to the rest of the atmospheric data.
 	In the analysis so far we have only considered the direction (or orientation) of a feature and not its length.
 However in many cases, such as fracture data or fault traces, the features will have very different lengths.  
 The analysis described above, when applied to such data, would give both a one km long and a 100 km long fault
-the same weight, which may not be appropriate.  We 
+the same weight, which does not seem to be appropriate.  We 
 can account for this bias by weighing the directions by the respective \emph{lengths} of the features.  By keeping 
 track of the length of the faults (and not their numbers) per sector we can obtain a rose diagram that 
 reflects the proportions of the various fracture directions.  The rationale employed here is that large and/or 
@@ -508,7 +508,7 @@ Often, we will be interested in testing whether the observed mean direction equa
 prescribed direction, given the uncertainties due to random errors.  As for circular data, such tests
 are best performed by constructing the $\alpha$ confidence region around the mean direction.  This
 statistic is based on the Fisher\index{Fisher, R. A.} distribution and gives a spherical cap radius for a \emph{cone of confidence}
-around the mean direction.  As usual, this radius, $\delta$, is a function of both the confidence level $\alpha$ and $R$.  
+around the mean direction.  As usual, this radius is a function of both the confidence level $\alpha$ and $R$.  
 We find
 \index{Cone of confidence}
 \begin{equation}

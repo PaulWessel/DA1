@@ -5,12 +5,12 @@
 \epigraph{``I never guess. It is a capital mistake to theorize before one has data. Insensibly one begins to twist facts to suit theories, instead of theories to suit facts.''}{\textit{Sherlock Holmes, Consulting Detective}}
 Data come in all types and amounts, from a handful of hard-earned analytical quantities obtained after days of meticulous
 work in a laboratory to terabytes of remotely sensed data simply gushing in from satellites and remotely operated vehicles.
-Having a common language to describe data and to make initial explorations of trends are thus desirable.
+It is therefore desirable to have a common language to describe data and to make initial explorations of trends.
 
 \section{Classification of Data}
 \index{Data!classification}
 All observational sciences require data that may be analyzed and explored, which give rise to new ideas for
-how the natural world works.  Such ideas may be developed into simple hypotheses that can ultimately be tested
+how the natural world works.  Such ideas may be developed into simple hypotheses that ultimately can be tested
 against new data and either be rejected or live to fight another day.  New data crush hypotheses every day,
 hence we have to be careful with and respectful of our data to a much greater extent than our hypotheses and models.
 We start our exploration of data by considering the various ways we can categorize data,
@@ -78,11 +78,11 @@ continuous variables will most often vary continuously as a function of one or m
 variables.  Such data represent continuous \emph{time series} data.  They may also be referred to as 
 \emph{signals}, \emph{traces}, \emph{records}, and other names.  We may further subdivide continuous data into sub-categories:
 \begin{itemize}
-\item	Ratio scale are data that have a fixed zero point (e.g., weights, temperatures in degrees Kelvin).
-\item	Interval scale are data that have an arbitrary zero point (e.g., temperatures in degrees Celsius or
+\item	\emph{Ratio scale} data: These data have a fixed zero point (e.g., weights, temperatures in degrees Kelvin).
+\item	\emph{Interval scale} data: These data have an arbitrary zero point (e.g., temperatures in degrees Celsius or
 Fahrenheit).
-\item	Closed data are forced to attain a constant sum (e.g., percentages).
-\item 	Directional data have components (e.g., vectors or orientations in two or higher dimensions).
+\item	\emph{Closed} data: These data are forced to attain a constant sum (e.g., percentages).
+\item \emph{Directional} data: These data have components (e.g., vectors or orientations in two or higher dimensions).
 \end{itemize}
 
 	Data can also be classified according to how they are recorded for use:  
@@ -208,7 +208,7 @@ using specific statistical tests.
 \subsection{Analysis}
 \index{Analysis}
 
-	Analysis means to separate something into its principal components in order to identify, interpret and/or study the 
+	Analysis means to separate something into its fundamental components in order to identify, interpret and/or study the 
 underlying structure.  In order to do this properly we should have some idea of what the 
 components are likely to be.  Therefore, we should have some concept of a model of the data in mind 
 (whether this is a conceptual, physical, intuitive, or some other type of model is not important).  We 
@@ -399,8 +399,7 @@ data whereas a median filter (blue) is much more tolerant.}
 \index{Filtering!Hanning}
 	The purpose of \emph{smoothing} is to highlight the general trend of the data and suppress
 high-frequency oscillations.  We will briefly look at two types of smoothing: The \emph{median} filter and the \emph{Hanning} 
-filter. A detailed introduction to filtering will be presented in the second volume of this series.
-The median filter is typically a three-point filter and simply replaces a point 
+filter. The median filter is typically a three-point filter and simply replaces a point 
 with the median value of the point and its two immediate neighbors.  The filter then shifts one step 
 further to the right and the process repeats.  This technique is very efficient at removing isolated 
 spikes or \emph{outliers} in the data since the bad points will be completely ignored as they will never 
@@ -417,6 +416,8 @@ through a median filter, followed by a treatment of the Hanning filter.  In buil
 procedures one should always have the worst-case scenario in mind and seek to protect the analysis by
 preprocessing with a median filter.  Figure ~\ref{fig:Fig1_smoothing} illustrates the use
 of simple smoothing with Gaussian filters, with or without protection from outliers by a median filter.
+We will have more to say about filtering in Chapter~\ref{ch:spectralanallysis}.
+
 
 \subsection{Residual plots}
 \index{Residual plots}
@@ -459,7 +460,7 @@ assumptions about the data distribution, which may or may not be appropriate in 
 data may be the easiest thing to do (for dimensionality less than or equal to three) or it may be quite
 challenging.  Exploring sub-spaces of just a few dimensions is a simple starting point, while more
 sophisticated methods will examine the dimensionality of the data to see if some dimensions simply
-provide redundant information; we will explore such methods in the second volume of this book series.
+provide redundant information.
 \index{Exploratory data analysis|)}
 
 \clearpage

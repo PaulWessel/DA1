@@ -3,25 +3,25 @@
 \chapter{REGRESSION}
 \label{ch:regression}
 \epigraph{``The invalid assumption that correlation implies cause is probably among the two or three most serious and common errors of human reasoning.''}{\textit{Stephen Jay Gould, Paleontologist}}
-Regression refers to a subset of data modeling where we fit a simple model with a linear trend in one (or more) dimensions.  Usually we also include a constant (intercept) term.  Entire books have been written about regression
+Regression refers to a subset of data modeling where we fit a simple model with a linear trend in one (or more) dimensions.  Usually, we also include a constant (intercept) term.  Entire books have been written about regression
 and all the various methods, norms, and misfit-minimizations possible.  A summary of some of these developments will be given below.
 \section{Line-Fitting Revisited}
 \index{Regression!weighted least squares|(}
 
-We will again consider the best-fitting line problem $y = a + bx$, this time with errors $s_i$ in the observed $y$-values.  We 
+We will again consider the best-fitting line problem $y = m_1 + bm_2 x$, this time with errors $s_i$ in the observed $y$-values.  We 
 want to measure how well the model agrees with the data, and for this purpose we will use the $\chi^2$ 
 function, i.e.,
 \begin{equation}
-\chi^2(a,b) = \sum^n_{i=1} \left ( \frac{y_i - a - bx_i}{s_i} \right ) ^2.
+\chi^2(m_1,m_2) = \sum^n_{i=1} \left ( \frac{y_i - m_1 - m_2 x_i}{s_i} \right ) ^2.
 \label{eq:L2_line_chi2}
 \end{equation}
 Minimizing $\chi^2$  will give the best weighted least squares solution.  Again, we set the partial 
 derivatives to zero and obtain
 \begin{equation}
 \begin{array}{c}
-\displaystyle \frac{\partial \chi^2}{\partial a} = 0 = -2 \sum^n_{i=1} \left( \frac{y_i -a -bx_i}{s^2_i}\right),  \\
+\displaystyle \frac{\partial \chi^2}{\partial m_1} = 0 = -2 \sum^n_{i=1} \left( \frac{y_i - m_1 -m_2 x_i}{s^2_i}\right),  \\
 \ \\
-\displaystyle \frac{\partial \chi^2}{\partial b} = 0 = -2 \sum^n_{i=1} \left( \frac{y_i -a -bx_i}{s^2_i}\right) x_i.
+\displaystyle \frac{\partial \chi^2}{\partial m_2} = 0 = -2 \sum^n_{i=1} \left( \frac{y_i - m_1 -m_2 x_i}{s^2_i}\right) x_i.
 \end{array}
 \label{eq:L2_line_ddx}
 \end{equation}
@@ -35,8 +35,8 @@ Then, (\ref{eq:L2_line_ddx}) reduces to
 \begin{equation}
 \begin{array}{rcl}
 \displaystyle
-aS  + bS_x & = & S_y, \\*[2ex]
-aS_x + bS_{xx} & = & S_{xy}.
+m_1 S  + m_2 S_x & = & S_y, \\*[2ex]
+m_1 S_x + m_2 bS_{xx} & = & S_{xy}.
 \end{array}
 \end{equation} 	 
 Introducing 
@@ -46,34 +46,34 @@ Introducing
 we find
 \begin{equation}
 \begin{array}{rcl}
-a & = & \displaystyle \frac{S_{xx}S_y - S_x S_{xy}}{\Delta},\\*[2ex]
-b & = & \displaystyle \frac{S S_{xy}- S_x S_{y}}{\Delta}.
+m_1 & = & \displaystyle \frac{S_{xx}S_y - S_x S_{xy}}{\Delta},\\*[2ex]
+m_2 & = & \displaystyle \frac{S S_{xy}- S_x S_{y}}{\Delta}.
 \end{array}
 \label{eq:L2_sol_ab}
 \end{equation}
 \PSfig[h]{Fig1_linefit_x}{The uncertainty in the line fit depends to a large extent on the
 distribution of the $x$-positions as well as the uncertainties in the $y$-values.}
-   All this is swell but we must also estimate the uncertainties in $a$ and $b$.  For the same $s_i$ we 
-may get large differences in the uncertainties in $a$ and $b$ (e.g., Figure~\ref{fig:Fig1_linefit_x}).
-As shown in Chapter~\ref{ch:error}, consideration of the propagation of errors (e.g., \ref{eq:uncert_func}) shows
+   All this is swell but we must also estimate the uncertainties in $m_1$ and $m_2$.  For the same $s_i$ we 
+may get large differences in the uncertainties in $m_1$ and $m_2$ (e.g., Figure~\ref{fig:Fig1_linefit_x}).
+As shown in Chapter~\ref{ch:error}, consideration of the propagation of errors (e.g., \ref{eq:uncert_func}) implies
 that the variance $\sigma_f^2$ in the value of any function is
 \begin{equation}
 \sigma^2_f = \sum \left ( \frac{\partial f}{\partial y_i} \sigma_i \right )^2,
 \label{eq:L2_line_error}
 \end{equation}
-where we now consider $f$ a function of all the $n$ independent parameters $y_i$. For our model,
-$f$ is either $a$ or $b$ so the partial derivatives become
+where we now consider $f$ to be a function of all the $n$ independent parameters $y_i$. For our model,
+$f$ is either $m_1$ or $m_2$ so the partial derivatives become
 \begin{equation}
 \begin{array}{rcl}
-\displaystyle \frac{\partial a}{\partial y_i} & = & \displaystyle \frac{S_{xx} - S_x x_i}{s ^2_i \Delta},\\*[2ex]
-\displaystyle \frac{\partial b}{\partial y_i} & = & \displaystyle \frac{Sx_{i} - S_x}{s ^2_i \Delta}.
+\displaystyle \frac{\partial m_1}{\partial y_i} & = & \displaystyle \frac{S_{xx} - S_x x_i}{s ^2_i \Delta},\\*[2ex]
+\displaystyle \frac{\partial m_2}{\partial y_i} & = & \displaystyle \frac{Sx_{i} - S_x}{s ^2_i \Delta}.
 \end{array}
 \end{equation}
 Inserting in turn these terms into (\ref{eq:L2_line_error}) now gives
 \begin{equation}
 \begin{array}{rcl} 
 \displaystyle
-\displaystyle s^2_a & = & \displaystyle \sum s^2_i \left [ \frac{S_{xx} - S_{x} x_i}{s ^2_i \Delta} \right ] ^2 = \sum \frac{S^2_{xx} - 2S_{xx}S_{x}x_i + S^2_x x^2_i}{s^2_i \Delta ^2}\\*[2ex]
+\displaystyle s^2_{m_1} & = & \displaystyle \sum s^2_i \left [ \frac{S_{xx} - S_{x} x_i}{s ^2_i \Delta} \right ] ^2 = \sum \frac{S^2_{xx} - 2S_{xx}S_{x}x_i + S^2_x x^2_i}{s^2_i \Delta ^2}\\*[2ex]
 & = & \displaystyle \frac{S^2_{xx}}{\Delta^2} \sum \frac{1}{s^2_i} - \frac{2S_{xx}S_x}{\Delta^2}
 \sum \frac{x_i}{s^2_i} + \frac{S^2_x}{\Delta^2} \sum \frac{x^2_i}{s^2_i}= \frac{S^2_{xx}S}{\Delta^2} - \frac{2S_{xx}S^2_x}{\Delta ^2} + \frac{S_{xx}S^2_x}{\Delta^2} \\*[2ex]
 & = & \displaystyle \frac{S_{xx} (S_{xx}S-S^2_x)}{\Delta^2} = \frac{S_{xx}}{\Delta}
@@ -82,7 +82,7 @@ Inserting in turn these terms into (\ref{eq:L2_line_error}) now gives
 and	
 \begin{equation}
 \begin{array}{rcl}
-\displaystyle s^2_b & = & \displaystyle \sum s^2_i \left [ \frac{Sx_i - S_x}{s^2_i \Delta} \right ] ^2 =
+\displaystyle s^2_{m_2} & = & \displaystyle \sum s^2_i \left [ \frac{Sx_i - S_x}{s^2_i \Delta} \right ] ^2 =
 \sum \frac{S^2x^2_i - 2S \ S_x x_i + S^2_x}{s^2_i \Delta^2}\\*[2ex]
  &  = & \displaystyle \frac{S^2}{\Delta^2}\sum \frac{x^2_i}{s^2_i} - 
 \frac{2S \ S_x}{\Delta^2} \sum \frac{x_i}{s^2_i} + \frac{S^2_x}{\Delta^2} \sum \frac{1}{s^2_i} = \frac{S^2S_{xx}}{\Delta^2} - \frac{2S \ S^2_x}{\Delta^2} + \frac{S S^2_x}{\Delta ^2}\\*[2ex]
@@ -90,14 +90,14 @@ and
 \label{eq:err_in_slope}
 \end{array}
 \end{equation}
-Similarly, we can find the covariance $s_{ab}$ from
+Similarly, we can find the covariance $s_{m_1,m_2}$ from
 \begin{equation}
-s^2_{ab} = \sum s ^2_i \left( \frac{\partial a}{\partial y_i} \right)
-\left( \frac{\partial b}{\partial y_i}\right) = -\frac{S_x}{\Delta}.
+s^2_{ab} = \sum s ^2_i \left( \frac{\partial m_1}{\partial y_i} \right)
+\left( \frac{\partial m_2}{\partial y_i}\right) = -\frac{S_x}{\Delta}.
 \end{equation}
-Thus, the correlation between $a$ and $b$ becomes
+Thus, the correlation between $m_1$ and $m_2$ becomes
 \begin{equation}
-r_{ab} = \frac{-S_x}{\sqrt{SS_{xx}}}.
+r_{m_1,m_2} = \frac{-S_x}{\sqrt{SS_{xx}}}.
 \label{eq:uncorrelated_a_b}
 \end{equation}
 It is therefore useful to shift the origin to $\bar{x}$ so that $r_{ab} = 0$, leaving our estimates for slope and intercept uncorrelated.  
@@ -113,27 +113,27 @@ color bands reflecting different confidence levels.  Short vertical lines are th
 in (\ref{eq:reg_errstd}).}
 The formalism in the previous section allowed us to derive
 solutions for slope and intercept given via (\ref{eq:L2_sol_ab}). Let us consider the confidence interval on the prediction.  We write the least squares
-fit as $\hat{y} = a + bx$, and by substituting $a = \bar{y} - b\bar{x}$ we obtain
+fit as $\hat{y} = m_1 + m_2 x$, and by substituting $m_1 = \bar{y} - m_2 \bar{x}$ we obtain
 \begin{equation}
-	\hat{y} = \bar{y} + b(x-\bar{x}).
+	\hat{y} = \bar{y} + m_2(x-\bar{x}).
 \end{equation}
-Here, both the (weighted) mean $y$-value ($\bar{y}$) and slope ($b$) are subject to error and these in turn affect $\hat{y}$.  For some
+Here, both the (weighted) mean $y$-value ($\bar{y}$) and slope ($m_2$) are subject to error and these in turn affect $\hat{y}$.  For some
 chosen location $x_0$ the prediction for the regression would be
 \begin{equation}
-	\hat{y}_0 = \bar{y} + b(x_0-\bar{x}).
+	\hat{y}_0 = \bar{y} + m_2(x_0-\bar{x}).
 \end{equation}
-In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $b$ is zero (e.g., \ref{eq:uncorrelated_a_b})
-and $s^2_a = 1/S$ and $s^2_b = 1/S_{xx}$.
+In this formulation, with a local origin at $(\bar{x}, \bar{y})$, the correlation between $\bar{y}$ and $m_2$ is zero (e.g., \ref{eq:uncorrelated_a_b})
+and $s^2_{m_1} = 1/S$ and $s^2_{m_2} = 1/S_{xx}$.
 These facts allow us to compute the expected variance $V$ of the \emph{mean predicted value} by summing the separate variance terms:
 \begin{equation}
-	V(\hat{y}_0) = V(\bar{y}) + V(b)(x_0-\bar{x})^2 = \frac{s^2}{S} + \frac{s^2(x_0 - \bar{x})^2}{S_{xx}}.
+	V(\hat{y}_0) = V(\bar{y}) + V(m_2)(x_0-\bar{x})^2 = \frac{s^2}{S} + \frac{s^2(x_0 - \bar{x})^2}{S_{xx}}.
 \end{equation}
 Here, $s$ is our sample estimate of the (weighted) \emph{standard deviation of the regression residuals}, $e_i = y_i - \hat{y}$, given by
 \begin{equation}
 	s^2 = \frac{\sum (e_i/s_i)^2}{S(n-2)/n},
 	\label{eq:reg_errstd}
 \end{equation}
-where $n-2$ are the remaining degrees of freedom after computing $a$ and $b$.
+where $n-2$ are the remaining degrees of freedom after computing $m_1$ and $m_2$.
 To obtain confidence intervals on the linear regression we simply scale $s$ from (\ref{eq:reg_errstd}) by a critical
 Student's $t$-value for the degrees of freedom $\nu$ and chosen confidence level (Table~\ref{tbl:Critical_t}), i.e.,
 \begin{equation}
@@ -150,30 +150,30 @@ on a parabolic shape around the best-fit line.
 \index{Regression!major axis|(}
 
 	It is often the case that the uncertainties in our $(x,y)$ data affect both coordinates.  
-Examples where this is the case include situations where both $x$ and $y$ are observed quantities 
+Examples where this is occurs include situations where both $x$ and $y$ are observed quantities 
 (and hence are known to have errors).  It is also  applicable when $y$ is a function of $x$, but $x$ (e.g., distance 
 or time) itself has uncertainties.  In these cases, orthogonal regression is the correct way to 
 determine linear relationships between $x$ and $y$ (Figure~\ref{fig:Fig1_MA_misfit}).
-\PSfig[h]{Fig1_MA_misfit}{The misfit is measured in the direction perpendicular to the line.  Note that
+\PSfig[h]{Fig1_MA_misfit}{The misfit $e_i$ is measured in the direction perpendicular to the line.  Note that
 $(x_i, y_i)$ denote our data points (black circles) and $(X_i, Y_i)$ are the coordinates of their orthogonal
 projections (white circles; only one is shown here) onto the regression line.}
 We will use the least squares principle and minimize the sum of the squared \emph{perpendicular} 
-distances $d_i^2$ from the data points $(x_i,y_i)$ to the regression line\footnote{This approach does not take into account
+distances $e_i^2$ from the data points $(x_i,y_i)$ to the regression line\footnote{This approach does not take into account
 the actual uncertainties in $x$ and $y$ (which becomes very tedious algebraically) but instead focuses on the effect
 of the orthogonal misfit criterion.}.  The function we want to minimize is
 \begin{equation}
-E = \sum_{i=1}^n \left [ (X_i - x_i)^2 + (Y_i - y_i)^2 \right ],
+E = \sum_{i=1}^n e_i^2 = \sum_{i=1}^n \left [ (X_i - x_i)^2 + (Y_i - y_i)^2 \right ],
 \label{eq:E_major_axis}
 \end{equation}	 	
 where lowercase $(x_i, y_i)$ again are our observations and uppercase $(X_i, Y_i)$ are the ``adjusted'' 
 coordinates we want to find.  These are, of course, required to  lie on a straight line described by
 \begin{equation}
-Y_i = a + bX_i,
+Y_i = m_1 + m_2 X_i,
 \label{eq:line_constraint}
 \end{equation}	
 or equivalently
 \begin{equation}
-f_i = a + bX_i - Y_i = 0.
+f_i = m_1 + m_2 X_i - Y_i = 0.
 \label{eq:Lagrange_major_axis}
 \end{equation}
 Thus, we cannot simply find \emph{any} set of $(X_i, Y_i)$ as they also have to lie on a straight line.  The problem 
@@ -188,28 +188,28 @@ F = E + \lambda_1 f_1 + \lambda_2 f_2 + \ldots + \lambda_n f_n = E + \sum ^n _{i
 \end{equation}	 
 We may now set the partial derivatives of $F$ to zero and solve the resulting set of equations:
 \begin{equation}
-\frac{\partial F}{\partial X_i} = \frac{\partial F}{\partial Y_i} = \frac{\partial F}{\partial a} = \frac{\partial F}{\partial b} = 0,
+\frac{\partial F}{\partial X_i} = \frac{\partial F}{\partial Y_i} = \frac{\partial F}{\partial m_1} = \frac{\partial F}{\partial m_2} = 0,
 \end{equation}
-or, when viewed separately (with all sums over $i = 1$ to $n$ unless explicitly stated), 
+or, when viewed separately (with implied sums over $i = 1$ to $n$ unless explicitly stated), 
 \begin{equation}
 \frac{\partial F}{\partial X_i} = \sum_j^n \frac{\partial}{\partial X_i} ( X_j - x_j)^2  + \sum_j^n \frac{\partial}{\partial X_i}
-(\lambda_j bX_j) = 0 \Rightarrow 2(X_i - x_i) + b \lambda_i = 0,
+(\lambda_j m_2 X_j) = 0 \Rightarrow 2(X_i - x_i) + m_2 \lambda_i = 0,
 \end{equation}
 \begin{equation}
 \frac{\partial F}{\partial Y_i} = \sum_j^n \frac{\partial}{\partial Y_i} ( Y_j - y_j)^2  - \sum_j^n \frac{\partial}{\partial Y_i}
 (\lambda_j Y_j) = 0  \Rightarrow 2(Y_i - y_i) -  \lambda_i = 0,
 \end{equation}
 \begin{equation}
-\frac{\partial F}{\partial a} = \sum  \frac{\partial}{\partial a} (\lambda_i a) = 0  \Rightarrow \sum \lambda_i  = 0,
+\frac{\partial F}{\partial m_1} = \sum  \frac{\partial}{\partial m_1} (\lambda_i m_1) = 0  \Rightarrow \sum \lambda_i  = 0,
 \label{eq:lambda_major}
 \end{equation}
 \begin{equation}
-\frac{\partial F}{\partial b} = \sum \frac{\partial}{\partial b}(\lambda_i bX_i) = 0  \Rightarrow \sum \lambda_i X_i = 0.
+\frac{\partial F}{\partial m_2} = \sum \frac{\partial}{\partial m_2b}(\lambda_i m_2 X_i) = 0  \Rightarrow \sum \lambda_i X_i = 0.
 \label{eq:lambda_x_major}
 \end{equation}
 Since each $i$ represents a separate equation, we find
 \begin{equation}
-2(X_i - x_i) = -b \lambda_i \Rightarrow X_i = x_i - b \lambda_i/2,
+2(X_i - x_i) = -m_2 \lambda_i \Rightarrow X_i = x_i - m_2 \lambda_i/2,
 \label{eq:Xisolution}
 \end{equation}
 \begin{equation}
@@ -217,60 +217,60 @@ Since each $i$ represents a separate equation, we find
 \end{equation}	 
 Substituting these expressions for $X_i$ and $Y_i$ into (\ref{eq:line_constraint}), we obtain
 \begin{equation}
-y_i + \lambda_i/2 = a + b \left (x_i - b \lambda_i/2 \right ) = a + bx_i - b^2 \lambda_i/2
+y_i + \lambda_i/2 = m_1 + m_2 \left (x_i - m_2 \lambda_i/2 \right ) = m_1 + m_2 x_i - m_2^2 \lambda_i/2
 \end{equation}	 
 or
 \begin{equation}
-\lambda_i = \frac{2}{1 + b^2}\left (a + bx_i - y_i\right ).
+\lambda_i = \frac{2}{1 + m_2^2}\left (m_1 + m_2 x_i - y_i\right ).
 \label{eq:lambda_i_major}
 \end{equation}
 Now, (\ref{eq:lambda_major}), (\ref{eq:lambda_x_major}), and (\ref{eq:lambda_i_major}) gives us
-$n+2$ equations in $n+2$ unknowns (all the $\lambda_i$ plus $a$ and $b$).  Combining 
+$n+2$ equations in $n+2$ unknowns (all the $\lambda_i$ plus $m_1$ and $m_2$).  Combining 
 (\ref{eq:lambda_i_major}) and (\ref{eq:lambda_major}) gives
 \begin{equation}
-\sum	  \frac{1}{1+b^2} \left ( a + b x_i - y_i\right ) =  0
+\sum	  \frac{1}{1+m_2^2} \left ( m_1 + m_2 x_i - y_i\right ) =  0
 \label{eq:step1_major}
 \end{equation}	
 and (\ref{eq:lambda_x_major}) using (\ref{eq:Xisolution}) gives
 \begin{equation}
-\sum \lambda_i x_i - b\lambda ^2_i/2 = 0,
+\sum \lambda_i x_i - m_2\lambda ^2_i/2 = 0,
 \end{equation}	 
 into which we substitute (\ref{eq:lambda_i_major}) and find
 \begin{equation}
-\sum \frac{1}{1 + b^2}\left (ax_i + bx^2_i - y_i x_i\right ) - \sum \frac{b}{(1+b^2)^2}\left (a+bx_i - y_i\right ) ^2 = 0.
+\sum \frac{1}{1 + m_2^2}\left (m_1 x_i + m_2x^2_i - y_i x_i\right ) - \sum \frac{m_2}{(1+m_2^2)^2}\left (m_1 + m_2 x_i - y_i\right ) ^2 = 0.
 \label{eq:step2_major} 
 \end{equation}
-These two equations (\ref{eq:step1_major} and \ref{eq:step2_major}) relate the parameters $a$ and $b$ to the given data values $x_i$ and $y_i$.  We find 
+These two equations (\ref{eq:step1_major} and \ref{eq:step2_major}) relate the parameters $m_1$ and $m_2$ to the given data values $x_i$ and $y_i$.  We find 
 the solution by solving the equations simultaneously.  Noting that the denominator in (\ref{eq:step1_major}) cannot be zero, we find
 \begin{equation}
-\sum (a+ b x_i - y_i) = 0 \Rightarrow na + b \sum x_i = \sum y_i
+\sum (m_1 + m_2 x_i - y_i) = 0 \Rightarrow n m_1 + m_2 \sum x_i = \sum y_i
 \end{equation}	 
 or
 \begin{equation}
-a = \bar{y} - b \bar{x},
+m_1 = \bar{y} - m_2 \bar{x},
 \end{equation}
 %	(4.16)
 where $\bar{x}$  and $\bar{y}$ are the mean data values.  This expression for the intercept can now be substituted into 
-(\ref{eq:step2_major}) so we may solve for the slope.  We multiply through by $(1 + b^2)^2$ and obtain
+(\ref{eq:step2_major}) so we may solve for the slope.  We multiply through by $(1 + m_2^2)^2$ and obtain
 \begin{equation}
-\sum (1 + b^2) \left ( \bar{y}x_i - b \bar{x} x_i + b x^2_i - x_i y_i \right ) -b \sum  \left ( \bar{y} - b \bar{x} + b x_i - y_i\right ) ^2 = 0
+\sum (1 + m_2^2) \left ( \bar{y}x_i - m_2 \bar{x} x_i + m_2 x^2_i - x_i y_i \right ) - m_2 \sum  \left ( \bar{y} - m_2 \bar{x} + m_2 x_i - y_i\right ) ^2 = 0
 \end{equation}
 which simplify to
 \begin{equation}
-\displaystyle (1 + b^2) \sum x_i \left ( \bar{y} - y_i + b (x_i - \bar{x}) \right ) -b \sum \left ( b ( x_i - \bar{x}) - (y_i - \bar{y})\right ) ^2 = 0,\\*[2ex]
+\displaystyle (1 + m_2^2) \sum x_i \left ( \bar{y} - y_i + m_2 (x_i - \bar{x}) \right ) - m_2 \sum \left ( m_2 ( x_i - \bar{x}) - (y_i - \bar{y})\right ) ^2 = 0,\\*[2ex]
 \end{equation}
 We now introduce the residuals $u_i = x_i - \bar{x}$ and $v_i = y_i - \bar{y}$.  Then
 $$
 \begin{array}{c}
-\displaystyle (1 + b^2) \sum (u_i + \bar{x}) \left ( bu_i - v_i\right ) - b \sum \left (bu_i - v_i\right )^2 = 0, \\*[2ex]
-\displaystyle (1 + b^2) \sum \left ( bu^2_i - u_i v_i  + \bar{x} bu_i - \bar{x} v_i \right ) - b\sum \left (b^2 u^2_i - 2b u_iv_i + v^2_i\right ) = 0, \\*[2ex]
-\displaystyle \sum \left ( bu^2_i + b^3 u^2_i - u_iv_i - b^2 u_iv_i - b^3 u^2_i + 2b^2 u_iv_i - bv^2_i \right ) = 0, \\*[2ex]
-\displaystyle \sum \left ( b^2u_iv_i + b (u^2_i - v^2_i)-u_i v_i \right ) = 0.
+\displaystyle (1 + m_2^2) \sum (u_i + \bar{x}) \left ( m_2 u_i - v_i\right ) - m_2 \sum \left (m_2 u_i - v_i\right )^2 = 0, \\*[2ex]
+\displaystyle (1 + m_2 ^2) \sum \left ( m_2 u^2_i - u_i v_i  + \bar{x} m_2 u_i - \bar{x} v_i \right ) - m_2\sum \left (m_2^2 u^2_i - 2m_2 u_iv_i + v^2_i\right ) = 0, \\*[2ex]
+\displaystyle \sum \left ( m_2u^2_i + m_2^3 u^2_i - u_iv_i - m_2^2 u_iv_i - m_2^3 u^2_i + 2m_2^2 u_iv_i - m_2v^2_i \right ) = 0, \\*[2ex]
+\displaystyle \sum \left ( m_2^2u_iv_i + m_2 (u^2_i - v^2_i)-u_i v_i \right ) = 0.
 \end{array}
 $$
 where we have used the properties $\sum u_i = \sum v_i = 0$.  These steps finally give the solution for the slope as
 \begin{equation}
-b = \frac{\sum v^2_i - \sum u^2_i \pm \sqrt{(\sum u^2_i - \sum v^2_i)^2 + 4(\sum u_iv_i)^2}}{2 \sum u_iv_i}.
+m_2 = \frac{\left (\sum v^2_i - \sum u^2_i \right ) \pm \sqrt{\left (\sum u^2_i - \sum v^2_i \right)^2 + 4 \left(\sum u_iv_i\right)^2}}{2 \sum u_iv_i}.
 \end{equation}
 This equation gives two solutions for the slope and we choose the one that minimizes $E$.  The other solution maximizes $E$ and
 makes an angle of 90 degrees with the optimal solution.
@@ -288,65 +288,65 @@ Hence, the function to minimize is
 E = \sum (X_i - x_i)(Y_i - y_i).
 \label{eq:E_RMA_axis}
 \end{equation}
-The constraints remain the same, i.e. $Y_i = a + bX_i$.  The Lagrange's multiplier method leads to a 
+The constraints remain the same, i.e. $Y_i = m_1 + m_2 X_i$.  The Lagrange's multiplier method leads to a 
 system of equations similar to those discussed in the previous section (\ref{eq:MA_partials}), but now we find
 the $2n + 2$ equations
 \begin{equation}
-\frac{\partial F}{\partial X_i} = \frac{\partial}{\partial X_i} \sum_j^n (X_j - x_j)(Y_j - y_j) + \frac{\partial}{\partial X_i} \sum_j^n \lambda_j b X_j = 0 \Rightarrow Y_i - y_i + b \lambda_i = 0  \quad i = 1,n,
+\frac{\partial F}{\partial X_i} = \frac{\partial}{\partial X_i} \sum_j^n (X_j - x_j)(Y_j - y_j) + \frac{\partial}{\partial X_i} \sum_j^n \lambda_j m_2 X_j = 0 \Rightarrow Y_i - y_i + m_2 \lambda_i = 0  \quad i = 1,n,
 \end{equation}	 	
 \begin{equation}
 \frac{\partial F}{\partial Y_i} = \frac{\partial}{\partial Y_i} \sum_j^n (X_j - x_j)(Y_j - y_j) - \frac{\partial}{\partial Y_i} \sum_j^n \lambda_j Y_j = 0 \Rightarrow X_i - x_i - \lambda_i = 0 \quad i = 1,n,
 \end{equation}
 \begin{equation}
-\frac{\partial F}{\partial a} = \frac{\partial}{\partial a} \sum \lambda_i a = 0 \Rightarrow \sum \lambda_i = 0,
+\frac{\partial F}{\partial m_1} = \frac{\partial}{\partial m_1} \sum \lambda_i m_1 = 0 \Rightarrow \sum \lambda_i = 0,
 \end{equation}
 \begin{equation}
-\frac{\partial F}{\partial b} = \frac{\partial}{\partial b} \sum \lambda_i b X_i = 0 \Rightarrow \sum \lambda_i X_i = 0.
+\frac{\partial F}{\partial m_2} = \frac{\partial}{\partial m_2} \sum \lambda_i m_2 X_i = 0 \Rightarrow \sum \lambda_i X_i = 0.
 \label{eq:RMA_lxi}
 \end{equation}
-We find     
+Rearranging yields     
 \begin{equation}
 X_i - x_i - \lambda_i = 0 \Rightarrow X_i = x_i + \lambda_i,
 \end{equation}
 \begin{equation}	           
-Y_i - y_i + b \lambda_i = 0 \Rightarrow Y_i = y_i - b\lambda_i.
+Y_i - y_i + m_2 \lambda_i = 0 \Rightarrow Y_i = y_i - m_2\lambda_i.
 \end{equation}
-Substituting these values into the equation for the line (i.e., $Y_i = a + bX_i$) gives
+Substituting these values into the equation for the line (i.e., $Y_i = m_1 + m_2 X_i$) gives
 \begin{equation}
-y_i - b \lambda_i = a + b (x_i + \lambda_i)
+y_i - m_2 \lambda_i = m_1 + m_2 (x_i + \lambda_i)
 \end{equation}
 or			       
 \begin{equation}
-\lambda_i = \frac{y_i - a - bx_i}{2b}.
+\lambda_i = \frac{y_i - m_1 - m_2 x_i}{2m_2}.
 \end{equation}	 
 Since $\sum \lambda_i = 0$, we find again
 \begin{equation}
-a = \bar{y} - b \bar{x}.
+m_1 = \bar{y} - m_2 \bar{x}.
 \end{equation}	 
-Substituting $\lambda_i, X_i$ and $a$ into (\ref{eq:RMA_lxi}) gives
+Substituting $\lambda_i, X_i$ and $m_1$ into (\ref{eq:RMA_lxi}) gives
 $$
-\sum \left ( x_i + \frac{y_i - \bar{y} + b \bar{x} - b x_i}{2b} \right ) \left ( 
-\frac{y_i - \bar{y} + b \bar{x} - b x_i}{2b} \right) = 0.
+\sum \left ( x_i + \frac{y_i - \bar{y} + m_2 \bar{x} - m_2 x_i}{2m_2} \right ) \left ( 
+\frac{y_i - \bar{y} + m_2 \bar{x} - m_2 x_i}{2m_2} \right) = 0.
 $$
 We let $u_i = x_i - \bar{x}$ and $v_i = y_i - \bar{y}$ as before and obtain 
 $$
-\sum \left (b (u_i + \bar{x} ) + v_i - bu_i \right ) (v_i - bu_i) = 0,
+\sum \left (m_2 (u_i + \bar{x} ) + v_i - m_2 u_i \right ) (v_i - m_2 u_i) = 0,
 $$
 
 $$
-\sum (2b \bar{x} + bu_i + v_i) (v_i - bu_i) = 0,
+\sum (2m_2 \bar{x} + m_2 u_i + v_i) (v_i - m_2 u_i) = 0,
 $$
 
 $$
-\sum (2b \bar{x} v_i - 2b ^2  \bar{x} u_i + b u_i v_i - b^2 u^2_i + v^2_i - b u_i v_i ) = 0,
+\sum (2m_2 \bar{x} v_i - 2m_2 ^2  \bar{x} u_i + m_2 u_i v_i - m_2^2 u^2_i + v^2_i - m_2 u_i v_i ) = 0,
 $$
 
 $$
-\sum v^2_i - b^2 \sum u^2_i = 0.
+\sum v^2_i - m_2^2 \sum u^2_i = 0.
 $$
 where we again have used the property that sums of $u_i$ and $v_i$ are zero.  Finally, we obtain
 \begin{equation}
-b = \pm \sqrt{ \sum v^2_i / \sum u^2_i} = \pm \frac{s_y}{s_x},
+m_2 = \pm \sqrt{ \sum v^2_i / \sum u^2_i} = \pm \frac{s_y}{s_x},
 \end{equation}
 i.e., the best slope equals the ratio of the $y$ and $x$ observations' separate standard deviations.
 The sign is indeterminate but is inferred from the sign of the correlation coefficient (a negative
@@ -363,29 +363,29 @@ might be negative; however, a more advanced derivation still yields the same sol
 \index{Explanatory variable}
 \index{Response variable}
 \begin{equation}
-y_i = a + b x_i + \epsilon_i,
+y_i = m_1 + m_2 x_i + \epsilon_i,
 \label{eq:robregress}
 \end{equation}
 in which $x_i$ is called the \emph{explanatory variable} or \emph{regressor}, and $y_i$ is the \emph{response variable}.
-Again, we seek to estimate $a$ and $b$ (intercept and slope) from the data 
+Again, we seek to estimate $m_1$ and $m_2$ (intercept and slope) from the data 
 $(x_i , y_i)$.  It is commonly assumed 
 that the deviations $\epsilon_i$ are normally distributed.
 Fortunately, in simple regression the observations $(x_i, y_i)$ are 2-D so they can be plotted.  It 
 is always a good idea to do that first to see if any unusual features are present and to make sure 
 the data are roughly linear.
 Applying a regression estimator to the data $(x_i, y_i)$ will result in the two regression 
-coefficients $\hat{a}$  and $\hat{b}$.  They are not the \emph{true} parameters $a$ and $b$, but our ``best'' \emph{estimates} of 
+coefficients $\hat{m_1}$  and $\hat{m_2}$.  They are not the \emph{true} parameters $m_1$ and $m_2$, but our ``best'' \emph{estimates} of 
 them.  We can insert those into (\ref{eq:robregress}) and find the predicted estimate as
 \begin{equation}
-\hat{y}_i = \hat{a} + \hat{b} x_i,\quad i = 1,n.
+\hat{y}_i = \hat{m_1} + \hat{m_2} x_i,\quad i = 1,n.
 \end{equation}	 
 The residual is then the difference between the observed and estimated values, yielding
 \begin{equation}
 e_i = y_i - \hat{y}_i,\quad i = 1,n.
 \end{equation} 	
 Note that there is a difference between $e_i$ (the misfit) and 
-$\epsilon_i$ (the deviation), because $\epsilon_i = y_i - a - b x_i$ are
-evaluated with the true unknown $a,b$.  We can compute $e_i$, but not $\epsilon_i$.
+$\epsilon_i$ (the deviation), because $\epsilon_i = y_i - m_1 - m_2 x_i$ are
+evaluated with the true unknown $m_1,m_2$.  We can compute $e_i$, but not $\epsilon_i$.
 
 	The most popular regression estimator dates back to the early 1800's (to our old friends Gauss and Legendre) 
 and is called the ``least-squares'' (LS) method since it seeks to minimize
@@ -428,7 +428,7 @@ reduces this enormous error at the expense of increasing the errors at all other
 general, we call the $k$'th  point a leverage point if $x_k$ lies far from the bulk of the $x_i$.  Note that this 
 definition does not take $y_i$ into account.  For instance, Figure~\ref{fig:Fig1_leverage} shows a ``good'' leverage 
 point since it lies on the linear trend set by the majority of the data.  Thus, a leverage point only 
-refers to its \emph{potential} for influencing the coefficients $\hat{a}, \hat{b}$.
+refers to its \emph{potential} for badly influencing the coefficients $\hat{m_1}, \hat{m_2}$.
 When a point $(x_i, y_i)$ deviates from the linear relation of the majority it is called a \emph{regression outlier},
 taking into account both $x_i$ and $y_i$ simultaneously.  As such, it is a vertical outlier or a bad 
 leverage point.
@@ -444,7 +444,7 @@ data sets and points are large.
 \PSfig[H]{Fig1_leverage}{The effect of leverage points in regression can be enormous, whether the data
 point is a valid observation or a bad outlier.}
 
-From the simple examples we have just seen, we find that the breakdown point for $LS$ 
+From the simple examples we have just presented, we find that the breakdown point for $LS$ 
 regression is merely $1/n$ since one point is enough to ruin the day --- analogous to the breakdown 
 point for the mean, which was also based on $LS$.
 	
@@ -482,7 +482,7 @@ It turns out the LMS fit is very robust with respect to outliers in $y$ as well 
 point is 50\%, which is the most we can ask for.  If more than half your data are bad then you cannot tell
 which part is good unless you have additional information.
 Figure~\ref{fig:Fig1_LMS_regress} shows what we get
-using this method on the data that made the LS technique fail so badly.
+using this method on the data that made the LS technique fail so miserably.
 	
 The LMS line also has an intuitive geometric interpretation: it lies at the center of the narrowest 
 strip that covers half of the data points.  By half of the points we mean $n/2 + 1$, and the thickness of 
@@ -510,45 +510,45 @@ taken from Rousseeuw, P. J., and A. M. Leroy (1987), \emph{Robust regression and
 We can rewrite the minimization criterion as follows:
 \begin{equation}
 \begin{array}{cccc}
-\mbox{minimize} \{ \mbox{median } \ e^2_i \}& = & \mbox{minimize} \{  \mbox{median} & ((y_i - \hat{b} x_i) - \hat{a})^2\} \\
-\hat{a}, \hat{b} & & \hat{a}, \hat{b} & \end{array}
+\mbox{minimize} \{ \mbox{median } \ e^2_i \}& = & \mbox{minimize} \{  \mbox{median} & ((y_i - \hat{m_2} x_i) - \hat{m_1})^2\} \\
+\hat{m_1}, \hat{m_2} & & \hat{m_1}, \hat{m_2} & \end{array}
 \end{equation}	 	
 in the form
 \begin{equation}
 \begin{array}{ccc}
-\mbox{minimize} \! \!  & \! \! \! \left \{ \! \! \! \phantom{\displaystyle \frac{\sum }{\ }} \! \!\! \mbox{minimize median} \right. & \! \! \! \left. (( y_i - \hat{b}x_i) - \hat{a})^2 \! \! \!\phantom{\displaystyle \frac{\sum }{\ }}\! \! \! \right \}\\*[-1ex]
-\hat{b} & \hat{a} & \end{array} .
+\mbox{minimize} \! \!  & \! \! \! \left \{ \! \! \! \phantom{\displaystyle \frac{\sum }{\ }} \! \!\! \mbox{minimize median} \right. & \! \! \! \left. (( y_i - \hat{m_2}x_i) - \hat{m_1})^2 \! \! \!\phantom{\displaystyle \frac{\sum }{\ }}\! \! \! \right \}\\*[-1ex]
+\hat{m_2} & \hat{m_1} & \end{array} .
 \end{equation}	 	
 We will treat the two minimizations here separately.  The innermost minimization is the easy part, 
-because for any given $\hat{b}$ it becomes essentially a 1-D problem, i.e., we want to find the value for $\hat{a}$ that 
+because for any given $\hat{m_2}$ it becomes essentially a 1-D problem, i.e., we want to find the value for $\hat{m_1}$ that 
 minimizes the median
 \begin{equation}
 \begin{array}{cc}
-\mbox{minimize} \! \! & \! \! \!  \left \{ \phantom{\displaystyle \frac{\sum }{\ }} \! \! \! \! \! \mbox{median } (u_i - \hat{a})^2 \right \}, \\*[-1ex]
-\hat{a} & \end{array}
+\mbox{minimize} \! \! & \! \! \!  \left \{ \phantom{\displaystyle \frac{\sum }{\ }} \! \! \! \! \! \mbox{median } (u_i - \hat{m_1})^2 \right \}, \\*[-1ex]
+\hat{m_1} & \end{array}
 \end{equation}
-where $u_i$ is calculated as $u_i = y_i - \hat{b} x_i$ (remember, we assumed that $\hat{b}$ was given).  This minimization problem is 
+where $u_i$ is calculated as $u_i = y_i - \hat{m_2} x_i$ (remember, we assumed that $\hat{m_2}$ was given).  This minimization problem is 
 the same one we found earlier to give a good estimate of the mode.  Thus, this operation finds the mode 
-of the $u_i$ data set.  We therefore need to find the $\hat{b}$ for which
+of the $u_i$ data set.  We therefore need to find the $\hat{m_2}$ for which
 \begin{equation}
-E (\hat{b}) = \mbox{median} \ [(y_i - \hat{b}x_i) - \hat{a}]^2
+E (\hat{m_2}) = \mbox{median} \ [(y_i - \hat{m_2}x_i) - \hat{m_1}]^2
 \end{equation}	 
-is minimal.  This is simply the minimization of a 1-D function $E(\hat{b})$ which is continuous but 
+is minimal.  This is simply the minimization of a 1-D function $E(\hat{m_2})$ which is continuous but 
 not everywhere differentiable.
 
 To find this minimum we make the observation that the slope in 
-the $x-y$ plane must be in the $\pm 90^{\circ}$ range (when expressed as an angle $\beta$, with $b = \tan \beta$).
+the $x-y$ plane must be in the $\pm 90^{\circ}$ range (when expressed as an angle $\beta$, with $m_2 = \tan \beta$).
 We then simply perform a search for the optimal angle.  Starting 
-with $\beta = -90 ^{\circ}$, we form the resulting $u_i$ and solve the 1-D minimization problem for $\hat{a}$, i.e., 
-finding the LMS mode estimate $\hat{a}$.  We now increment the angle $\beta$ by $d\beta$ to, say, $-89 ^{\circ}$, and 
+with $\beta = -90 ^{\circ}$, we form the resulting $u_i$ and solve the 1-D minimization problem for $\hat{m_1}$, i.e., 
+finding the LMS mode estimate $\hat{m_1}$.  We now increment the angle $\beta$ by $d\beta$ to, say, $-89 ^{\circ}$, and 
 repeat the process.  At each step we keep track of what $E(\beta)$ is, and repeat these steps for all angles 
 through $\beta = 90^{\circ}$.
 
-\PSfig[H]{Fig1_LMS_bestslope}{Determining the best regression slope, $\hat{b} = \tan \hat{\beta}$.  The misfit function is not smooth but usually has
+\PSfig[H]{Fig1_LMS_bestslope}{Determining the best regression slope, $\hat{m_2} = \tan \hat{\beta}$.  The misfit function is not smooth but usually has
 a minimum for the optimal slope. It is also likely to reveal several local minima that could trick a simpler search.}
 
-Having found the slope $\hat{b}$ that gave the smallest misfit we may improve on this estimate by using a smaller step size $d\beta$ in this region 
-to pinpoint the best choice for $\hat{b}$.  A plot of $E(\beta)$, shown in Figure~\ref{fig:Fig1_LMS_bestslope},
+Having found the slope $\hat{m_2}$ that gave the smallest misfit we may improve on this estimate by using a smaller step size $d\beta$ in this region 
+to pinpoint the best choice for $\hat{m_2}$.  A plot of $E(\beta)$, shown in Figure~\ref{fig:Fig1_LMS_bestslope},
 is very useful since it may tell us how 
 unique the LMS regressions are: if more than one minimum are found they may indicate a possible 
 ambiguity as there may be two or more lines that fit the data equally well.
@@ -576,7 +576,7 @@ cannot handle.  We keep track of the slope estimate after each substitution and 
 in Figure~\ref{fig:Fig1_breakdown}.
 \index{Regression!breakdown point}
 
-\PSfig[H]{Fig1_breakdown}{Breakdown plot for several regressors.  The LMS only breaks down when 50\% of the data are outlying.  
+\PSfig[H]{Fig1_breakdown}{Schematic breakdown plot for several regressors.  The LMS only breaks down when 50\% of the data are outlying.  
 LS breaks down immediately because every point matters.}
 
 	We call the percentage at which the slope starts to deviate significantly from the true value the \emph{breakdown point}.
@@ -695,9 +695,9 @@ least-squares estimates in the expression for correlation.
 
 	Multiple regression is an extension of the simple regression problem for including more than 
 one explanatory variable.  The most straightforward extension from 1-D to 2-D results in the 
-determination of the constants $m_0, m_1,$ and $m_2$ in
+determination of the constants $m_1, m_2,$ and $m_3$ in
 \begin{equation}
-d = m_0 + m_1 x + m_2 y,
+d = m_1 + m_2 x + m_3 y,
 \label{eq:plane}
 \end{equation}
 which you will recognize as the equation for a \emph{plane}.  A very common application of finding the 
@@ -706,7 +706,7 @@ local variations can be inspected and compared.  Let us say we have $n$ data poi
 plane and we want to determine the regional trend using standard $L_2$ techniques.  Using (\ref{eq:plane}) 
 gives
 \begin{equation}
-m_0 + m_1 x_i + m_2 y_i = d_i,\quad i = 1,n
+m_1 + m_2 x_i + m_3 y_i = d_i,\quad i = 1,n
 \end{equation}
 or $\mathbf{G\cdot m=d}$.  We know how to solve these $L_2$ problems now and quickly state that the solution is 
 given by the linear system:
@@ -725,9 +725,9 @@ n & \displaystyle \sum x_i & \displaystyle \sum y_i \\*[2ex]
 \displaystyle \sum y_i & \displaystyle \sum x_i y_i & \displaystyle \sum y^2_i \\*[2ex]
 \end{array} \right ]
 \left[ \begin{array}{c}
-m_0 \\*[2ex]
 m_1 \\*[2ex]
-m_2 
+m_2 \\*[2ex]
+m_3 
 \end{array} \right]  = 
 \left[ \begin{array}{c}
 \displaystyle \sum d_i \\*[2ex] \displaystyle \sum x_i d_i\\*[2ex] 
@@ -800,7 +800,7 @@ we are left with
 0 & 50 & 0 \\
 0 & 0 & 50 \end{array} \right ]
 \left [ \begin{array}{c}
-m_0\\ m_1\\ m_2 \end{array} \right ] = \left [ \begin{array}{c}
+m_1\\ m_2\\ m_3 \end{array} \right ] = \left [ \begin{array}{c}
 20 \\ 38 \\ 25 \end{array} \right ],
 \end{equation}	 
 or directly
@@ -826,17 +826,17 @@ n & 0 & 0 \\*[2ex]
 0 & \displaystyle \sum u_i v_i & \displaystyle \sum v^2_i
 \end{array} \right ] 
 \left [ \begin{array}{c}
-m_0\\ m_1\\ m_2 \end{array} \right ] = 
+m_1\\ m_2\\ m_3 \end{array} \right ] = 
 \left[ \begin{array}{c} \displaystyle \sum d_i \\*[2ex] \displaystyle \sum u_i d_i \\*[2ex] \displaystyle \sum v_i d_i \end{array} \right ].
 \end{equation}	 
-Since the first equation directly gives us $m_0 = \bar{d}$, we are left with the simple $2\times 2$ system
+Since the first equation directly gives us $m_1 = \bar{d}$, we are left with the simple $2\times 2$ system
 \begin{equation}
 \left[ \begin{array}{cc}
 \displaystyle \sum u^2_i & \displaystyle \sum u_i v_i \\*[2ex]
 \displaystyle \sum u_i  v_i & \displaystyle \sum v^2_i
 \end{array} \right ]
 \left [ \begin{array}{c}
-m_1\\ m_2 \end{array} \right ] = 
+m_2\\ m_3 \end{array} \right ] = 
 \left [ \begin{array}{c}
 \displaystyle \sum u_i d_i \\*[2ex]
 \displaystyle \sum v_i d_i 
@@ -848,14 +848,14 @@ system.  That situation become difficult to envision but easy to construct.  As 
 measurements of temperature of points described by  $(x,y,z)$ triplets.  One can easily find the 
 equation of the hyper-plane
 \begin{equation}
-	T = m_0 + m_1 x + m_2 y + m_3 z
+	T = m_1 + m_2 x + m_3 y + m_4 z
 \end{equation}
 that best fits the data in a least square sense.
 
 \subsection{Multiple regression}
 \label{sec:mregexample}
 In general, we will be considering a linear regression 
-with $k+1$ independent variables, and our regression model will be of the form
+with $k+1$ independent variables, and our regression model will now be of the form
 \begin{equation}
 m_0 + m_1 x_1 +  m_2 x_2 + \cdots + m_k x_k + \epsilon = d.
  \end{equation}	 	
@@ -868,9 +868,9 @@ In many situations it is obvious which values are the observations and which are
 variables.  In our example with temperatures in space we wanted to  find how $T$ varies as a 
 function of position.  However, in other cases it may be less clear-cut.  E.g., if we measure (depth, 
 porosity, permeability, water content) in a core, we will probably let depth be a variable but which 
-of the others do we pick as our $d$ observation?  In the general case this becomes arbitrary.  It also becomes 
+of the others do we pick as our observation $d$?  In the general case this becomes arbitrary.  It also becomes 
 arbitrary to measure the misfit in the $d$-direction only.  The extension of orthogonal regression to 
-multiple regression is then a solution. In that case we would want to minimize the shortest distance 
+multiple regression is then a solution. In that case, we would want to minimize the shortest distance 
 between the data points and the hyper plane.  To prevent unseemly bleeding from the ears, we will not attempt this approach here.
 	
 Once we have selected our $d$-values (and used the symbol $x_{ij}$ to represent the $i$'th observation
@@ -894,9 +894,9 @@ or $\mathbf{G\cdot m = d}$.  This is nothing more than our general least squares
 However, in multiple regression we want to determine the \emph{relative importance} of the independent variables 
 as predictors of the dependent variable $d$.  The values of the regression coefficients tells us little, 
 since they depend on the units chosen.  Also, if the $\bar{x}_j$'s are very different in magnitude we may lose 
-precision due to round-off errors.  Consequently, we choose to transform our data into normal scores
+precision due to round-off errors.  Consequently, we choose to transform our data into normal scores via
 \begin{equation}
-x'_{ij} = \frac{x_{ij} - \bar{x}_j}{s_j} \mbox{ and } d'_i = \frac{d_i - \bar{d}}{s_d}.
+x'_{ij} = \frac{x_{ij} - \bar{x}_j}{s_j} \mbox{ and } d'_i = \frac{d_i - \bar{d}}{s_d},
 \end{equation}
 where
 \begin{equation}
@@ -928,12 +928,12 @@ The effect of normalizing is two-fold:
 intended.  Consequently, the first row and first column of the system (\ref{eq:mregsystem}) are removed.
 \item	The rest of the matrix becomes proportional to the correlation matrix, $\mathbf{C}$.
 \end{enumerate}
-For instance, examining the terms in the second equation in the normal system, i.e.,
+To verify, we examine the terms in the second equation in the normal system, which are
 \begin{equation}
 \sum \frac{(x_{i1} - \bar{x}_1) ^2}{s^2_1} \quad \sum \frac{(x_{i1} - \bar{x}_1) (x_{i2} - \bar{x}_2)}{s_1s_2} \quad \cdots \quad \sum 
 \frac{(x_{i1} - \bar{x}_1)(d_i - \bar{d})}{s_1s_d}
 \end{equation}	 
-we note they are simply
+and we note they are simply
 \begin{equation}
 \frac{(n-1)s^2_1}{s^2_1}  \quad \frac{(n-1)s_{12}}{s_1 s_2} \quad \cdots \quad \frac{(n-1)s_{1d}}{s_1 s_d}.
 \end{equation}	 
@@ -964,7 +964,7 @@ As an indicator of the goodness-of-fit we use the \emph{coefficient of multiple 
 \begin{equation}
 R^2 = SS_R/SS_T = \sum^n_{i=1} (\hat{d}_i - \bar{d})^2 / \sum^n_{i=1} (d_i - \bar{d})^2,
 \end{equation}	 
-where $\hat{d}_i = d(x_i)$ is the predicted value.  For simple 2-D regression,
+where $\hat{d}_i = d(\mathbf{x}_i)$ is the predicted value.  For simple 2-D regression,
 \begin{equation}
 R^2 = r^2 = \frac{s_{xd}}{s^2_x s^2_d}.
 \end{equation}	 
@@ -972,7 +972,7 @@ R^2 = r^2 = \frac{s_{xd}}{s^2_x s^2_d}.
 it is generally not enough to determine the best regression equation.  Obviously, if any of the $m_j'$ 
 are close to or equal to zero we can say that the corresponding variable $x_j$ is largely \emph{irrelevant} to the 
 regression and remove it from the system.  At other times, some of the variables may be linearly 
-related to each other, leading to \emph{redundant} variables that should be removed.  One approach is to 
+related to each other, leading to \emph{redundant} variables that should be removed.  One approach we will consider is to 
 evaluate all possible regressions using all combinations of $x_j$'s and determine how many variables are 
 necessary.
 \index{Redundant variable}
@@ -1116,7 +1116,7 @@ The critical $F_{0.95,1,109}$ is still 3.93, so we must conclude that $x_3$ is a
 obviously there is no need to consider any other of the remaining $x_j$'s that gave poorer fits still.  The result of this analysis 
 is that the density of gold occurrences may be explained by a linear model that depends on the 
 presence of acidic volcanics and Precambrian sediments in the area.  
-However, the correlation is not all that impressive $(R^2 = 28.15\%)$, suggesting that rock type 
+However, the correlation $(r = 0.53)$ is not all that impressive $(R^2 = 28.15\%)$, suggesting that rock type 
 alone is but one possible indicator of prospective regions.  Applying this technical concept to a
 unexplored area may produce some disappointment.
 \end{example}
@@ -1128,14 +1128,14 @@ unexplored area may produce some disappointment.
 
 \begin{problem}
 The table \emph{hawaii.txt} contains triplets of (distance, age, $\Delta$age) values
-obtained along the Hawaiian seamount chain.  Distance is small-circle distance from Kilauea (in km),
-age is radiometric seamount/island dates (in My) with associated one-sigma uncertainties (in My).
-You will also need the \texttt{regress\_ls.m} function for this problem.
+obtained along the Hawaiian seamount chain.  Distance is small-circle distances from Kilauea (in km),
+age is radiometric seamount/island dates (in My) with $\Delta$age) the associated one-sigma uncertainties (in My).
+You may need the \texttt{regress\_ls.m} function for this problem.
 \begin{enumerate}[label=\alph*)]
-\item  Plot the data points with error bars (hint: see help \texttt{errorbar}).
+\item  Plot the data points with error bars (hint: see help \texttt{errorbar} if using MATLAB).
 \item  Find the simple least squares regression line, state the parameter values, and overlay the predictions on your plot.
 \item  Find the weighted least squares regression line, state the parameter values, and overlay the predictions on your plot.
-\item What is the geological meaning of the slopes and intercepts?  Comment on the values.
+\item What is the geological (or physical) meaning of the slopes and intercepts?  Comment on the values.
 \end{enumerate}
 \end{problem}
 
@@ -1158,12 +1158,12 @@ range of acceptable least-squares regression trends?
 The file \emph{c2407.txt} contains distance $x$ (in km), bathymetry $z$ (in m), and crustal age $t$ (in Myr) along a
 segment across the Mid-Atlantic Ridge.  
 \begin{enumerate}[label=\alph*)]
-\item	Find the deterministic component given by the theoretical prediction
+\item	Find the deterministic component of seafloor depths given by the theoretical prediction
 $$
-z = d_r + c \sqrt{t}.
+z = d_r + c \sqrt{t},
 $$ 
-	and report the parameters.  Note $z$ is a function of age, not distance.
-\item	Plot the bathymetry and your best-fitting deterministic component on the same plot as functions of distance (not age).
+	and report the parameters.  Note that $z$ is a function of age, not distance.
+\item	Plot the bathymetry and your best-fitting deterministic component on the same plot, both as functions of distance (not age).
 \end{enumerate}
 \end{problem}
 
@@ -1171,7 +1171,7 @@ $$
 \newcounter{RSL}
 \setcounter{RSL}{\theproblem}
 The files \emph{hilo.txt} and \emph{honolulu.txt} contain tide gauge 
-readings (the first column is time (in years), the second is monthly average values in mm relative to some
+readings (the first column is time in years and the second is monthly average sea level values in mm relative to some
 arbitrary origin) from Hilo and Honolulu harbors, respectively.  It is 
 believed that the observations represent the sum of two phenomena: (1) eustatic (global) sea-level 
 variations, and (2) tectonic subsidence of the Big Island.
@@ -1182,13 +1182,13 @@ these slopes represent?
 \item Assuming Oahu is tectonically stable, what is the tectonic subsidence rate at Hilo?
 \item Alternatively, we only use the time period that the two data series have in common and directly 
 subtract the Honolulu series from the Hilo series.  What is the tectonic subsidence rate based on 
-these differences, and how does it compare to your answer in (2)?
+these differences, and how does this result compare to your answer in (2)?
 \end{enumerate}
 \end{problem}
 
 \begin{problem}
 	\index{Reweighted least squares (RLS)}
-Data sets showing the separate weights of an animal and its brain present a strong correlation in log-log space (\emph{bb\_weights.txt}).
+Data sets showing the separate weights of an animal and its brain exhibit a strong correlation in log-log space (\emph{bb\_weights.txt}).
 Use the methodology of ``reweighted least squares'' (RLS) to determine this regression and calculate residual $z$-scores
 relative to the RLS regression. With a threshold of 2.5, which animals depart from the simple trend? How would you
 explain these outliers?
@@ -1197,8 +1197,8 @@ explain these outliers?
 \begin{problem}
 	The file \emph{sherwood.txt} contains a series of petrophysical measurements on samples
 	of the Triassic Sherwood sandstone [from Lourenfemi, M.O., 1985, \emph{Math Geol., 17}, 845--452.]
-	The five columns contain permeability (mm/s), porosity ($\phi$), matrix
+	The five columns contain permeability, porosity ($\phi$), matrix
 	conductivity, true formation factor, and induced polarization.  Using multiple regression,
 	how many of the last four parameters are significant in a regression to explain the permeability,
-	assuming a 95\% of confidence?
+	assuming a 95\% level of confidence?
 \end{problem}

@@ -10,8 +10,8 @@
 can be completely free of uncertainties.  Since science depends on measurements, it is 
 crucially important to be able to evaluate these uncertainties and to keep them to a minimum.  
 Thus errors are not mistakes and you cannot avoid them by being very careful, but you should strive to make them 
-as small as possible.  Understanding uncertainties is critical for determining the significance of models
-that you may construct to explain your data.  In this chapter we will review the basic rules that govern
+as small as possible.  Understanding uncertainties is critical for determining the \emph{significance} of models
+that you may construct to explain your data.  In this chapter, we will review the basic rules that govern
 the reporting of measurements with uncertainties and how these uncertainties propagate when used to
 obtain derived quantities (such as sums and products) as well as how they affect the uncertainties in
 more complicated situations (such as being arguments to nonlinear functions).
@@ -24,7 +24,7 @@ more complicated situations (such as being arguments to nonlinear functions).
 	When reporting the value of a measurement, care should be taken to give the best possible 
 estimate of the uncertainty or error in the measurement.  Values read off scales or measured with 
 mechanical instruments can usually be bracketed between lower and upper limits.  E.g., we may know
-that a temperature measurement $T$ is not less  than 23\DS\ and not larger than 24\DS.  Hence, we
+that a temperature measurement $T$ is not less than 23\DS\ nor larger than 24\DS.  Hence, we
 shall report the value of $T$ as
 \begin{equation}
 T = 23.5 \pm 0.5^{\circ},
@@ -174,7 +174,7 @@ sums and differences is
 \frac{\delta p }{p_0} = \frac{\delta q}{q_0} = 
 \sqrt{ \left (  \frac{\delta x}{x_0} \right)^2 + \left( \frac{\delta y}{y_0}  \right)^2 }.
 \end{equation}	 
-Note that in the case $s = nx$, where $n$ is a constant, we must use $\delta s = n\delta x$ since all the $x$ are the 
+Note that in the case $s = nx$, where $n$ is a constant, we must use $\delta s = n\delta x$ since all the $x$ values are the 
 same and obviously \emph{not independent} of each other.  Similarly, the product $p = x^n$ will have the 
 fractional uncertainty
 \begin{equation}
@@ -196,7 +196,7 @@ Similarly, if
 \begin{equation}
 q = \frac{x \cdot y \cdot z^n}{u \cdot v \cdot w ^m},
 \end{equation}
-then we find the fractional uncertainty to be
+then we find the fractional uncertainty in $q$ to be
 \begin{equation}
 \frac{\delta q }{q_0} = \sqrt{ \left ( \frac{\delta x}{x_0}   \right )^2 +
 \left ( \frac{\delta y}{y_0}   \right )^2 + 
@@ -213,7 +213,7 @@ m  \frac{\delta w}{w_0}.
 \end{equation}
 \begin{example}
 As most students who have taken an introductory physics lab in mechanics will know, measuring
-the period $T$ of a pendulum of length $\ell$ lets one estimate the 
+the period $T$ of a pendulum of length $\ell$ allows one to estimate the 
 acceleration of gravity as 
 \begin{equation}
 g = \frac{4\pi^2 \ell}{T^2}.
@@ -224,7 +224,7 @@ and their uncertainties.  Being independent measurements we use (\ref{eq:uncert_
 \frac{\delta g}{\left| g_0    \right |} = 
 \sqrt{ \left( \frac{\delta \ell}{\ell}   \right)^2 + \left( 2 \frac{\delta T}{T}   \right)^2      },
 \end{equation}	 
-since the constants $4$ and $\pi $ have no uncertainty.  Given the measurements
+since the constant $4\pi$ has no uncertainty.  Given the measurements
 $\ell  = 92.95 \pm 0.10$ cm and $T = 1.936 \pm 0.004$ s, we obtain
 \begin{equation}
 g_0 = \frac{4 \pi^2 0.9295\mbox{ m}}{1.936^2\mbox{ s}^2} = 9.79035 \mbox{ m s}^{-2}.
@@ -236,9 +236,9 @@ We can now evaluate the fractional uncertainty as
 \end{equation}	 
 The answer, therefore, is
 \begin{equation}
-g = 9.79 \pm 0.04 \mbox{ m s}^{-2},
+g = 9.790 \pm 0.042 \mbox{ m s}^{-2},
 \end{equation}
-where we have only used two significant decimals.
+where we have only used three significant decimals.
 \end{example}
 
 \PSfig[h]{Fig1_Kelvin}{Lord Kelvin's model for the vertical temperature profile of the Earth
@@ -292,9 +292,9 @@ different methods: (1) Set a compass to a fixed aperture $\Delta x = 1 \pm 0.025
 line counting the steps, and (2) use a digitizing tablet and sample the line approximately every $\Delta x = 1 \pm 0.1$ cm.  
 Let us assume that it took $N = 50$ clicks or steps so the measured line length in both cases is 50 cm.  What is the 
 uncertainty in the length for the two methods?  First, let us state that there will be an uncertainty 
-for both methods that has to do with the undersampling of short-wavelength coastline ``wiggles'' (in the continuation
-of this volume we will learn about the \emph{fractal} nature of coastlines and that perhaps our simple approach
-here is a bit naive).  That 
+for both methods that has to do with the undersampling of short-wavelength coastline ``wiggles'' (also, as
+you learn about the \emph{fractal} nature of coastlines then perhaps our simple approach
+here will seem a bit naive).  That 
 aside, we can see that the errors accumulate very differently.  For the compass length-sum the 
 errors are all dependent (since the aperture is fixed) and we must use the summation rule to find the uncertainty $\delta l = 
 N\cdot 0.025$ cm $= 1.25$ cm.  For the digitizing operations all the uncertainties associated with points 2 

@@ -15,7 +15,7 @@ linear algebra that the eager reader could consult beyond this brief introductio
 
 \index{Matrix!definition}
 \index{Matrix!order}
-	A \emph{matrix} is simply a rectangular array of elements arranged in a series of $m$  rows and $n$  
+	A \emph{matrix} is simply a rectangular array of elements arranged in a series of $n$ rows and $k$  
 columns. The \emph{order} of a matrix is the specification of the number of rows by the number of 
 columns. \emph{Elements} of a matrix are denoted $a_{ij}$, where index $i$ specifies the \emph{row} position 
 and index $j$ specifies the \emph{column} position; thus $a_{ij}$ identifies the element at position $i,j$.
@@ -38,7 +38,7 @@ a_{31} & a_{32} & a_{33} \\
 a_{41} & a_{42} & a_{43}
 \end{array} \right].
 \end{equation}
-This matrix, $\mathbf A$, is of order $4 \times 3$, with elements $a_{11}$ = 12, $a_{21}$ = 8, and so on. The notation for matrices is 
+This matrix, $\mathbf A$, is of order $4 \times 3$, with elements $a_{11}$ = 12, $a_{21}$ = 8, and so on. The notation used for matrices is 
 not always consistent, but it is usually one of the following schemes:
 
 \begin{description}
@@ -48,7 +48,7 @@ sometimes with one or (more commonly) two underscores.
 The order is also sometimes explicitly given.  E.g., $\mathbf{A}_{(4,3)}$ means 
 $\mathbf A$ is of order $4 \times 3$.
 
-\item [Order:] Always given as rows x columns but uses letters $n,k,p$ differently: $n$ (rows) x $k$ (columns) or 
+\item [Order:] Always given as rows x columns but uses letters $n,k,m,p$ differently, e.g., $n$ (rows) x $k$ (columns) or 
 $k$ (rows) x $n$ (columns).
 
 \item [Element:] Most commonly $a_{ij}$, with $i =$ row; $j =$ column (sometimes other dummy indices like $l,p,q$ are used).
@@ -101,8 +101,8 @@ A \emph{row vector} is a matrix containing only a single row of elements, e.g.,
 \index{Row vector}
 \index{Vector!row}
 \begin{equation}
-\mathbf{a} = \left[ \begin{array}{cccc}
-a_1 & a_2 & \cdots & a_n
+\mathbf{b} = \left[ \begin{array}{cccc}
+b_1 & b_2 & \cdots & b_n
 \end{array}  \right] .
 \end{equation}
 The size of a vector is simply the number of elements it contains ($n$, in both examples above).
@@ -137,8 +137,8 @@ d_{ij} = \left \{ \begin{array}{cl}
 This type of matrix is important for scaling the rows or columns of other matrices.  The \emph{identity 
 matrix} is a diagonal matrix with all of its nonzero elements equal to one. Written as $\mathbf{I}$ or $\mathbf{I}_n$,
 it plays the role of ``one'' in matrix algebra.
-A \emph{lower triangular matrix} ($\mathbf{L}$) is a square 
-matrix with all elements equal to zero \emph{above} the principal diagonal:
+A \emph{lower triangular matrix} is a square 
+matrix with all elements equal to zero \emph{above} the principal diagonal, e.g.,
 \begin{equation}
 	\index{Matrix!lower triangular}
 	\index{Lower triangular matrix}
@@ -198,7 +198,7 @@ is reversed:
 1 & 6 & 8 \\
 14 & 7 & 2 \end{array} \right]
 \end{equation}
-As shown, taking the transpose is indicated by the superscript ``T''.
+As shown, taking the transpose is indicated by the superscript $^T$.
 Repeated transposing yields the original matrix, i.e.,
 \begin{equation}
 (\mathbf{A}^T)^T = \mathbf{A}.
@@ -247,7 +247,7 @@ This property is useful in calculating various quantities from matrices.
 \index{Submatrix}
 \index{Matrix!supermatrix}
 \index{Supermatrix}
-\emph{Submatrices} are smaller matrix partitions of the larger \emph{supermatrix}, i.e.,
+\emph{Submatrices} are smaller matrix \emph{partitions} of the larger \emph{supermatrix}, i.e.,
 \begin{equation}
 \left [ \frac{\mbox{Supermatrix}}{\mathbf{F}} \right] = \left[	\frac{\mathbf{A} | \mathbf{B}}{\mathbf{C} | \mathbf{D}} \right].
 \end{equation}
@@ -354,7 +354,7 @@ where
 \begin{equation}
 \beta =  \mathbf{|a|/|b|}.
 \end{equation}
-In contrast, perpendicular vectors have $\cos \theta = \cos 90^\circ = 0$, so that $\mathbf{ a \cdot b} = 0$, where $\mathbf{a \bot   b}$.
+In contrast, \emph{perpendicular} vectors have $\cos \theta = \cos 90^\circ = 0$, so that $\mathbf{ a \cdot b} = 0$, where $\mathbf{a \bot   b}$.
 
 Squaring vectors is simply the dot product of a vector with its own transpose, i.e.,
 \begin{equation}
@@ -1058,7 +1058,7 @@ m_1 \sum^n_{i=1} (x_i - x_0) + m_2 \sum^n_{i=1} (x_i - x_0)^2 = \sum^n_{i=1} d_i
 Notice that all sums involve known values that add to simple constants. 
 Specifically, we must compute the sums
 \begin{equation}
-S_y = \sum^n_{i=1} d_i, \ S_{xy} = \sum^n_{i=1}d_i (x_i - x_0), S_x = \sum^n_{i=1}(x_i - x_0), \mbox{ and} \ 
+S_y = \sum^n_{i=1} d_i, \ S_{xy} = \sum^n_{i=1}d_i (x_i - x_0), \ S_x = \sum^n_{i=1}(x_i - x_0), \mbox{ and} \ 
 S_{xx} = \sum^n_{i=1}(x_i - x_0)^2.
 \end{equation}
 Substituting these symbols into (\ref{eq:normeq1}) and (\ref{eq:normeq2}), we obtain
@@ -1129,15 +1129,15 @@ m_1\\ m_2
 S_y\\
 S_{xy}
 \end{array}
-\right ] .
+\right ]
 \end{equation}
-Therefore, $\mathbf{Nm = v}$, and since $\mathbf{N}$ is square, symmetric and of full rank, this equation is solved in 
+or simply $\mathbf{Nm = v}$. Since $\mathbf{N}$ is square, symmetric and of full rank, this equation is solved in 
 the standard manner:
 \begin{equation}
 \mathbf{N}^{-1} \mathbf{Nm = m = N}^{-1} \mathbf{v}.
 \end{equation}	 
 This problem was simple enough $(2 \times 2)$ to solve for $m_1$ and $m_2$ by brute force. For larger systems,
-this approach becomes impractical and instead a matrix solution to the rectangular $\mathbf{G\cdot m = d}$ equation must be 
+that approach becomes impractical and instead a matrix solution to the rectangular $\mathbf{G\cdot m = d}$ equation must be 
 sought. We will next look at the general linear least-squares problem and find a solution in 
 matrix notation.
 \index{Simple regression|)}
@@ -1148,7 +1148,7 @@ matrix notation.
 \index{General linear least squares method|(}
 
 	We have looked at a few special cases where we have sought to fit a model to data in a 
-least-squares sense.  Fitting a straight line to the $x-d$ points was a very simple example of this 
+least-squares sense.  Fitting a straight line to the $(x_i, d_i)$ points was a very simple example of this 
 technique. We will now look at the more general problem of finding the coefficients for \emph{any} 
 linear combination of a chosen set of basis functions that fits a data set in a least squares sense. There are 
 numerous situations where this is needed; some are listed in Table~\ref{tbl:LLS_examples}.
@@ -1158,7 +1158,7 @@ numerous situations where this is needed; some are listed in Table~\ref{tbl:LLS_
 \begin{tabular}{|l|p{1.5in}|l|}
 \hline
 \bf{Situation}  & \multicolumn{1}{c|}{\bf{Model Parameters}} & \multicolumn{1}{c|}{\bf{Data}} \\ \hline
-Curve Fitting & 
+Curve fitting & 
 Coefficients of polynomials, Fourier series, etc. &
 Points in $x-y$ plane \\ \hline
 Gravity modeling &
@@ -1171,8 +1171,8 @@ Small perturbations to hypocenter location & Seismic arrival times \\ \hline
 \label{tbl:LLS_examples}
 \end{table}
 
-While the basis functions in these cases are all vastly different, they are all used in linear 
-combinations to fit the observed data. We will therefore take time to investigate how such a 
+While the basis functions in these cases are all vastly different, they are all used in 
+\emph{linear combinations} to fit the observed data. We will therefore take time to investigate how such a 
 problem is set up, and how the setup can be simplified with matrix algebra.
 Some typical basis functions are given in Table~\ref{tbl:basis_funcs}.
 
@@ -1284,7 +1284,7 @@ This setup provides a \emph{closed system} of $k$ normal equations.  In matrix f
    \end{array} \right].
 \label{eq:normalwsums}
 \end{equation}
-Hence, we simply have
+Hence again, we simply have
 \begin{equation}
 \mathbf{N \cdot m = v},
 \label{eq:Nxvsolution}
@@ -1352,7 +1352,7 @@ E(\mathbf{m}) =  \left(\mathbf{m}^T\mathbf{G}^T - \mathbf{d}^T\right) \cdot \lef
 \mathbf{m}^T\mathbf{G}^T\mathbf{Gm} - \mathbf{m}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{Gm} + \mathbf{d}^T\mathbf{d},
 \end{equation}
 where we have used (\ref{eq:transposerule}) to handle the transpose of a matrix product.
-Note that as $E$ is a scalar then each of these terms must evaluate to scalars as well.  To find the solution, we set
+Note that as $E$ is a \emph{scalar} then each of these terms must evaluate to scalars as well.  To find the solution, we set
 \begin{equation}
 \frac{\partial E(\mathbf{m})}{\partial m_j} = \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{Gm} + \mathbf{m}^T\mathbf{G}^T\mathbf{G\dot{m}} - \mathbf{\dot{m}}^T\mathbf{G}^T\mathbf{d} - \mathbf{d}^T\mathbf{G\dot{m}} = 0, \quad j = 1,m,
 \end{equation}
@@ -1465,7 +1465,7 @@ m_1 + m_2 x_3 + m_3 x_3^2 = d_3\\[6pt]
 m_1 + m_2 x_4 + m_3 x_4^2 = d_4\\[6pt]
 \end{array},
 \end{equation}
-which for our data yields the linear system
+which, for our data, yields the linear system
 \begin{equation}
  \left [
 \begin{array}{ccccc}
@@ -1481,7 +1481,7 @@ m_1\\ m_2\\ m_3  \end{array}   \right]
 \left [ \begin{array}{c} 1\\ 4 \\ 3 \\ 4  \end{array} \right ] .
 \end{equation}
 Using (\ref{eq:lsgensolution}) we find the solution to be
-$d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as well as the best quadratic curve.
+$d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as well as the fitted quadratic curve.
 \PSfig[h]{Fig1_GenLS}{Fitting a three-parameter quadratic curve to four data points by minimizing the least squares misfit.}
 \end{example}
 \index{General linear least squares method|)}
@@ -1492,11 +1492,11 @@ $d = -1.5 + 1.65 x -0.125x^2$.  Figure~\ref{fig:Fig1_GenLS} shows our data as we
 	What if some data constraints are more reliable than others? We may simply give those residuals more 
 weight than the others, i.e.,
 \begin{equation}
-\mathbf{e} = \left[ \begin{array}{c} 0.8 e_1 \\ 2.1e_2\\ \vdots \\ 0.7 e_n \end{array} \right ] .
+\mathbf{e}' = \left[ \begin{array}{c} 0.8 e_1 \\ 2.1e_2\\ \vdots \\ 0.7 e_n \end{array} \right ] .
 \end{equation}	 
 In general, we can assign weights $w_i$ to each misfit so that the new weighted misfits become $e_i' = e_i\cdot w_i$.
-Very often, the weights will simply be $s_{ii} = 1/s_i$, where $s_i$ is the one-sigma uncertainty in the $i$'th measurement $d_i$.
-We implement such weighting by introducing a diagonal weight matrix,
+Very often, the weights will simply be $s_{ii} = 1/\sigma_i$, where $\sigma_i$ is the one-sigma uncertainty in the $i$'th measurement, $d_i$.
+We implement such weights by introducing a diagonal weight matrix
 \begin{equation}
 {\mathbf S} = \left[\begin{array}{cccc}
 s_{11} \\ & s_{22}\\ & & \ddots\\ & & & s_{nn} \end{array}
