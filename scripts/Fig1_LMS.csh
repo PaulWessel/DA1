@@ -10,10 +10,10 @@ set name = $0
 set FIG = $name:r
 #-------------------------------------------------
 cp -f gmt.conf.DA1 gmt.conf
-gmt set PS_SCALE_X 0.7 PS_SCALE_Y 0.7
+gmt set PS_SCALE_X 0.65 PS_SCALE_Y 0.65
 #-------------------------------------------------
 
-gmt pshistogram -R-7/8/0/10 -JX2.25i/1.25i -P -K -B0 -BWS -Glightgray -W0.25p -Z1 -T0.3 --MAP_FRAME_TYPE=graph << EOF >! $FIG.ps
+gmt pshistogram -R-7/8/0/10 -JX2.25i/1.1i -P -K -B0 -BWS -Glightgray -W0.25p -Z1 -T0.3 --MAP_FRAME_TYPE=graph << EOF >! $FIG.ps
    3.7581926e+00	
    2.3080598e+00	
    3.6801786e+00	

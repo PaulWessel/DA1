@@ -10,10 +10,10 @@ set name = $0
 set FIG = $name:r
 #-------------------------------------------------
 cp -f gmt.conf.DA1 gmt.conf
-gmt set PS_SCALE_X 0.65 PS_SCALE_Y 0.65
+gmt set PS_SCALE_X 0.6 PS_SCALE_Y 0.6
 #-------------------------------------------------
 
-gmt psxy -R-90/90/0/0.8 -JX4i/2i -P -K -Bxa30+u"\232" -Bya0.2+l"E(@~b@~)" -BWSe -W1p -L+yb -Glightgray << EOF >! $FIG.ps
+gmt psxy -R-90/90/0/0.8 -JX4i/1.3i -P -K -Bxa30+u"\232" -Bya0.2+l"E(@~b@~)" -BWSe -W1p -L+yb -Glightgray << EOF >! $FIG.ps
   -8.9170507e+01	   7.0175439e-01	
   -8.5437788e+01	   7.1052632e-01	
   -8.4193548e+01	   6.9005848e-01	

@@ -61,8 +61,8 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_Rayleigh_bars.csh		Fig1_mmm.csh \
 	Fig1_Rayleigh_one_BW.csh	Fig1_normal_pdf.csh \
 	Fig1_Rayleigh_scatter.csh	Fig1_normal_tails.csh \
-	Fig1_Rayleigh_two_BW.csh	Fig1_nyquist1.csh \
-	Fig1_Run.csh			Fig1_nyquist2.csh \
+	Fig1_Rayleigh_two_BW.csh	Fig1_nyquist.csh \
+	Fig1_Run.csh			 \
 	Fig1_Venn.csh			Fig1_onecos.csh \
 	Fig1_Whitewater.csh		Fig1_outcrop.csh \
 	Fig1_acc_prec.csh		Fig1_phase.csh \

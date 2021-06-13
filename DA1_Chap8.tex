@@ -881,20 +881,19 @@ under-sampled frequency components manifest themselves as lower frequency compon
 \end{equation}
 has an alias in that range --- this is its \emph{principal alias}.  Furthermore, any frequency $f_H > f_N$ 
 will be indistinguishable from its principal alias.  That is, the actual frequency $f_H = f_N + \Delta f$ will appear as the aliased frequency $f_L = f_N - \Delta f$.
-\PSfig[h]{Fig1_nyquist1}{Aliasing and folding frequency.  Power at higher frequencies than the Nyquist ($f_N$) will
-reappear as power at lower frequencies, ``folded'' around $f_N$.  This extra power (orange) is then added to the
-actual power and the result is a distorted, total power spectrum (red).}
 \index{Folding frequency}
 \index{Frequency!folding}
 	Because of this relationship, the Nyquist frequency $(f_N)$ is often called the \emph{folding frequency} since the
-aliased frequencies ($f > f_N$) will appear at their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist1}).
+aliased frequencies ($f > f_N$) will appear at their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist}).
 Therefore, when computing the transform of a data set,
 any frequency components in the phenomenon with true frequencies $f > f_N$ have been folded back into 
 the resolved frequency range during sampling.  Consequently, we must carefully choose $\Delta t$ so that the powers at frequencies $f' > f_N$ are either small 
 or nonexistent, or we must ensure that $f_N$ is high enough so that the aliased part of the spectrum only affects 
-frequencies higher than those of interest ($f \leq f_I$, see Figure~\ref{fig:Fig1_nyquist2}).
+frequencies higher than those of interest ($f \leq f_I$, see Figure~\ref{fig:Fig1_nyquist}).
 
-\PSfig[h]{Fig1_nyquist2}{Selecting the Nyquist frequency so that aliasing only affects frequencies higher
+\PSfig[h]{Fig1_nyquist}{Aliasing and folding frequency.  Power at higher frequencies than the Nyquist ($f_N$) will
+reappear as power at lower frequencies, ``folded'' around $f_N$.  This extra power (orange) is then added to the
+actual power and the result is a distorted, total power spectrum (red). Selecting the Nyquist frequency so that aliasing only affects frequencies higher
 than the frequencies of interest $(f \leq f_I)$.  In this case, the extra power (orange) that is folded around $f_N$
 does not reach into the lower frequencies of interest, and consequently the total spectrum is unaffected for frequencies
 lower than $f_I$.}

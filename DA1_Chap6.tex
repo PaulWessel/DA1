@@ -433,6 +433,9 @@ When a point $(x_i, y_i)$ deviates from the linear relation of the majority it i
 taking into account both $x_i$ and $y_i$ simultaneously.  As such, it is a vertical outlier or a bad 
 leverage point.
 	
+\PSfig[H]{Fig1_leverage}{The effect of leverage points in regression can be enormous, whether the data
+point is a valid observation or a bad outlier.}
+
 It is often stated that regression outliers can be detected by looking at the $LS$ residuals. This is 
 not always true.  The bad leverage point 1 has tilted the line so much  that its residual is very 
 small.  Consequently, a rule that says ``delete points with highest $LS$ residual'' would first find points 
@@ -440,9 +443,6 @@ number 2 and 5, thereby deleting the good points first.  Of course, in simple $x
 benefit of being able to plot the data so this is not often a problem, except when the number of 
 data sets and points are large.
 \index{Regression!outlier|)}
-
-\PSfig[H]{Fig1_leverage}{The effect of leverage points in regression can be enormous, whether the data
-point is a valid observation or a bad outlier.}
 
 From the simple examples we have just presented, we find that the breakdown point for $LS$ 
 regression is merely $1/n$ since one point is enough to ruin the day --- analogous to the breakdown 
@@ -484,13 +484,13 @@ which part is good unless you have additional information.
 Figure~\ref{fig:Fig1_LMS_regress} shows what we get
 using this method on the data that made the LS technique fail so miserably.
 	
+\PSfig[H]{Fig1_LMS_geometry}{Geometrical meaning of the LMS regression: the narrowest strip that
+covers half the data points.}
+
 The LMS line also has an intuitive geometric interpretation: it lies at the center of the narrowest 
 strip that covers half of the data points.  By half of the points we mean $n/2 + 1$, and the thickness of 
 the strip is measured in the vertical direction (i.e., Figure~\ref{fig:Fig1_LMS_geometry}).
 	 
-\PSfig[H]{Fig1_LMS_geometry}{Geometrical meaning of the LMS regression: the narrowest strip that
-covers half the data points.}
-
 An example of LMS regression comes from astronomy.  Astronomers often look for a linear 
 relationship between the logarithm of the light intensity and the logarithm of the surface temperature of stars.  A 
 scatter plot of observed quantities may look like Figure~\ref{fig:Fig1_astronomy}.  Here, the LMS line defines what is known 
