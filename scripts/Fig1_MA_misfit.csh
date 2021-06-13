@@ -45,7 +45,7 @@ echo "1.655 1.895" | gmt psxy -R -J -O -K -Sc0.075i -W0.25p -Gwhite >> $FIG.ps
 gmt pstext -R -J -O -Dj0.075i/0.075i -F+f+j -N << EOF >> $FIG.ps
 1.9 1.6 12p,Times-Roman LT (@%6%x@-i@-@%%, @%6%y@-i@-@%%)
 1.655 1.895 12p,Times-Roman RB (@%6%X@-i@-@%%, @%6%Y@-i@-@%%)
-1.715 1.715 12p,Times-Italic LB d@-i@-
+1.715 1.715 12p,Times-Italic LB e@-i@-
 3 0.57 12p,Times-Italic TR x
 -0.05 2.75 12p,Times-Italic TR y
 EOF

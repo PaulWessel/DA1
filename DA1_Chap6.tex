@@ -8,7 +8,7 @@ and all the various methods, norms, and misfit-minimizations possible.  A summar
 \section{Line-Fitting Revisited}
 \index{Regression!weighted least squares|(}
 
-We will again consider the best-fitting line problem $y = m_1 + bm_2 x$, this time with errors $s_i$ in the observed $y$-values.  We 
+We will again consider the best-fitting line problem $y = m_1 + m_2 x$, this time with errors $s_i$ in the observed $y$-values.  We 
 want to measure how well the model agrees with the data, and for this purpose we will use the $\chi^2$ 
 function, i.e.,
 \begin{equation}
@@ -92,7 +92,7 @@ and
 \end{equation}
 Similarly, we can find the covariance $s_{m_1,m_2}$ from
 \begin{equation}
-s^2_{ab} = \sum s ^2_i \left( \frac{\partial m_1}{\partial y_i} \right)
+s^2_{m_1,m_2} = \sum s ^2_i \left( \frac{\partial m_1}{\partial y_i} \right)
 \left( \frac{\partial m_2}{\partial y_i}\right) = -\frac{S_x}{\Delta}.
 \end{equation}
 Thus, the correlation between $m_1$ and $m_2$ becomes
@@ -100,7 +100,7 @@ Thus, the correlation between $m_1$ and $m_2$ becomes
 r_{m_1,m_2} = \frac{-S_x}{\sqrt{SS_{xx}}}.
 \label{eq:uncorrelated_a_b}
 \end{equation}
-It is therefore useful to shift the origin to $\bar{x}$ so that $r_{ab} = 0$, leaving our estimates for slope and intercept uncorrelated.  
+It is therefore useful to shift the origin to $\bar{x}$ so that $r_{m_1,m_2} = 0$, leaving our estimates for slope and intercept uncorrelated.  
 
 	Finally, we must check if the fit is significant.  We determine 
 critical $\chi ^2_\alpha$ for $n - 2$ degrees of freedom and test if our computed $\chi^2$ exceeds the critical limit.  If it 
@@ -204,7 +204,7 @@ or, when viewed separately (with implied sums over $i = 1$ to $n$ unless explici
 \label{eq:lambda_major}
 \end{equation}
 \begin{equation}
-\frac{\partial F}{\partial m_2} = \sum \frac{\partial}{\partial m_2b}(\lambda_i m_2 X_i) = 0  \Rightarrow \sum \lambda_i X_i = 0.
+\frac{\partial F}{\partial m_2} = \sum \frac{\partial}{\partial m_2}(\lambda_i m_2 X_i) = 0  \Rightarrow \sum \lambda_i X_i = 0.
 \label{eq:lambda_x_major}
 \end{equation}
 Since each $i$ represents a separate equation, we find
@@ -1129,7 +1129,7 @@ unexplored area may produce some disappointment.
 \begin{problem}
 The table \emph{hawaii.txt} contains triplets of (distance, age, $\Delta$age) values
 obtained along the Hawaiian seamount chain.  Distance is small-circle distances from Kilauea (in km),
-age is radiometric seamount/island dates (in My) with $\Delta$age) the associated one-sigma uncertainties (in My).
+age is radiometric seamount/island dates (in My) with $\Delta$age the associated one-sigma uncertainties (in My).
 You may need the \texttt{regress\_ls.m} function for this problem.
 \begin{enumerate}[label=\alph*)]
 \item  Plot the data points with error bars (hint: see help \texttt{errorbar} if using MATLAB).

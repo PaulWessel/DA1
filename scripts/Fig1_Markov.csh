@@ -20,7 +20,8 @@ else	# Regular figure
 	set start = "-K"
 	set stop = "-O"
 endif
-gmt psxy -R-1/1/-1/1 -JX2i -P $start -Sv0.1i+e -Gblack -X1.5i << EOF >! $FIG.ps
+echo 0 0 | gmt psxy -R-1/1/-1/1 -JX2i -P $start -Sc2i -W0.25p,- -X1.5i >! $FIG.ps
+gmt psxy -R -J -O -Sv0.1i+e -Gblack << EOF >> $FIG.ps
 0.04 1 -90 1.8i
 -0.04 -1 90 1.8i
 0.1 -0.9 45 1.05i

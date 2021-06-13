@@ -6,7 +6,7 @@
 
 	In Chapter~\ref{ch:sequences} we were preoccupied with the topic of time-series analysis in the time-domain 
 and learned a few things about the autocorrelation and cross-correlation techniques.  
-In this chapter, we will take the different perspective of studying the periodicities present in a time 
+In this chapter, we will take the different perspective of studying the \emph{periodicities} present in a time 
 series.
 \index{Frequency content}
 	At the heart of spectral analysis lies the notion of a signal's \emph{frequency content}.  This concept is 
@@ -887,7 +887,7 @@ actual power and the result is a distorted, total power spectrum (red).}
 \index{Folding frequency}
 \index{Frequency!folding}
 	Because of this relationship, the Nyquist frequency $(f_N)$ is often called the \emph{folding frequency} since the
-aliased frequencies ($f > f_N$) will appears as their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist1}).
+aliased frequencies ($f > f_N$) will appear at their principal aliases folded back into the range $\leq f_N$ (Figure~\ref{fig:Fig1_nyquist1}).
 Therefore, when computing the transform of a data set,
 any frequency components in the phenomenon with true frequencies $f > f_N$ have been folded back into 
 the resolved frequency range during sampling.  Consequently, we must carefully choose $\Delta t$ so that the powers at frequencies $f' > f_N$ are either small 
@@ -1493,9 +1493,9 @@ whose transform $G(f) = T\sinc (fT)$.}
 \index{Convolution theorem}
 \label{sec:convolutiontheorem}
 	The \emph{convolution theorem} simply states that a convolution in the time domain is equivalent to
-a multiplication in the frequency domain, and vice-versa:
+a multiplication in the frequency domain, and vice-versa, written as
 \begin{equation}
-s(t) * g(t) \leftrightarrow S (\omega) \cdot G (\omega)
+s(t) * g(t) \leftrightarrow S (\omega) \cdot G (\omega).
 %		(19.11)
 \end{equation}
 If $h(t) = s(t) * g(t)$, then
