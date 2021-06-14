@@ -36,7 +36,7 @@ Then, (\ref{eq:L2_line_ddx}) reduces to
 \begin{array}{rcl}
 \displaystyle
 m_1 S  + m_2 S_x & = & S_y, \\*[2ex]
-m_1 S_x + m_2 bS_{xx} & = & S_{xy}.
+m_1 S_x + m_2 S_{xx} & = & S_{xy}.
 \end{array}
 \end{equation} 	 
 Introducing 
@@ -462,7 +462,7 @@ concentrate our presentation on one particular method.  Again, let us look at th
 $$
 \begin{array}{cc}
 \mbox{minimize} & \displaystyle E = \sum^n_{i=1} e^2_i. \\*[-2ex]
-\hat{a}, \hat{b} \end{array}
+\hat{m_1}, \hat{m_2} \end{array}
 $$
 	 
 \PSfig[H]{Fig1_LMS_regress}{Robust regression, such as LMS, is very tolerant of outlying points in 
@@ -476,7 +476,7 @@ very robust?  This yields the ``least median of squares'' (LMS) criterion:
 \begin{equation}
 \begin{array}{cc}
 \mbox{minimize} & \mbox{median } \ e^2_i. \\
-    \hat{a}, \hat{b} \end{array}
+    \hat{m_1}, \hat{m_2} \end{array}
 \end{equation}	 
 It turns out the LMS fit is very robust with respect to outliers in $y$ as well as in $x$.  Its breakdown 
 point is 50\%, which is the most we can ask for.  If more than half your data are bad then you cannot tell
@@ -859,7 +859,7 @@ with $k+1$ independent variables, and our regression model will now be of the fo
 \begin{equation}
 m_0 + m_1 x_1 +  m_2 x_2 + \cdots + m_k x_k + \epsilon = d.
  \end{equation}	 	
-Our model states that the observations $d_i$ can be explained by a constant term $m_0$ plus a linear 
+Our model states that the observations $d_i$ can be explained by a constant intercept $m_0$ plus a linear 
 combination of $k$ variables, with each variable having its own ``slope''.  Thus, $m_4$ describes how 
 fast $d$ changes when $x_4$ changes, holding all other $x_i$ fixed.  As usual, we explain the misfit as 
 being due to deviations $\epsilon_i$, which we hope are normally distributed with zero mean.

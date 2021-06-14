@@ -1084,7 +1084,8 @@ e^{-i\theta} & = & \displaystyle 1 - i\theta - \frac{\theta^2}{2!} + \frac{i \th
 \end{array}
 $$
 We will associate $\cos \theta$ with the positive $x$-axis and $i \sin \theta$ with the positive $y$-axis.
-Thus, $e^{i\theta}$ is a \emph{unit vector} rotated an angle $\theta$ counter-clockwise from the $x$-axis. For the
+Thus, $e^{i\theta}$ is a \emph{unit vector} rotated an angle $\theta$ counter-clockwise from the $x$-axis
+(examine Figure~\ref{fig:Fig1_sincos} one more time). For the
 angular frequencies in the Fourier series (where $\theta = \theta(t) = \omega t)$, the Euler relation is
 \begin{equation}
 \boxed{e^{\pm i\omega t} = \cos \omega t \pm i \sin \omega t,}
@@ -1275,6 +1276,68 @@ respectively, for radial frequency $f$.  As noted, the main differences between 
 Most practitioners of spectral analysis will find themselves performing the Fourier transform via a special
 algorithm known as the \emph{Fast Fourier Transform} (FFT).  This algorithm as well as practical information on how
 to use it and how to prepare our data for it is the focus of this section.
+
+\subsection{The Fast Fourier Transform (FFT)}
+\index{Fast Fourier transform (FFT)|(}
+\index{FFT (Fast Fourier transform)|(}
+
+The discrete Fourier transform involves $n$ coefficients that each requires $n$ multiplications to be determined.
+Hence, the entire calculations is $O(n^2)$ in computer time.  Can we do better than that?
+Since $\omega_j = 2 \pi j / T$, $T = n \Delta t$, and $t_\ell = \ell \Delta t$ for $\ell =0, ..., n-1$ it follows that the exponential term
+in (\ref{eq:DA2_16.15}) is
+\begin{equation}
+e^{ -i \omega_j t_{\ell}} = e^{-\frac{i 2 \pi j}{n \Delta t}\ell \Delta t} = \left [ e^{-\frac{2 \pi i}{n}} \right ]^{j\ell} = W^{j\ell}.
+\end{equation}
+Note what happened to time here; it cancels, leaving just a ratio of integers.
+We may now write
+\begin{equation}
+J_j = \displaystyle \frac{1}{n} \sum^{n-1}_{\ell=0} y_{\ell} W^{j\ell}.
+\end{equation}
+It is common in FFT implementations to perform the division by $n$ separately (at the end), so let us just consider
+\begin{equation}
+J_j = \displaystyle \sum^{n-1}_{\ell=0} y_{\ell} W^{j\ell}.
+\end{equation}
+You may note that if $j = 0$ we obtain $J_0 = \bar{y}$ (apart from the $1/n$ term, that is).  Now, consider this rearrangement:
+\begin{equation}
+J_j = \displaystyle \sum^{n-1}_{\ell=0} y_{\ell} e^{-\frac{2 \pi i j\ell}{n}} =
+	\sum^{n/2-1}_{\ell=0} y_{2\ell} e^{-\frac{2 \pi i j (2\ell)}{n}} +
+	\sum^{n/2-1}_{\ell=0} y_{2\ell+1} e^{-\frac{2 \pi i j (2\ell+1)}{n}}.	
+\end{equation}
+Here, we have simply rewritten the sum as two separate series containing the even ($2 \ell$) and odd ($2 \ell + 1$) terms of
+the observations, respectively.  This expression can be manipulated further to yield
+\begin{equation}
+J_j = \displaystyle \sum^{n/2-1}_{\ell=0} y_{2\ell} e^{-\frac{2 \pi i j \ell}{(n/2)}} +
+	e^{-2 \pi i j / n} \sum^{n/2-1}_{\ell=0} y_{2\ell+1} e^{-\frac{2 \pi i j \ell}{(n/2)}},
+\label{eq:FFT1}
+\end{equation}
+which we can write as
+\begin{equation}
+J_j = J_j^e + W^j J_j^o.
+\end{equation}
+\PSfig[h]{Fig1_FFT_split}{Each dot-product making up a Fourier transform for a single frequency can be split in two by considering the odd (gray)
+and even (white) observations separately, and by recursively applying this partitioning
+until we reach a single element we can speed of the Fourier transform enormously.}
+The first term is the Fourier transform of the even-numbered observations (i.e., considering only the 0th, 2nd, 4th, etc., values), while the
+second term is the Fourier transform of just the odd-numbered observations (i.e., the 1st, 3rd, 5th, etc. values), scaled by the constant $W^j$. Since
+each transform only deals with $n/2$ points we find the calculation time to be proportional to $O(2(n/2)^2) = O(n^2/2)$.
+So while (\ref{eq:FFT1}) is mathematically identical to (\ref{eq:DA2_16.15}), the partitioning into two sums leads to a 50\% reduction in computation time.
+But wait, there is more! The partitioning idea can be continued recursively on the two separate $J_j^e$ and $J_j^o$
+sums as well.  For instance, the two terms in the transform for $J_j^e$ requiring $n/2$ data values each can themselves be written as
+\begin{equation}
+\begin{array}{ccc}
+	J_j^e & = & J_j^{ee} + W^j J_j^{eo}, \\[14pt]
+	J_j^o & = & J_j^{oe} + W^j J_j^{oo},
+\end{array}
+\end{equation}
+with each term being a transform requiring just $n/4$ data points.  If $n$ is initially some power of 2, then carrying this splitting
+all the way to a single number (whose transform is itself) yields a computational workload that is $O(n \log n)$.
+These are huge savings compared to our initial estimate of $O(n^2)$!  For instance, with $n = 10^6$, the difference is
+a factor of 50,000, while for $n = 10^7$ the operations are 400,000 times faster.  For each magnitude in $n$, this ratio
+increases by another factor of $\sim 8$.  This clever result is essentially the \emph{Cooley-Tukey}\index{Cooley, J. W.}
+\index{Tukey, J. W.}\index{Cooley-Tukey FFT algorithm} FFT algorithm from the 1960s.  However, its
+origin goes further back to the 1940s with \emph{Danielson}\index{Danielson, G. C.} and \emph{Lanczos}\index{Lanczos, C.} and their work
+on x-ray scattering as well as further back to \emph{Gauss}\index{Gauss, K. F.}.  Apparently, every neat mathematical idea can eventually
+be traced back to Gauss or Euler...
 
 \subsection{FFT implementations}
 

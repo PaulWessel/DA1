@@ -377,6 +377,10 @@ Here, $p_j$ is the probability that any value will fall in the $j$'th bin.  Plug
 as stated in (\ref{eq:chi2_test}).  Since $\chi^2 = 0$ would mean a perfect match between observations and
 expectations we realize that this $\chi^2$ test is \emph{one-sided}, hence we will only check if our observed $\chi^2$
 statistic exceeds the critical $\chi^2_{\alpha, \nu}$ value.
+
+Note that due to the normal approximation to the binomial distribution used to derive (\ref{eq:chi2_test}), we must ensure that the expected
+counts, $E_j$, for each bin are all 5 or greater.  Depending on the size of your data set this may require some careful
+decisions on the number of bins you can use, as we shall see in our next example.
 \begin{example}
 Consider the 48 measurements of salinity from Whitewater Bay in Florida (Table~\ref{tbl:salinity}). We would like to
 know if these observations came from a normal distribution or not.  The 
@@ -397,8 +401,9 @@ for the intervals are (-$\infty$, -0.84), (-0.84, -0.26), (-0.26, +0.26), (0.26,
 the values in Table~\ref{tbl:salinity} we find the observed number of samples for each of the five bins to be 10, 11, 
 10, 5, and 12.  These are the observed $O_j$'s.  The expected values $E_j$ are all the same, i.e.,
 \begin{equation}
-E_j = \frac{n}{k} = \frac{48}{5} = 9.6.
+E_j = \frac{n}{k} = \frac{48}{5} = 9.6,
 \end{equation}
+which satisfies the binomial approximation criteria above.
 Using (\ref{eq:chi2_test}) we find the observed value $\chi^2 = 3.04$.
 \index{Degrees of freedom}
 
@@ -1036,6 +1041,14 @@ difference to occur at the 53 ppt observation.  The $D$ estimate is $0.701 - 0.6
 is found in Table~\ref{tbl:Critical_KS2} to be $\sim 0.128$, which is much 
 larger than observed.  Hence we cannot reject the null hypothesis that the samples were collected 
 from a normally distributed population.  In this example, both the K-S and $\chi^2$ tests reached the same conclusion.
+
+At this point, we may wish to compare the usage of the $\chi^2$-test and the K-S test. Both tests examine whether observed data match a theoretical
+(or another observed) distribution.  However, only the $\chi^2$-test imposes the criterion that we must \emph{bin} the data
+first, a somewhat arbitrary process.  Furthermore, it also restricts the number of bins we can use, especially for
+smaller data sets, since we need to maintain $E_j \geq 5$.  For these reasons, we recommend you only use the
+$\chi^2$-test where having or setting up bins come naturally (e.g., testing daily or monthly data), while using the K-S
+for true testing of distribution shapes.
+
 \index{Kolmogorov-Smirnov test|)}
 \index{Test!Kolmogorov-Smirnov|)}
 

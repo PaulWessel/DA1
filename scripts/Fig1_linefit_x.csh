@@ -12,7 +12,7 @@ set FIG = $name:r
 cp -f gmt.conf.DA1 gmt.conf
 gmt set PS_SCALE_X 0.65 PS_SCALE_Y 0.65
 #-------------------------------------------------
-gmt psxy -R0/2.5/0/2 -Jx1i -P -K -B0 -Bws -Sc0.1i -Gwhite -Wfaint -Ey/1p --MAP_FRAME_TYPE=graph << EOF >! $FIG.ps
+gmt psxy -R0/2.5/0/2 -Jx1i -P -K -B0 -Bws -Sc0.1i -Gwhite -W0.25p -Ey/1p --MAP_FRAME_TYPE=graph << EOF >! $FIG.ps
 0.4 0.8 0.2
 1.3 1.2 0.25
 2.35 1.75 0.2
@@ -25,7 +25,7 @@ gmt psxy -R -J -O -K -W2p << EOF >> $FIG.ps
 0 0.85
 2.5 1.6
 EOF
-gmt psxy -R -J -O -K -B0 -Bws -Sc0.1i -Gwhite -Wfaint -Ey/1p -X3i --MAP_FRAME_TYPE=graph << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -B0 -Bws -Sc0.1i -Gwhite -W0.25p -Ey/1p -X3i --MAP_FRAME_TYPE=graph << EOF >> $FIG.ps
 1.2 0.8 0.2
 1.5 1.1 0.25
 1.8 1.25 0.2

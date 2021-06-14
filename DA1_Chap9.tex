@@ -262,6 +262,8 @@ different orientations at the $95 \%$ confidence level.
 \index{Robust!directions}
 \index{Direction!robust}
 
+\PSfig[h]{Fig1_dir2}{The effect of outliers on the mean direction is most severe when the outlier is orthogonal to the bulk of the data directions.
+Headed vectors represent the mean resultants.}
 	The concept of robustness is also applicable to directional data since such data may also contain outliers.
 However, directional outliers cause less harm than their Cartesian counterparts discussed earlier since directional data are forced
 to be periodic.  It is clear from Figure~\ref{fig:Fig1_dir2} that an outlier causes most damage to estimates of mean direction when it is oriented
@@ -279,8 +281,6 @@ to $\mid \theta_i - \tilde{ \theta} \mid$   it is the equivalent of minimizing t
 which we know gives the median of the $ \theta_i$ data set.  Similarly, a LMS mode estimate can be found by
 determining the midpoint of the shortest arc containing $n/2+1$ points.  Again, this would involve sorting
 the directions first, possibly after doubling orientations.
-\PSfig[h]{Fig1_dir2}{The effect of outliers on the mean direction is most severe when the outlier is orthogonal to the bulk of the data directions.
-Headed vectors represent the mean resultants.}
 \begin{example}
 Consider the wind directions
 $$
