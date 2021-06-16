@@ -126,7 +126,8 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_low_high_filter.csh	Fig1_band_filter.csh \
 	Fig1_sinc.csh			Fig1_delta.csh \
 	Fig1_spike.csh			Fig1_scaletheorem.csh \
-	Fig1_Answer_c2407_residuals_a.csh	Fig1_Answer_c2407_residuals_b.csh
+	Fig1_Answer_c2407_residuals_a.csh	Fig1_Answer_c2407_residuals_b.csh \
+	Fig1_Wienerfilter.csh
 
 STMP1= $(FIG1:.csh=.svg)
 SVG1= $(addprefix svg/, $(STMP1))

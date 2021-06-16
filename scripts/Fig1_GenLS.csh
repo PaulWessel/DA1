@@ -30,7 +30,10 @@ gmt math -T1/9/0.1 $s[1] $s[2] T MUL ADD $s[3] T 2 POW MUL ADD = line.txt
 #gmt math -At.txt -N4/1 -C0 1 ADD -C2 T 2 POW -Ca LSQFIT = solution.txt
 gmt psxy -R0/10/0/5 -JX4i/1.25i -P -K -Sc0.1i -Baf -BWS -Gblack t.txt --MAP_FRAME_TYPE=graph >! $FIG.ps
 gmt psxy -R -J -O -K -W1p line.txt >> $FIG.ps
-gmt psxy -R -J -O -T >> $FIG.ps
+gmt pstext -R -J -O -N -Dj0.05i/0.05i -F+f12p,Times-Italic+j << EOF >> $FIG.ps
+10.3 -0.2 LT x
+-0.15 4.5 RB d
+EOF
 \rm -f t.txt solution.txt line.txt
 #-------------------------------------------------
 # Post-processing

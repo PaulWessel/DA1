@@ -41,7 +41,7 @@ gmt psxy -R -J -O -K -Sc0.05i -Gblack << EOF >> $FIG.ps
 EOF
 gmt pstext -R -J -O -K -N -Dj0.05i/0.05i -F+f12p,Times-Italic+j << EOF >> $FIG.ps
 2.3 -0.35 LT x
--0.2 2 RB y
+-0.2 2 RB d
 1.4 1.12 CB e@-i@-
 EOF
 #
@@ -76,7 +76,7 @@ gmt psxy -R -J -O -K -Sc0.05i -Gblack << EOF >> $FIG.ps
 EOF
 gmt pstext -R -J -O -N -Dj0.05i/0.05i -F+f12p,Times-Italic+j << EOF >> $FIG.ps
 2.3 -0.35 LT x
--0.2 2 RB y
+-0.2 2 RB d
 1.26 1.05 LB e@-i@-
 EOF
 

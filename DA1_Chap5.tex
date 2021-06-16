@@ -505,30 +505,30 @@ where each column in $\mathbf{A}$ has been scaled by the corresponding diagonal 
 \subsection{Computational considerations}
 The matrix product
 \begin{equation}
-\mathbf{C}_{(k,n)} = \mathbf{A}_{(k,p)} \cdot \mathbf{B}_{(p,n)}
+\mathbf{C}_{(n,k)} = \mathbf{A}_{(n,p)} \cdot \mathbf{B}_{(p,k)}
 \end{equation}
-involves $k \times n \times p$ multiplications and $k \times n  \times (p -1)$ additions.  hence,
+involves $n \times k \times p$ multiplications and $n \times k  \times (p -1)$ additions.  hence,
 \begin{equation}
-\mathbf{E}_{(k,n)} = [ \mathbf{A}_{(k,p)} \cdot \mathbf{B}_{(p,q)}] \cdot \mathbf{C}_{(q,n)}
+\mathbf{E}_{(n,k)} = [ \mathbf{A}_{(n,p)} \cdot \mathbf{B}_{(p,q)}] \cdot \mathbf{C}_{(q,k)}
 \end{equation}	 
-gives $k \times p \times q$ multiplications, so
+gives $n \times p \times q$ multiplications, so
 \begin{equation}
-\mathbf{E} = [\mathbf{D}_{(k,q)}] \cdot \mathbf{C}_{(q,n)}
+\mathbf{E} = [\mathbf{D}_{(n,q)}] \cdot \mathbf{C}_{(q,k)}
 \end{equation}
-gives $k\times q \times n$ multiplications, and
+gives $n\times q \times k$ multiplications, and
 \begin{equation}
-\mathbf{E} _{(k,n)} = \mathbf{A}_{(k,p)} \cdot [\mathbf{B}_{(p,q)} \cdot \mathbf{C}_{(q,n)}]
+\mathbf{E} _{(n,k)} = \mathbf{A}_{(n,p)} \cdot [\mathbf{B}_{(p,q)} \cdot \mathbf{C}_{(q,k)}]
 \end{equation}
-gives $p\times q \times n$ multiplications, while
+gives $p\times q \times k$ multiplications, while
 \begin{equation}
-\mathbf{E}_{(k,n)} = \mathbf{A}_{(k,p)}\cdot [\mathbf{D}_{(p,n)} ]
+\mathbf{E}_{(n,k)} = \mathbf{A}_{(n,p)}\cdot [\mathbf{D}_{(p,k)} ]
 \end{equation}	
-gives $k \times p \times n$ multiplications. Therefore, the total number of operations depend on the order of multiplications:
+gives $n \times p \times k$ multiplications. Therefore, the total number of operations depend on the order of multiplications:
 \begin{enumerate}
-\item $\mathbf{(A \cdot B) \cdot C} \Rightarrow kq(p+n)$ total multiplications
-\item $\mathbf{A \cdot (B \cdot C)} \Rightarrow pn(k+q)$ total multiplications
+\item $\mathbf{(A \cdot B) \cdot C} \Rightarrow nq(p+k)$ total multiplications
+\item $\mathbf{A \cdot (B \cdot C)} \Rightarrow pk(n+q)$ total multiplications
 \end{enumerate}
-If both $\mathbf{A}$ and $\mathbf{B}$ are $100 \times 100$ matrices and $\mathbf{C}$ is $100 \times 1$, then $k = p = q = 100$, and $n 
+If both $\mathbf{A}$ and $\mathbf{B}$ are $100 \times 100$ matrices and $\mathbf{C}$ is $100 \times 1$, then $n = p = q = 100$, and $k 
 = 1$. Multiplying using form (1) involves $\sim 1 \times 10^6$ multiplications, whereas form (2) involves $2 \times 
 10^4$; so computing $\mathbf{B \cdot C}$ first, then premultiplying by $\mathbf{A}$ saves almost a million multiplications 
 and almost an equal number of additions. Therefore, the order of operations is extremely important 
@@ -936,7 +936,7 @@ matrices, the above relationships may not hold.
 \index{Curve fitting|(}
 
 \PSfig[h]{Fig1_L2_error}{Graphical representation of the regression errors used in least-squares procedures.
-We measure misfit vertically in the $y$-direction from data point to regression curve.}
+We measure misfit vertically in the $d$-direction from data point to regression curve.}
 	Whereas an interpolant fits each data point exactly, it is frequently advantageous to produce a 
 smoothed fit to the data --- not exactly fitting each point, but producing a ``best'' fit. A popular (and 
 convenient) method for producing such fits is known as the \emph{method of least squares}.
@@ -951,7 +951,7 @@ This \emph{regression} of $y$ on $x$ is the most commonly used method. Less comm
 involved) is the regression of $x$ on $y$ and even orthogonal regression (which we will return to later;
 see Figure~\ref{fig:Fig1_y_and_ortho_error}).
 
-\PSfig[h]{Fig1_y_and_ortho_error}{Two other regression methods: regressing $x$ on $y$ and orthogonal regression.
+\PSfig[h]{Fig1_y_and_ortho_error}{Two other regression methods: regressing $x$ on $d$ and orthogonal regression.
 Here we measure misfits horizontally from data point to regression line or orthogonally onto the regression line,
 respectively.}
 

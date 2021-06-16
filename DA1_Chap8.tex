@@ -1740,6 +1740,102 @@ phenomenon caused by truncating the spectrum too rapidly. As always, there will 
 to be a trade-off between how sharply you want to reduce the spectrum and how much
 ringing you are willing to tolerate.\\
 
+\subsubsection{Wiener filter}
+\index{Wiener filter}
+\index{Filter!Wiener}
+\label{sec:Wiener}
+Most observed time series can be thought of as a sum of two components:
+
+\begin{enumerate}
+\item The signal, $u(t)$, that we want to analyze,
+\item The noise, $n(t)$.
+\end{enumerate}
+The measured signal is therefore corrupted by the noise. We will call this the \emph{observed signal},
+$c(t)$. In addition, the measuring process may not be able to record all frequencies present in the phenomenon being observed.
+Hence, the true signal $u(t)$ is ``blurred'' or smeared, which we can describe as a convolution
+of $u(t)$ with the known instrument response, $r(t)$. The smeared signal is then
+\begin{equation}
+s(t)=r(t)*u(t)=\int^\infty_{-\infty} r(t-\tau)u(\tau)d \tau \quad \leftrightarrow \quad S(f)= R(f) \cdot U(f).
+		%(16.1)
+\end{equation}
+Add in the noise component, $n(t)$, and we have
+\begin{equation}
+c(t)=s(t)+n(t)  \quad \leftrightarrow  \quad C(f)=S(f)+N(f).
+\label{eq:DA2_16.2}
+		%(16.2)
+\end{equation}
+In the absence of noise we can easily invert (or deconvolve) this equation by solving $U (f) =
+S(f)/R(f)$. However, with noise a different method must be applied. We want to find
+the optimal filter, $\phi(t)$ [or $\Phi(f)$] which, when applied to the measured signal $c(t)$ [or
+$C(f)$], and then deconvolved by $r(t)$ [or $R(f)$], produces a signal $\hat{u}(t)$ [or $\hat{U}(f)$] that is as
+close as possible to the uncorrupted signal $u(t)$ [or $U (f)$]. In other words, we will
+estimate the true signal by
+\begin{equation}
+\hat{U}(f) = \frac{C(f) \cdot \Phi (f)}{R (f)}.
+\label{eq:DA2_16.3}
+%(16.3)
+\end{equation}
+What do we mean by being ``close'' to the true signal? We mean in a least-square sense, i.e.,
+\begin{equation}
+%		(16.4)
+\min \int^\infty _{- \infty} \left [ \hat{u} (t) - u(t) \right ]^2 dt \leftrightarrow \min \int^\infty _{- \infty}
+\left [ \hat{U} (f) - U (f) \right ]^2 d f,
+\label{eq:percivalth}
+\end{equation}
+where we have used Parseval's theorem to express the misfit in the frequency domain.
+With the transform of the noise given by $N(f)$, we substitute (\ref{eq:DA2_16.2}) and (\ref{eq:DA2_16.3})
+into (\ref{eq:percivalth}) to find
+$$
+\min \int^\infty _{- \infty} \left \{
+\frac{\left [ S(f) + N (f) \right ] \cdot \Phi (f)}{R (f) }
+- \frac{S (f)}{R(f)} \right \} ^2 d f.
+$$
+Carrying out the square we obtain
+$$
+\min \int^\infty _{- \infty}
+\frac{1}{ R^2 (f)}
+\left \{ [ S^2 (f) + 2S (f) N (f) + N^2 (f) ] \Phi ^2 (f) - 2S (f) [ S(f) + N (f)] \Phi (f) + S^2 (f) \right \} d f,
+$$
+which simplifies to
+\begin{equation}
+%		(16.5)
+\min \int^\infty _{- \infty}
+\frac{1}{ R^2 (f)} \left \{ S^2 (f) [ 1 - \Phi (f)]^2 + N^2 (f) \Phi (f) \right \} d f.
+\label{eq:DA2_16.5}
+\end{equation}
+This simplification is valid because we assume $S$ and $N$ are uncorrelated, hence their product integrated over all
+frequencies must equal zero.
+
+Obviously, (\ref{eq:DA2_16.5}) is only minimized if the integrand is minimized for all frequencies. Thus, we
+can determine the best choice for $\Phi (f)$ by taking the derivative of the integrand with
+respect to $\Phi$ and setting it to zero:
+$$
+-2S ^2 (f) \left [ 1 - \Phi (f) \right ] + 2 N^2 (f) \Phi (f) = 0.
+$$
+Since this identity must hold for all frequencies we solve for the optimal filter as
+\index{Wiener, N.}
+\begin{equation}
+\Phi (f) = \frac{S^2 (f)} {S^2 (f) + N^2 (f)} = \frac{S^2(f) } {C^2(f)}.
+%(16.6)
+\label{eq:DA2_16.6}
+\end{equation}
+\PSfig[h]{Fig1_Wienerfilter}{An optimal Wiener filter depends on the practitioner's ability
+to separate the spectrum ($C^2$) into the contributions from the signal ($S^2$) and the noise ($N^2$).}
+This is the optimal filter known as the \emph{Wiener} filter, named after \emph{Norbert Wiener}. Note that it only involves the power of
+$S$, the observed smeared signal, and the power of $N$, the noise. In particular, equation (\ref{eq:DA2_16.6}) does not contain $U$, the true
+signal. This simplifies life: We can determine $\Phi(f)$ independently of $R(f)$. However, we
+need to isolate $S^2$ and $N^2$ from $C^2$. There is no unique way to do that unless we have some
+extra information. Luckily, a way out is often presented by looking at the spectrum $C^2$.
+Often, it will be clear what shape the signal and noise spectra must have. Consider the
+situation sketched in Figure~\ref{fig:Fig1_Wienerfilter}.
+It appears that the noise spectrum is slightly tilted. We simply extrapolate this trend for all
+frequencies and subtract it from $C^2$ to get $S^2$. We can now numerically form the filter $\Phi(f)$ from $S^2$ and $N^2$. As
+you can see, the filter will be unity where the noise is minimal and drop smoothly to zero
+where the noise dominates. Simple, but very powerful, and not very sensitive to errors in
+isolating $S^2$ and $N^2$. In fact, a crude separation by eye based on a power spectrum is
+usually adequate.
+
+
 \subsection{Time-domain filters}
 Many useful filters cannot be specified in the form of a convolution and thus cannot be made
 extremely efficient via the magic of the convolution theorem and the availability of FFTs.  These time-domain (or space-domain)

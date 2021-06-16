@@ -49,7 +49,7 @@ gmt psxy -R -J -O -K -Sc0.075i -Gblack << EOF >> $FIG.ps
 EOF
 gmt pstext -R -J -O -N -Dj0.05i/0.05i -F+f13p,Times-Italic+j << EOF >> $FIG.ps
 3.8 -0.35 LT x
-0  2.5 RB y
+0  2.5 RB d
 2.6 1.98 RM e@-i@-
 EOF
 #-------------------------------------------------

@@ -8,7 +8,7 @@
 set name = $0
 set FIG = $name:r
 #-------------------------------------------------
-cp -f gmt.conf.DA1 gmt.conf
+cp -f gmt.conf.DA2 gmt.conf
 gmt set PS_SCALE_X 0.65 PS_SCALE_Y 0.65
 #-------------------------------------------------
 gmt math -T0/6/0.01 T 2 MUL DUP MUL -0.5 MUL EXP 0.5 ADD T 0.1 MUL SUB = C.d
