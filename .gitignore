@@ -2,7 +2,7 @@
 CriticalTables/*.tex
 pdf
 svg
-DA1_book*.pdf
+DA1_*.pdf
 DA1_Version.tex
 gmt.conf
 gmt.history
