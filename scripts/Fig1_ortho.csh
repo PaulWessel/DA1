@@ -45,7 +45,7 @@ gmt pstext -R -J -O -Dj0.1i/0.1i -N -F+f18p,Times-Italic+j << EOF >> $FIG.ps
 375 -1.1	TC @~f@~
 0 1.35	RM d
 EOF
-\rm -f 3.txt 1.txt t.txt a.txt
+\rm -f 3.txt 1.txt t.txt a.txt tmp
 #-------------------------------------------------
 # Post-processing.
 

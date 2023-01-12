@@ -19,7 +19,7 @@ awk '{print $1, (NR-1)/144}' r.txt | gmt psxy -R -J -O -K -Ay -W0.25p >> $FIG.ps
 gmt psxy -R -J -O -T >> $FIG.ps
 #-------------------------------------------------
 # Post-processing
-#rm -f r.txt n.txt
+rm -f r.txt n.txt
 if ($#argv == 1) then
 	gv $FIG.ps &
 endif

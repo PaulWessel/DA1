@@ -29,7 +29,7 @@ gmt psxy -R -J -O -K -Ss0.15i -W0.75p picks2.d -N >> $FIG.ps
 echo 0.1666666 1.1 0.3 1.1 | gmt psxy -R -J -O -K -N -Sv0.075i+s+bt+et -Gblack -W0.5p >> $FIG.ps
 echo 0.2333333 1.1 P | gmt pstext -R -J -O -K -N -F+f10p,Times-Italic,black+jCM -Gwhite >> $FIG.ps
 gmt psxy -R -J -O -T >> $FIG.ps
-\rm -f short.d long.d picks.d
+\rm -f short.d long.d picks.d picks2.d
 #-------------------------------------------------
 # Post-processing
 

@@ -18,7 +18,6 @@ gmt psxy -R1999/2010/10/139 -JX4i/1.5i -P -W2p -Bxaf1+l"Year" -Byaf+l"10@+6@+ ba
 gmt psxy -R1999/2010/45/90 -J -O -W2p,4_2:0 -Byaf+l"Fatalities" -BE ../problems/conspiracy.txt -i0,2 >>$FIG.ps
 #-------------------------------------------------
 # Post-processing
-#rm tmp.txt
 if ($#argv == 1) then
 	gv $FIG.ps &
 endif

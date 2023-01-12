@@ -19,7 +19,6 @@ gmt psxy -R1999/2010/530/670 -JX4i/1.5i -O -W2p -Bxaf1+l"Year" -Byaf -BwS -K ../
 gmt psxy -R1999/2010/15/80 -J -O -W2p,4_2:0 -Byaf+l"Fatalities" -BE ../problems/PhD_deaths.txt -i0,2 >>$FIG.ps
 #-------------------------------------------------
 # Post-processing
-#rm tmp.txt
 if ($#argv == 1) then
 	gv $FIG.ps &
 endif

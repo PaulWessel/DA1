@@ -1,17 +1,10 @@
 #
-#       Makefile for Data Analysis Text Book 1
+#       Makefile for Introduction to Statistics and Data Analysis, Book 1
 #
-# Updated July, 2020
-# Note: With SVG no longer being supported by gs it is unlikely
-# there will ever be a epub version of this book.
+# Updated January, 2023
 
 # LaTeX command
-#PDFLATEX=pdflatex --interaction=batchmode
 PDFLATEX=pdflatex
-ECONVERT=/Applications/calibre.app/Contents/MacOS/ebook-convert
-EARGS=--base-font-size 10 --margin-left 0 --margin-right 0 --margin-top 0 --margin-bottom 0 --language en --no-default-epub-cover --authors "Paul Wessel"
-AARGS=--base-font-size 10 --margin-left 0 --margin-right 0 --margin-top 0 --margin-bottom 0 --language en --authors "Paul Wessel"
-%FIGWIDTH=	3.83i
 FIGWIDTH=	6i
 help::
 		@grep '^#!' GNUmakefile | cut -c3-
@@ -20,9 +13,8 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!book          : Build PDF for book 1
-#!book+         : Build PDF for book 1 with Answer section
-#!ebook         : Build EPUB for book 1
+#!student       : Build PDF for book 1 for students
+#!instructor    : Build PDF for book 1 with Answer section for instructors
 #!spotless      : Clean up and remove created files of all types
 #!ascii         : Check for non-ASCII characters in the tex files
 #!data          : Make the zip file with problem set data
@@ -129,12 +121,8 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_Answer_c2407_residuals_a.csh	Fig1_Answer_c2407_residuals_b.csh \
 	Fig1_Wienerfilter.csh
 
-STMP1= $(FIG1:.csh=.svg)
-SVG1= $(addprefix svg/, $(STMP1))
 PTMP1= $(FIG1:.csh=.pdf)
 PDF1= $(addprefix pdf/, $(PTMP1))
-GTMP1= $(FIG1:.csh=.png)
-PNG1= $(addprefix png/, $(GTMP1))
 
 TEX1=	DA1_Chap1.tex		DA1_Chap4.tex		DA1_Preface.tex \
 	DA1_Chap2.tex		DA1_Chap5.tex		DA1_book.tex \
@@ -161,15 +149,6 @@ DA1_Version.tex:  .FORCE
 pdf/%.pdf: scripts/%.ps
 	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p -P -Tf scripts/$*.ps -Dpdf
 
-#svg/%.svg: scripts/%.ps
-#	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p+gwhite -P -Ts scripts/$*.ps -Dsvg
-
-svg/%.svg: pdf/%.pdf
-	pdf2svg pdf/$*.pdf svg/$*.svg
-
-png/%.png: scripts/%.ps
-	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p+gwhite -E100 -P -Tg scripts/$*.ps -Dpng
-
 scripts/%.ps: scripts/%.csh
 	(cd scripts; csh $*.csh; rm -f gmt.conf gmt.history)
 
@@ -179,61 +158,13 @@ CriticalTables/%.tex: CriticalTables/%.sh
 pdir:
 	mkdir -p pdf
 
-sdir:
-	mkdir -p svg
+student:	DA1_student.pdf
+instructor:	DA1_instructor.pdf
 
-ndir:
-	mkdir -p png
+do_pdf:     	pdir $(PDF1)
+do_table: 	$(TAB1)
 
-book:	book1
-book+:	book1+
-book1:	DA1_book.pdf
-book1+:	DA1_book+.pdf
-ebook:	DA1_book.epub
-
-do_svg: sdir $(SVG1)
-do_pdf: pdir $(PDF1)
-do_table: $(TAB1)
-
-# Make EPUB via XML->XHTML->EPUB
-DA1_book.epub:	DA1_book.xhtml
-	# Convert to epub3 format
-	/Applications/calibre.app/Contents/MacOS/ebook-convert DA1_book.xhtml DA1_book.epub $(EARGS)
-	#/Applications/calibre.app/Contents/MacOS/ebook-convert DA1_book_svg.xhtml DA1_book.epub $(EARGS)
-	#/Applications/calibre.app/Contents/MacOS/ebook-convert DA1_book_png.xhtml DA1_book_png.azw3 $(AARGS)
-
-DA1_book.xhtml: sdir pdir $(PDF1) $(SVG1) DA1_book.xml
-	# Use --noplane1 so MathML uses attributes like boldtype instead of binary Unicode Plane 1 stuff
-	# Use --graphicimages to ensure calculation of svg image sizes which are then included in the tags
-	latexmlpost --noplane1 --graphicimages -dest=DA1_book.xhtml DA1_book.xml
-	#latexmlpost --noplane1 -dest=DA1_book_png.xhtml DA1_book.xml
-	# Determine all the PDF figures in the original Latex and make a list of their names without extension
-	#echo Fig1_cover > f.lis
-	#grep -H PSfig DA1_Chap?.tex | tr ':{}' '   ' | awk '{print $$3}' >> f.lis
-	# Find all the x###.svg files just created but sort them.  Since ### varies in width we do it this way:
-	# ls x*.png | awk -F. '{print substr ($$1,2)}' | sort -n | awk -F. '{printf "x%s.png\n", $$1}' > x.lis
-	# Replace the x###.png image references with svg/<figname>.svg instead
-	#paste x.lis f.lis | awk '{printf "s|%s|svg/%s.svg|g\n", $$1, $$2}' > fix.lis
-	#sed -f fix.lis DA1_book_png.xhtml > DA1_book.xhtml
-	#rm -f x.lis f.lis fix.lis
-
-DA1_book.xml: $(TEX1)
-	# Plain conversion of tex to xml - no figures etc are touched.
-	latexml --destination=DA1_book.xml DA1_book.tex
-
-DA1_pngbook.xhtml: ndir $(PDF1) $(PNG1) DA1_pngbook.xml
-	# Use --noplane1 so MathML uses attributes like boldtype instead of binary Unicode Plane 1 stuff
-	latexmlpost --noplane1 --graphicimages --mathimages --verbose -dest=DA1_pngbook.xhtml DA1_pngbook.xml
-
-DA1_pngbook.xml: $(TEX1)
-	# Plain conversion of tex to xml - no figures etc are touched.
-	latexml --destination=DA1_pngbook.xml DA1_book.tex
-
-DA1.epub: $(TEX1) $(SVG1)
-	# Full conversion of tex to epub.
-	latexmlc --noplane1 --graphicimages --destination=DA1.epub DA1_book.tex
-
-DA1_book.pdf:	pdir $(PDF1) $(TEX1)
+DA1_student.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
@@ -241,8 +172,9 @@ DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
+	mv -f DA1_book.pdf DA1_student.pdf
 
-DA1_book+.pdf:	pdir $(PDF1) $(TEX1)
+DA1_instructor.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
@@ -250,7 +182,7 @@ DA1_book+.pdf:	pdir $(PDF1) $(TEX1)
 	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	mv DA1_book.pdf DA1_book+.pdf
+	mv DA1_book.pdf DA1_instructor.pdf
 
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
@@ -266,12 +198,11 @@ data:
 	scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
 
 clean_table:
-	rm -r CriticalTables/*.tex
+	rm -rf CriticalTables/*.tex
 
 clean:
-	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex x*.png x*.svg
+	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex
 
 spotless:	clean clean_table
-	rm -rf pdf svg .DS_Store
+	rm -rf pdf .DS_Store
 	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history *.pdf
-	rm -f DA?_book.xml DA?_book.xhtml DA?_book.epub LaTeXML.* ltx-book.css

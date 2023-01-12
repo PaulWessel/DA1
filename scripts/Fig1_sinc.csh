@@ -55,6 +55,7 @@ gmt pstext -R -J -O -Dj0.05/0.05 -N -F+f10p,Times-Italic+j << EOF >> $FIG.ps
 6 -0.05 TC f
 2.55 0.425 LB f = 1/T
 EOF
+rm -f ft.d
 #-------------------------------------------------
 # Post-processing
 

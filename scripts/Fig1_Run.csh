@@ -28,6 +28,7 @@ EOF
 gmt psxy -R0/4/-0.15/2 -JX4i/1.25i -P -K -W0.5p,- -B0 -BWS --MAP_FRAME_TYPE=graph run.txt >! $FIG.ps
 gmt psxy -R -J -O -Sc0.075i -Gwhite -W0.25p -K -N run.txt >> $FIG.ps
 gmt pstext -R -J -O -N -Dj0.05i -F+f10p,Helvetica-Bold+j run.txt >> $FIG.ps
+rm -f run.txt
 #-------------------------------------------------
 # Post-processing
 
