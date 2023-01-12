@@ -133,12 +133,12 @@ CriticalTables/%.tex: CriticalTables/%.sh
 pdir:
 	mkdir -p pdf
 
-book:	ERTH_DA1_boook.pdf
+book:	ERTH_DA1_book.pdf
 
 do_pdf:     	pdir $(PDF1)
 do_table: 	$(TAB1)
 
-ERTH_DA1_boook.pdf:	pdir $(PDF1) $(TEX1)
+ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
@@ -146,7 +146,7 @@ ERTH_DA1_boook.pdf:	pdir $(PDF1) $(TEX1)
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	mv -f DA1_book.pdf ERTH_DA1_boook.pdf
+	mv -f DA1_book.pdf ERTH_DA1_book.pdf
 
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
