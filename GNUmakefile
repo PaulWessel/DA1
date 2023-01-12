@@ -13,11 +13,10 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!student       : Build PDF for book 1 for students
-#!instructor    : Build PDF for book 1 with Answer section for instructors
-#!spotless      : Clean up and remove created files of all types
-#!ascii         : Check for non-ASCII characters in the tex files
-#!data          : Make the zip file with problem set data
+#!book       : Build PDF for book 1 for students
+#!spotless   : Clean up and remove created files of all types
+#!ascii      : Check for non-ASCII characters in the tex files
+#!data       : Make the zip file with problem set data
 #!
 
 #---------------------------------------------------------------------------
@@ -86,30 +85,7 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_vonMises.csh		Fig1_GenLSW.csh	\
 	Fig1_App_Normal.csh		Fig1_App_Student_t.csh \
 	Fig1_App_F.csh			Fig1_App_Chisquare.csh	\
-	Fig1_Answer_tires.csh		Fig1_Answer_tapwater.csh \
-	Fig1_Answer_holes.csh		Fig1_Answer_twosamples.csh \
-	Fig1_Answer_tcorr.csh		Fig1_Answer_linefit.csh \
-	Fig1_Answer_heatflow.csh	Fig1_Answer_beststeploc.csh \
-	Fig1_Answer_sulfur.csh		Fig1_Answer_conspiracy.csh \
-	Fig1_Answer_NSF.csh		Fig1_Answer_Aso.csh \
-	Fig1_Answer_brains.csh		Fig1_Answer_magKS.csh \
-	Fig1_Answer_permKS.csh		Fig1_Answer_GK2007KS.csh \
-	Fig1_Answer_COD.csh		Fig1_Answer_c2407.csh \
-	Fig1_Answer_Athy1.csh 		Fig1_Answer_Athy2.csh \
-	Fig1_Answer_HawaiiAge.csh	Fig1_Answer_subsidence_a.csh \
-	Fig1_Answer_subsidence_c.csh	Fig1_Answer_cavecreek.csh \
-	Fig1_Answer_Billings.csh	Fig1_Answer_sspots.csh \
-	Fig1_Answer_columbia.csh	Fig1_Answer_HonHil.csh \
-	Fig1_Answer_CO2_a.csh		Fig1_Answer_CO2_b.csh \
-	Fig1_Answer_noisy_a.csh		Fig1_Answer_noisy_b.csh \
-	Fig1_Answer_noisy_c.csh		Fig1_Answer_noisy_dft.csh \
-	Fig1_Answer_noisy_dy.csh	Fig1_Answer_vostok_a.csh \
-	Fig1_Answer_vostok_b.csh	Fig1_Answer_seismic.csh \
-	Fig1_Answer_quakeKS.csh		Fig1_Answer_drops.csh \
-	Fig1_Answer_HogNeck.csh		Fig1_Answer_vostok_c.csh \
-	Fig1_Answer_gbasin_a.csh	Fig1_Answer_gbasin_b.csh \
-	Fig1_Answer_gbasin_c.csh	Fig1_Euler_stamps.csh \
-	Fig1_spectratypes.csh		Fig1_Answer_blackbox.csh \
+	Fig1_Euler_stamps.csh	Fig1_spectratypes.csh \
 	Fig1_taper.csh			Fig1_zeropad.csh \
 	Fig1_FilterWidth.csh		Fig1_gfilt_time.csh \
 	Fig1_BWfilter.csh		Fig1_Wienerfilter.csh \
@@ -118,7 +94,6 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_low_high_filter.csh	Fig1_band_filter.csh \
 	Fig1_sinc.csh			Fig1_delta.csh \
 	Fig1_spike.csh			Fig1_scaletheorem.csh \
-	Fig1_Answer_c2407_residuals_a.csh	Fig1_Answer_c2407_residuals_b.csh \
 	Fig1_Wienerfilter.csh
 
 PTMP1= $(FIG1:.csh=.pdf)
@@ -158,13 +133,12 @@ CriticalTables/%.tex: CriticalTables/%.sh
 pdir:
 	mkdir -p pdf
 
-student:	DA1_student.pdf
-instructor:	DA1_instructor.pdf
+book:	ERTH_DA1_boook.pdf
 
 do_pdf:     	pdir $(PDF1)
 do_table: 	$(TAB1)
 
-DA1_student.pdf:	pdir $(PDF1) $(TEX1)
+ERTH_DA1_boook.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
@@ -172,17 +146,7 @@ DA1_student.pdf:	pdir $(PDF1) $(TEX1)
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	mv -f DA1_book.pdf DA1_student.pdf
-
-DA1_instructor.pdf:	pdir $(PDF1) $(TEX1)
-	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
-	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
-	makeindex -s DA_book.ist DA1_book.idx
-	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
-	$(PDFLATEX) "\def\mypdfbook{1} \def\mypdfanswer{1} \input{DA1_book}"
-	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	mv DA1_book.pdf DA1_instructor.pdf
+	mv -f DA1_book.pdf ERTH_DA1_boook.pdf
 
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
@@ -195,7 +159,7 @@ ascii: $(TEX1)
 data:
 	zip -r -9 -l -q DA1-data.zip problems/*.txt
 	chmod og+r DA1-data.zip
-	scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
+	#scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
 
 clean_table:
 	rm -rf CriticalTables/*.tex
