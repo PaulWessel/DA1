@@ -22,7 +22,7 @@ gmt psxy -R -J -W0.25p t.txt -O -K -Bxaf+ltime -Byaf -BWS -X2.5i >> $FIG.ps
 gmt filter1d t.txt -E -Fg4 | gmt psxy -R -J -O -K -W0.5p,red >> $FIG.ps
 gmt filter1d t.txt -E -Fm4 | gmt psxy -R -J -O -K -W1p,blue >> $FIG.ps
 gmt psxy -R -J -O -T >> $FIG.ps
-\rm -f $$ $$.d
+\rm -f $$ $$.d t.txt
 #-------------------------------------------------
 # Post-processing
 
