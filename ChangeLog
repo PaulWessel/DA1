@@ -1,7 +1,9 @@
-#	$Id: ChangeLog 489 2015-12-30 03:05:52Z pwessel $
+#	ChangeLog 489 2015-12-30 03:05:52Z pwessel $
 # ChangeLog for DA lecture notes
 
 2013-01-29	Initiated the ChangeLog.  I note there are 79 PDF plots
 		in fig.  Many of these could be replaced by scripts.
 
 2015-12-29	Separated DA1 and DA2 into separate repositories.
+
+2023-10-12	Updates to release book as an open source community resource
