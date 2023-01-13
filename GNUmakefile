@@ -3,7 +3,7 @@
 #	Paul Wessel, Jan. 13, 2023
 #
 
-# LaTeX command
+# LaTeX command ysed
 PDFLATEX=pdflatex
 FIGWIDTH=	6i
 help::
@@ -13,11 +13,11 @@ help::
 #!
 #!make <target>, where <target> can be:
 #!
-#!book       : Build PDF for book 1 for students
-#!ascii      : Check for non-ASCII characters in the tex files
+#!book       : Build PDF for Introduction to Statistics and Data Analysis
+#!ascii      : Check for non-ASCII characters in the Latex files
 #!data       : Make the zip file with problem set data
 #!clean      : Clean up and remove Latex-created files
-#!spotless   : Clean plus remove created tables and figures as well
+#!spotless   : Clean plus remove created tables and figures as well except book
 #!
 
 #---------------------------------------------------------------------------
@@ -86,7 +86,7 @@ FIG1=	Fig1_3D.csh			Fig1_correlations.csh \
 	Fig1_vonMises.csh		Fig1_GenLSW.csh	\
 	Fig1_App_Normal.csh		Fig1_App_Student_t.csh \
 	Fig1_App_F.csh			Fig1_App_Chisquare.csh	\
-	Fig1_Euler_stamps.csh	Fig1_spectratypes.csh \
+	Fig1_Euler_stamps.csh		Fig1_spectratypes.csh \
 	Fig1_taper.csh			Fig1_zeropad.csh \
 	Fig1_FilterWidth.csh		Fig1_gfilt_time.csh \
 	Fig1_BWfilter.csh		Fig1_Wienerfilter.csh \
@@ -104,14 +104,17 @@ TEX1=	DA1_Chap1.tex		DA1_Chap4.tex		DA1_Preface.tex \
 	DA1_Chap2.tex		DA1_Chap5.tex		ERTH_DA1_book.tex \
 	DA1_Chap3.tex		DA1_Chap6.tex		DA1_Chap7.tex \
 	DA1_Chap8.tex		DA1_Chap9.tex		DA1_cover.tex \
-	ERTH_DA1_book.ist		DA1_Version.tex		$(TAB1)
+	ERTH_DA1_book.ist	DA1_Version.tex		$(TAB1)
 
-APP1=	DA1_Table_Chisquare.sh	DA1_Table_F.sh		DA1_Table_Student_t.sh \
-	DA1_Table_KS.sh		DA1_Table_U.sh		DA1_Table_Spearman.sh  \
-	DA1_Table_kappa2.sh	DA1_Table_R2mean.sh	DA1_Table_kappa3.sh \
-	DA1_Table_R3mean.sh	DA1_Table_Normal.sh
+APP1=	DA1_Table_Chisquare.sh	DA1_Table_F_0.01.sh	DA1_Table_F_0.025.sh \
+	DA1_Table_F_0.05.sh	DA1_Table_F_0.1.sh	DA1_Table_Student_t.sh \
+	DA1_Table_KS1.sh	DA1_Table_KS2.sh	DA1_Table_KS3.sh \
+	DA1_Table_U1.sh		DA1_Table_U2.sh		DA1_Table_U3.sh \
+	DA1_Table_U4.sh		DA1_Table_Spearman.sh	DA1_Table_kappa2.sh \
+	DA1_Table_R2mean.sh	DA1_Table_kappa3.sh	DA1_Table_R3mean.sh\
+	DA1_Table_Normal.sh
 
-XTMP1= DA1_Table_Chisquare.tex	DA1_Table_F_0.1.tex	DA1_Table_Normal.tex \
+XTMP1=	DA1_Table_Chisquare.tex	DA1_Table_F_0.1.tex	DA1_Table_Normal.tex \
 	DA1_Table_Student_t.tex	DA1_Table_U4.tex	DA1_Table_F_0.01.tex \
 	DA1_Table_KS1.tex	DA1_Table_R2mean.tex	DA1_Table_U1.tex \
 	DA1_Table_kappa2.tex	DA1_Table_F_0.025.tex	DA1_Table_KS2.tex \
@@ -120,20 +123,24 @@ XTMP1= DA1_Table_Chisquare.tex	DA1_Table_F_0.1.tex	DA1_Table_Normal.tex \
 	DA1_Table_U3.tex
 TAB1= $(addprefix CriticalTables/, $(XTMP1))
 
+# Update DAversion below for any significant revision
 DA1_Version.tex:  .FORCE
-	echo "\\def \DAversion {3}" > DA1_Version.tex
-	echo "\\def \DAday {`date +%d`}" >> DA1_Version.tex
+	echo "\\def \DAversion {3}"         > DA1_Version.tex
+	echo "\\def \DAday {`date +%d`}"   >> DA1_Version.tex
 	echo "\\def \DAmonth {`date +%B`}" >> DA1_Version.tex
-	echo "\\def \DAyear {`date +%Y`}" >> DA1_Version.tex
+	echo "\\def \DAyear {`date +%Y`}"  >> DA1_Version.tex
 
 .FORCE:
 
+# Convert PostScript plots in the scripts folder to PDF illustrations in the pdf folder
 pdf/%.pdf: scripts/%.ps
 	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p -P -Tf scripts/$*.ps -Dpdf
 
+# Run the scripts and make PostScript plots
 scripts/%.ps: scripts/%.csh
 	(cd scripts; csh $*.csh; rm -f gmt.conf gmt.history)
 
+# Generate tex files for critical tables vi scripts in the CriticalTables folder
 CriticalTables/%.tex: CriticalTables/%.sh
 	(cd CriticalTables; bash $*.sh; rm -f gmt.history)
 
@@ -145,6 +152,7 @@ book:	ERTH_DA1_book.pdf
 do_pdf:     	pdir $(PDF1)
 do_table: 	$(TAB1)
 
+# Create the PDF book from dependent files
 ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
@@ -155,6 +163,7 @@ ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	\rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
+# Check for non-ASCII characters in the Latex files
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
 	for file in $(TEX1) ; do\
@@ -163,18 +172,22 @@ ascii: $(TEX1)
 	done
 	rm -f checkfornonascii
 
+# Build a zip file with problem set data files
 data:
 	zip -r -9 -l -q DA1-data.zip problems/*.txt
 	chmod og+r DA1-data.zip
 	#scp DA1-data.zip imina:/export/imina2/httpd/htdocs/pwessel/DA
 
+# Remove the created critical table tex files
 clean_table:
 	rm -rf CriticalTables/*.tex
 
+# Clean up temporary files
 clean:
 	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex
 	rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
+# Remove every created file but the book PDF
 spotless:	clean clean_table
 	rm -rf pdf .DS_Store
 	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history

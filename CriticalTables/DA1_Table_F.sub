@@ -2,6 +2,10 @@
 # Make the table rows for the critical values for Chi-square distribution
 # This is included in the Appendix for critical values via \input{DA1_Table_F_$a}
 # It goes with Fig1_Table_F.csh
+if [ "X$1" = "X" ]; then	# Called with no argument
+	exit
+fi
+a=$1	# This is the probability
 gmt math -T1/10/1  -o1 T = num.txt
 gmt math -T15/25/5 -o1 T = >> num.txt
 echo 50 >> num.txt
@@ -20,7 +24,7 @@ cat << EOF > F.awk
 }
 EOF
 last=150
-for a in 0.1 0.05 0.025 0.01; do
+#for a in 0.1 0.05 0.025 0.01; do
 	if [ -f DA1_Table_F_$a.tex ]; then
 		echo "Found existing DA1_Table_F_$a.tex"
 		continue
@@ -42,5 +46,5 @@ for a in 0.1 0.05 0.025 0.01; do
 		echo -n " & $Fc" >> DA1_Table_F_$a.tex
 	done < num.txt
 	echo " \\\\ \\hline" >> DA1_Table_F_$a.tex
-done
+#done
 rm -f num.txt den.txt F.awk

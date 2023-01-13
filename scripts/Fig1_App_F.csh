@@ -10,7 +10,7 @@ set name = $0
 set FIG = $name:r
 #-------------------------------------------------
 cp -f gmt.conf.DA1 gmt.conf
-gmt set PS_SCALE_X 0.7 PS_SCALE_Y 0.7
+gmt set PS_SCALE_X 0.65 PS_SCALE_Y 0.65
 #-------------------------------------------------
 gmt math -T0/8/0.01 T 20 12 FPDF = F.d
 set cr = `gmt math -Q 0.9 20 12 0.05 DIV RINT 0.05 MUL FCRIT =`
