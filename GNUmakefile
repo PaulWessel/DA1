@@ -104,14 +104,20 @@ TEX1=	DA1_Chap1.tex		DA1_Chap4.tex		DA1_Preface.tex \
 	DA1_Chap2.tex		DA1_Chap5.tex		ERTH_DA1_book.tex \
 	DA1_Chap3.tex		DA1_Chap6.tex		DA1_Chap7.tex \
 	DA1_Chap8.tex		DA1_Chap9.tex		DA1_cover.tex \
-	DA_book.ist		DA1_Version.tex		$(TAB1)
+	ERTH_DA1_book.ist		DA1_Version.tex		$(TAB1)
 
 APP1=	DA1_Table_Chisquare.sh	DA1_Table_F.sh		DA1_Table_Student_t.sh \
 	DA1_Table_KS.sh		DA1_Table_U.sh		DA1_Table_Spearman.sh  \
 	DA1_Table_kappa2.sh	DA1_Table_R2mean.sh	DA1_Table_kappa3.sh \
 	DA1_Table_R3mean.sh	DA1_Table_Normal.sh
 
-XTMP1= $(APP1:.sh=.tex)
+XTMP1= DA1_Table_Chisquare.tex	DA1_Table_F_0.1.tex	DA1_Table_Normal.tex \
+	DA1_Table_Student_t.tex	DA1_Table_U4.tex	DA1_Table_F_0.01.tex \
+	DA1_Table_KS1.tex	DA1_Table_R2mean.tex	DA1_Table_U1.tex \
+	DA1_Table_kappa2.tex	DA1_Table_F_0.025.tex	DA1_Table_KS2.tex \
+	DA1_Table_R3mean.tex	DA1_Table_U2.tex	DA1_Table_kappa3.tex \
+	DA1_Table_F_0.05.tex	DA1_Table_KS3.tex	DA1_Table_Spearman.tex \
+	DA1_Table_U3.tex
 TAB1= $(addprefix CriticalTables/, $(XTMP1))
 
 DA1_Version.tex:  .FORCE
