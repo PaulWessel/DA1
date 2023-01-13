@@ -1,8 +1,14 @@
 %------------------------------------------
-%	$Id: HW.tex 662 2018-11-30 00:44:43Z pwessel $
+%	HW.tex
 %
-%	Geological Data Analysis - Part I
-%	Copyright 1992-2015.
+%	Dummy template for homework assignment via Latex/PDF
+%  You simply copy paste the actual problem sets and/or
+%  add additional questions to this file and run
+%  pdflatex HW.txt
+%  which generates the HW.pdf product.  Rename as you
+%  see fit.
+%
+%	Copyright 1992-2023.
 %	Paul Wessel
 %------------------------------------------
 %
@@ -10,13 +16,14 @@
 % files with material.  It is the master
 % file that sets up the general layout of the book
 
+% EDITING STARTS AROUND LINE 100
+
 \ifdefined\mypdfbook
    \documentclass[10pt,letter]{report}
    \usepackage[margin=1in]{geometry}
 \else
    \documentclass[10pt,oneside,openany,letter]{book}
    \usepackage[margin=0.25in]{geometry}
-   %\usepackage[utf8x]{inputenc}
 \fi
 
 \usepackage{ifpdf}
@@ -28,7 +35,6 @@
 \usepackage{mathptm}
 \usepackage{afterpage}
 \usepackage{xcolor}
-%\usepackage{newtxmath}
 \usepackage{enumitem}
 \usepackage{epigraph}
 \usepackage{url}
@@ -92,9 +98,11 @@
 
 %--------------------------------------------------------------------------
 
+% REPLACE THE PROBLEMS 9.3 and 9.7 with the equivalent source code for the problems you want
+% ALSO UPDATE the HW xx string to the homework number
 
 \begin{document}
-	\begin{center} \bf{HW 13} \end{center}
+	\begin{center} \bf{HW xx} \end{center}
 		
 	\bf{Problem 9.3)} \\
 

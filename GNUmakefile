@@ -14,9 +14,10 @@ help::
 #!make <target>, where <target> can be:
 #!
 #!book       : Build PDF for book 1 for students
-#!spotless   : Clean up and remove created files of all types
 #!ascii      : Check for non-ASCII characters in the tex files
 #!data       : Make the zip file with problem set data
+#!clean      : Clean up and remove Latex-created files
+#!spotless   : Clean plus remove created tables and figures as well
 #!
 
 #---------------------------------------------------------------------------
@@ -114,7 +115,7 @@ XTMP1= $(APP1:.sh=.tex)
 TAB1= $(addprefix CriticalTables/, $(XTMP1))
 
 DA1_Version.tex:  .FORCE
-	echo "\\def \DAversion {2}" > DA1_Version.tex
+	echo "\\def \DAversion {3}" > DA1_Version.tex
 	echo "\\def \DAday {`date +%d`}" >> DA1_Version.tex
 	echo "\\def \DAmonth {`date +%B`}" >> DA1_Version.tex
 	echo "\\def \DAyear {`date +%Y`}" >> DA1_Version.tex
@@ -151,7 +152,7 @@ ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
 	for file in $(TEX1) ; do\
-		echo $$file; \
+		echo Checking $$file; \
 		checkfornonascii < $$file; \
 	done
 	rm -f checkfornonascii
@@ -169,4 +170,4 @@ clean:
 
 spotless:	clean clean_table
 	rm -rf pdf .DS_Store
-	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history *.pdf
+	rm -f scripts/*.ps scripts/gmt.conf scripts/gmt.history gmt.history

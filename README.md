@@ -1,27 +1,24 @@
-# DA1
-Material for Volume 1 of Data Analysis Book
+# Data Analysis Book 1
+Material for Volume 1 of Data Analysis Book *Introduction to Statistics and Data Analysis*
+maintained by the Department of Earth Sciences, SOEST, University of Hawai'i at Manoa.
+The book is open source and this public repository can be freely cloned.
 
+## Building the book PDF from sources
 In order to build the DA1 book from source you will need some prerequisites.
 The exact installation will depend on your operating system.
 
-	1. A recent GMT installation 6.x or higher
-	2. The latex/pdflatex packages (TexLive, etc)
+#. A recent GMT installation 6.x or higher
+#. The latex/pdflatex packages (TexLive, etc)
 
-STUDENT BOOK:
+If you have all prerequisites then you can build ERTH_DA1_book.pdf by typing
 
-If you have all prerequisites then you can build DA1_students.pdf by typing
-
-make student
+	make book
 
 If you get errors it is probably related to missing prerequisite tools and libraries,
 missing Latex styles or include files, etc.  Expect to do some forensic work.
 
-INSTRUCTOR BOOK:
+## Instructor solution set:
 
-Instructors need to get a copy of the private repository DA1_Answers and
-place that directory at the same level as the DA1 directory is.
-Then, you will just type
-
-make instructor
-
-See GNUmakefile for the details.
+Instructors may wish to get a copy of the solution set by sending an email to
+earth-DA-book@soest.hawaii.edu with evidence that you are a regular faculty
+at a college or university(unless we know you of course).
