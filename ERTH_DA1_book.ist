@@ -1,6 +1,4 @@
-% MakeIndex style file DA_book.ist for Data Analysis book
-%
-%	$Id: DA_book.ist 8 2012-02-27 20:41:48Z pwessel $
+% MakeIndex style file ERTH_DA1_book.ist for Introduction to Statistics and Data Analysis book
 %
 % Will format the index a little differently
 heading_prefix "{\\bfseries\\hfil "	% insert in from of letter

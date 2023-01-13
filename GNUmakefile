@@ -1,7 +1,7 @@
 #
-#       Makefile for Introduction to Statistics and Data Analysis, Book 1
+#	Makefile for Introduction to Statistics and Data Analysis, Book 1
+#	Paul Wessel, Jan. 13, 2023
 #
-# Updated January, 2023
 
 # LaTeX command
 PDFLATEX=pdflatex
@@ -101,7 +101,7 @@ PTMP1= $(FIG1:.csh=.pdf)
 PDF1= $(addprefix pdf/, $(PTMP1))
 
 TEX1=	DA1_Chap1.tex		DA1_Chap4.tex		DA1_Preface.tex \
-	DA1_Chap2.tex		DA1_Chap5.tex		DA1_book.tex \
+	DA1_Chap2.tex		DA1_Chap5.tex		ERTH_DA1_book.tex \
 	DA1_Chap3.tex		DA1_Chap6.tex		DA1_Chap7.tex \
 	DA1_Chap8.tex		DA1_Chap9.tex		DA1_cover.tex \
 	DA_book.ist		DA1_Version.tex		$(TAB1)
@@ -141,13 +141,13 @@ do_table: 	$(TAB1)
 
 ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
-	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
-	makeindex -s DA_book.ist DA1_book.idx
-	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
-	$(PDFLATEX) "\def\mypdfbook{1} \input{DA1_book}"
+	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
+	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
+	makeindex -s ERTH_DA1_book.ist ERTH_DA1_book.idx
+	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
+	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	mv -f DA1_book.pdf ERTH_DA1_book.pdf
+	\rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
 ascii: $(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
@@ -167,6 +167,7 @@ clean_table:
 
 clean:
 	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex
+	rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
 spotless:	clean clean_table
 	rm -rf pdf .DS_Store

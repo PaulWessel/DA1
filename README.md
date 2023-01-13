@@ -7,8 +7,9 @@ The book is open source and this public repository can be freely cloned.
 In order to build the DA1 book from source you will need some prerequisites.
 The exact installation will depend on your operating system.
 
-#. A recent GMT installation 6.x or higher
-#. The latex/pdflatex packages (TexLive, etc)
+0. A UNIX or UNIX-like operating system or shell to understand Makefiles
+1. A recent GMT installation 6.x or higher (www.generic-mapping-tools.org)
+2. The latex/pdflatex packages (TexLive or similar)
 
 If you have all prerequisites then you can build ERTH_DA1_book.pdf by typing
 
