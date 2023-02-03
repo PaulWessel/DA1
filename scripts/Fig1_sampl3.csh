@@ -34,7 +34,7 @@ cat << EOF >! t.ps
 %!PS-Adobe-3.0 EPSF-3.0
 %%BoundingBox: 72 60 292 108
 EOF
-tail +3 $FIG.ps >> t.ps
+awk '{if (NR > 2) print $0}' $FIG.ps >> t.ps
 mv -f t.ps $FIG.ps
 
 if ($#argv == 1) then
