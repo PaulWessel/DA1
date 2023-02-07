@@ -21,5 +21,5 @@ missing Latex styles or include files, etc.  Expect to do some forensic work.
 ## Instructor solution set:
 
 Instructors may wish to get a copy of the solution set by sending an email to
-earth-DA-book@soest.hawaii.edu with evidence that you are a regular faculty
-at a college or university(unless we know you of course).
+earth-da-book@soest.hawaii.edu with evidence that you are a regular faculty
+at a college or university (unless we know you of course).
