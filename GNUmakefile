@@ -1,9 +1,10 @@
 #
-#	Makefile for Introduction to Statistics and Data Analysis, Book 1
+#	Makefile for Data Analysis Text Book DA1
+#	"Introduction to Statistics and Data Analysis"
 #	Paul Wessel, Jan. 13, 2023
 #
 
-# LaTeX command ysed
+# LaTeX command used
 PDFLATEX=pdflatex
 FIGWIDTH=	6i
 help::
