@@ -10,7 +10,7 @@ set name = $0
 set FIG = $name:r
 #-------------------------------------------------
 cp -f gmt.conf.DA1 gmt.conf
-gmt set PS_SCALE_X 0.4 PS_SCALE_Y 0.4
+gmt set PS_SCALE_X 0.4 PS_SCALE_Y 0.4 PROJ_ELLIPSOID sphere
 #-------------------------------------------------
 set KAPPA = 40
 gmt grdmath -Rg -I1 90 30 SDIST KM2DEG COSD $KAPPA MUL EXP $KAPPA MUL 4 PI MUL $KAPPA SINH MUL DIV DUP 0.05 GT MUL 0 NAN = fisher_dist.nc

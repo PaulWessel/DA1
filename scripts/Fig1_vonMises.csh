@@ -15,7 +15,8 @@ gmt set PS_SCALE_X 0.9 PS_SCALE_Y 0.9 FONT_ANNOT_PRIMARY 10p
 set KAPPA = 1
 gmt math -T0/360/1 T 75 SUB COSD $KAPPA MUL EXP $KAPPA MUL 2 PI MUL $KAPPA I0 MUL DIV = mises_dist.txt
 set L = `gmt math -Q $KAPPA EXP $KAPPA MUL 2 PI MUL $KAPPA I0 MUL DIV =`
-gmt psxy -R0/360/0/0.4 -JP3iz -P -K mises_dist.txt -W2p -Glightgray > $FIG.ps
+# Was gmt psxy -R0/360/0/0.4 -JP3iz -P -K mises_dist.txt -W2p -Glightgray > $FIG.ps
+gmt psxy -R0/360/0/0.4 -JP3i+z -P -K mises_dist.txt -W2p -Glightgray > $FIG.ps
 set KAPPA = 10
 gmt math -T0/360/1 T -75 SUB COSD $KAPPA MUL EXP $KAPPA MUL 2 PI MUL $KAPPA I0 MUL DIV 33 DIV = mises_dist.txt
 gmt psxy -R -J -OP -K mises_dist.txt -W1p -Gdarkgray >> $FIG.ps
