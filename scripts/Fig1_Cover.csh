@@ -24,8 +24,8 @@ cat Fig1_KS_cover.ps >> $FIG.ps
 echo "U" >> $FIG.ps
 # Place Nyquist figure
 echo "V 3400 400 T 0.72 0.85 scale" >> $FIG.ps
-csh Fig1_nyquist1.csh x x
-cat Fig1_nyquist1_cover.ps >> $FIG.ps
+csh Fig1_nyquist.csh x x
+cat Fig1_nyquist_cover.ps >> $FIG.ps
 echo "U" >> $FIG.ps
 # Place Lithology figure
 echo "V 300 2400 T 0.75 0.77 scale" >> $FIG.ps

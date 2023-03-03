@@ -261,7 +261,8 @@ gmt pstext -R -J -O -K -Dj0.05i/0.05i -N -Gwhite -F+f10p,Times-Italic+j << EOF >
 EOF
 
 gmt math data/Fig_sample6.txt T 40 MUL SIN 0.1 MUL ADD = wiggle.d
-gmt sample1d -T0/8/0.5 -Fl wiggle.d | awk '{if ($2 > 0) {print $1, 0, 90, $2} else {print $1, 0, 90, -$2}}' >! w.d
+#gmt sample1d -T0/8/0.5 -Fl wiggle.d | awk '{if ($2 > 0) {print $1, 0, 90, $2} else {print $1, 0, 90, -$2}}' >! w.d
+gmt sample1d -T0/7.5/0.5 -Fl wiggle.d | awk '{if ($2 > 0) {print $1, 0, 90, $2} else {print $1, 0, 90, -$2}}' >! w.d
 
 
 gmt psxy -R0/8/0/1.1 -JX2.5i/0.6i -O -K w.d -Sv0.1i+e -Gblack -N -X${dx1} -Y0.33i -Wthicker,black --PROJ_LENGTH_UNIT=inch >> $FIG.ps
