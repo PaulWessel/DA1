@@ -28,7 +28,9 @@ gmt psxy -R-1/1/-1/1 -JX2i -P $start -Sv0.1i+e -Gblack -X1.5i << EOF >! $FIG.ps
 -0.1 -0.9 135 1.05i
 -1 -0.1 315 1.1i
 EOF
-echo 0 0 | gmt psxy -R -J -O -K -Sc2i -W0.25p,- >> $FIG.ps
+if ($#argv < 2) then # Draw the circle but not for cover
+	echo 0 0 | gmt psxy -R -J -O -K -Sc2i -W0.25p,- >> $FIG.ps
+endif
 gmt psxy -R -J -O -Sc0.3i -W1p -Glightgray -K -N << EOF >> $FIG.ps
 >  -Glightgray
 -1 0

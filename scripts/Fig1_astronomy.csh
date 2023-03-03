@@ -20,7 +20,7 @@ gmt pstext -R -J -O -K -N -F+f10p,Times-Roman+jLB << EOF >> $FIG.ps
 5.1 4.9 L@-2@-
 3.88 3.1 LMS
 EOF
-gmt psxy -R -J -O -N -W0.5p << EOF >> $FIG.ps
+gmt psxy -R -J -O -W0.5p << EOF >> $FIG.ps
 > LMS
 3.3 0.5654
 5.2 7.9716

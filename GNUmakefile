@@ -5,7 +5,7 @@
 #
 
 # LaTeX command used
-PDFLATEX=pdflatex
+PDFLATEX=pdflatex -interaction batchmode
 FIGWIDTH=	6i
 help::
 		@grep '^#!' GNUmakefile | cut -c3-

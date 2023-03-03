@@ -48,7 +48,7 @@ cat << EOF >! right.d
 5.95 4.6
 6.6 4
 EOF
-cat << EOF >! B1.d
+cat << EOF >! basin1.d
 3 2.8
 3.5 3
 4 4
@@ -65,7 +65,7 @@ cat << EOF >! B1.d
 1 3.2
 2 2.8
 EOF
-cat << EOF >! B2.d
+cat << EOF >! basin2.d
 7 3.5
 7.5 3.8
 7.7 4
@@ -83,7 +83,7 @@ cat << EOF >! B2.d
 EOF
 gmt psxy -R0/8.1/0/7 -JX4i/3i -P -K -Glightgray left.d mid.d right.d >! $FIG.ps
 gmt psxy -R -J -O -K -W0.5p -L left.d mid.d right.d >> $FIG.ps
-gmt psxy -R -J -O -K -W1p B?.d -L >> $FIG.ps
+gmt psxy -R -J -O -K -W1p basin?.d -L >> $FIG.ps
 gmt psxy -R -J -O -K -W2p << EOF >> $FIG.ps
 >
 5 0
@@ -117,7 +117,7 @@ gmt pstext -R -J -O -F+f+j << EOF >> $FIG.ps
 3.5 6.3 10p,Helvetica-Bold LB B@-1@-
 6.5 6.3 10p,Helvetica-Bold RB B@-2@-
 EOF
-\rm -f left.d mid.d right.d B?.d
+\rm -f left.d mid.d right.d basin?.d
 #-------------------------------------------------
 # Post-processing
 

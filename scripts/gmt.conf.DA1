@@ -49,7 +49,7 @@ GMT_HISTORY			= true
 GMT_INTERPOLANT			= akima
 GMT_LANGUAGE			= us
 GMT_TRIANGULATE			= Shewchuk
-GMT_VERBOSE			= compat
+GMT_VERBOSE			= warnings
 #
 # I/O Parameters
 #

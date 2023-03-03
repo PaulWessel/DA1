@@ -22,7 +22,7 @@ awk '{if ($1 <= '"$zl"') print $0}' $$ >> tail.d
 echo "$zl 0" >> tail.d
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W1p $$ -B5 -Bs --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >>$FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >>$FIG.ps
 > 0
 0 0
 0 0.45

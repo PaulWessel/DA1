@@ -22,7 +22,7 @@ awk '{if ($1 <= '"$tl"') print $0}' $$ >> tail.d
 echo "$tl 0" >> tail.d
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W1p $$ -B5 -Bs --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >>$FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >>$FIG.ps
 > 0
 0 0
 0 0.45
@@ -49,7 +49,7 @@ awk '{if ($1 >= '"$tr"') print $0}' $$ >> tail.d
 echo "$tr 0" >> tail.d
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W1p $$ -B5 -Bs --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >>$FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >>$FIG.ps
 > 0
 0 0
 0 0.45

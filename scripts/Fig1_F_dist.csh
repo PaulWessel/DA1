@@ -12,17 +12,17 @@ set FIG = $name:r
 cp -f gmt.conf.DA1 gmt.conf
 gmt set PS_SCALE_X 0.75 PS_SCALE_Y 0.75
 #-------------------------------------------------
-gmt math -T0/8/0.01 T 20 12 FPDF = F.d
+gmt math -T0/8/0.01 T 20 12 FPDF = f_dist.d
 echo '> left tail' >! tail.d
-awk '{if ($1 <= 0.44) print $0}' F.d >> tail.d
+awk '{if ($1 <= 0.44) print $0}' f_dist.d >> tail.d
 echo "0.44 0" >> tail.d
 echo '> right tail' >> tail.d
 echo "2.54 0" >> tail.d
-awk '{if ($1 >= 2.54) print $0}' F.d >> tail.d
-gmt psxy -R0/4/0/0.99 -JX4i/1.25i -P -K -Glightgreen F.d >! $FIG.ps
+awk '{if ($1 >= 2.54) print $0}' f_dist.d >> tail.d
+gmt psxy -R0/4/0/0.99 -JX4i/1.25i -P -K -Glightgreen f_dist.d >! $FIG.ps
 gmt psxy -R -J -O -K -Glightred tail.d >> $FIG.ps
-gmt psxy -R -J -O -K -W2p F.d -Ba1 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W2p f_dist.d -Ba1 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >> $FIG.ps
 >
 0.44 0.0
 0.44 0.462384741555
@@ -38,7 +38,7 @@ gmt pstext -R -J -O -N -F+f+j << EOF >> $FIG.ps
 1.0 0.25 12p,Times-Italic CM P = 1 - @~a@~
 4.05 -0.1 12p,Times-Italic LT F
 EOF
-\rm -f tail.d F.d
+\rm -f tail.d f_dist.d
 
 #-------------------------------------------------
 # Post-processing

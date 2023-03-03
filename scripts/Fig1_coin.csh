@@ -18,7 +18,7 @@ foreach n (1 2 3 4 5)
 	gmt math -T1/10000/1 0 1 RAND RINT 2 MUL 1 SUB 0.5 GT SUM T DIV = t$n.txt
 	sleep 1
 end
-gmt psxy -R1/10000/0/1.25 -JX4il/1i -P  -K -G0 -N << EOF >! $FIG.ps
+gmt psxy -R1/10000/0/1.25 -JX4il/1i -P  -K -Gblack << EOF >! $FIG.ps
 > heads -Glightgreen@50
 1	1
 10000	1
