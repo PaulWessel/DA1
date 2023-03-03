@@ -21,7 +21,7 @@ set KAPPA = 10
 gmt math -T0/360/1 T -75 SUB COSD $KAPPA MUL EXP $KAPPA MUL 2 PI MUL $KAPPA I0 MUL DIV 33 DIV = mises_dist.txt
 gmt psxy -R -J -OP -K mises_dist.txt -W1p -Gdarkgray >> $FIG.ps
 gmt psbasemap -R -J -O -K -Bxag30 -Byag0.1 >> $FIG.ps
-gmt psxy -R -J -O -W0.25p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -W0.25p << EOF >> $FIG.ps
 >
 0	0.4
 180	0.4

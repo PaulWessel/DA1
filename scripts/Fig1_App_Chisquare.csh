@@ -24,7 +24,7 @@ echo "$cl 0" >> tail.d
 gmt psxy -R0/15/0/0.25 -JX3i/0.9i -P -K -Gwhite $$ >! $FIG.ps
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W2p $$ -Ba20 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >> $FIG.ps
 >
 $cl 0.0
 $cl $yl
@@ -43,7 +43,7 @@ awk '{if ($1 >= '"$cr"') print $0}' $$ >> tail.d
 gmt psxy -R0/15/0/0.25 -JX3i/0.9i -O -K -Gwhite $$ -X3.5i >> $FIG.ps
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W2p $$ -Ba20 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >> $FIG.ps
 $cr 0.0
 $cr $yr
 EOF

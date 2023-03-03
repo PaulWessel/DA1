@@ -12,7 +12,7 @@ set FIG = $name:r
 cp -f gmt.conf.DA1 gmt.conf
 gmt set PS_SCALE_X 0.7 PS_SCALE_Y 0.7
 #-------------------------------------------------
-gmt psxy -R0/4/0/3 -Jx1i -P -K -W0.25 -G230 -N << EOF >! $FIG.ps
+gmt psxy -R0/4/0/3 -Jx1i -P -K -W0.25 -G230 << EOF >! $FIG.ps
 > A
 0 0
 1.5 0

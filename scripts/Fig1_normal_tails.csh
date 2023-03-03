@@ -23,7 +23,7 @@ echo "2 0" >> tail.d
 awk '{if ($1 >= 2) print $0}' $$ >> tail.d
 gmt psxy -R -J -O -K -Glightred tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W2p $$ -B2 -Bs --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >>$FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >>$FIG.ps
 > 0
 0 0
 0 0.15

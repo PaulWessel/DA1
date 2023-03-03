@@ -26,9 +26,9 @@ gmt math -T0/360/1 T  COSD = | gmt psxy -R -J -O -K -W2p >> $FIG.ps
 gmt math -T0/330/30 T  3 MUL COSD  = > 3.txt
 gmt math -T0/330/30 T  COSD  = 1.txt
 paste 1.txt 3.txt > t.txt
-awk '{printf ">\n%s %s\n%s %s\n", $1, $2, $1, $4}' t.txt | gmt psxy -R -J -O -K -W1.5p,red -N >> $FIG.ps
+awk '{printf ">\n%s %s\n%s %s\n", $1, $2, $1, $4}' t.txt | gmt psxy -R -J -O -K -W1.5p,red >> $FIG.ps
 gmt math t.txt 0 MAX = a.txt
-awk '{printf ">\n%s %s\n%s %s\n", $1, $2, $1, $4}' a.txt | gmt psxy -R -J -O -K -W1.5p,blue -N >> $FIG.ps
+awk '{printf ">\n%s %s\n%s %s\n", $1, $2, $1, $4}' a.txt | gmt psxy -R -J -O -K -W1.5p,blue >> $FIG.ps
 cat << EOF > tmp
 >
 0	0
@@ -37,8 +37,8 @@ cat << EOF > tmp
 180	0
 180	-1
 EOF
-gmt psxy -R -J -O -K -W1.5p,blue -N tmp >> $FIG.ps
-gmt psxy -R -J -O -K -W1.5p,red,- -N tmp >> $FIG.ps
+gmt psxy -R -J -O -K -W1.5p,blue tmp >> $FIG.ps
+gmt psxy -R -J -O -K -W1.5p,red,- tmp >> $FIG.ps
 gmt psxy -R -J -O -K -Sc0.25c -Glightgreen -W0.25p 1.txt -N >> $FIG.ps
 gmt psxy -R -J -O -K -Ss0.25c -Glightgreen -W0.25p 3.txt -N >> $FIG.ps
 gmt pstext -R -J -O -Dj0.1i/0.1i -N -F+f18p,Times-Italic+j << EOF >> $FIG.ps

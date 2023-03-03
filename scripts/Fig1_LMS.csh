@@ -677,7 +677,7 @@ gmt psxy -R -J -O -K -W1p << EOF >> $FIG.ps
    9.7979798e+00	   2.5671698e+02	
    1.0000000e+01	   2.7139666e+02	
 EOF
-gmt psxy -R -J -O -K -N -W0.5p << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W0.5p << EOF >> $FIG.ps
 > L2
 2.1693 0
 2.1693 200

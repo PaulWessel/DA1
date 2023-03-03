@@ -21,7 +21,7 @@ awk '{if ($1 >= '"$cr"') print $0}' fdist.txt >> tail.d
 gmt psxy -R0/4/0/0.99 -JX4i/1i -P -K -Gwhite fdist.txt >! $FIG.ps
 gmt psxy -R -J -O -K -Ggray tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W2p fdist.txt -Ba10 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >> $FIG.ps
 $cr 0
 $cr $yr
 EOF

@@ -22,7 +22,7 @@ awk '{if ($1 >= 2.54) print $0}' f_dist.d >> tail.d
 gmt psxy -R0/4/0/0.99 -JX4i/1.25i -P -K -Glightgreen f_dist.d >! $FIG.ps
 gmt psxy -R -J -O -K -Glightred tail.d >> $FIG.ps
 gmt psxy -R -J -O -K -W2p f_dist.d -Ba1 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
-gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
+gmt psxy -R -J -O -K -W0.05p << EOF >> $FIG.ps
 >
 0.44 0.0
 0.44 0.462384741555

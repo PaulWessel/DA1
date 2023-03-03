@@ -19,7 +19,7 @@ gmt math -T3.005/7/0.005 0.4 = >> bw.txt
 gmt math -T-7/7/0.005 0 0.15 NRAND = | gmt filter1d -Fg0.4 -E > noise.txt
 gmt math bw.txt noise.txt ADD = bw2.txt
 # Mean
-gmt psxy -R-5/5/-0.3/1.6 -JX2i/0.5i -N bw2.txt -P -K -W1p -B0 -BS --MAP_FRAME_TYPE=graph -Y2i >! $ps
+gmt psxy -R-5/5/-0.3/1.6 -JX2i/0.5i bw2.txt -P -K -W1p -B0 -BS --MAP_FRAME_TYPE=graph -Y2i >! $ps
 gmt pstext -R -J -O -K -N -F+f14p,Times-Roman+jCM << EOF >> $ps
 7.1 0.6 *
 EOF
@@ -37,7 +37,7 @@ gmt pstext -R -J -O -K -N -F+f14p,Times-Roman+jCM << EOF >> $ps
 EOF
 gmt filter1d bw2.txt -Fg2 | gmt psxy -R-5/5/-0.1/1.6 -JX2i/0.5i -O -K -X1.5i -W1p -Bx0 -By0 -BS --MAP_FRAME_TYPE=graph >> $ps
 # Median
-gmt psxy -R-5/5/-0.1/1.6 -JX2i/0.5i -N bw2.txt -O -K -W1p -B0 -BS --MAP_FRAME_TYPE=graph -Y-1i -X-4i >> $ps
+gmt psxy -R-5/5/-0.1/1.6 -JX2i/0.5i bw2.txt -O -K -W1p -B0 -BS --MAP_FRAME_TYPE=graph -Y-1i -X-4i >> $ps
 gmt pstext -R -J -O -K -N -F+f14p,Times-Roman+jCM << EOF >> $ps
 7.1 0.6 "*"
 EOF
