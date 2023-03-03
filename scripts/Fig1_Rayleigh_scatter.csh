@@ -12,7 +12,7 @@ set FIG = $name:r
 cp -f gmt.conf.DA1 gmt.conf
 gmt set PS_SCALE_X 0.8 PS_SCALE_Y 0.8 
 #-------------------------------------------------
-cat << EOF >! Rayleigh.d
+cat << EOF >! rayleigh.txt
 2.30143	1893.9123	C
 2.29816	1893.9178	C
 2.30182	1893.9205	C
@@ -30,8 +30,8 @@ cat << EOF >! Rayleigh.d
 2.31028	1894.0877	A
 EOF
 gmt set FONT_LABEL 12p FONT_ANNOT_PRIMARY 10p
-gmt psxy -R2.295/2.315/1893.9/1894.1 -JX4i/0.8i -Bxaf+lWeight -Bya1f1+lDate -BWS Rayleigh.d -Sc0.05i -Gblack -P --MAP_FRAME_TYPE=graph >! $FIG.ps
-\rm -f Rayleigh.d
+gmt psxy -R2.295/2.315/1893.9/1894.1 -JX4i/0.8i -Bxaf+lWeight -Bya1f1+lDate -BWS rayleigh.txt -Sc0.05i -Gblack -P --MAP_FRAME_TYPE=graph >! $FIG.ps
+\rm -f rayleigh.txt
 #-------------------------------------------------
 # Post-processing
 

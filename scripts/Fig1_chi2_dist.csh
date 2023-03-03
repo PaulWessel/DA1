@@ -12,7 +12,7 @@ set FIG = $name:r
 cp -f gmt.conf.DA1 gmt.conf
 gmt set PS_SCALE_X 0.75 PS_SCALE_Y 0.75
 #-------------------------------------------------
-cat << EOF >! F.d
+cat << EOF >! fdist.txt
    0.0000000e+00	   0.0000000e+00	
    1.0000000e-02	   2.3195633e-06	
    2.0000000e-02	   6.6063811e-05	
@@ -816,14 +816,14 @@ cat << EOF >! F.d
    8.0000000e+00	   1.4846823e-03	
 EOF
 echo '> left tail' >! tail.d
-awk '{if ($1 <= 0.4) print $0}' F.d >> tail.d
+awk '{if ($1 <= 0.4) print $0}' fdist.txt >> tail.d
 echo "0.4 0" >> tail.d
 echo '> right tail' >> tail.d
 echo "2.5 0" >> tail.d
-awk '{if ($1 >= 2.5) print $0}' F.d >> tail.d
-gmt psxy -R0/5/0/1.51 -JX4i/1.25i -P -K -Glightgreen F.d >! $FIG.ps
+awk '{if ($1 >= 2.5) print $0}' fdist.txt >> tail.d
+gmt psxy -R0/5/0/1.51 -JX4i/1.25i -P -K -Glightgreen fdist.txt >! $FIG.ps
 gmt psxy -R -J -O -K -Glightred tail.d >> $FIG.ps
-gmt psxy -R -J -O -K -W2p F.d -Ba1 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
+gmt psxy -R -J -O -K -W2p fdist.txt -Ba1 -By0 -Bws --MAP_FRAME_TYPE=graph >> $FIG.ps
 gmt psxy -R -J -O -K -W0.05p -N << EOF >> $FIG.ps
 >
 0.4 0.0
@@ -840,7 +840,7 @@ gmt pstext -R -J -O -N -F+f+j << EOF >> $FIG.ps
 1.2 0.3 12p,Times-Italic CM P = 1 - @~a@~
 5.05 -0.1 12p,Times-Italic LT @~c@~@+2@+
 EOF
-\rm -f tail.d F.d
+\rm -f tail.d fdist.txt
 
 #-------------------------------------------------
 # Post-processing

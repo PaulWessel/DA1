@@ -120,8 +120,8 @@ s/B/-Glightgreen/g
 s/C/-Gblack/g
 s/D/-Glightgray/g
 EOF
-sed -f sed.fix < t.letter >! B.d
-awk '{printf "s/XX%0.2d/%s/g\n", NR-1, $1}' B.d > sed.fix2
+sed -f sed.fix < t.letter >! sedinput.txt
+awk '{printf "s/XX%0.2d/%s/g\n", NR-1, $1}' sedinput.txt > sed.fix2
 gmt math -T0/62/0.1 0 0.2 NRAND 0.5 ADD = | gmt filter1d -E -Fg2 | awk '{print $2, $1}' >! path.d
 awk -f build.awk path.d > pols.d
 sed -f sed.fix2 < pols.d > pols.txt
@@ -135,7 +135,7 @@ endif
 gmt psbasemap $RJ2 -O -K $B --MAP_FRAME_TYPE=graph >> $FIG.ps
 echo 63 -0.1 z | gmt pstext -R -J -O -K -F+f10p,Times-Italic+jTL -N >> $FIG.ps
 gmt psxy -R -J $stop -T >> $FIG.ps
-\rm -f B.d box.d pols.d pols.txt path.d line.awk build.awk sed.fix sed.fix2 t.letter lith.txt t.d
+\rm -f sedinput.txt box.d pols.d pols.txt path.d line.awk build.awk sed.fix sed.fix2 t.letter lith.txt t.d
 #-------------------------------------------------
 # Post-processing
 
