@@ -36,7 +36,7 @@ cat << EOF >! draper.txt
 33.4	10.36
 28.6	11.08
 EOF
-set txt = `gmt regress -Ey -N2 -Fxm -T25/80/55 draper.txt | awk '{printf "25 6 y = %.4f %.4f x\n", $17, $15}'`
+set txt = `gmt regress -Ey -N2 -Fxm -T25/80/55 draper.txt | awk '{if (NR == 1) printf "25 6 y = %.4f %.4f x\n", $17, $15}'`
 # Plot basic LS fit but also show 68%, 95% & 99% confidence band
 gmt regress -Ey -N2 -Fxmc -T25/80/1 -C99 draper.txt | gmt psxy -R25/80/6/13 -JX3i/2i -P -K -L+d -Glightgreen > $FIG.ps
 gmt regress -Ey -N2 -Fxmc -T25/80/1 -C95 draper.txt | gmt psxy -R -J -O -K -L+d -Glightorange >> $FIG.ps
