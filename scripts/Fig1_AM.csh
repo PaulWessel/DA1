@@ -16,7 +16,7 @@ gmt math -T0/4/0.01 T PI MUL SIN 0.9 MUL = env1.d
 gmt math -T0/4/0.01 T PI MUL SIN NEG 0.9 MUL = env2.d
 gmt math -T0/4/0.01 T 6 MUL PI MUL SIN T PI MUL SIN MUL 0.9 MUL = am.d
 cp env1.d env.d
-tail -r env2.d >> env.d
+gmt convert -I env2.d >> env.d
 gmt psxy -R-0.05/4/-1/1.5 -JX4.05i/1i -P -K env.d -Glightgray >! $FIG.ps
 gmt psxy -R -J -O -K -W1p -Bx0 -By0g2 -BWS am.d --MAP_FRAME_TYPE=graph >> $FIG.ps
 gmt psxy -R -J -O -K -W0.25p,- env[12].d >> $FIG.ps

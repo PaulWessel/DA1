@@ -42,7 +42,7 @@ if ($#argv == 2) then
 	gmt psxy -R -J -O $$.green -Glightgreen -K >> $FIG.ps
 endif
 cat $$.stairs >! $$.band
-tail -r $$.cum >> $$.band
+gmt convert -I $$.cum >> $$.band
 gmt psxy -R -J -O -K -G$fill $$.band >> $FIG.ps
 gmt psxy -R -J -O -K -W0.5p $$.stairs >> $FIG.ps
 gmt psxy -R -J -O -K -W2p $$.cum >> $FIG.ps

@@ -38,7 +38,7 @@ cat << EOF | gmt sample1d -I0.1 | gmt filter1d -Fg2 -E > actual.d
 9 0
 EOF
 awk '{if ($1 < 4) print $1, 0}' actual.d >! folded.d
-tail -r actual.d  | awk '{if ($1 >= 6.5) print 13-$1, $2}' >> folded.d
+gmt convert -I actual.d  | awk '{if ($1 >= 6.5) print 13-$1, $2}' >> folded.d
 paste folded.d actual.d | awk '{if ($1 <= 6.5) print $1, $2+$4}' >! total.d
 gmt psxy -R0/9/0/1.05 -JX4i/1i -P $start -W1p -L+yb -Glightred total.d >! $FIG.ps
 gmt psxy -R -J -O -W1p -K actual.d -L+yb -Glightgreen >> $FIG.ps

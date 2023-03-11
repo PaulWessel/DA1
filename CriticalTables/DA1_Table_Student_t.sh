@@ -59,7 +59,7 @@ cat << EOF > t.txt
 0.01 	0.01
 0.005	0.005
 EOF
-gmt grd2xyz t.nc | grep -v -f t.skip | tail -r | awk -f t.awk > DA1_Table_Student_t.tex
+gmt grd2xyz t.nc | grep -v -f t.skip | gmt convert -I | awk -f t.awk > DA1_Table_Student_t.tex
 gmt math 1 t.txt SUB ZCRIT = | awk '{print $1, 999999, $2}' | awk -f t.awk | sed -e 's/999999/\$\\infty\$/g' >> DA1_Table_Student_t.tex
 rm -f t.awk t.txt t.nc t.skip
 fi
