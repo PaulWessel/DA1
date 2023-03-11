@@ -1,5 +1,5 @@
 #!/bin/csh
-#	$Id: Fig1_aliasing2.csh 670 2018-12-20 20:37:20Z pwessel $
+#	$Id: Fig1_aliaing2.csh 670 2018-12-20 20:37:20Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

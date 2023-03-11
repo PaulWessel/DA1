@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_earthfilter.csh 533 2017-07-08 23:59:21Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

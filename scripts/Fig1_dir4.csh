@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_dir4.csh 622 2017-12-19 20:50:23Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

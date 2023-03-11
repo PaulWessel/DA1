@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_LMS_bestslope.csh 655 2018-10-31 03:16:48Z pwessel $
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv

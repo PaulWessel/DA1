@@ -1,5 +1,5 @@
 #!/bin/csh
-#       $Id$
+#
 # Testing gmtregress on the data in Draper & Smith [1998]
 # Applied Regression Analysis, 3rd Ed, Wiley.
 

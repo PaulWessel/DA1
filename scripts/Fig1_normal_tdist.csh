@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_normal_tails.csh 201 2015-05-22 13:32:49Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

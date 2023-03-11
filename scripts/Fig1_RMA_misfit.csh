@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_RMA_misfit.csh 632 2018-07-28 21:09:10Z pwessel $
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv

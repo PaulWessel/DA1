@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_Markov.csh 519 2016-07-17 04:31:43Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

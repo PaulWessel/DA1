@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id$
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv

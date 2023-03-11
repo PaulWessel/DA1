@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_whitenoise.csh 591 2017-11-08 00:36:52Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv
