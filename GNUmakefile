@@ -7,6 +7,8 @@
 # LaTeX command used
 PDFLATEX=pdflatex -interaction batchmode
 FIGWIDTH=	6i
+SHELL=	bash
+
 help::
 		@grep '^#!' GNUmakefile | cut -c3-
 #!-------------------- MAKE HELP FOR DABOOK 1 --------------------
