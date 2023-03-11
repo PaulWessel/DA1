@@ -15,6 +15,7 @@ help::
 #!make <target>, where <target> can be:
 #!
 #!book       : Build PDF for Introduction to Statistics and Data Analysis
+#!figures    : Just build the PDF illustration in the pdf directory
 #!ascii      : Check for non-ASCII characters in the Latex files
 #!data       : Make the zip file with problem set data
 #!clean      : Clean up and remove Latex-created files
@@ -134,15 +135,15 @@ DA1_Version.tex:  .FORCE
 .FORCE:
 
 # Convert PostScript plots in the scripts folder to PDF illustrations in the pdf folder
-pdf/%.pdf: scripts/%.ps
+pdf/%.pdf:	scripts/%.ps
 	gmt psconvert -A0.05i+sm$(FIGWIDTH)+p0.5p -P -Tf scripts/$*.ps -Dpdf
 
 # Run the scripts and make PostScript plots
-scripts/%.ps: scripts/%.csh
+scripts/%.ps:	scripts/%.csh
 	(cd scripts; csh $*.csh; rm -f gmt.conf gmt.history)
 
 # Generate tex files for critical tables vi scripts in the CriticalTables folder
-CriticalTables/%.tex: CriticalTables/%.sh
+CriticalTables/%.tex:	CriticalTables/%.sh
 	(cd CriticalTables; bash $*.sh; rm -f gmt.history)
 
 pdir:
@@ -150,11 +151,11 @@ pdir:
 
 book:	ERTH_DA1_book.pdf
 
-do_pdf:     	pdir $(PDF1)
-do_table: 	$(TAB1)
+figures:	pdir $(PDF1)
+do_table:	$(TAB1)
 
 # Create the PDF book from dependent files
-ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
+ERTH_DA1_book.pdf:	figures $(TEX1)
 	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
@@ -165,7 +166,7 @@ ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
 # Check for non-ASCII characters in the Latex files
-ascii: $(TEX1)
+ascii:	$(TEX1)
 	gcc checkfornonascii.c -o checkfornonascii
 	for file in $(TEX1) ; do\
 		echo Checking $$file; \
