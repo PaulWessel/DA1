@@ -161,8 +161,8 @@ ERTH_DA1_book.pdf:	pdir $(PDF1) $(TEX1)
 	makeindex -s ERTH_DA1_book.ist ERTH_DA1_book.idx
 	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
 	$(PDFLATEX) "\def\mypdfbook{1} \input{ERTH_DA1_book}"
-	\rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
-	\rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
+	rm -f DA1_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
+	rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
 
 # Check for non-ASCII characters in the Latex files
 ascii: $(TEX1)
@@ -185,8 +185,7 @@ clean_table:
 
 # Clean up temporary files
 clean:
-	rm -f DA?_*.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex
-	rm -f ERTH_DA1_book.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi}
+	rm -f *.{aux,idx,ilg,ind,log,lof,lot,toc,out,dvi} DA1_Version.tex
 
 # Remove every created file but the book PDF
 spotless:	clean clean_table
