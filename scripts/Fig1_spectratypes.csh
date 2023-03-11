@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig2_spectratypes.csh 230 2015-05-29 04:51:18Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

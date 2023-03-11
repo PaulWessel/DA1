@@ -1,7 +1,5 @@
 #!/bin/csh
 #
-#	$Id: Fig1_3D_misfit.csh 525 2017-01-29 01:26:34Z pwessel $
-#
 # Creates 3-D plot of misfit function E(m1, m2) as well
 # as two cross-sections
 #

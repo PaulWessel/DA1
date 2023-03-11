@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_Autocorrelation.csh 636 2018-07-30 01:41:50Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

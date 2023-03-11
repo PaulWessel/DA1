@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_dotvector.csh 219 2015-05-26 00:58:29Z pwessel $
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv

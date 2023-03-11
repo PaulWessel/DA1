@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_lithology.csh 479 2015-12-10 21:54:16Z pwessel $
 #
 # This script will create the EPS file for Figure
 # Run script with arbitrary argument to invoke gv

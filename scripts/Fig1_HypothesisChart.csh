@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id$
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv
@@ -9,9 +8,9 @@ set name = $0
 set FIG = $name:r
 #-------------------------------------------------
 cp -f gmt.conf.DA1 gmt.conf
-gmt set PS_SCALE_X 0.8 PS_SCALE_Y 0.8
+gmt set PS_SCALE_X 0.9 PS_SCALE_Y 0.9
 #-------------------------------------------------
-gmt psxy -R-6.2/4.8/-0.5/5.5 -Jx0.75i -P -K -W2p << EOF > $FIG.ps
+gmt psxy -R-6.2/4.8/-0.5/5.5 -Jx0.65i -P -K -W2p << EOF > $FIG.ps
 > vertical top
 -3	4.5
 -3	1.5
@@ -106,11 +105,11 @@ gmt psxy -R -J -O -K -W1p -Gwhite << EOF >> $FIG.ps
 2.8	-0.3
 EOF
 # Text
-gmt pstext -R -J -O -K -F+f16p,Helvetica+jCM << EOF >> $FIG.ps
+gmt pstext -R -J -O -K -F+f14p,Helvetica+jCM << EOF >> $FIG.ps
 -3	5.25	PARAMETRIC
 2.7	5.25	NONPARAMETRIC
 EOF
-gmt pstext -R -J -O -K -F+f11p,Helvetica+jCM << EOF >> $FIG.ps
+gmt pstext -R -J -O -K -F+f10p,Helvetica+jCM << EOF >> $FIG.ps
 -3	4.6	ORDINAL
 -3	4.4	DATA
 -3	4.2	?
@@ -136,7 +135,7 @@ gmt pstext -R -J -O -K -F+f11p,Helvetica+jCM << EOF >> $FIG.ps
 1.35	1	1
 3.95	1	2
 EOF
-gmt pstext -R -J -O -K -F+f9p,Helvetica+jCM << EOF >> $FIG.ps
+gmt pstext -R -J -O -K -F+f8p,Helvetica+jCM << EOF >> $FIG.ps
 -5.2	0.35	Mean (@%6%t, z@%%)
 -5.2	0.20	Standard deviation (@~c@~@+2@+)
 -5.2	0.05	Correlation (@%6%r@%%)

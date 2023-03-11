@@ -1,5 +1,4 @@
 #!/bin/csh
-#	$Id: Fig1_dotproduct.csh 536 2017-07-20 19:54:06Z pwessel $
 #
 # This script will create the EPS file for a figure.
 # Run script with arbitrary argument to invoke gv
