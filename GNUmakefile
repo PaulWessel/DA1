@@ -1,7 +1,7 @@
 #
 #	Makefile for Data Analysis Text Book DA1
 #	"Introduction to Statistics and Data Analysis"
-#	Paul Wessel, Jan. 13, 2023
+#	Paul Wessel, Jan. 13, 2024
 #
 
 # LaTeX command used
